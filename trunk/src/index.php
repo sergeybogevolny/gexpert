@@ -24,7 +24,7 @@ $_GET = $utilObj->urlDecode($_GET);
             }
         </style>
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
-        <link rel="stylesheet" href="../src/css/daterangepicker.css">
+        <link rel="stylesheet" href="css/daterangepicker.css">
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -40,9 +40,10 @@ $_GET = $utilObj->urlDecode($_GET);
         <script src="js/jquery.js"  ></script>
         <script src="js/jquery-ui.js"  ></script>
         <script src="js/bootstrap.min.js"  ></script>
-        <script src="../src/js/date.js"></script>
-        <script src="../src/js/daterangepicker.js"></script>
-        <script src="../src/js/jquery.bootstrap.wizard.js"></script>
+        <script src="js/date.js"></script>
+        <script src="js/daterangepicker.js"></script>
+        <script src="js/jquery.bootstrap.wizard.js"></script>
+
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
@@ -52,18 +53,32 @@ $_GET = $utilObj->urlDecode($_GET);
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Project name</a>
-
+                    <a class="brand" href="#">G-Expertise</a>
                     <div class="btn-group">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            Admin
+                            Take A Test
+                        </a>
+                    </div>
+
+                    <div class="btn-group">
+                        
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            Test Manager
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">Create Test</a></li>
-                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">Tests</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">Category</a></li>
+                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
+                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            Admin<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'users')); ?>">Users</a></li>
+                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
+                            
                         </ul>
                     </div>
 

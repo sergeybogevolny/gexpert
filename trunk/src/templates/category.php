@@ -1,9 +1,6 @@
 <?php include AppRoot . AppScriptURL . "testmanager.php"; ?>
 <script src="../src/js/jquery.bootstrap.wizard.js"></script>
 
-
- 	
-
 <form method="POST" action=<?php echo AppURL . AppScriptURL; ?>testmanager.php class="form-horizontal">
 
     <div id="rootwizard">
@@ -11,8 +8,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <ul>
-                        <li><a href="#tab1" data-toggle="tab">Master</a></li>
-                        <li><a href="#tab2" data-toggle="tab">Questions</a></li>
+                        <li><a href="#tab1" data-toggle="tab">Category</a></li>
                         
                     </ul>
                 </div>
@@ -21,7 +17,7 @@
         <div class="tab-content">
             <div class="tab-pane" id="tab1">
              <fieldset>
-             <legend>Subject</legend>  
+             <legend>Category</legend>  
                             <div class="control-group">
                                 <label class="control-label" for="name">Name</label>
                                 <div class="controls">
@@ -50,14 +46,14 @@
 
 
 
-                            <div class="control-group">  
-            <label class="control-label" for="status">Status</label>  
-            <div class="controls">  
-              <label class="checkbox">  
-                <input type="checkbox" id="status" value="option1">  
-              </label>  
-            </div>  
-          </div> 
+                        <div class="control-group">  
+                    <label class="control-label" for="status">Status</label>  
+                        <div class="controls">  
+                            <label class="checkbox">  
+                                <input type="checkbox" id="status" value="option1">  
+                                </label>  
+                              </div>  
+                            </div> 
 
                             <div class="control-group">
                                 <div class="controls">
@@ -67,9 +63,6 @@
                        </fieldset>
 
 
-            </div>
-            <div class="tab-pane" id="tab2">
-                2
             </div>
             
             <ul class="pager wizard">

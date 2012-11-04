@@ -22,7 +22,7 @@
                     <label class="control-label" for="testname">Test Name</label>
                     <div class="controls">
                         <input name="testname" type="text" id="testname" />
-
+						Enter the Test name
                     </div>
                 </div>
 
