@@ -53,7 +53,20 @@ $_GET = $utilObj->urlDecode($_GET);
                         <span class="icon-bar"></span>
                     </a>
                     <a class="brand" href="#">Project name</a>
-                    <a class="brand" href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">Create Test</a>
+
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            Admin
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">Create Test</a></li>
+                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">Tests</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">Category</a></li>
+                        </ul>
+                    </div>
+
 
                     <div class="btn-group pull-right">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
