@@ -48,7 +48,7 @@ define('AppController','/'.IncDir.'controller/');
 define('AppController','/'.IncDir.'controller/');
 define('AppCommon','/'.IncDir.'common/');
 define('AppLanguage','/'.IncDir.'language/');
-define('AppModel','/'.IncDir.'modal/');
+define('AppModel','/'.IncDir.'model/');
 define('AppJsURL',AppURL.PublicDir.'js/');
 define('AppCssURL',AppURL.PublicDir.'css/');
 define('AppImgURL',AppURL.PublicDir.'img/');

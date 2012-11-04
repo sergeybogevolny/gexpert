@@ -10,7 +10,7 @@
  *
  * @author gt
  */
-include_once AppRoot . AppCommon . '/utils.php';
+
 
 class cMysql {
 
