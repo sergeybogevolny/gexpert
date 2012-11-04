@@ -59,14 +59,14 @@
                     <div class="control-group">
                         <label class="control-label" for="activedates">Active dates</label>
                         <div class="controls">
-                        <div class="input-append calender">
-                            <input type="text" name="activedates" id="activedates"/>
-                            <span class="add-on"><i class="icon-calendar"></i></span>
+                            <div class="input-append calender">
+                                <input type="text" name="activedates" id="activedates"/>
+                                <span class="add-on"><i class="icon-calendar"></i></span>
                             </div>
                         </div>
                     </div>
                 </fieldset>
-                
+
                 <div class="control-group">
                     <label class="control-label" for="testtime">Test Time</label>
                     <div class="controls">
@@ -162,7 +162,13 @@
 <script>
 
     $(document).ready(function() {
-        $('#rootwizard').bootstrapWizard();
+        $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
+//                var $total = navigation.find('li').length;
+//                var $current = index + 1;
+//                var $percent = ($current / $total) * 100;
+                //$('#rootwizard').find('.bar').css({width: $percent + '%'});
+                console.log(tab, navigation, index);
+            }});
         $('#activedates').daterangepicker(
                 {
                     ranges: {
