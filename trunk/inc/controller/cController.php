@@ -1,8 +1,8 @@
 <?php
 
-include_once AppRoot . AppModel . "cModal.php";
+include_once AppRoot . AppModel . "cModel.php";
 
-class cController extends cModal {
+class cController extends cModel {
 
     public $apply_user_restrictions = false;
 
