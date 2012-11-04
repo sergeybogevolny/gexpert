@@ -24,11 +24,7 @@ $_GET = $utilObj->urlDecode($_GET);
             }
         </style>
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
-
-        <script src="js/jquery.js"  ></script>
-        <script src="js/jquery-ui.js"  ></script>
-        <script src="js/bootstrap.min.js"  ></script>
-
+        <link rel="stylesheet" href="../src/css/daterangepicker.css">
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -41,6 +37,12 @@ $_GET = $utilObj->urlDecode($_GET);
     </head>
 
     <body>
+        <script src="js/jquery.js"  ></script>
+        <script src="js/jquery-ui.js"  ></script>
+        <script src="js/bootstrap.min.js"  ></script>
+        <script src="../src/js/date.js"></script>
+        <script src="../src/js/daterangepicker.js"></script>
+        <script src="../src/js/jquery.bootstrap.wizard.js"></script>
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
