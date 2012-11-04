@@ -3,7 +3,7 @@
 <script src="../src/js/jquery.bootstrap.wizard.js"></script>
 <script src="../src/js/date.js"></script>
 <script src="../src/js/daterangepicker.js"></script>
-<script src="../src/js/jquery.min.js"></script>
+
  	
 
 <form method="POST" action=<?php echo AppURL . AppScriptURL; ?>testmanager.php class="form-horizontal">
@@ -62,8 +62,9 @@
                         <div class="control-group">
 					      <label class="control-label" for="activedates">Active dates</label>
 					      <div class="controls">
-					        <div class="input-prepend">
-					          <span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="activedates" id="activedates" />
+					        <div class="input-append">
+                                                  <input type="text" name="activedates" id="activedates"/>
+                                                  <span class="add-on"><i class="icon-calendar"></i></span>
 					        </div>
 					      </div>
 					    </div>
