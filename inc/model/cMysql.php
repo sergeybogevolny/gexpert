@@ -34,7 +34,7 @@ class cMysql {
     }
 
     public function read() {
-        log_message("debug", "SQL : $this->sql");
+        ////log_message("debug", "SQL : $this->sql");
         if ($stmt = $this->connection->prepare($this->sql)) {
             $stmt->execute();
             $stmt->store_result();
@@ -50,7 +50,7 @@ class cMysql {
             }
             return $results;
         } else {
-            log_message("error", "SQL Preparation Error : $this->sql");
+            ////log_message("error", "SQL Preparation Error : $this->sql");
             $this->error = "Please try again later : " . mysqli_error($this->connection);
             $this->error .="<br/>" . $this->sql;
             return false;
@@ -59,7 +59,7 @@ class cMysql {
 
     public function write() {
 
-        log_message("debug", "SQL : $this->sql");
+        ////log_message("debug", "SQL : $this->sql");
         if ((count($para)) !== (count($type))) {
             throw new Exception("Number of parameters and types are not matching");
         }
@@ -96,17 +96,17 @@ class cMysql {
                     $stmt->close();
                     return $result;
                 } else {
-                    log_message("debug", "SQL Preparation Error : $this->sql");
+                    //log_message("debug", "SQL Preparation Error : $this->sql");
                     $this->error = "Please try again later !!!";
                     return false;
                 }
             } else {
-                log_message("error", "SQL Preparation Error : $this->sql");
+                //log_message("error", "SQL Preparation Error : $this->sql");
                 $this->error = "Please try again later : " . mysqli_error($this->connection);
                 return false;
             }
         } else {
-            log_message("error", "SQL Preparation Error : $this->sql");
+            //log_message("error", "SQL Preparation Error : $this->sql");
             $this->error = "Please try again later : " . mysqli_error($this->connection);
             $this->error .="<br/>" . $this->sql;
             return false;
@@ -115,7 +115,7 @@ class cMysql {
 
     function getNextVal($seq_name) {
         $seqdata = $this->getCurrVal($seq_name);
-        log_message("info", "getCurrVal(".$seq_name.") : $seqdata");
+        //log_message("info", "getCurrVal(".$seq_name.") : $seqdata");
         $returnvalue = $seqdata[0]['seq_value'] + $seqdata[0]['increment_factor'];
         if ($seqdata[0]['table_name'] && $seqdata[0]['column_name']) {
             $this->sql = "select max(" . $seqdata[0]['column_name'] . ") as \"maxvalue\" from " . $seqdata[0]['table_name'];
@@ -131,7 +131,7 @@ class cMysql {
 
         $this->sql = "Update __sequence set seq_value=" . $returnvalue . " where seq_name='" . $seq_name . "'";
         $this->write();
-        log_message("info", "getNextVal -- returns: $returnseq");
+        //log_message("info", "getNextVal -- returns: $returnseq");
         return $returnseq;
     }
 
@@ -161,7 +161,7 @@ class cMysql {
                 
             }
 
-            log_message("info", "getColumnDetails -- " . $table . ": " . json_encode($columnDetails));
+            //log_message("info", "getColumnDetails -- " . $table . ": " . json_encode($columnDetails));
             return $columnDetails;
         }
     }

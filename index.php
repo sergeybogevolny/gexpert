@@ -1,10 +1,13 @@
 <?php
-define('AppRoot', dirname(dirname(__FILE__)));
+define('AppRoot', dirname(__FILE__));
 include_once AppRoot . '/inc/config/properties.php';
-include_once AppRoot . '/inc/cUtil.php';
-$utilObj = new cUtil();
+include_once AppRoot . '/inc/common/cForm.php';
+//include_once AppRoot .AppLocalizationURL. 'common.php';
 
-$_GET = $utilObj->urlDecode($_GET);
+$cFormObj = new cForm();
+session_start();
+
+$_GET = $cFormObj->urlDecode($_GET);
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +20,7 @@ $_GET = $utilObj->urlDecode($_GET);
         <meta name="author" content="">
 
         <!-- Le styles -->
-        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="src/css/bootstrap.css" rel="stylesheet">
         <style>
             body {
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -37,14 +40,12 @@ $_GET = $utilObj->urlDecode($_GET);
     </head>
 
     <body>
-        <script src="js/jquery.js"  ></script>
-        <script src="js/jquery-ui.js"  ></script>
-        <script src="js/bootstrap.min.js"  ></script>
-        <script src="js/date.js"></script>
-        <script src="js/daterangepicker.js"></script>
-        <script src="js/jquery.bootstrap.wizard.js"></script>
-
-
+        <script src="src/js/jquery.js"></script>
+        <script src="src/js/jquery-ui.js"></script>
+        <script src="src/js/bootstrap.min.js"  ></script>
+        <script src="src/js/date.js"></script>
+        <script src="src/js/daterangepicker.js"></script>
+        <script src="src/js/jquery.bootstrap.wizard.js"></script>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -59,16 +60,14 @@ $_GET = $utilObj->urlDecode($_GET);
                             Take A Test
                         </a>
                     </div>
-
                     <div class="btn-group">
-                        
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                             Test Manager
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
-                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
+                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
+                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
                         </ul>
                     </div>
                     <div class="btn-group">
@@ -76,13 +75,11 @@ $_GET = $utilObj->urlDecode($_GET);
                             Admin<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'users')); ?>">Users</a></li>
-                            <li><a  href="<?php echo $utilObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
-                            
+                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'users')); ?>">Users</a></li>
+                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
+
                         </ul>
                     </div>
-
-
                     <div class="btn-group pull-right">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                             Action
@@ -92,7 +89,6 @@ $_GET = $utilObj->urlDecode($_GET);
                             <li>Settings</li>
                         </ul>
                     </div>
-
                     <div class="nav-collapse collapse pull-right">
                         <ul class="nav ">
 
@@ -102,12 +98,14 @@ $_GET = $utilObj->urlDecode($_GET);
                 </div>
             </div>
         </div>
-
         <div class="container">
-
             <?php
             $page = $_GET['f'] ? $_GET['f'] : 'home';
-            include 'templates/' . $page . '.php';
+            if (is_readable('src/scripts/' . $page . '.php')) {
+                include_once 'src/scripts/' . $page . '.php';
+            }
+            
+            include 'src/templates/' . $page . '.php';
             ?>
 
         </div> <!-- /container -->
