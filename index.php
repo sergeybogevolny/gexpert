@@ -26,8 +26,9 @@ $_GET = $cFormObj->urlDecode($_GET);
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
             }
         </style>
-        <link href="css/bootstrap-responsive.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/daterangepicker.css">
+        <link href="src/css/bootstrap-responsive.css" rel="stylesheet">
+        <link rel="stylesheet" href="src/css/daterangepicker.css">
+        <link rel="stylesheet" href="src/css/wysiwyg-color.css">
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
