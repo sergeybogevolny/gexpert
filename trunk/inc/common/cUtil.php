@@ -37,6 +37,17 @@ class cUtil {
         return $params;
     }
 
+    function log_message($level = 'error', $message, $php_error = FALSE) {
+        static $_log;
+        include_once 'cLogging.php';
+        $_log = new cLogging();
+
+        $_log->write_log($level, $message, $php_error);
+    }
+    function formatDate($date,$dateformat=AppDateFormatPhp){
+        return strftime($dateformat, strtotime($date));
+    }
+
 }
 
 ?>

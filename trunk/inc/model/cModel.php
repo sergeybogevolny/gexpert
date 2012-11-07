@@ -154,7 +154,7 @@ class cModel extends cDatabase {
         $result = $this->dbObj->read();
         if ($result === false) {
             $_SESSION['lastaction']['error'] = $this->dbObj->error;
-            log_message('error', $this->dbObj->error, FALSE);
+            //log_message('error', $this->dbObj->error, FALSE);
             if (AppEnvironment == 'Development') {
                 echo $_SESSION['lastaction']['error'];
                 exit;
@@ -169,7 +169,7 @@ class cModel extends cDatabase {
         $result = $this->dbObj->write();
         if ($result === false) {
             $_SESSION['lastaction']['error'] = $this->dbObj->error;
-            log_message('error', $this->dbObj->error, FALSE);
+            //log_message('error', $this->dbObj->error, FALSE);
             if (AppEnvironment == 'Development') {
                 echo $_SESSION['lastaction']['error'];
                 exit;
