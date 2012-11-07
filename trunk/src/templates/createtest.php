@@ -1,6 +1,5 @@
-<?php include AppRoot . AppScriptURL . "testmanager.php"; ?>
 
-<form method="POST" action=<?php echo AppURL . AppScriptURL; ?>testmanager.php class="form-horizontal">
+<form method="POST" class="form-horizontal">
 
     <div id="rootwizard">
         <div class="navbar">
@@ -22,20 +21,20 @@
                     <label class="control-label" for="testname">Test Name</label>
                     <div class="controls">
                         <input name="testname" type="text" id="testname" />
-						Enter the Test name
+                        Enter the Test name
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="subject">Test Subject</label>
+                    <label class="control-label" for="subject">Category</label>
                     <div class="controls">
-                        <select name="subject" id="subject">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
+                        <?php
+                        $cFormObj->data = $cTestControllerObj->getSelectData("category", array("id", "name"));
+                        $cFormObj->options = array("name" => "subject");
+                        $cFormObj->createSelect();
+                        echo $cFormObj->html();
+                        ?>
+
                     </div>
                 </div>
 
@@ -49,7 +48,7 @@
                 <div class="control-group">
                     <label class="control-label" for="instructions">Instructions</label>
                     <div class="controls">
-                        <textarea name="instructions" id="instructions" cols="45" rows="5"></textarea>
+                        <textarea name="instructions" id="instructions" class="htmleditor" style="width: 810px; height: 200px"></textarea>
                     </div>
                 </div>
 
@@ -82,19 +81,20 @@
                 <div class="control-group">
                     <label class="control-label" for="question_type">Question Type</label>
                     <div class="controls">
-                        <select name="question_type" id="question_type">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
+
+                        <?php
+                        $cFormObj->data = array("multiplechoice" => "Multiple Choice", "multipleresponse" => "Multiple Response", "true_false" => "True/False", "fillintheblank" => "Fill in the Blank", "matching" => "Matching", "sequence" => "Sequencing");
+
+                        $cFormObj->options = array("name" => "question_type", "default" => false);
+                        $cFormObj->createSelect();
+                        echo $cFormObj->html();
+                        ?>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="question">Question</label>
                     <div class="controls">
-                        <textarea cols="45" rows="5" name="question"></textarea>
+                        <textarea cols="45" rows="5" class="htmleditor" name="question" id="question"></textarea>
                     </div>
                 </div>
                 <div>
@@ -115,10 +115,10 @@
                                     <label>1</label>
                                 </td>
                                 <td>
-                                    <textarea rows="1" name="answer"></textarea>
+                                    <textarea rows="1" class="htmleditor" name="answer" id="answer"></textarea>
                                 </td>
                                 <td>
-                                    <textarea rows="1" name="match_answer"></textarea>
+                                    <textarea rows="1" class="htmleditor" name="match_answer" id="match_answer"></textarea>
                                 </td>
                                 <td>
                                     <label class="checkbox">
@@ -147,6 +147,15 @@
                             </tr>
                         </tbody>
                     </table>
+                    <?php
+                    $cTestControllerObj->table = "test_details";
+                    $cTestControllerObj->curd();
+
+                    $cFormObj->options['actioncolumn'] = true;
+                    $cFormObj->options['header'] = array("Id", "Name", "Code", "Logo", "Created", "Status");
+                    $cFormObj->createHTable();
+                    echo $cFormObj->html();
+                    ?>
                 </div>
             </div>
 
@@ -159,31 +168,42 @@
         </div>	
     </div>
 </form>
+<script src="src/js/wysihtml5-0.3.0.min.js"></script>
+<script src="src/js/bootstrap-wysihtml5.js"></script>
+<link rel="stylesheet" href="src/css/bootstrap-wysihtml5.css">
+
+
 <script>
 
     $(document).ready(function() {
         $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
-//                var $total = navigation.find('li').length;
-//                var $current = index + 1;
-//                var $percent = ($current / $total) * 100;
+                //                var $total = navigation.find('li').length;
+                //                var $current = index + 1;
+                //                var $percent = ($current / $total) * 100;
                 //$('#rootwizard').find('.bar').css({width: $percent + '%'});
                 console.log(tab, navigation, index);
             }});
         $('#activedates').daterangepicker(
-                {
-                    ranges: {
-                        'Today': ['today', 'today'],
-                        'Tommorrow': ['tommorrow', 'tommorrow'],
-                        'Next 7 Days': ['today', Date.today().add({ days: 6})],
-                        'Next 30 Days': ['today', Date.today().add({ days: 29})],
-                        'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
-                        'Next Month': [Date.today().moveToFirstDayOfMonth().add({ days: -1}), Date.today().moveToFirstDayOfMonth().add({ months: 1})]
-                    }
-                },
-                function(start, end) {
-                    $('.calender input').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-                }
-        );
+        {
+            ranges: {
+                'Today': ['today', 'today'],
+                'Tommorrow': ['tommorrow', 'tommorrow'],
+                'Next 7 Days': ['today', Date.today().add({ days: 6})],
+                'Next 30 Days': ['today', Date.today().add({ days: 29})],
+                'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
+                'Next Month': [Date.today().moveToFirstDayOfMonth().add({ days: -1}), Date.today().moveToFirstDayOfMonth().add({ months: 1})]
+            }
+        },
+        function(start, end) {
+            $('.calender input').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+        }
+    );
+        
+        $('#instructions').wysihtml5({"color": true});
+        $('#question').wysihtml5({"font-styles": false,"color": true,"emphasis": true,"lists": false,"link": false});
+        $('#answer').wysihtml5({"font-styles": false,"color": false,"emphasis": false,"lists": false,"link": false});
+        $('#match_answer').wysihtml5({"font-styles": false,"color": false,"emphasis": false,"lists": false,"link": false});
+        
     });
 </script>
 
