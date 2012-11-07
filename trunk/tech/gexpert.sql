@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.3
+-- version 3.3.9
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 04, 2012 at 03:52 PM
--- Server version: 5.5.28-0ubuntu0.12.10.1
--- PHP Version: 5.4.6-1ubuntu1
+-- Generation Time: Nov 07, 2012 at 02:03 PM
+-- Server version: 5.5.8
+-- PHP Version: 5.3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -33,8 +32,14 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `is_correct` tinyint(1) NOT NULL DEFAULT '0',
   `question_id` int(11) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `percent` int(11) NOT NULL
+  `percent` int(11) NOT NULL,
+  UNIQUE KEY `pk_answers` (`question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `answers`
+--
+
 
 -- --------------------------------------------------------
 
@@ -50,7 +55,32 @@ CREATE TABLE IF NOT EXISTS `category` (
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `code`, `logo`, `date_created`, `status`) VALUES
+(2, 'G.M.Sundar', 'INR', '', '2012-11-07 11:59:12', 1),
+(3, 'G.M.Sundar', 'INR', '', '2012-11-07 12:10:31', 1),
+(4, 'G.M.Sundar', 'INR', '', '2012-11-07 12:10:56', 1),
+(5, 'G.M.Sundar', 'INR', '', '2012-11-07 12:14:20', 1),
+(6, 'Sundar', 'USD', '', '2012-11-07 15:05:14', 1),
+(7, 'Sundar', 'USD', '', '2012-11-07 15:23:07', 1),
+(8, 'Sundar', 'USD', '', '2012-11-07 15:49:58', 1),
+(9, 'G.M.Sundar', 'asdasd', '', '2012-11-07 15:50:06', 1),
+(10, 'G.M.Sundar', 'asdasd', '', '2012-11-07 15:50:34', 1),
+(11, 'G.M.Sundar', 'asdasd', '', '2012-11-07 15:51:16', 1),
+(12, 'Sundar', 'asdasd', '', '2012-11-07 15:54:42', 1),
+(13, 'JAVA', 'Java', '', '2012-11-07 15:54:49', 1),
+(14, 'JAVA', 'asdasd', '', '2012-11-07 15:55:27', 1),
+(15, 'JAVA', 'asdasd', '', '2012-11-07 15:56:35', 1),
+(16, 'JAVA', 'asdasd', '', '2012-11-07 15:56:49', 1),
+(17, 'JAVA', 'asdasd', '', '2012-11-07 15:57:15', 1),
+(18, 'JAVA', 'asdasd', '', '2012-11-07 15:58:03', 1),
+(19, 'JAVA', 'asdasd', '', '2012-11-07 15:58:20', 1),
+(20, 'JAVA', 'asdasd', '', '2012-11-07 15:58:52', 1);
 
 -- --------------------------------------------------------
 
@@ -66,8 +96,14 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL,
   `question` varchar(1500) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `pk_questions_0` (`test_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `questions`
+--
+
 
 -- --------------------------------------------------------
 
@@ -86,9 +122,14 @@ CREATE TABLE IF NOT EXISTS `test_details` (
   `last_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `category` (`category`),
-  KEY `created_by` (`created_by`)
+  UNIQUE KEY `category` (`category`),
+  UNIQUE KEY `created_by` (`created_by`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `test_details`
+--
+
 
 -- --------------------------------------------------------
 
@@ -104,6 +145,11 @@ CREATE TABLE IF NOT EXISTS `__login` (
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `__login`
+--
+
 
 -- --------------------------------------------------------
 
@@ -123,6 +169,11 @@ CREATE TABLE IF NOT EXISTS `__users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
+-- Dumping data for table `__users`
+--
+
+
+--
 -- Constraints for dumped tables
 --
 
@@ -130,8 +181,4 @@ CREATE TABLE IF NOT EXISTS `__users` (
 -- Constraints for table `__users`
 --
 ALTER TABLE `__users`
-  ADD CONSTRAINT `__users_ibfk_1` FOREIGN KEY (`login`) REFERENCES `__login` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  ADD CONSTRAINT `__users_ibfk_1` FOREIGN KEY (`id`) REFERENCES `__login` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
