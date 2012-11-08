@@ -225,6 +225,19 @@
     
     function getValues(){
         
+        $('#match_answer').val();
+        $('#answer').val();
+        $('#question').val();
+        $('#instructions').val();
+        $('#testname').val();
+        $('#subject').val();
+        $('#description').val();
+        $('#activedates').val();
+        $('#testtime').val();
+        $('#question_type').val();
+        $('#multipleanswer_1').val();
+        $('#correctness_percentage').val();
+        
     }
     
 </script>

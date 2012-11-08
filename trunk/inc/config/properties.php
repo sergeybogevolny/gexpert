@@ -7,7 +7,7 @@ ini_set('html_errors', On);
 //ini_set('max_execution_time',40);
 ini_set('default_charset', 'utf-8');
 //ini_set('session.save_path','../../tech/sessions');
-
+date_default_timezone_set('UTC');
 
 /**
  * Commercial
