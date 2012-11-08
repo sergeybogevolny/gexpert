@@ -94,7 +94,7 @@
                 <div class="control-group">
                     <label class="control-label" for="question">Question</label>
                     <div class="controls">
-                        <textarea cols="45" rows="5" class="htmleditor" name="question" id="question"></textarea>
+                        <textarea class="htmleditor" name="question" id="question"></textarea>
                     </div>
                 </div>
                 <div>
@@ -122,11 +122,11 @@
                                 </td>
                                 <td>
                                     <label class="checkbox">
-                                        <input type="checkbox" value="">
+                                        <input type="checkbox" name="multipleanswer_1" id="multipleanswer_1">
                                         Multiple Option
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                        <input type="radio" name="correctanswer" id="correctanswer[]"  checked>
                                         Correct
                                     </label>
                                 </td>
@@ -181,7 +181,24 @@
                 //                var $current = index + 1;
                 //                var $percent = ($current / $total) * 100;
                 //$('#rootwizard').find('.bar').css({width: $percent + '%'});
-                console.log(tab, navigation, index);
+                console.log(tab );
+                console.log(navigation);
+                console.log(index);
+                //
+                
+                 
+                
+                $.ajax({
+                    type: "POST",
+                    url: "some.php",
+                    data: { name: "John", location: "Boston" },
+                    success:function(){
+                        
+                    }
+                });
+                
+               
+                
             }});
         $('#activedates').daterangepicker(
         {
@@ -205,6 +222,11 @@
         $('#match_answer').wysihtml5({"font-styles": false,"color": false,"emphasis": false,"lists": false,"link": false});
         
     });
+    
+    function getValues(){
+        
+    }
+    
 </script>
 
 
