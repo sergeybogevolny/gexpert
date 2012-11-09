@@ -24,8 +24,9 @@ class cUtil {
         //return $this->securityObj->encrypt($url);
         $url = "index.php?";
         foreach ($params as $key => $value) {
-            $url.=$key . "=" . base64_encode($value);
+            $url.=$key . "=" . base64_encode($value)."&";
         }
+        $url=rtrim($url,"&");
         return $url;
     }
 
