@@ -1,5 +1,5 @@
 
-<form method="POST" class="form-horizontal">
+<form method="POST" class="form-horizontal" id="testmanager">
 
     <div id="rootwizard">
         <div class="navbar">
@@ -150,7 +150,6 @@
                     <?php
                     $cTestControllerObj->table = "test_details";
                     $cTestControllerObj->curd();
-
                     $cFormObj->options['actioncolumn'] = true;
                     $cFormObj->options['header'] = array("Id", "Name", "Code", "Logo", "Created", "Status");
                     $cFormObj->createHTable();
@@ -160,10 +159,9 @@
             </div>
 
             <ul class="pager wizard">
-                <li class="previous first" style="display:none;"><a href="#">First</a></li>
-                <li class="previous"><a href="#">Previous</a></li>
-                <li class="next last" style="display:none;"><a href="#">Last</a></li>
+                <li class="previous" ><a href="#">Previous</a></li>
                 <li class="next"><a href="#">Next</a></li>
+                <li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
             </ul>
         </div>	
     </div>
@@ -177,29 +175,47 @@
 
     $(document).ready(function() {
         $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
-                //                var $total = navigation.find('li').length;
-                //                var $current = index + 1;
-                //                var $percent = ($current / $total) * 100;
-                //$('#rootwizard').find('.bar').css({width: $percent + '%'});
-                console.log(tab );
-                console.log(navigation);
-                console.log(index);
-                //
                 
-                 
-                
-                $.ajax({
-                    type: "POST",
-                    url: "some.php",
-                    data: { name: "John", location: "Boston" },
-                    success:function(){
+            },
+            'firstSelector': '.button-first', 'lastSelector': '.last',
+            onTabShow: function(tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index+1;
+                var $percent = ($current/$total) * 100;
+                $('#rootwizard').find('.bar').css({width:$percent+'%'});
+		
+                // If it's the last tab then hide the last button and show the finish instead
+                if($current >= $total) {
+                    $('#rootwizard').find('.pager .next').hide();
+                    $('#rootwizard').find('.pager .finish').show();
+                    $('#rootwizard').find('.pager .finish').removeClass('disabled');
+                } else {
+                    $('#rootwizard').find('.pager .next').show();
+                    $('#rootwizard').find('.pager .finish').hide();
+                }
+                if($current==1){
+                    $('#rootwizard').find('.pager .previous').hide();
+                }else{
+                    $('#rootwizard').find('.pager .previous').show();
+                }
+		
+            }
+        });
+        $('#rootwizard .finish').click(function() {
+            //var userdata=getValues();
+            
+            
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest',"a"=>"add","type"=>"ajax")); ?>',
+                data: $("#testmanager").serialize(),
+                success:function(){
                         
-                    }
-                });
+                }
+            });
                 
-               
-                
-            }});
+            //$('#rootwizard').find("a[href*='tab1']").trigger('click');
+        });
         $('#activedates').daterangepicker(
         {
             ranges: {
@@ -224,7 +240,8 @@
     });
     
     function getValues(){
-        
+
+
         $('#match_answer').val();
         $('#answer').val();
         $('#question').val();
