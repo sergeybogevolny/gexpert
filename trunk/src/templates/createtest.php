@@ -98,14 +98,14 @@
                     </div>
                 </div>
                 <div>
-                    <table class="table table-striped table-bordered table-hover .table-condensed">
+                    <table class="table table-striped table-bordered table-hover .table-condensed" id="optionstable">
                         <thead>
                             <tr>
                                 <th>No.</th>
                                 <th>Answer</th>
-                                <th>Match Answer</th>
-                                <th>Is Correct</th>
-                                <th>Correctness Percentage</th>
+                                <th class="matchanswer">Match Answer</th>
+                                <th class="multipleanswer multipleoption">Is Correct</th>
+                                <th class="multipleanswer multipleoption">Correctness Percentage</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -114,23 +114,23 @@
                                 <td>
                                     <label class="rowNumber">1</label>
                                 </td>
-                                <td>
+                                <td >
                                     <textarea rows="1" class="htmleditor" name="answer" id="answer"></textarea>
                                 </td>
-                                <td>
+                                <td class="matchanswer">
                                     <textarea rows="1" class="htmleditor" name="match_answer" id="match_answer"></textarea>
                                 </td>
-                                <td>
-                                    <label class="checkbox">
+                                <td class="multipleanswer multipleoption">
+                                    <label class="checkbox multipleanswer">
                                         <input type="checkbox" name="multipleanswer_1" id="multipleanswer_1">
                                         Multiple Option
                                     </label>
-                                    <label class="radio">
+                                    <label class="radio multipleoption">
                                         <input type="radio" name="correctanswer" id="correctanswer[]"  checked>
                                         Correct
                                     </label>
                                 </td>
-                                <td>
+                                <td class="multipleanswer multipleoption">
                                     <div class="controls" style="margin-left: 0px">
                                         <div class="input-append" >
                                             <input name="correctness_percentage" type="text" id="correctness_percentage" class="span1"/>
@@ -208,7 +208,7 @@
             
             $.ajax({
                 type: "POST",
-                url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest',"a"=>"add","type"=>"ajax")); ?>',
+                url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax")); ?>',
                 data: $("#testmanager").serialize(),
                 success:function(){
                         
@@ -241,8 +241,37 @@
         
         $(".icon-plus").btnAddRow({rowNumColumn:"rowNumber"});
         $(".icon-trash").btnDelRow();
+        $('.multipleanswer,.multipleoption,.matchanswer').hide();    
+        
+        //$('#optionstable th:nth-child('+(2)+')').hide();
+        $("#question_type").bind('change', function(){
+            $('.multipleanswer,.multipleoption,.matchanswer').hide();
+            switch($(this).val()){
+                case 'multiplechoice':
+                    $('.multipleoption,').show();
+                    break;
+                case 'multipleresponse':
+                    $('.multipleanswer,').show();
+                    break;
+                case 'true_false':
+                    
+                    break;
+                case 'fillintheblank':
+                    
+                    break;
+                case 'matching':
+                    
+                    break;
+                case 'sequence':
+                    
+                    break;
+            }
+        
+        });
         
     });
+    
+    
     
     function getValues(){
 
