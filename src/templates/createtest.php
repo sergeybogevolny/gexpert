@@ -112,7 +112,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <label>1</label>
+                                    <label class="rowNumber">1</label>
                                 </td>
                                 <td>
                                     <textarea rows="1" class="htmleditor" name="answer" id="answer"></textarea>
@@ -141,8 +141,9 @@
                                 </td>
                                 <td>
                                     <i class="icon-edit"></i>
-                                    <i class="icon-trash"></i>
                                     <i class="icon-ok"></i>
+                                    <i class="icon-trash"></i>
+                                    <i class="icon-plus"></i>
                                 </td>
                             </tr>
                         </tbody>
@@ -236,6 +237,10 @@
         $('#question').wysihtml5({"font-styles": false,"color": true,"emphasis": true,"lists": false,"link": false});
         $('#answer').wysihtml5({"font-styles": false,"color": false,"emphasis": false,"lists": false,"link": false});
         $('#match_answer').wysihtml5({"font-styles": false,"color": false,"emphasis": false,"lists": false,"link": false});
+        
+        
+        $(".icon-plus").btnAddRow({rowNumColumn:"rowNumber"});
+        $(".icon-trash").btnDelRow();
         
     });
     

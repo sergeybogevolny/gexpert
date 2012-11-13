@@ -50,9 +50,11 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <script src="src/js/jquery.js"></script>
             <script src="src/js/jquery-ui.js"></script>
             <script src="src/js/bootstrap.min.js"  ></script>
+            
             <script src="src/js/date.js"></script>
             <script src="src/js/daterangepicker.js"></script>
             <script src="src/js/jquery.bootstrap.wizard.js"></script>
+            <script src="src/js/jquery.table.addrow.js"></script>
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-inner">
                     <div class="container">
