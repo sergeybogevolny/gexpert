@@ -5,8 +5,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <ul>
-                        <li><a href="#tab1" data-toggle="tab">Test Manager</a></li>
-                        <li><a href="#tab2" data-toggle="tab">Questions</a></li>
+                        <li><a href="#tab1" data-toggle="tab">Take a Test</a></li>
 
                     </ul>
                 </div>
@@ -20,38 +19,21 @@
         <thead>  
           <tr>  
             <th>Test Name</th>  
-            <th>Category</th>  
-            <th>Active Dates</th>  
-            <th>Active</th>  
-            <th>Actions</th>  
-
+            <th>Status</th>  
+            <th>Take Test</th>            
           </tr>  
         </thead>  
         <tbody>  
           <tr>  
-            <td>001</td>  
-            <td>Rammohan </td>  
-            <td>Reddy</td>  
-            <td>A+</td>  
-                                <td>
-                                    <i class="icon-edit"></i>
-                                    <i class="icon-trash"></i>
-                                    <i class="icon-ok"></i>
-                                </td>          
-
+            <td>Excel Experting for Entry level test</td>  
+            <td>Available </td>  
+            <td><a href="test1.html">Test</a></td>  
           </tr>  
-
           <tr>  
-            <td>003</td>  
-            <td>Rabindranath</td>  
-            <td>Sen</td>  
-            <td>A+</td>  
-                                <td>
-                                    <i class="icon-edit"></i>
-                                    <i class="icon-trash"></i>
-                                    <i class="icon-ok"></i>
-                                </td>          </tr>  
-        </tbody>  
+            <td>MS Powerpoint Experting for Entry level test</td>  
+            <td>Available </td>  
+            <td><a href="test1.html">Test</a></td>  
+          </tr>         </tbody>  
       </table>  
 
             <ul class="pager wizard">
