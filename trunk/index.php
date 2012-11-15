@@ -76,7 +76,6 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                             <ul class="dropdown-menu">
                                 <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">Take a Test</a></li>
                                 <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>">Questions</a></li>
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'sortable')); ?>">Questions</a></li>
                             </ul>
                             </a>
                         </div>
