@@ -65,8 +65,14 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                         </a>
                         <a class="brand" href="#">G-Expertise</a>
                         <div class="btn-group">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">
                                 Take A Test
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">Take a Test</a></li>
+                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>">Questions</a></li>
+                            </ul>
                             </a>
                         </div>
                         <div class="btn-group">
