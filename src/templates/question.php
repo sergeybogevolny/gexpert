@@ -9,6 +9,7 @@
                         <li><a href="#tab2" data-toggle="tab">2</a></li>
                         <li><a href="#tab3" data-toggle="tab">3</a></li>
                         <li><a href="#tab4" data-toggle="tab">4</a></li>
+                        <li><a href="#tab5" data-toggle="tab">5</a></li>
 
                     </ul>
                 </div>
@@ -211,12 +212,55 @@ numbers is to click in the cell below the numbers and then:</b></label></br>
                     </table>
                 
                 
-                
+                </div>      
     </div>
+            <div class="tab-pane" id="tab5">
+
+                <legend>Question (5 of 10)</legend>  
+                <div class="control-group">
+                    <label class="control-label" for="question1"><b> Match the following file extensions</b></label></br>
+                <table class="table table-striped table-bordered table-hover .table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Question</th>                              
+                                <th>Match Answer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                
+                                <td>
+                                   <ul>
+                                       <li>MS Word</li>
+                                       <li>MS Excel</li>
+                                       <li>MS Powerpoint</li>
+                                       <li>MS Access</li>                                       
+                                   </ul>
+                                 
+                                </td>
+                                <td>
+                                    <ul id="sortable">
+                                       <li class="ui-state-default">mdb</li>
+                                       <li class="ui-state-default">doc</li>
+                                       <li class="ui-state-default">xls</li>
+                                       <li class="ui-state-default">ppt</li>                                       
+                                   </ul>
+                                </td>
+                              </tr>
+                            
+                        </tbody>
+                    </table>                               
+                </div>      
+            </div>     
+    </div>
+    </div>
+            
 </form>
 <script>
     $(document).ready(function() {
         $('#rootwizard').bootstrapWizard();
+        $( "#sortable" ).sortable();
+        $( "#sortable" ).disableSelection();
     });
 </script>
 
