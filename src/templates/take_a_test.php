@@ -27,21 +27,15 @@
           <tr>  
             <td>Excel Experting for Entry level test</td>  
             <td>Available </td>  
-            <td><a href="test1.html">Test</a></td>  
+            <td><a href="test1.html">Take Test</a></td>  
           </tr>  
           <tr>  
             <td>MS Powerpoint Experting for Entry level test</td>  
             <td>Available </td>  
-            <td><a href="test1.html">Test</a></td>  
+            <td><a href="test1.html">Take Test</a></td>  
           </tr>         </tbody>  
       </table>  
 
-            <ul class="pager wizard">
-                <li class="previous first" style="display:none;"><a href="#">First</a></li>
-                <li class="previous"><a href="#">Previous</a></li>
-                <li class="next last" style="display:none;"><a href="#">Last</a></li>
-                <li class="next"><a href="#">Next</a></li>
-            </ul>
         </div>	
     </div>
 </form>
@@ -50,10 +44,3 @@
         $('#rootwizard').bootstrapWizard();
     });
 </script>
-
-
-
-
-
-
-

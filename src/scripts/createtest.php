@@ -5,14 +5,14 @@ include_once(AppRoot . AppController . "cTestController.php");
 $cTestControllerObj = new cTestController();
 
 
-if ($_GET['type']=='ajax') {
+//if ($_GET['type']=='ajax') {
     
-//    print_r($_GET);
-//    print_r($_POST);
-//    $cTestControllerObj->column["category"]=$_POST[];
-//    
-//            category,`name`,description,logo,date_created,created_by,last_modified,status
-//            "select  from test_details "
+  //  print_r($_GET);
+   // print_r($_POST);
+   // $cTestControllerObj->column["category"]=$_POST[];
+    
+          //  category,`name`,description,logo,date_created,created_by,last_modified,status
+          //  "select  from test_details "
 //     [testname] => asdasd
 //    [subject] => 2
 //    [description] => asdasd
@@ -27,9 +27,9 @@ if ($_GET['type']=='ajax') {
 //    [multipleanswer_1] => on
 //    [correctanswer] => on
 //    [correctness_percentage] => asd
-    exit;
+    //exit;
     
-}
+//}
 
 
 

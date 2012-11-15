@@ -78,6 +78,7 @@
                 </div>
             </div>
             <div class="tab-pane" id="tab2">
+                <legend>Questions</legend>
                 <div class="control-group">
                     <label class="control-label" for="question_type">Question Type</label>
                     <div class="controls">
@@ -91,7 +92,7 @@
                         ?>
                     </div>
                 </div>
-                <div class="control-group">
+               <div class="control-group">
                     <label class="control-label" for="question">Question</label>
                     <div class="controls">
                         <textarea class="htmleditor" name="question" id="question"></textarea>
