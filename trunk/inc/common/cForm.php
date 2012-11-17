@@ -30,7 +30,7 @@ class cForm extends cUtil {
         $this->html.= '<table class="table ' . $classoptions . '">';
         $this->html.= '<thead>';
         $this->html.= '<tr>';
-        if ($this->options['serialnocolumn'] != false) {
+        if ($this->options['serialnocolumn'] === true) {
             $dynamiccolumns++;
             $this->html.= '<th> No.</th>';
         }
@@ -38,6 +38,7 @@ class cForm extends cUtil {
         foreach ($columnNames as $columnName) {
 
             $this->html.= '<th>' . $columnName . '</th>';
+            $dynamiccolumns++;
         }
 
         if ($this->options['actioncolumn'] == true) {
@@ -50,7 +51,14 @@ class cForm extends cUtil {
         if (is_array($this->data)) {
             foreach ($this->data as $row => $record) {
                 $this->html.= '<tr>';
+                $colcount = 1;
                 foreach ($record as $columnname => $columnvalue) {
+
+                    if ($this->options['serialnocolumn'] === true) {
+
+                        $this->html.= '<td> ' . $colcount . '</td>';
+                        $colcount++;
+                    }
                     if ($this->options['column']['type'][$columnname] == 'date') {
                         $columnvalue = $this->formatDate($columnvalue, $this->options['column']['format'][$columnname]);
                     }
@@ -59,7 +67,7 @@ class cForm extends cUtil {
                     $this->html.= '<td>' . $columnvalue . '</td>';
                 }
                 if ($this->options['actioncolumn'] == true) {
-                    
+
                     $this->html.= '<td>
             <i class="icon-edit"></i>
             <i class="icon-trash"></i>
@@ -69,7 +77,7 @@ class cForm extends cUtil {
                 $this->html.= '</tr>';
             }
         } else {
-            $this->html.= '</tr><td colspan=' . (count($columnNames) + 1) . '>No Data to display</td></tr>';
+            $this->html.= '</tr><td colspan=' . ($dynamiccolumns) . '>No Data to display</td></tr>';
         }
         $this->html.= '</tbody>';
         $this->html.= '</table>';
