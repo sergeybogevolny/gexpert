@@ -168,7 +168,7 @@ numbers is to click in the cell below the numbers and then:</b></label></br>
                                  
                                 </td>
                                 <td>
-                                    <ul id="sortable">
+                                    <ul id="sortable1">
                                        <li class="ui-state-default">mdb</li>
                                        <li class="ui-state-default">doc</li>
                                        <li class="ui-state-default">xls</li>
@@ -193,7 +193,7 @@ numbers is to click in the cell below the numbers and then:</b></label></br>
 <script>
     $(document).ready(function() {
         $('#rootwizard').bootstrapWizard();
-        $( "#sortable" ).sortable();
+        $( "#sortable,#sortable1" ).sortable();
         $( "#sortable" ).disableSelection();
     });
 </script>
