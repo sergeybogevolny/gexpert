@@ -1,5 +1,4 @@
 <form method="POST" class="form-horizontal">
-
     <legend>Tests Available</legend>  
     <table class="table table-striped" id="datatable">  
         <thead>  
@@ -19,7 +18,7 @@
                 <td>MS Powerpoint Experting for Entry level test</td>  
                 <td>Available </td>  
                 <td><a href="test1.html">Take Test</a></td>  
-            </tr>         </tbody>  
+            </tr>
+        </tbody>  
     </table>  
-
 </form>
