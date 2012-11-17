@@ -34,11 +34,15 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                 #sortable { list-style-type: none; margin: 0; padding: 0; width: 30%; }
                 #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1em; height: 14px; }
                 #sortable li span { position: absolute; margin-left: -1.3em; }
+                #sortable1 { list-style-type: none; margin: 0; padding: 0; width: 30%; }
+                #sortable1 li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1em; height: 14px; }
+                #sortable1 li span { position: absolute; margin-left: -1.3em; }
             </style>
             <link href="src/css/bootstrap-responsive.css" rel="stylesheet">
             <link rel="stylesheet" href="src/css/daterangepicker.css">
             <link rel="stylesheet" href="src/css/wysiwyg-color.css">
-            <link rel="stylesheet" href="src/css/jquery_ui.css"
+            <link rel="stylesheet" href="src/css/jquery_ui.css">
+            <link rel="stylesheet" href="src/css/bootstrap-toggle.css">
 
             <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
             <!--[if lt IE 9]>
@@ -54,7 +58,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <script src="src/js/jquery.js"></script>
             <script src="src/js/jquery-ui.js"></script>
             <script src="src/js/bootstrap.min.js"  ></script>
-            
+            <script src="src/js/bootstrap-toggle.js"></script>           
             <script src="src/js/date.js"></script>
             <script src="src/js/daterangepicker.js"></script>
             <script src="src/js/jquery.bootstrap.wizard.js"></script>

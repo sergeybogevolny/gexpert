@@ -98,11 +98,11 @@ numbers is to click in the cell below the numbers and then:</b></label></br>
                 <legend>Question (3 of 10)</legend>  
                 <div class="control-group">
                     <label class="control-label" for="question1"><b> There are three worksheets with every new workbook. You can change that automatic number if you want to.  
-</b></label></br>
-                <div class="btn-group" data-toggle="buttons-radio">  
-                    <button class="btn btn-info">True</button>  
-                    <button class="btn btn-warning">False</button>  
-                  </div>
+                    </b></label><br>
+          <div class='toggle alternative' data-enabled="ON" data-disabled="OFF" data-toggle="toggle">
+            <input type="checkbox" value="1" name="myCheckbox" class="checkbox" checked="checked" />
+            <label class="check" for="myCheckbox"></label>
+          </div>                        
 <ul class="pager wizard">
                 <li class="previous" ><a href="#">Previous</a></li>
                 <li class="next"><a href="#">Next</a></li>
@@ -190,7 +190,21 @@ numbers is to click in the cell below the numbers and then:</b></label></br>
     </div>
             
 </form>
+
 <script>
+    $('.alternative').toggle({
+        onClick: function (evt, status) {
+          console.log('.alternative changed to: ' + status, 'the reverse of: ' + !status);
+        },
+        text: {
+          enabled: 'TRUE',
+          disabled: 'FALSE'
+        },
+        style: {
+          enabled: 'success',
+          disabled: 'danger'
+        }
+      });
     $(document).ready(function() {
         $('#rootwizard').bootstrapWizard();
         $( "#sortable,#sortable1" ).sortable();
