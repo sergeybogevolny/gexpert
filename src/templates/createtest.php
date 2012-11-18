@@ -83,7 +83,7 @@
 
                         <?php
                         $cFormObj->data = array("multiplechoice" => "Multiple Choice", "multipleresponse" => "Multiple Response", "true_false" => "True/False", "fillintheblank" => "Fill in the Blank", "matching" => "Matching", "sequence" => "Sequencing");
-                        $cFormObj->options = array("name" => "question_type", "default" => false);
+                        $cFormObj->options = array("name" => "question_type", "default" => false, "class" => "reset");
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
                         ?>
@@ -92,7 +92,7 @@
                 <div class="control-group">
                     <label class="control-label" for="question">Question</label>
                     <div class="controls">
-                        <textarea class="htmleditor" name="question" id="question" style="height: 50px;width: 500px"></textarea>
+                        <textarea class="htmleditor reset" name="question" id="question" style="height: 50px;width: 500px"></textarea>
                     </div>
                 </div>
                 <div>
@@ -113,25 +113,25 @@
                                     <label class="rowNumber">1</label>
                                 </td>
                                 <td >
-                                    <textarea rows="1" class="htmleditor answer" name="answer" id="answer" style="height: 25px"></textarea>
+                                    <textarea rows="1" class="htmleditor answer reset" name="answer" id="answer" style="height: 25px"></textarea>
                                 </td>
                                 <td class="matchanswer">
-                                    <textarea rows="1" class="htmleditor match_answer" name="match_answer" id="match_answer" style="height: 25px"></textarea>
+                                    <textarea rows="1" class="htmleditor match_answer reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
                                 </td>
                                 <td class="multipleanswer multipleoption">
                                     <label class="checkbox multipleanswer">
-                                        <input type="checkbox" class="multipleanswer" name="multipleanswer" id="multipleanswer">
+                                        <input type="checkbox" class="multipleanswer reset" name="multipleanswer" id="multipleanswer">
                                         Multiple Option
                                     </label>
                                     <label class="radio multipleoption">
-                                        <input type="radio" class="multipleoption" name="correctanswer" id="correctanswer"  checked>
+                                        <input type="radio" class="multipleoption reset" name="correctanswer" id="correctanswer"  checked>
                                         Correct
                                     </label>
                                 </td>
                                 <td class="multipleanswer multipleoption">
                                     <div class="controls" style="margin-left: 0px">
                                         <div class="input-append" >
-                                            <input name="correctness_percentage" type="text" id="correctness_percentage" class="correctness_percentage span1"/>
+                                            <input name="correctness_percentage" type="text" id="correctness_percentage" class="correctness_percentage span1 reset"/>
                                             <span class="add-on">%</span>
                                         </div>
                                     </div>
@@ -155,6 +155,8 @@
                     $cTestControllerObj->curd();
                     $cFormObj->options['actioncolumn'] = true;
                     $cFormObj->options['serialnocolumn'] = true;
+                    $cFormObj->options['id'] = 'available_questions';
+                    $cFormObj->options['name'] = 'available_questions';
                     $cFormObj->options['header'] = array("Question", "Type", "No of Options");
                     $cFormObj->createHTable();
                     echo $cFormObj->html();
@@ -282,7 +284,7 @@
 
 
     var questionDetails = new Array();
-    var row = 1;
+    var row = 0;
     questionDetails[row] = new Array();
 
 
@@ -304,18 +306,69 @@
 
         });
         createTable(questionDetails);
-        console.log(questionDetails);
+//        console.log(questionDetails);
+        $("#currentrow").val(parseInt(currentrow) + 1)
     }
 
-    function resetQuestions() {
-
+    function resetQuestion() {
+        $('.reset').val("");
     }
 
     function createTable(data) {
-        
-        
+        var html = '';
+        var cnt = 1;
+        $("#available_questions").find("tbody > tr").remove();
+        $.each(data, function(key, value) {
+
+            html += '<tr>';
+            html += '<td>';
+            html += cnt;
+            html += '</td>';
+            html += '<td>';
+            html += value['question'];
+            html += '</td>';
+            html += '<td>';
+            html += value['question_type'];
+            html += '</td>';
+            html += '<td>';
+            html += $(value['answers']).length;
+//            console.log($(value['answers']));
+            html += '</td>';
+            html += '<td>';
+            html += '<i class="icon-edit"></i><i class="icon-trash"></i>';
+            html += '</td>';
+            html += '</tr>';
+            cnt++;
+
+        });
+
+
+//$(("#available_questions").find("tbody")
+        $("#available_questions").find("tbody").append(html);
+        resetQuestion();
+        $('#available_questions').find('.icon-edit').click(function(obj, a) {
+            loadQuestion($(this).parent().siblings(":first").text())
+        })
+    }
+
+    function loadQuestion(item) {
+        resetQuestion();
+        console.log(item);
+        item = parseInt(item);
+        if (isNaN(item)) {
+        } else {
+            $('#question_type').val(questionDetails[item]['question_type']);
+            $('#question').val(questionDetails[item]['question']);
+            $.map(questionDetails[item]['answers'],function(key,value){
+            console.log(key);    
+            console.log(value);    
+                
+            });
+        }
+
 
     }
+
     function getValues() {
         $('#match_answer').val();
         $('#answer').val();
