@@ -285,19 +285,22 @@
 
     var questionDetails = new Array();
     var row = 0;
-    questionDetails[row] = new Array();
+    //questionDetails[row] = new Array();
 
 
     function addQuestion() {
 
-        var currentrow = $("#currentrow").val();
-        questionDetails[currentrow] = new Array();
+        var currentrow = parseInt($("#currentrow").val());
+        if ($.isArray(questionDetails[currentrow]) === false)
+            questionDetails[currentrow] = new Array();
         questionDetails[currentrow]["question_type"] = $('#question_type').val();
         questionDetails[currentrow]["question"] = $('#question').val();
 
         $(".optionrow").each(function(index, element) {
-            questionDetails[currentrow]['answers'] = new Array();
-            questionDetails[currentrow]['answers'][index] = new Array();
+            if ($.isArray(questionDetails[currentrow]['answers']) === false)
+                questionDetails[currentrow]['answers'] = new Array();
+            if ($.isArray(questionDetails[currentrow]['answers'][index]) === false)
+                questionDetails[currentrow]['answers'][index] = new Array();
             questionDetails[currentrow]['answers'][index]['answer'] = $(element).find(".answer").val();
             questionDetails[currentrow]['answers'][index]['match_answer'] = $(element).find(".match_answer").val();
             questionDetails[currentrow]['answers'][index]['multipleanswer'] = $(element).find(".multipleanswer").val();
@@ -307,7 +310,7 @@
         });
         createTable(questionDetails);
 //        console.log(questionDetails);
-        $("#currentrow").val(parseInt(currentrow) + 1)
+        $("#currentrow").val(currentrow + 1)
     }
 
     function resetQuestion() {
@@ -357,12 +360,13 @@
         item = parseInt(item);
         if (isNaN(item)) {
         } else {
+            $("#currentrow").val(item)
             $('#question_type').val(questionDetails[item]['question_type']);
             $('#question').val(questionDetails[item]['question']);
-            $.map(questionDetails[item]['answers'],function(key,value){
-            console.log(key);    
-            console.log(value);    
-                
+            $.map(questionDetails[item]['answers'], function(key, value) {
+                console.log(key);
+                console.log(value);
+
             });
         }
 
