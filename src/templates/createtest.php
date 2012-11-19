@@ -100,11 +100,11 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Answer</th>
+                                <th class="answer">Answer</th>
                                 <th class="matchanswer">Match Answer</th>
-                                <th class="multipleanswer multipleoption">Is Correct</th>
-                                <th class="multipleanswer multipleoption">Correctness Percentage</th>
-                                <th>Action</th>
+                                <th class="multipleanswer multipleoption true_false">Is Correct</th>
+                                <th class="correctness_percentage">Correctness Percentage</th>
+                                <th class="answer">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,15 +112,15 @@
                                 <td>
                                     <label class="rowNumber">1</label>
                                 </td>
-                                <td >
+                                <td class="answer" >
                                     <textarea rows="1" class="htmleditor answer reset" name="answer" id="answer" style="height: 25px"></textarea>
                                 </td>
                                 <td class="matchanswer">
                                     <textarea rows="1" class="htmleditor match_answer reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
                                 </td>
-                                <td class="multipleanswer multipleoption">
-                                    <label class="checkbox multipleanswer">
-                                        <input type="checkbox" class="multipleanswer reset" name="multipleanswer" id="multipleanswer">
+                                <td class="multipleanswer multipleoption true_false">
+                                    <label class="checkbox multipleanswer true_false">
+                                        <input type="checkbox" class="multipleanswer reset true_false" name="multipleanswer" id="multipleanswer">
                                         Multiple Option
                                     </label>
                                     <label class="radio multipleoption">
@@ -128,7 +128,7 @@
                                         Correct
                                     </label>
                                 </td>
-                                <td class="multipleanswer multipleoption">
+                                <td class="correctness_percentage">
                                     <div class="controls" style="margin-left: 0px">
                                         <div class="input-append" >
                                             <input name="correctness_percentage" type="text" id="correctness_percentage" class="correctness_percentage span1 reset"/>
@@ -137,7 +137,7 @@
                                     </div>
 
                                 </td>
-                                <td>
+                                <td class="answer">
                                     <i class="icon-edit"></i>
                                     <i class="icon-ok"></i>
                                     <i class="icon-trash"></i>
@@ -223,20 +223,20 @@
             //$('#rootwizard').find("a[href*='tab1']").trigger('click');
         });
         $('#activedates').daterangepicker(
-                {
-                    ranges: {
-                        'Today': ['today', 'today'],
-                        'Tommorrow': ['tommorrow', 'tommorrow'],
-                        'Next 7 Days': ['today', Date.today().add({days: 6})],
-                        'Next 30 Days': ['today', Date.today().add({days: 29})],
-                        'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
-                        'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
-                    }
-                },
+        {
+            ranges: {
+                'Today': ['today', 'today'],
+                'Tommorrow': ['tommorrow', 'tommorrow'],
+                'Next 7 Days': ['today', Date.today().add({days: 6})],
+                'Next 30 Days': ['today', Date.today().add({days: 29})],
+                'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
+                'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
+            }
+        },
         function(start, end) {
             $('.calender input').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
         }
-        );
+    );
 
         $('#instructions').wysihtml5({"color": true});
         $('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
@@ -253,31 +253,13 @@
 
 
         });
+        
         //$('#optionstable th:nth-child('+(2)+')').hide();
         $("#question_type").bind('change', function() {
-            $('.multipleanswer,.multipleoption,.matchanswer').hide();
-            switch ($(this).val()) {
-                case 'multiplechoice':
-                    $('.multipleoption,').show();
-                    break;
-                case 'multipleresponse':
-                    $('.multipleanswer,').show();
-                    break;
-                case 'true_false':
-
-                    break;
-                case 'fillintheblank':
-
-                    break;
-                case 'matching':
-
-                    break;
-                case 'sequence':
-
-                    break;
-            }
-
+        
+            resetOptionsTable($(this).val());
         });
+        $("#question_type").trigger('change');
 
     });
 
@@ -289,7 +271,7 @@
 
 
     function addQuestion() {
-
+        validate();
         var currentrow = parseInt($("#currentrow").val());
         if ($.isArray(questionDetails[currentrow]) === false)
             questionDetails[currentrow] = new Array();
@@ -309,12 +291,63 @@
 
         });
         createTable(questionDetails);
-//        console.log(questionDetails);
+        //        console.log(questionDetails);
         $("#currentrow").val(currentrow + 1)
     }
 
     function resetQuestion() {
         $('.reset').val("");
+    }
+    
+    function validate(){
+        var questiontype=$('#question_type').val();
+       
+        switch (questiontype) {
+            case 'multiplechoice':
+                $('.multipleoption,.answer').show();
+                break;
+            case 'multipleresponse':
+                $('.multipleanswer,.answer').show();
+                break;
+            case 'true_false':
+                $('.true_false,').show();
+                break;
+            case 'fillintheblank':
+                $('.multipleoption,.answer').show();
+                break;
+            case 'matching':
+                $('.matchanswer,.answer').show();
+                break;
+            case 'sequence':
+                $('.answer').show();
+                break;
+        }
+        
+        
+    }
+    
+    function resetOptionsTable(val){
+        $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage').hide();
+        switch (val) {
+            case 'multiplechoice':
+                $('.multipleoption,.answer').show();
+                break;
+            case 'multipleresponse':
+                $('.multipleanswer,.answer').show();
+                break;
+            case 'true_false':
+                $('.true_false,').show();
+                break;
+            case 'fillintheblank':
+                $('.multipleoption,.answer').show();
+                break;
+            case 'matching':
+                $('.matchanswer,.answer').show();
+                break;
+            case 'sequence':
+                $('.answer').show();
+                break;
+        }
     }
 
     function createTable(data) {
@@ -335,7 +368,7 @@
             html += '</td>';
             html += '<td>';
             html += $(value['answers']).length;
-//            console.log($(value['answers']));
+            //            console.log($(value['answers']));
             html += '</td>';
             html += '<td>';
             html += '<i class="icon-edit"></i><i class="icon-trash"></i>';
@@ -346,7 +379,7 @@
         });
 
 
-//$(("#available_questions").find("tbody")
+        //$(("#available_questions").find("tbody")
         $("#available_questions").find("tbody").append(html);
         resetQuestion();
         $('#available_questions').find('.icon-edit').click(function(obj, a) {
@@ -356,7 +389,7 @@
 
     function loadQuestion(item) {
         resetQuestion();
-        console.log(item);
+        
         item = parseInt(item);
         if (isNaN(item)) {
         } else {
