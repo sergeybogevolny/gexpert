@@ -77,6 +77,10 @@
             </div>
             <div class="tab-pane" id="tab2">
 
+                <div class="alert alert-error alert-block" style="display: none">
+
+                </div>
+
                 <div class="control-group">
                     <label class="control-label" for="question_type">Question Type</label>
                     <div class="controls">
@@ -92,7 +96,7 @@
                 <div class="control-group">
                     <label class="control-label" for="question">Question</label>
                     <div class="controls">
-                        <textarea class="htmleditor reset" name="question" id="question" style="height: 50px;width: 500px"></textarea>
+                        <textarea class="htmleditor reset" name="question" id="question" style="height: 50px;width: 500px" required="true"></textarea>
                     </div>
                 </div>
                 <div>
@@ -113,10 +117,10 @@
                                     <label class="rowNumber">1</label>
                                 </td>
                                 <td class="answer" >
-                                    <textarea rows="1" class="htmleditor answer reset" name="answer" id="answer" style="height: 25px"></textarea>
+                                    <textarea rows="1" class="htmleditor answer answer_data reset" name="answer" id="answer" style="height: 25px"></textarea>
                                 </td>
                                 <td class="matchanswer">
-                                    <textarea rows="1" class="htmleditor match_answer reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
+                                    <textarea rows="1" class="htmleditor match_answer match_data reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
                                 </td>
                                 <td class="multipleanswer multipleoption true_false">
                                     <label class="checkbox multipleanswer true_false">
@@ -124,14 +128,14 @@
                                         Multiple Option
                                     </label>
                                     <label class="radio multipleoption">
-                                        <input type="radio" class="multipleoption reset" name="correctanswer" id="correctanswer"  checked>
+                                        <input type="radio" class="multipleoption correct_answer_data reset" name="correctanswer" id="correctanswer"  checked>
                                         Correct
                                     </label>
                                 </td>
                                 <td class="correctness_percentage">
                                     <div class="controls" style="margin-left: 0px">
                                         <div class="input-append" >
-                                            <input name="correctness_percentage" type="text" id="correctness_percentage" class="correctness_percentage span1 reset"/>
+                                            <input name="correctness_percentage" type="text" id="correctness_percentage" class="correctness_percentage mcorrect_answer_data span1 reset"/>
                                             <span class="add-on">%</span>
                                         </div>
                                     </div>
@@ -148,7 +152,7 @@
                     </table>
                     <input name="currentrow" type="hidden" id="currentrow" value="0"/>
 
-                    <div id="addquestion" class="btn">Add Question</div>
+                    <button  type="submit" id="addquestion" class="btn">Add Question</button>
                     <br/>
                     <?php
                     $cTestControllerObj->table = "test_details";
@@ -222,6 +226,7 @@
 
             //$('#rootwizard').find("a[href*='tab1']").trigger('click');
         });
+        
         $('#activedates').daterangepicker(
         {
             ranges: {
@@ -244,11 +249,18 @@
         //$('#match_answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
 
 
-        $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber"});
+        $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber"},function(){
+                
+                return false;
+        });
         $(".icon-trash").btnDelRow();
         $('.multipleanswer,.multipleoption,.matchanswer').hide();
         $('#addquestion').bind('click', function() {
 
+        $("#testmanager").submit(function(event){
+            
+             event.preventDefault();
+        });
             addQuestion();
 
 
@@ -271,28 +283,34 @@
 
 
     function addQuestion() {
-        validate();
-        var currentrow = parseInt($("#currentrow").val());
-        if ($.isArray(questionDetails[currentrow]) === false)
-            questionDetails[currentrow] = new Array();
-        questionDetails[currentrow]["question_type"] = $('#question_type').val();
-        questionDetails[currentrow]["question"] = $('#question').val();
+        
+        if(validate()){
+            var currentrow = parseInt($("#currentrow").val());
+            if ($.isArray(questionDetails[currentrow]) === false)
+                questionDetails[currentrow] = new Array();
+            questionDetails[currentrow]["question_type"] = $('#question_type').val();
+            questionDetails[currentrow]["question"] = $('#question').val();
 
-        $(".optionrow").each(function(index, element) {
-            if ($.isArray(questionDetails[currentrow]['answers']) === false)
-                questionDetails[currentrow]['answers'] = new Array();
-            if ($.isArray(questionDetails[currentrow]['answers'][index]) === false)
-                questionDetails[currentrow]['answers'][index] = new Array();
-            questionDetails[currentrow]['answers'][index]['answer'] = $(element).find(".answer").val();
-            questionDetails[currentrow]['answers'][index]['match_answer'] = $(element).find(".match_answer").val();
-            questionDetails[currentrow]['answers'][index]['multipleanswer'] = $(element).find(".multipleanswer").val();
-            questionDetails[currentrow]['answers'][index]['multipleoption'] = $(element).find(".multipleoption").val();
-            questionDetails[currentrow]['answers'][index]['correctness_percentage'] = $(element).find(".correctness_percentage").val();
+            $(".optionrow").each(function(index, element) {
+                if ($.isArray(questionDetails[currentrow]['answers']) === false)
+                    questionDetails[currentrow]['answers'] = new Array();
+                if ($.isArray(questionDetails[currentrow]['answers'][index]) === false)
+                    questionDetails[currentrow]['answers'][index] = new Array();
+                questionDetails[currentrow]['answers'][index]['answer'] = $(element).find(".answer").val();
+                questionDetails[currentrow]['answers'][index]['match_answer'] = $(element).find(".match_answer").val();
+                questionDetails[currentrow]['answers'][index]['multipleanswer'] = $(element).find(".multipleanswer").val();
+                questionDetails[currentrow]['answers'][index]['multipleoption'] = $(element).find(".multipleoption").val();
+                questionDetails[currentrow]['answers'][index]['correctness_percentage'] = $(element).find(".correctness_percentage").val();
 
-        });
-        createTable(questionDetails);
-        //        console.log(questionDetails);
-        $("#currentrow").val(currentrow + 1)
+            });
+            createTable(questionDetails);
+            //        console.log(questionDetails);
+            $("#currentrow").val(currentrow + 1);
+        }
+        else{
+           
+           
+        }
     }
 
     function resetQuestion() {
@@ -301,10 +319,23 @@
     
     function validate(){
         var questiontype=$('#question_type').val();
-       
+        
+        var error="";
+        if($('#question').val()==""){
+            error+="Question cannot be empty...";
+        }
         switch (questiontype) {
             case 'multiplechoice':
-                $('.multipleoption,.answer').show();
+                if($('.answer_data').length>=3){
+                    $.each($('.answer_data'),function(){
+                    
+                        console.log($(this).parent().find(".correct_answer_data"));    
+                    
+                    });    
+                }else{
+                    error+="<br/> Count of options cannot be less than 3";
+                }
+                
                 break;
             case 'multipleresponse':
                 $('.multipleanswer,.answer').show();
@@ -321,6 +352,15 @@
             case 'sequence':
                 $('.answer').show();
                 break;
+        }
+        console.log(error);
+        
+        if(error!=""){
+            $(".alert-error").html('<button type="button" class="close" data-dismiss="alert">×</button><h3>Error ! </h3> '+error).show();
+            return false;    
+        }else{
+            $(".alert-error").hide();
+            return true;
         }
         
         
