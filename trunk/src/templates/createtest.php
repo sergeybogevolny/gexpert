@@ -212,7 +212,7 @@
             }
         });
         $('#rootwizard .finish').click(function() {
-            //var userdata=getValues();
+
 
 
             $.ajax({
@@ -251,16 +251,16 @@
 
         $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber"},function(){
                 
-                return false;
+            return false;
         });
         $(".icon-trash").btnDelRow();
         $('.multipleanswer,.multipleoption,.matchanswer').hide();
         $('#addquestion').bind('click', function() {
 
-        $("#testmanager").submit(function(event){
+            $("#testmanager").submit(function(event){
             
-             event.preventDefault();
-        });
+                event.preventDefault();
+            });
             addQuestion();
 
 
