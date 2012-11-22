@@ -62,7 +62,6 @@ class cController extends cModel {
 
     public function setDefaultValue($key, $default = array(), $systemdefault = "") {
 
-
         return $default[$key] ? $default[$key] : ($systemdefault ? $systemdefault : ($_POST[$key] ? $_POST[$key] : $_GET[$key]));
     }
 
