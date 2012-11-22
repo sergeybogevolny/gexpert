@@ -70,6 +70,18 @@
 
                     </div>
                 </div>
+                <div class="control-group">
+                    <label class="control-label" for="question_type">Sharing</label>
+                    <div class="controls">
+
+                        <?php
+                        $cFormObj->data = array("0" => "Public");
+                        $cFormObj->options = array("name" => "sharing", "default" => false);
+                        $cFormObj->createSelect();
+                        echo $cFormObj->html();
+                        ?>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane" id="tab2">
                 <div class="alert alert-error" style="display: none">
@@ -217,7 +229,7 @@
 
             //            $.ajax({
             //                type: "POST",
-            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));         ?>',
+            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));          ?>',
             //                data: $("#testmanager").serialize(),
             //                success: function() {
             //
