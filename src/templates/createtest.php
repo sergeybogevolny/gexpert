@@ -19,7 +19,6 @@
                     <label class="control-label" for="testname">Test Name</label>
                     <div class="controls">
                         <input name="testname" type="text" id="testname" />
-                        Enter the Test name
                     </div>
                 </div>
 
@@ -42,6 +41,18 @@
                         <input name="description" type="text" id="description" />
                     </div>
                 </div>
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="activedates">Active dates</label>
+                        <div class="controls">
+                            <div class="calender activedates">
+                                <i class="icon-calendar icon-large"></i>
+                                <span></span>
+                                <b class="caret" style="vertical-align: middle"></b>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
 
                 <div class="control-group">
                     <label class="control-label" for="instructions">Instructions</label>
@@ -49,21 +60,6 @@
                         <textarea name="instructions" id="instructions" class="htmleditor" style="width: 810px; height: 200px"></textarea>
                     </div>
                 </div>
-
-
-
-                <fieldset>
-                    <div class="control-group">
-                        <label class="control-label" for="activedates">Active dates</label>
-                        <div class="controls">
-                            <div class="input-append calender">
-                                <input type="text" name="activedates" id="activedates"/>
-                                <span class="add-on"><i class="icon-calendar"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-
                 <div class="control-group">
                     <label class="control-label" for="testtime">Test Time</label>
                     <div class="controls">
@@ -76,7 +72,9 @@
                 </div>
             </div>
             <div class="tab-pane" id="tab2">
+                <div class="alert alert-error" style="display: none">
 
+                </div>
                 <div class="alert alert-error alert-block" style="display: none">
 
                 </div>
@@ -212,255 +210,257 @@
 
             }
         });
-    $('#rootwizard .finish').click(function() {
+        $('#rootwizard .finish').click(function() {
 
-        $("#questionsdata").val(JSON.stringify(questionDetails));
-        $("#testmanager").submit();
+            $("#questionsdata").val(JSON.stringify(questionDetails));
+            $("#testmanager").submit();
 
-        //            $.ajax({
-        //                type: "POST",
-        //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));  ?>',
-        //                data: $("#testmanager").serialize(),
-        //                success: function() {
-        //
-        //                }
-        //            });
+            //            $.ajax({
+            //                type: "POST",
+            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));         ?>',
+            //                data: $("#testmanager").serialize(),
+            //                success: function() {
+            //
+            //                }
+            //            });
 
-        //$('#rootwizard').find("a[href*='tab1']").trigger('click');
-    });
-        
-    $('#activedates').daterangepicker(
-    {
-        ranges: {
-            'Today': ['today', 'today'],
-            'Tommorrow': ['tommorrow', 'tommorrow'],
-            'Next 7 Days': ['today', Date.today().add({days: 6})],
-            'Next 30 Days': ['today', Date.today().add({days: 29})],
-            'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
-            'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
+            //$('#rootwizard').find("a[href*='tab1']").trigger('click');
+        });
+
+        $('.calender').daterangepicker(
+                {
+                    ranges: {
+                        'Today': ['today', 'today'],
+                        'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
+                        'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
+                    }
+                },
+        function(start, end) {
+            $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
         }
-    },
-    function(start, end) {
-        $('.calender input').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-    }
-);
+        );
 
-    $('#instructions').wysihtml5({"color": true});
-    $('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
-    //$('#answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
-    //$('#match_answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
+        $('#instructions').wysihtml5({"color": true});
+        $('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
+        //$('#answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
+        //$('#match_answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
 
 
-    $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber"},function(){
-                
-        return false;
-    });
-    $(".icon-trash").btnDelRow();
-    $('.multipleanswer,.multipleoption,.matchanswer').hide();
-    $('#addquestion').bind('click', function() {
+        $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber"}, function() {
 
-        //            $("#testmanager").submit(function(event){
-        //            
-        //                event.preventDefault();
-        //            });
-        addQuestion();
+            return false;
+        });
+        $(".icon-trash").btnDelRow();
+        $('.multipleanswer,.multipleoption,.matchanswer').hide();
+        $('#addquestion').bind('click', function() {
 
+            //            $("#testmanager").submit(function(event){
+            //            
+            event.preventDefault();
+            //            });
+            addQuestion();
 
-    });
-        
-    //$('#optionstable th:nth-child('+(2)+')').hide();
-    $("#question_type").bind('change', function() {
-        
-        resetOptionsTable($(this).val());
-    });
-    $("#question_type").trigger('change');
-
-});
-
-
-
-var questionDetails = {};
-    
-    
-function addQuestion() {
-        
-    if(validate()){
-        var currentrow = parseInt($("#currentrow").val());
-        if ($.isArray(questionDetails[currentrow]) === false)
-            questionDetails[currentrow] = {};
-        questionDetails[currentrow]["question_type"] = $('#question_type').val();
-        questionDetails[currentrow]["question"] = $('#question').val();
-
-        $(".optionrow").each(function(index, element) {
-                
-            if ($.isArray(questionDetails[currentrow]['answers']) === false)
-                questionDetails[currentrow]['answers'] = {};
-            if ($.isArray(questionDetails[currentrow]['answers'][index]) === false)
-                questionDetails[currentrow]['answers'][index] = {};
-                
-            questionDetails[currentrow]['answers'][index]['answer'] = $(element).find(".answer").val();
-            questionDetails[currentrow]['answers'][index]['match_answer'] = $(element).find(".match_answer").val();
-            questionDetails[currentrow]['answers'][index]['multipleanswer'] = $(element).find(".multipleanswer").val();
-            questionDetails[currentrow]['answers'][index]['multipleoption'] = $(element).find(".multipleoption").val();
-            questionDetails[currentrow]['answers'][index]['correctness_percentage'] = $(element).find(".correctness_percentage").val();
 
         });
-        createTable(questionDetails);
-            
-        $("#currentrow").val(currentrow + 1);
-    }
-    else{
-           
-           
-    }
-}
 
-function resetQuestion() {
-    $('.reset').val("");
-}
-    
-function validate(){
-    var questiontype=$('#question_type').val();
-        
-    var error="";
-    if($('#question').val()==""){
-        error+="Question cannot be empty...";
-    }
-    switch (questiontype) {
-        case 'multiplechoice':
-            if($('.answer_data').length>=3){
-                $.each($('.answer_data'),function(){
-                    
-                    console.log($(this).parent().find(".correct_answer_data"));    
-                    
-                });    
-            }else{
-                error+="<br/> Count of options cannot be less than 3";
-            }
-                
-            break;
-        case 'multipleresponse':
-            $('.multipleanswer,.answer').show();
-            break;
-        case 'true_false':
-            $('.true_false,').show();
-            break;
-        case 'fillintheblank':
-            $('.multipleoption,.answer').show();
-            break;
-        case 'matching':
-            $('.matchanswer,.answer').show();
-            break;
-        case 'sequence':
-            $('.answer').show();
-            break;
-    }
-    console.log(error);
-        
-    if(error!=""){
-        $(".alert-error").html('<button type="button" class="close" data-dismiss="alert">×</button><h3>Error ! </h3> '+error).show();
-        return false;    
-    }else{
-        $(".alert-error").hide();
-        return true;
-    }
-        
-        
-}
-    
-function resetOptionsTable(val){
-    $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage').hide();
-    switch (val) {
-        case 'multiplechoice':
-            $('.multipleoption,.answer').show();
-            break;
-        case 'multipleresponse':
-            $('.multipleanswer,.answer').show();
-            break;
-        case 'true_false':
-            $('.true_false,').show();
-            break;
-        case 'fillintheblank':
-            $('.multipleoption,.answer').show();
-            break;
-        case 'matching':
-            $('.matchanswer,.answer').show();
-            break;
-        case 'sequence':
-            $('.answer').show();
-            break;
-    }
-}
+        //$('#optionstable th:nth-child('+(2)+')').hide();
+        $("#question_type").bind('change', function() {
 
-function createTable(data) {
-    var html = '';
-    var cnt = 1;
-    $("#available_questions").find("tbody > tr").remove();
-    $.each(data, function(key, value) {
-
-        html += '<tr>';
-        html += '<td>';
-        html += cnt;
-        html += '</td>';
-        html += '<td>';
-        html += value['question'];
-        html += '</td>';
-        html += '<td>';
-        html += value['question_type'];
-        html += '</td>';
-        html += '<td>';
-        html += $(value['answers']).length;
-        //            console.log($(value['answers']));
-        html += '</td>';
-        html += '<td>';
-        html += '<i class="icon-edit"></i><i class="icon-trash"></i>';
-        html += '</td>';
-        html += '</tr>';
-        cnt++;
+            resetOptionsTable($(this).val());
+        });
+        $("#question_type").trigger('change');
 
     });
 
 
-    //$(("#available_questions").find("tbody")
-    $("#available_questions").find("tbody").append(html);
-    resetQuestion();
-    $('#available_questions').find('.icon-edit').click(function(obj, a) {
-        loadQuestion($(this).parent().siblings(":first").text())
-    })
-}
 
-function loadQuestion(item) {
-    resetQuestion();
-        
-    item = parseInt(item);
-    if (isNaN(item)) {
-    } else {
-        $("#currentrow").val(item)
-        $('#question_type').val(questionDetails[item]['question_type']);
-        $('#question').val(questionDetails[item]['question']);
-        $.map(questionDetails[item]['answers'], function(key, value) {
-            console.log(key);
-            console.log(value);
+    var questionDetails = {};
 
-        });
+
+    function addQuestion() {
+
+        if (validate()) {
+            var currentrow = parseInt($("#currentrow").val());
+            if ($.isArray(questionDetails[currentrow]) === false)
+                questionDetails[currentrow] = {};
+            questionDetails[currentrow]["question_type"] = $('#question_type').val();
+            questionDetails[currentrow]["question"] = $('#question').val();
+            var opt = 0;
+            $(".optionrow").each(function(index, element) {
+
+                if ($.isArray(questionDetails[currentrow]['answers']) === false)
+                    questionDetails[currentrow]['answers'] = {};
+                if ($.isArray(questionDetails[currentrow]['answers'][opt]) === false)
+                    questionDetails[currentrow]['answers'][opt] = {};
+
+                console.log($(element));
+                console.log(element);
+                console.log(opt);
+
+                questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer").val();
+                questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_answer").val();
+                questionDetails[currentrow]['answers'][opt]['multipleanswer'] = $(element).find(".multipleanswer").val();
+                questionDetails[currentrow]['answers'][opt]['multipleoption'] = $(element).find(".multipleoption").val();
+                questionDetails[currentrow]['answers'][opt]['correctness_percentage'] = $(element).find(".correctness_percentage").val();
+                opt++;
+
+            });
+            createTable(questionDetails);
+
+            $("#currentrow").val(currentrow + 1);
+        }
+        else {
+
+
+        }
     }
 
+    function resetQuestion() {
+        $('.reset').val("");
+    }
 
-}
+    function validate() {
+        var questiontype = $('#question_type').val();
 
-function getValues() {
-    $('#match_answer').val();
-    $('#answer').val();
-    $('#question').val();
-    $('#instructions').val();
-    $('#testname').val();
-    $('#subject').val();
-    $('#description').val();
-    $('#activedates').val();
-    $('#testtime').val();
+        var error = "";
+        if ($('#question').val() == "") {
+            error += "Question cannot be empty...";
+        }
+        switch (questiontype) {
+            case 'multiplechoice':
+                if ($('.answer_data').length >= 3) {
+                    $.each($('.answer_data'), function() {
 
 
-}
+
+                    });
+                } else {
+                    error += "<br/> Count of options cannot be less than 3";
+                }
+
+                break;
+            case 'multipleresponse':
+                $('.multipleanswer,.answer').show();
+                break;
+            case 'true_false':
+                $('.true_false,').show();
+                break;
+            case 'fillintheblank':
+                $('.multipleoption,.answer').show();
+                break;
+            case 'matching':
+                $('.matchanswer,.answer').show();
+                break;
+            case 'sequence':
+                $('.answer').show();
+                break;
+        }
+
+
+        if (error != "") {
+            $(".alert-error").html('<button type="button" class="close" data-dismiss="alert">×</button><h3>Error ! </h3> ' + error).show();
+            return false;
+        } else {
+            $(".alert-error").hide();
+            return true;
+        }
+
+
+    }
+
+    function resetOptionsTable(val) {
+        $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage').hide();
+        switch (val) {
+            case 'multiplechoice':
+                $('.multipleoption,.answer').show();
+                break;
+            case 'multipleresponse':
+                $('.multipleanswer,.answer').show();
+                break;
+            case 'true_false':
+                $('.true_false,').show();
+                break;
+            case 'fillintheblank':
+                $('.multipleoption,.answer').show();
+                break;
+            case 'matching':
+                $('.matchanswer,.answer').show();
+                break;
+            case 'sequence':
+                $('.answer').show();
+                break;
+        }
+    }
+
+    function createTable(data) {
+        var html = '';
+        var cnt = 1;
+        $("#available_questions").find("tbody > tr").remove();
+        $.each(data, function(key, value) {
+
+            html += '<tr>';
+            html += '<td>';
+            html += cnt;
+            html += '</td>';
+            html += '<td>';
+            html += value['question'];
+            html += '</td>';
+            html += '<td>';
+            html += value['question_type'];
+            html += '</td>';
+            html += '<td>';
+            html += $(value['answers']).length;
+            //            console.log($(value['answers']));
+            html += '</td>';
+            html += '<td>';
+            html += '<i class="icon-edit"></i><i class="icon-trash"></i>';
+            html += '</td>';
+            html += '</tr>';
+            cnt++;
+
+        });
+
+
+        //$(("#available_questions").find("tbody")
+        $("#available_questions").find("tbody").append(html);
+        resetQuestion();
+        $('#available_questions').find('.icon-edit').click(function(obj, a) {
+            loadQuestion($(this).parent().siblings(":first").text())
+        })
+    }
+
+    function loadQuestion(item) {
+        resetQuestion();
+
+        item = parseInt(item);
+        if (isNaN(item)) {
+        } else {
+            $("#currentrow").val(item)
+            $('#question_type').val(questionDetails[item]['question_type']);
+            $('#question').val(questionDetails[item]['question']);
+            $.map(questionDetails[item]['answers'], function(key, value) {
+                console.log(key);
+                console.log(value);
+
+            });
+        }
+
+
+    }
+
+    function getValues() {
+        $('#match_answer').val();
+        $('#answer').val();
+        $('#question').val();
+        $('#instructions').val();
+        $('#testname').val();
+        $('#subject').val();
+        $('#description').val();
+        $('#activedates').val();
+        $('#testtime').val();
+
+
+    }
 
 </script>
 
