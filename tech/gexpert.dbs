@@ -7,26 +7,26 @@
 			<column name="password" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="last_login" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="status" type="INT" length="10" jt="4" mandatory="y" />
+			<column name="user_id" type="INT" jt="4" todo="0" />
 			<index name="pk___login" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
+			<index name="idx___login" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<fk name="fk___login" to_schema="gexpert" to_table="__users" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
 		</table>
 		<table name="__users" >
 			<column name="id" type="INT" length="10" jt="4" mandatory="y" autoincrement="y" />
 			<column name="name" type="VARCHAR" length="500" jt="12" mandatory="y" />
 			<column name="emp_code" type="VARCHAR" length="150" jt="12" mandatory="y" />
 			<column name="email" type="VARCHAR" length="500" jt="12" mandatory="y" />
-			<column name="login" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="phone" type="VARCHAR" length="50" jt="12" mandatory="y" />
 			<index name="pk___users" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
-			<index name="login" unique="NORMAL" >
-				<column name="login" />
-			</index>
-			<fk name="__users_ibfk_1" to_schema="gexpert" to_table="__login" >
-				<fk_column name="id" pk="id" />
-			</fk>
 		</table>
 		<table name="answers" >
 			<column name="id" type="INT" length="10" jt="4" mandatory="y" />
@@ -43,6 +43,9 @@
 			<index name="pk_answers" unique="UNIQUE" >
 				<column name="question_id" />
 			</index>
+			<fk name="fk_answers" to_schema="gexpert" to_table="questions" >
+				<fk_column name="question_id" pk="id" />
+			</fk>
 		</table>
 		<table name="category" >
 			<column name="id" type="INT" length="10" jt="4" mandatory="y" autoincrement="y" />
@@ -73,13 +76,18 @@
 			<index name="pk_questions_0" unique="UNIQUE" >
 				<column name="test_id" />
 			</index>
+			<fk name="fk_questions" to_schema="gexpert" to_table="test_details" >
+				<fk_column name="test_id" pk="id" />
+			</fk>
 		</table>
 		<table name="test_details" >
-			<column name="id" type="INT" length="10" jt="4" mandatory="y" />
+			<column name="id" type="INT" jt="4" mandatory="y" autoincrement="y" />
 			<column name="category" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="name" type="VARCHAR" length="500" jt="12" mandatory="y" />
 			<column name="description" type="VARCHAR" length="10000" jt="12" mandatory="y" />
+			<column name="instruction" type="VARCHAR" length="5000" jt="12" todo="0" />
 			<column name="logo" type="VARCHAR" length="500" jt="12" mandatory="y" />
+			<column name="time_taken" type="INT" jt="4" mandatory="y" unsigned="y" todo="0" />
 			<column name="date_created" type="TIMESTAMP" length="19" jt="93" mandatory="y" >
 				<defo>CURRENT_TIMESTAMP</defo>
 			</column>
@@ -87,6 +95,8 @@
 			<column name="last_modified" type="TIMESTAMP" length="19" jt="93" mandatory="y" >
 				<defo>&#039;0000-00-00 00:00:00&#039;</defo>
 			</column>
+			<column name="valid_from" type="DATE" length="10" jt="91" mandatory="y" />
+			<column name="valid_to" type="DATE" length="10" jt="91" mandatory="y" />
 			<column name="status" type="INT" length="10" jt="4" mandatory="y" />
 			<index name="pk_test_details" unique="PRIMARY_KEY" >
 				<column name="id" />
@@ -97,32 +107,43 @@
 			<index name="created_by" unique="UNIQUE" >
 				<column name="created_by" />
 			</index>
+			<fk name="fk_test_details" to_schema="gexpert" to_table="category" >
+				<fk_column name="category" pk="id" />
+			</fk>
+			<fk name="fk_test_details_0" to_schema="gexpert" to_table="__users" >
+				<fk_column name="created_by" pk="id" />
+			</fk>
 		</table>
 	</schema>
-	<connector name="MySql" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gexpert" user="root" schema_mapping="" />
-	<layout name="gexpert" joined_routing="y" show_relation_columns="y" >
-		<entity schema="gexpert" name="__login" x="742" y="42" />
-		<entity schema="gexpert" name="answers" x="210" y="266" />
-		<entity schema="gexpert" name="__users" x="588" y="42" />
-		<entity schema="gexpert" name="test_details" x="210" y="42" />
-		<entity schema="gexpert" name="questions" x="378" y="140" />
-		<entity schema="gexpert" name="category" x="42" y="266" />
+	<connector name="MySql" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gexpert" user="root" passwd="c3VuZGFyMTIz" schema_mapping="" />
+	<layout name="gexpert" show_relation_columns="y" >
+		<entity schema="gexpert" name="__login" x="742" y="70" />
+		<entity schema="gexpert" name="__users" x="588" y="70" />
+		<entity schema="gexpert" name="category" x="42" y="322" />
+		<entity schema="gexpert" name="test_details" x="182" y="42" />
+		<entity schema="gexpert" name="answers" x="182" y="336" />
+		<entity schema="gexpert" name="questions" x="378" y="238" />
 		<group name="__login" color="ffffcc" >
 			<entity schema="gexpert" name="__login" />
 			<entity schema="gexpert" name="__users" />
 		</group>
-		<group name="Experting" color="fff8d6" >
+		<group name="Unreferenced" color="fff8d6" >
 			<entity schema="gexpert" name="answers" />
 			<entity schema="gexpert" name="category" />
 			<entity schema="gexpert" name="questions" />
 			<entity schema="gexpert" name="test_details" />
 		</group>
-		<browser name="test_id" >
-			<browse_table schema="gexpert" entity="questions" x="10" y="10" width="457" height="352" >
-				<filter on="question_type" string=":c in (10,15)" />
-			</browse_table>
-			<browse_table schema="gexpert" entity="test_details" x="477" y="10" width="457" height="352" />
-			<browse_table schema="gexpert" entity="category" x="226" y="43" width="457" height="352" />
+	</layout>
+	<layout name="Layout_" joined_routing="y" >
+		<entity schema="gexpert" name="test_details" x="42" y="266" />
+		<entity schema="gexpert" name="__users" x="154" y="546" />
+		<entity schema="gexpert" name="__login" x="294" y="546" />
+		<entity schema="gexpert" name="category" x="224" y="294" />
+		<entity schema="gexpert" name="questions" x="224" y="42" />
+		<entity schema="gexpert" name="answers" x="420" y="210" />
+		<browser name="__users" >
+			<browse_table schema="gexpert" entity="__users" x="10" y="10" width="457" height="352" />
+			<browse_table schema="gexpert" entity="test_details" x="397" y="-8" width="457" height="352" />
 		</browser>
 	</layout>
 </project>
