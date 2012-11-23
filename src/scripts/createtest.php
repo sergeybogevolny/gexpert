@@ -4,10 +4,10 @@ include_once(AppRoot . AppController . "cTestController.php");
 include_once(AppRoot . AppController . "cTestController.php");
 
 $cTestControllerObj = new cTestController();
-if ($_POST["testname"]) {
+if ($_POST["questionsdata"]) {
     print_r($_POST);
     //category,`name`,description,logo,date_created,created_by,last_modified,valid_from,valid_to,status
-    $cTestControllerObj->column["category"] = $_POST["subject"];
+    $cTestControllerObj->column["category"] = 2;
     $cTestControllerObj->column["name"] = $_POST["testname"];
     $cTestControllerObj->column["description"] = $_POST["description"];
     $cTestControllerObj->column["logo"] = $_POST["logo"];
@@ -24,7 +24,27 @@ if ($_POST["testname"]) {
     $cTestControllerObj->table = "test_details";
     $cTestControllerObj->curd("add");
     $cTestControllerObj->debug = true;
-    echo $cTestControllerObj->id;
+    $questions = (array) json_decode($_POST["questionsdata"]);
+    $testid = $cTestControllerObj->id;
+    foreach ($questions as $key => $value) {
+        $cTestControllerObj->column["question_type"] = $value->question_type;
+        $cTestControllerObj->column["question"] = $value->question;
+        $cTestControllerObj->column["test_id"] = $testid;
+        $cTestControllerObj->column["level_id"] = 1;
+        $cTestControllerObj->table = "questions";
+        $cTestControllerObj->curd("add");
+        $questionid = $cTestControllerObj->id;
+        foreach ($value->answers as $key1 => $value1) {
+            $cTestControllerObj->column["answer"] = $value1->answer;
+            $cTestControllerObj->column["match_answer"] = $value1->match_answer;
+            $cTestControllerObj->column["is_correct"] = ($value1->multipleanswer || $value1->multipleoption) ? 1 : 0;
+            $cTestControllerObj->column["percent"] = $value1->correctness_percentage;
+            $cTestControllerObj->column["question_id"] = $questionid;
+            $cTestControllerObj->table = "answers";
+            $cTestControllerObj->curd("add");
+        }
+    }
+
     //9860
     echo 'asdasdasd';
 
