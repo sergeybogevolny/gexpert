@@ -134,7 +134,7 @@
                                 </td>
                                 <td class="multipleanswer multipleoption true_false">
                                     <label class="checkbox multipleanswer true_false">
-                                        <input type="checkbox" class="multipleanswer reset true_false" name="multipleanswer" id="multipleanswer">
+                                        <input type="checkbox" class="multipleanswer reset true_false true_false_data" name="multipleanswer" id="multipleanswer">
                                         Multiple Option
                                     </label>
                                     <label class="radio multipleoption">
@@ -229,7 +229,7 @@
 
             //            $.ajax({
             //                type: "POST",
-            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));          ?>',
+            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));             ?>',
             //                data: $("#testmanager").serialize(),
             //                success: function() {
             //
@@ -240,17 +240,17 @@
         });
 
         $('.calender').daterangepicker(
-                {
-                    ranges: {
-                        'Today': ['today', 'today'],
-                        'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
-                        'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
-                    }
-                },
+        {
+            ranges: {
+                'Today': ['today', 'today'],
+                'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
+                'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
+            }
+        },
         function(start, end) {
             $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
         }
-        );
+    );
 
         $('#instructions').wysihtml5({"color": true});
         $('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
@@ -298,27 +298,24 @@
             questionDetails[currentrow]["question_type"] = $('#question_type').val();
             questionDetails[currentrow]["question"] = $('#question').val();
             var opt = 0;
+            questionDetails[currentrow]['answers'] = {};
             $(".optionrow").each(function(index, element) {
-
-                if ($.isArray(questionDetails[currentrow]['answers']) === false)
-                    questionDetails[currentrow]['answers'] = {};
-                if ($.isArray(questionDetails[currentrow]['answers'][opt]) === false)
+                if (jQuery.isEmptyObject(questionDetails[currentrow]['answers'][opt]))
                     questionDetails[currentrow]['answers'][opt] = {};
 
                 console.log($(element));
                 console.log(element);
                 console.log(opt);
 
-                questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer").val();
-                questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_answer").val();
-                questionDetails[currentrow]['answers'][opt]['multipleanswer'] = $(element).find(".multipleanswer").val();
-                questionDetails[currentrow]['answers'][opt]['multipleoption'] = $(element).find(".multipleoption").val();
-                questionDetails[currentrow]['answers'][opt]['correctness_percentage'] = $(element).find(".correctness_percentage").val();
+                questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
+                questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_answer_data").val();
+                questionDetails[currentrow]['answers'][opt]['multipleanswer'] = $(element).find(".true_false_data").val();
+                questionDetails[currentrow]['answers'][opt]['multipleoption'] = $(element).find(".correct_answer_data").val();
+                questionDetails[currentrow]['answers'][opt]['correctness_percentage'] = $(element).find(".mcorrect_answer_data").val();
                 opt++;
 
             });
             createTable(questionDetails);
-
             $("#currentrow").val(currentrow + 1);
         }
         else {
@@ -421,8 +418,8 @@
             html += value['question_type'];
             html += '</td>';
             html += '<td>';
-            html += $(value['answers']).length;
-            //            console.log($(value['answers']));
+            html += $.map(value['answers'], function(n, i) { return i; }).length;
+              //          console.log(value['answers']);
             html += '</td>';
             html += '<td>';
             html += '<i class="icon-edit"></i><i class="icon-trash"></i>';

@@ -164,7 +164,7 @@ class cModel extends cDatabase {
     }
 
     function executeWrite() {
-        $this->dbObj->sql = $this->query;
+        echo $this->dbObj->sql = $this->query;
         $this->debug = false;
         $result = $this->dbObj->write();
         if ($result === false) {
