@@ -27,7 +27,7 @@ class cForm extends cUtil {
 
         $columnNames = $this->options['header'] ? $this->options['header'] : array_keys($this->data[0]);
 
-        $this->html.= '<table class="table ' . $classoptions . '" name="'.$this->options['name'].'" id="'.$this->options['id'].'">';
+        $this->html.= '<table class="table ' . $classoptions . '" name="' . $this->options['name'] . '" id="' . $this->options['id'] . '">';
         $this->html.= '<thead>';
         $this->html.= '<tr>';
         if ($this->options['serialnocolumn'] === true) {
@@ -71,7 +71,9 @@ class cForm extends cUtil {
                     $this->html.= '<td>
             <i class="icon-edit"></i>
             <i class="icon-trash"></i>
-            <i class="icon-ok"></i>';
+            <i class="icon-ok"></i>' . $this->options['actioncolumnicons']
+                    ;
+
                     $this->html.= '</td>';
                 }
                 $this->html.= '</tr>';
@@ -97,7 +99,7 @@ class cForm extends cUtil {
     function createSelect() {
         $this->options['id'] = $this->options['id'] ? $this->options['id'] : $this->options['name'];
         $this->options['mandatory'] = $this->options['mandatory'] ? true : "";
-        $this->html.='<select name = ' . $this->options['name'] . ' id = "' . $this->options['id'] . '" class="'.$this->options['class'].'" ' . $this->options['mandatory'] . '>';
+        $this->html.='<select name = ' . $this->options['name'] . ' id = "' . $this->options['id'] . '" class="' . $this->options['class'] . '" ' . $this->options['mandatory'] . '>';
         if ($this->options['default'] !== false) {
             $this->options['default'] = $this->options['default'] ? $this->options['default'] : "--Select--";
             $this->html.='<option value="' . $key . '" >' . $this->options['default'] . '</option>';
