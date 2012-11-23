@@ -19,6 +19,16 @@ class cTestController extends cController {
         $this->table = "test_details";
     }
 
+    function getTestDetails($id) {
+        $this->column = array("id", "name", "description", "logo", "created_by", "status");
+        $testDetails=$this->curd("view", $id);
+        $this->table = "questions";
+        $questions=$this->addWhereCondition("test_id=".$id)->select()->executeRead();
+        $testDetails[0]["question_count"]=count($questions);
+        return $testDetails;
+        
+    }
+
 }
 
 ?>
