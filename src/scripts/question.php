@@ -3,14 +3,24 @@
 include_once(AppRoot . AppController . "cTestController.php");
 
 $cTestControllerObj = new cTestController();
+print_r($_POST);
+print_r($_GET);
+
 
 if ($_POST) {
     print_r($_POST);
     $data=$cTestControllerObj ->getTestDetails($_POST["test_id"]);
     print_r($data);
-    $numbers = range(1, $data[0]["question_count"]);
-    print_r($numbers);
-    shuffle($numbers);
-    print_r($numbers);
+    $question_numbers = range(1, $data[0]["question_count"]);
+    print_r($question_numbers);
+    shuffle($question_numbers);
+    print_r($question_numbers);
+    
+    
+}
+if($_GET['type']=='ajax'){
+    
+    echo "Asdasd";
+    exit;
 }
 ?>
