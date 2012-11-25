@@ -112,6 +112,23 @@ class cForm extends cUtil {
         $this->html.='</select>';
     }
 
+    function createOptionButton() {
+        $this->html.='<div class = "controls">
+        <label class = "checkbox">
+        <input type = "option" name = ' . $this->options['name'] . ' id = "' . $this->options['id'] . '" class="' . $this->options['class'] . '" ' . $this->options['mandatory'] . '>
+         '.$this->data.'
+        </label>
+        </div>';
+    }
+    function createCheckBox() {
+        $this->html.='<div class = "controls">
+        <label class = "checkbox">
+        <input type = "checkbox" name = ' . $this->options['name'] . ' id = "' . $this->options['id'] . '" class="' . $this->options['class'] . '" ' . $this->options['mandatory'] . '>
+         '.$this->data.'
+        </label>
+        </div>';
+    }
+
     function html() {
         $temp = $this->html;
         unset($this->html, $this->options, $this->data);

@@ -24,17 +24,25 @@ class cUtil {
         //return $this->securityObj->encrypt($url);
         $url = "index.php?";
         foreach ($params as $key => $value) {
-            $url.=$key . "=" . base64_encode($value)."&";
+            $url.=$key . "=" . base64_encode($value) . "&";
         }
-        $url=rtrim($url,"&");
+        $url = rtrim($url, "&");
         return $url;
     }
 
     function urlDecode($params) {
-        foreach ($params as $key => $value) {
+        if (base64_decode($params['type']) == 'ajax') {
 
-            $params[$key] = base64_decode($value);
+            $params["a"] = base64_decode($params["a"]);
+            $params["f"] = base64_decode($params["f"]);
+            $params["type"] = base64_decode($params["type"]);
+        } else {
+            foreach ($params as $key => $value) {
+
+                $params[$key] = base64_decode($value);
+            }
         }
+
         return $params;
     }
 
@@ -45,7 +53,8 @@ class cUtil {
 
         $_log->write_log($level, $message, $php_error);
     }
-    function formatDate($date,$dateformat=AppDateFormatPhp){
+
+    function formatDate($date, $dateformat = AppDateFormatPhp) {
         return strftime($dateformat, strtotime($date));
     }
 
