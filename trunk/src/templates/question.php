@@ -88,19 +88,12 @@
 
             $("#instructions").hide();
 
-
+            getQuestion(0);
             $('#rootwizard').bootstrapWizard({onTabClick: function(tab, navigation, index) {
                     return false;
                 }, onNext: function(tab, navigation, index) {
-                    $.ajax({
-                        
-                        url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'question', "a" => "getquestion", "type" => "ajax")); ?>'+
-                               "&index="+index ,
-//                        data: {"tab": tab, "navigation": navigation, "index": index},
-                        success: function(data) {
-                            console.log(data);
-                        }
-                    });
+
+                    getQuestion(index);
                 }, onPrevious: function(tab, navigation, index) {
 
                 }, onLast: function(tab, navigation, index) {
@@ -122,5 +115,20 @@
             cnt++;
         });
     });
+
+    function getQuestion(seq) {
+        var questions = JSON.parse($('#seq').val());
+        console.log(questions);
+        $.ajax({
+            url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'question', "a" => "getquestion", "type" => "ajax")); ?>' +
+                    "&index=" + questions[seq],
+//                        data: {"tab": tab, "navigation": navigation, "index": index},
+            success: function(data) {
+                seq = parseInt(seq + 1)
+                $("#tab" + seq).html(data);
+                console.log(data);
+            }
+        });
+    }
 </script>
 
