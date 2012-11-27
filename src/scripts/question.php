@@ -20,7 +20,12 @@ if ($_POST) {
 }
 if($_GET['type']=='ajax'){
     
-    echo "Asdasd";
+    $questionDetails=$cTestControllerObj ->getQuestionDetails($_GET["index"]);
+    print_r($questionDetails);
+    
+    
+   //9176485554
+    
     exit;
 }
 ?>
