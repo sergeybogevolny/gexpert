@@ -114,6 +114,7 @@
             $(".tab-content").append(' <div class="tab-pane" id="tab' + cnt + '">');
             cnt++;
         });
+
     });
 
     function getQuestion(seq) {
@@ -127,8 +128,16 @@
                 seq = parseInt(seq + 1)
                 $("#tab" + seq).html(data);
                 console.log(data);
+                $(".sortable").sortable({
+//                    update: function(event, ui) {
+//                        $.post("ajax.php", {pages: $('#menu-pages').sortable('serialize')});
+//                    }
+                });
             }
         });
     }
 </script>
-
+<style>
+    .sortable,.match { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px; }
+    .sortable li,.match li{ margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 50px;min-width: 100% }
+</style>
