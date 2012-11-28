@@ -96,7 +96,7 @@
                     <div class="controls">
 
                         <?php
-                        $cFormObj->data = array("multiplechoice" => "Multiple Choice", "multipleresponse" => "Multiple Response", "true_false" => "True/False", "fillintheblank" => "Fill in the Blank", "matching" => "Matching", "sequence" => "Sequencing");
+                        $cFormObj->data = array("0" => "Multiple Choice", "1" => "Multiple Response", "2" => "True/False", "3" => "Fill in the Blank", "4" => "Matching", "5" => "Sequencing");
                         $cFormObj->options = array("name" => "question_type", "default" => false, "class" => "reset");
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
@@ -380,22 +380,22 @@
     function resetOptionsTable(val) {
         $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage').hide();
         switch (val) {
-            case 'multiplechoice':
+            case '0':
                 $('.multipleoption,.answer').show();
                 break;
-            case 'multipleresponse':
+            case '1':
                 $('.multipleanswer,.answer').show();
                 break;
-            case 'true_false':
+            case '2':
                 $('.true_false,').show();
                 break;
-            case 'fillintheblank':
+            case '3':
                 $('.multipleoption,.answer').show();
                 break;
-            case 'matching':
+            case '4':
                 $('.matchanswer,.answer').show();
                 break;
-            case 'sequence':
+            case '5':
                 $('.answer').show();
                 break;
         }
