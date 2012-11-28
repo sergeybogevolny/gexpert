@@ -33,15 +33,22 @@ class cTestController extends cController {
 
     function getQuestionDetails($id) {
         $this->table = "questions";
+        return $this->addWhereCondition("test_id=" . $id)->select()->executeRead();
+    }
+
+    function getQuestion($id) {
+        $this->table = "questions";
         return $this->addWhereCondition("id=" . $id)->select()->executeRead();
     }
 
+    //9551550467
     function getOptions($id) {
         $this->table = "answers";
-        return $this->curd();
+        return $this->addWhereCondition("question_id=" . $id)->select()->executeRead();
     }
 
     function createMultipleOption() {
+        
         
     }
 

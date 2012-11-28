@@ -83,6 +83,7 @@ class cForm extends cUtil {
         }
         $this->html.= '</tbody>';
         $this->html.= '</table>';
+        return $this;
     }
 
     function addAlert() {
@@ -94,6 +95,7 @@ class cForm extends cUtil {
         ' . $this->options['alert']['data'] . '
         </div>';
         }
+        return $this;
     }
 
     function createSelect() {
@@ -110,23 +112,31 @@ class cForm extends cUtil {
             $this->html.='<option value="' . $key . '" ' . $selected . ' >' . $value . '</option>';
         }
         $this->html.='</select>';
+        return $this;
     }
 
-    function createOptionButton() {
+    function createOption() {
         $this->html.='<div class = "controls">
-        <label class = "checkbox">
-        <input type = "option" name = ' . $this->options['name'] . ' id = "' . $this->options['id'] . '" class="' . $this->options['class'] . '" ' . $this->options['mandatory'] . '>
-         '.$this->data.'
+        <label class = "radio">
+        <input type = "radio" name = "' . $this->options['name'] . '" id = "' . $this->options['id'] . '" class="' . $this->options['class'] . '" ' . $this->options['mandatory'] . '>
+         ' . $this->data . '
         </label>
         </div>';
+        return $this;
     }
+
     function createCheckBox() {
         $this->html.='<div class = "controls">
         <label class = "checkbox">
         <input type = "checkbox" name = ' . $this->options['name'] . ' id = "' . $this->options['id'] . '" class="' . $this->options['class'] . '" ' . $this->options['mandatory'] . '>
-         '.$this->data.'
+         ' . $this->data . '
         </label>
         </div>';
+        return $this;
+    }
+
+    function createLabel() {
+        
     }
 
     function html() {
