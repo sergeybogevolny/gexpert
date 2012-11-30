@@ -70,18 +70,18 @@
 
                     </div>
                 </div>
-                <div class="control-group">
+<!--                <div class="control-group">
                     <label class="control-label" for="question_type">Sharing</label>
                     <div class="controls">
 
                         <?php
-                        $cFormObj->data = array("0" => "Public");
-                        $cFormObj->options = array("name" => "sharing", "default" => false);
-                        $cFormObj->createSelect();
-                        echo $cFormObj->html();
+//                        $cFormObj->data = array("0" => "Public");
+//                        $cFormObj->options = array("name" => "sharing", "default" => false);
+//                        $cFormObj->createSelect();
+//                        echo $cFormObj->html();
                         ?>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="tab-pane" id="tab2">
                 <div class="alert alert-error" style="display: none">

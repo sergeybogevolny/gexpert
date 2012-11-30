@@ -24,6 +24,9 @@
 			<column name="emp_code" type="VARCHAR" length="150" jt="12" mandatory="y" />
 			<column name="email" type="VARCHAR" length="500" jt="12" mandatory="y" />
 			<column name="phone" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<column name="user_type" type="INT" jt="4" todo="0" >
+				<defo>1</defo>
+			</column>
 			<index name="pk___users" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
@@ -31,16 +34,16 @@
 		<table name="answers" >
 			<column name="id" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="answer" type="VARCHAR" length="3000" jt="12" mandatory="y" />
-			<column name="answer_hint" type="VARCHAR" length="5000" jt="12" mandatory="y" />
 			<column name="is_correct" type="BIT" jt="-7" mandatory="y" >
-				<defo>0</defo>
+				<defo>b&#039;0&#039;</defo>
 			</column>
 			<column name="question_id" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="date_created" type="TIMESTAMP" length="19" jt="93" mandatory="y" >
 				<defo>CURRENT_TIMESTAMP</defo>
 			</column>
 			<column name="percent" type="INT" length="10" jt="4" mandatory="y" />
-			<index name="pk_answers" unique="UNIQUE" >
+			<column name="match_answer" type="VARCHAR" length="5000" jt="12" mandatory="y" />
+			<index name="pk_answers" unique="NORMAL" >
 				<column name="question_id" />
 			</index>
 			<fk name="fk_answers" to_schema="gexpert" to_table="questions" >
@@ -73,7 +76,7 @@
 			<index name="pk_questions" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
-			<index name="pk_questions_0" unique="UNIQUE" >
+			<index name="pk_questions_0" unique="NORMAL" >
 				<column name="test_id" />
 			</index>
 			<fk name="fk_questions" to_schema="gexpert" to_table="test_details" >
@@ -101,10 +104,10 @@
 			<index name="pk_test_details" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
-			<index name="category" unique="UNIQUE" >
+			<index name="category" unique="NORMAL" >
 				<column name="category" />
 			</index>
-			<index name="created_by" unique="UNIQUE" >
+			<index name="created_by" unique="NORMAL" >
 				<column name="created_by" />
 			</index>
 			<fk name="fk_test_details" to_schema="gexpert" to_table="category" >
@@ -114,8 +117,59 @@
 				<fk_column name="created_by" pk="id" />
 			</fk>
 		</table>
+		<table name="product_key_test_users" >
+			<column name="id" type="INT" length="10" jt="4" mandatory="y" autoincrement="y" />
+			<column name="product_key" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<column name="test_id" type="INT" length="10" jt="4" mandatory="y" />
+			<column name="test_user_id" type="INT" jt="4" />
+			<column name="status" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>&#039;1&#039;</defo>
+			</column>
+			<index name="pk_product_key_test_users" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="idx_product_key_test_users" unique="NORMAL" >
+				<column name="test_user_id" />
+			</index>
+			<index name="idx_product_key_test_users_0" unique="NORMAL" >
+				<column name="test_id" />
+			</index>
+			<fk name="fk_product_key_test_users" to_schema="gexpert" to_table="__users" >
+				<fk_column name="test_user_id" pk="id" />
+			</fk>
+			<fk name="fk_product_key_test_users_0" to_schema="gexpert" to_table="test_details" >
+				<fk_column name="test_id" pk="id" />
+			</fk>
+		</table>
+		<table name="scores" >
+			<column name="id" type="INT" jt="4" mandatory="y" autoincrement="y" />
+			<column name="score" type="DECIMAL" length="10" jt="3" mandatory="y" />
+			<column name="test_id" type="INT" jt="4" mandatory="y" />
+			<column name="user_id" type="INT" jt="4" mandatory="y" />
+			<column name="status" type="CHAR" length="1" jt="1" >
+				<defo>1</defo>
+			</column>
+			<column name="add_date" type="TIMESTAMP" length="19" jt="93" mandatory="y" >
+				<defo>CURRENT_TIMESTAMP</defo>
+			</column>
+			<index name="pk_scores" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="idx_scores" unique="NORMAL" >
+				<column name="test_id" />
+			</index>
+			<index name="idx_scores_0" unique="NORMAL" >
+				<column name="user_id" />
+			</index>
+			<fk name="fk_scores" to_schema="gexpert" to_table="test_details" >
+				<fk_column name="test_id" pk="id" />
+			</fk>
+			<fk name="fk_scores_0" to_schema="gexpert" to_table="__users" >
+				<fk_column name="user_id" pk="id" />
+			</fk>
+		</table>
 	</schema>
-	<connector name="MySql" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gexpert" user="root" passwd="c3VuZGFyMTIz" schema_mapping="" />
+	<connector name="MySql" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gexpert" user="root" schema_mapping="" />
 	<layout name="gexpert" show_relation_columns="y" >
 		<entity schema="gexpert" name="__login" x="742" y="70" />
 		<entity schema="gexpert" name="__users" x="588" y="70" />
@@ -134,13 +188,53 @@
 			<entity schema="gexpert" name="test_details" />
 		</group>
 	</layout>
-	<layout name="Layout_" joined_routing="y" >
-		<entity schema="gexpert" name="test_details" x="42" y="266" />
-		<entity schema="gexpert" name="__users" x="154" y="546" />
-		<entity schema="gexpert" name="__login" x="294" y="546" />
-		<entity schema="gexpert" name="category" x="224" y="294" />
-		<entity schema="gexpert" name="questions" x="224" y="42" />
-		<entity schema="gexpert" name="answers" x="420" y="210" />
+	<layout name="Layout_" joined_routing="y" show_column_type="y" >
+		<entity schema="gexpert" name="test_details" x="546" y="42" />
+		<entity schema="gexpert" name="questions" x="574" y="294" />
+		<entity schema="gexpert" name="answers" x="532" y="462" />
+		<entity schema="gexpert" name="scores" x="798" y="434" />
+		<entity schema="gexpert" name="category" x="770" y="56" />
+		<entity schema="gexpert" name="__login" x="42" y="42" />
+		<entity schema="gexpert" name="__users" x="224" y="42" />
+		<entity schema="gexpert" name="product_key_test_users" x="770" y="196" />
+		<group name="test" color="c4e0f9" >
+			<entity schema="gexpert" name="test_details" />
+			<entity schema="gexpert" name="questions" />
+			<entity schema="gexpert" name="category" />
+			<entity schema="gexpert" name="answers" />
+			<entity schema="gexpert" name="product_key_test_users" />
+		</group>
+		<group name="Application" color="ffcccc" >
+			<entity schema="gexpert" name="__login" />
+			<entity schema="gexpert" name="__users" />
+		</group>
+		<script name="product_key_test_users" confirmed="y" >
+			<string><![CDATA[CREATE TABLE gexpert.product_key_test_users ( 
+	id                   INT NOT NULL AUTO_INCREMENT,
+	product_key          VARCHAR( 50 ) NOT NULL,
+	test_id              INT NOT NULL,
+	test_user_id         INT NOT NULL,
+	status               CHAR( 1 ) NOT NULL DEFAULT 1,
+	CONSTRAINT pk_product_key_test_users PRIMARY KEY ( id )
+ );
+
+CREATE INDEX idx_product_key_test_users ON gflat_manager.product_key_test_users ( test_user_id );
+
+CREATE INDEX idx_product_key_test_users_0 ON gflat_manager.product_key_test_users ( test_id );
+
+ALTER TABLE gflat_manager.product_key_test_users ADD CONSTRAINT fk_product_key_test_users FOREIGN KEY ( test_user_id ) REFERENCES gflat_manager.`__blood_group`( id ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE gflat_manager.product_key_test_users ADD CONSTRAINT fk_product_key_test_users_0 FOREIGN KEY ( test_id ) REFERENCES gflat_manager.`__blood_group`( id ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE gflat_manager.product_key_test_users ADD CONSTRAINT fk_product_key_test_users_1 FOREIGN KEY ( test_user_id ) REFERENCES gflat_manager.`__blood_group`( id ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE gflat_manager.product_key_test_users ADD CONSTRAINT fk_product_key_test_users_2 FOREIGN KEY ( test_user_id ) REFERENCES gflat_manager.`__blood_group`( id ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+]]></string>
+		</script>
+		<script name="Sql" >
+			<string><![CDATA[SELECT u.name,emp_code,td.name,product_key,email,pktu.id FROM product_key_test_users pktu join test_details td on td.id=pktu.test_id left join __users u on u.id=pktu.test_user_id]]></string>
+		</script>
 		<browser name="__users" >
 			<browse_table schema="gexpert" entity="__users" x="10" y="10" width="457" height="352" />
 			<browse_table schema="gexpert" entity="test_details" x="397" y="-8" width="457" height="352" />
