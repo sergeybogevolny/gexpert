@@ -3,12 +3,18 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 28, 2012 at 02:02 PM
+-- Generation Time: Nov 30, 2012 at 07:29 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `gexpert`
@@ -83,6 +89,44 @@ INSERT INTO `category` (`id`, `name`, `code`, `logo`, `date_created`, `status`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `product_key_test_users`
+--
+
+CREATE TABLE IF NOT EXISTS `product_key_test_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_key` varchar(50) NOT NULL,
+  `test_id` int(11) NOT NULL,
+  `test_user_id` int(11) DEFAULT NULL,
+  `status` char(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `idx_product_key_test_users` (`test_user_id`),
+  KEY `idx_product_key_test_users_0` (`test_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+
+--
+-- Dumping data for table `product_key_test_users`
+--
+
+INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`, `test_user_id`, `status`) VALUES
+(7, 'RL6DL9CCPW2Z6XU3', 15, NULL, '1'),
+(8, 'OZN9MWQFR8LOD4FV', 15, NULL, '1'),
+(9, 'Y2BZ62ZEW1PON08F', 15, NULL, '1'),
+(10, '6S2L3O1BARLBP86L', 15, NULL, '1'),
+(11, 'KV2H4N6BMGWFDWQ9', 15, NULL, '1'),
+(12, 'IEL4DZ3B9Q13G4CB', 15, NULL, '1'),
+(13, '2URKEFYM6KPYCUQX', 15, NULL, '1'),
+(14, '9XPUR2ZBOPEPYF06', 15, NULL, '1'),
+(15, 'WNDZI4ODF6I0EP5T', 15, NULL, '1'),
+(16, 'DAYMU6A3BW0SWA2', 15, NULL, '1'),
+(17, 'VP955MIZ1PIA2C1', 15, NULL, '1'),
+(18, 'K8TTCEBMYVRUF7TT', 15, NULL, '1'),
+(19, 'UO3EASQKPBO1ZDRR', 15, NULL, '1'),
+(20, 'ZTFGOEGKCVVXD93', 15, NULL, '1'),
+(21, 'VGXNPWV8C2T4N3OS', 15, NULL, '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `questions`
 --
 
@@ -111,6 +155,24 @@ INSERT INTO `questions` (`id`, `test_id`, `question_type`, `level_id`, `date_cre
 (7, 15, 1, 1, '2012-11-24 17:28:24', 0, 'Functions available in PHP'),
 (8, 15, 4, 1, '2012-11-24 17:28:24', 0, 'Match the following'),
 (9, 15, 5, 1, '2012-11-24 17:28:24', 0, 'Sequencing');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scores`
+--
+
+CREATE TABLE IF NOT EXISTS `scores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `score` decimal(10,0) NOT NULL,
+  `test_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` char(1) DEFAULT '1',
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_scores` (`test_id`),
+  KEY `idx_scores_0` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -176,6 +238,7 @@ CREATE TABLE IF NOT EXISTS `__users` (
   `emp_code` varchar(150) NOT NULL,
   `email` varchar(500) NOT NULL,
   `phone` varchar(50) NOT NULL,
+  `user_type` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -183,8 +246,8 @@ CREATE TABLE IF NOT EXISTS `__users` (
 -- Dumping data for table `__users`
 --
 
-INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`) VALUES
-(1, 'Sundar', '001', 'meenakshi.sun20@gmail.com', '9841673880');
+INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`) VALUES
+(1, 'Sundar', '001', 'meenakshi.sun20@gmail.com', '9841673880', 1);
 
 --
 -- Constraints for dumped tables
@@ -197,10 +260,24 @@ ALTER TABLE `answers`
   ADD CONSTRAINT `fk_answers` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `product_key_test_users`
+--
+ALTER TABLE `product_key_test_users`
+  ADD CONSTRAINT `fk_product_key_test_users` FOREIGN KEY (`test_user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_product_key_test_users_0` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
   ADD CONSTRAINT `fk_questions` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `scores`
+--
+ALTER TABLE `scores`
+  ADD CONSTRAINT `fk_scores_0` FOREIGN KEY (`user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_scores` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `test_details`
@@ -214,3 +291,7 @@ ALTER TABLE `test_details`
 --
 ALTER TABLE `__login`
   ADD CONSTRAINT `fk___login` FOREIGN KEY (`user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

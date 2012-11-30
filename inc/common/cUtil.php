@@ -58,6 +58,20 @@ class cUtil {
         return strftime($dateformat, strtotime($date));
     }
 
+    function generateProductKey() {
+        $pool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $countPool = strlen($pool);
+        $totalChars = 16;
+        $serial = '';
+        for ($i = 0; $i < $totalChars; $i++) {
+            $currIndex = mt_rand(0, $countPool);
+            $currChar = $pool[$currIndex];
+            $serial .= $currChar;
+        }
+        return $serial;
+    }
+    
+
 }
 
 ?>
