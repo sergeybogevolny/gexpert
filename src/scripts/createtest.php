@@ -45,7 +45,6 @@ if ($_POST["questionsdata"]) {
         }
     }
 
-    //9860
     echo 'asdasdasd';
 
     exit;

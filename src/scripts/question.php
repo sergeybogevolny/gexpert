@@ -26,13 +26,13 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     print_r($questionDetails);
     $html = "<h4>" . $questionDetails[0]["question"] . "</h4></br>";
     $options = $cTestControllerObj->getOptions($questionDetails[0]["id"]);
-    echo $cTestControllerObj->questionType;
+    //echo $cTestControllerObj->questionType;
     switch ($cTestControllerObj->questionType) {
         case 0:
             foreach ($options as $key => $value) {
                 $cFormObj->options["name"] = $cTestControllerObj->questionId;
                 $cFormObj->options["id"] = $cTestControllerObj->questionId;
-                $cFormObj->options["class"] = "";
+                $cFormObj->options["class"] = "answer";
                 $cFormObj->data = $value["answer"];
                 $cFormObj->createOption();
                 $html .= $cFormObj->html();
@@ -43,7 +43,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             foreach ($options as $key => $value) {
                 $cFormObj->options["name"] = $cTestControllerObj->questionId;
                 $cFormObj->options["id"] = $cTestControllerObj->questionId;
-                $cFormObj->options["class"] = "";
+                $cFormObj->options["class"] = "answer";
                 $cFormObj->data = $value["answer"];
                 $cFormObj->createCheckBox();
                 $html .= $cFormObj->html();
@@ -51,10 +51,10 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
         case 2:
             $html.='<div class = "btn-group" data-toggle = "buttons-radio">
-            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "btn btn-success active" value = "1">
+            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "answer btn btn-success active" value = "1">
             <i class = "icon-ok icon-white"></i>
             </button>
-            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "btn" value = "0"><i class = "icon-remove"></i></button>
+            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "answer btn" value = "0"><i class = "icon-remove"></i></button>
             </div >';
 
             break;
@@ -62,7 +62,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             foreach ($options as $key => $value) {
                 $cFormObj->options["name"] = $cTestControllerObj->questionId;
                 $cFormObj->options["id"] = $cTestControllerObj->questionId;
-                $cFormObj->options["class"] = "";
+                $cFormObj->options["class"] = "answer";
                 $cFormObj->data = $value["answer"];
                 $cFormObj->createOption();
                 $html .= $cFormObj->html();
@@ -73,8 +73,8 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             $html_match_left.="<ul class=\"match span5\" id=\"match_" . $cTestControllerObj->questionId . "\">";
             $html_match_right.="<ul class=\"sortable span5\" id=\"answer_" . $cTestControllerObj->questionId . "\">";
             foreach ($options as $key => $value) {
-                $html_match_left.= "<li class=\"ui-state-default fill\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
-                $html_match_right.= "<li class=\"ui-state-highlight fill\" id=\"" . $value["id"] . "\">" . $value["match_answer"] . "</li>";
+                $html_match_left.= "<li class=\"ui-state-default fill answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
+                $html_match_right.= "<li class=\"ui-state-highlight fill answer\" id=\"" . $value["id"] . "\">" . $value["match_answer"] . "</li>";
             }
             $html_match_left.="</ul>";
             $html_match_right.="</ul>";
@@ -86,7 +86,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             $html.="<div class='row-fluid'>";
             $html.="<ul class=\"sortable span9\" id=\"" . $cTestControllerObj->questionId . "\">";
             foreach ($options as $key => $value) {
-                $html .= "<li class=\"ui-state-highlight\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
+                $html .= "<li class=\"ui-state-highlight answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
             }
             $html.="</ul>";
             $html.="</div>";
@@ -95,7 +95,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
     }
 
-    echo $html;
+    echo $html."<input name='answer_type' value='".$cTestControllerObj->questionType."' type='hidden' />";
     exit;
 }
 ?>
