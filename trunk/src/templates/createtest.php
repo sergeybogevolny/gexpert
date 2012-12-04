@@ -70,18 +70,24 @@
 
                     </div>
                 </div>
-<!--                <div class="control-group">
+                <div class="control-group">
+                    <label class="control-label" for="testtime">Allow Correction</label>
+                    <div class="controls">
+                        <input name="allow_review" type="checkbox" id="allow_review" checked="true"/>
+                    </div>
+                </div>
+                <div class="control-group">
                     <label class="control-label" for="question_type">Sharing</label>
                     <div class="controls">
 
                         <?php
-//                        $cFormObj->data = array("0" => "Public");
-//                        $cFormObj->options = array("name" => "sharing", "default" => false);
-//                        $cFormObj->createSelect();
-//                        echo $cFormObj->html();
+                        $cFormObj->data = array("0" => "Public", "1" => "Private");
+                        $cFormObj->options = array("name" => "sharing", "default" => false);
+                        $cFormObj->createSelect();
+                        echo $cFormObj->html();
                         ?>
                     </div>
-                </div>-->
+                </div>
             </div>
             <div class="tab-pane" id="tab2">
                 <div class="alert alert-error" style="display: none">
@@ -229,7 +235,7 @@
 
             //            $.ajax({
             //                type: "POST",
-            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));             ?>',
+            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));                    ?>',
             //                data: $("#testmanager").serialize(),
             //                success: function() {
             //
@@ -240,17 +246,17 @@
         });
 
         $('.calender').daterangepicker(
-        {
-            ranges: {
-                'Today': ['today', 'today'],
-                'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
-                'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
-            }
-        },
+                {
+                    ranges: {
+                        'Today': ['today', 'today'],
+                        'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
+                        'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
+                    }
+                },
         function(start, end) {
             $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
         }
-    );
+        );
 
         $('#instructions').wysihtml5({"color": true});
         $('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
@@ -418,8 +424,10 @@
             html += value['question_type'];
             html += '</td>';
             html += '<td>';
-            html += $.map(value['answers'], function(n, i) { return i; }).length;
-              //          console.log(value['answers']);
+            html += $.map(value['answers'], function(n, i) {
+                return i;
+            }).length;
+            //          console.log(value['answers']);
             html += '</td>';
             html += '<td>';
             html += '<i class="icon-edit"></i><i class="icon-trash"></i>';

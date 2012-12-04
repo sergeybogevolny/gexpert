@@ -136,6 +136,18 @@
             }
         });
     }
+    function getAnswer(seq) {
+        var answer = '';
+        var divid='#tab'+seq;
+        switch ($('#answer_type').val()) {
+            case 0:
+                $(divid+' .answer:checked').each(function(){
+           //     answer=    
+                    
+                });
+                
+                break;
+    }
 </script>
 <style>
     .sortable,.match { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px; }
