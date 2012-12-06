@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 30, 2012 at 07:29 PM
+-- Generation Time: Dec 06, 2012 at 07:47 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `product_key_test_users` (
   PRIMARY KEY (`id`),
   KEY `idx_product_key_test_users` (`test_user_id`),
   KEY `idx_product_key_test_users_0` (`test_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `product_key_test_users`
@@ -122,7 +122,15 @@ INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`, `test_user
 (18, 'K8TTCEBMYVRUF7TT', 15, NULL, '1'),
 (19, 'UO3EASQKPBO1ZDRR', 15, NULL, '1'),
 (20, 'ZTFGOEGKCVVXD93', 15, NULL, '1'),
-(21, 'VGXNPWV8C2T4N3OS', 15, NULL, '1');
+(21, 'VGXNPWV8C2T4N3OS', 15, NULL, '1'),
+(22, '90K1BDX8M1XG2HW', 15, NULL, '1'),
+(23, 'XSL7B8LM3J15PO41', 15, NULL, '1'),
+(24, 'S8YF0WU9AZ02PT64', 15, NULL, '1'),
+(25, '3UTRTOGDHNR6LLKF', 15, NULL, '1'),
+(26, 'AW4JO0CAV3LZGQ5', 15, NULL, '1'),
+(27, '07Y7W4DEJ8GOEK8A', 15, NULL, '1'),
+(28, 'NXU5ICXX7EQRL3M1', 15, NULL, '1'),
+(29, '25S4M100W77AIP0R', 15, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -276,8 +284,8 @@ ALTER TABLE `questions`
 -- Constraints for table `scores`
 --
 ALTER TABLE `scores`
-  ADD CONSTRAINT `fk_scores_0` FOREIGN KEY (`user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_scores` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_scores` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_scores_0` FOREIGN KEY (`user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `test_details`

@@ -66,22 +66,11 @@
     </div>
 </div>
 <input type="hidden" id="seq" name="seq" value="<?php echo json_encode($question_numbers); ?>"/>
+<input type="hidden" id="answers" name="answers" value=""/>
 </form>
 
 <script>
-    $('.alternative').toggle({
-        onClick: function(evt, status) {
-            console.log('.alternative changed to: ' + status, 'the reverse of: ' + !status);
-        },
-        text: {
-            enabled: 'TRUE',
-            disabled: 'FALSE'
-        },
-        style: {
-            enabled: 'success',
-            disabled: 'danger'
-        }
-    });
+
     $(document).ready(function() {
 
         $("#start_test").click(function() {
@@ -92,7 +81,7 @@
             $('#rootwizard').bootstrapWizard({onTabClick: function(tab, navigation, index) {
                     return false;
                 }, onNext: function(tab, navigation, index) {
-
+                    getAnswer(index);
                     getQuestion(index);
                 }, onPrevious: function(tab, navigation, index) {
 
@@ -116,7 +105,7 @@
         });
 
     });
-
+//
     function getQuestion(seq) {
         var questions = JSON.parse($('#seq').val());
         console.log(questions);
@@ -136,17 +125,35 @@
             }
         });
     }
+    var answer = new Array();
     function getAnswer(seq) {
-        var answer = '';
-        var divid='#tab'+seq;
+
+        var current_answer = new Array();
+        var divid = '#tab' + seq;
         switch ($('#answer_type').val()) {
             case 0:
-                $(divid+' .answer:checked').each(function(){
-           //     answer=    
-                    
-                });
-                
+                current_answer[0] = $(divid + ' .answer:checked');
                 break;
+
+            case 1:
+                current_answer[0] = $(divid + ' .answer:checked');
+                break;
+            case 2:
+                current_answer[0] = $(divid + '.active').val();
+                break;
+            case 3:
+                current_answer = $(divid + ' .answer:checked');
+                break;
+            case 4:
+                current_answer = $(".sortable").sortable("toArray");
+                break;
+            case 5:
+                current_answer = $(".sortable").sortable("toArray");
+                break;
+        }
+        answer[seq] = current_answer;
+        console.log(answer);
+        $('#answers').val(JSON.stringify(answer));
     }
 </script>
 <style>

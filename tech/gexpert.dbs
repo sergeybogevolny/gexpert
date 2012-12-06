@@ -6,8 +6,8 @@
 			<column name="name" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="password" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="last_login" type="INT" length="10" jt="4" mandatory="y" />
-			<column name="status" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="user_id" type="INT" jt="4" todo="0" />
+			<column name="status" type="INT" length="10" jt="4" mandatory="y" />
 			<index name="pk___login" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
@@ -169,7 +169,8 @@
 			</fk>
 		</table>
 	</schema>
-	<connector name="MySql" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gexpert" user="root" schema_mapping="" />
+	<connector name="gexpert" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gexpert" user="root" schema_mapping="" />
+	<connector name="gflat_manager" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gflat_manager" user="root" schema_mapping="" />
 	<layout name="gexpert" show_relation_columns="y" >
 		<entity schema="gexpert" name="__login" x="742" y="70" />
 		<entity schema="gexpert" name="__users" x="588" y="70" />
@@ -189,14 +190,14 @@
 		</group>
 	</layout>
 	<layout name="Layout_" joined_routing="y" show_column_type="y" >
-		<entity schema="gexpert" name="test_details" x="546" y="42" />
-		<entity schema="gexpert" name="questions" x="574" y="294" />
-		<entity schema="gexpert" name="answers" x="532" y="462" />
-		<entity schema="gexpert" name="scores" x="798" y="434" />
-		<entity schema="gexpert" name="category" x="770" y="56" />
+		<entity schema="gexpert" name="test_details" x="602" y="42" />
+		<entity schema="gexpert" name="questions" x="630" y="294" />
+		<entity schema="gexpert" name="scores" x="854" y="434" />
+		<entity schema="gexpert" name="category" x="826" y="56" />
+		<entity schema="gexpert" name="product_key_test_users" x="826" y="196" />
 		<entity schema="gexpert" name="__login" x="42" y="42" />
 		<entity schema="gexpert" name="__users" x="224" y="42" />
-		<entity schema="gexpert" name="product_key_test_users" x="770" y="196" />
+		<entity schema="gexpert" name="answers" x="588" y="462" />
 		<group name="test" color="c4e0f9" >
 			<entity schema="gexpert" name="test_details" />
 			<entity schema="gexpert" name="questions" />
@@ -232,12 +233,37 @@ ALTER TABLE gflat_manager.product_key_test_users ADD CONSTRAINT fk_product_key_t
 
 ]]></string>
 		</script>
-		<script name="Sql" >
+		<script name="Sql" confirmed="y" >
 			<string><![CDATA[SELECT u.name,emp_code,td.name,product_key,email,pktu.id FROM product_key_test_users pktu join test_details td on td.id=pktu.test_id left join __users u on u.id=pktu.test_user_id]]></string>
 		</script>
 		<browser name="__users" >
 			<browse_table schema="gexpert" entity="__users" x="10" y="10" width="457" height="352" />
 			<browse_table schema="gexpert" entity="test_details" x="397" y="-8" width="457" height="352" />
 		</browser>
+		<browser name="Data" >
+			<browse_table schema="gexpert" entity="category" x="37" y="39" width="456" height="351" >
+				<browse_table schema="gexpert" entity="test_details" fk="fk_test_details" x="503" y="10" width="456" height="351" >
+					<browse_table schema="gexpert" entity="questions" fk="fk_questions" x="969" y="10" width="456" height="351" >
+						<browse_table schema="gexpert" entity="answers" fk="fk_answers" x="1435" y="10" width="439" height="338" />
+					</browse_table>
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query name="Query" >
+			<query_table schema="gexpert" name="questions" x="42" y="56" >
+				<column name="test_id" />
+				<column name="level_id" />
+				<column name="date_created" />
+				<column name="status" />
+				<column name="question" />
+				<query_table schema="gexpert" name="test_details" x="224" y="84" fk="fk_questions" type="Inner Join" >
+					<column name="logo" />
+					<column name="created_by" />
+					<column name="valid_from" />
+					<query_table schema="gexpert" name="__users" x="378" y="224" fk="fk_test_details_0" type="Inner Join" />
+					<query_table schema="gexpert" name="category" x="392" y="42" fk="fk_test_details" type="Inner Join" />
+				</query_table>
+			</query_table>
+		</query>
 	</layout>
 </project>
