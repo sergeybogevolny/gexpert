@@ -18,7 +18,7 @@
                 <div class="control-group">
                     <label class="control-label" for="testname">Test Name</label>
                     <div class="controls">
-                        <input name="testname" type="text" id="testname" />
+                        <input name="name" type="text" id="name" rel="tooltip" title="Your name cannot be Bob." placeholder="anything but Bob will work" />
                     </div>
                 </div>
 
@@ -478,7 +478,7 @@
 
 
     }
-
+    
 </script>
 
 

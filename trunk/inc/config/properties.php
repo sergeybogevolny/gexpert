@@ -104,5 +104,15 @@ define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
  * Application Settings
  *
  */
+define('AppRequiresLogin', true);
+define('AppHomePage', 'tests');
+define('AppName', 'GFlatManager');
+
+
 define('AppDateFormatPhp', 'd/m/Y');
+define('AppDateFormatJs', 'yy-mm-dd');
+define('AppDateFormatDb', '%d/%m/%Y');
+define('AppDateFormatDbInput', 'yyyy-mm-dd');
+define('AppDateFormatTpl', '%d/%m/%Y');
+
 ?>

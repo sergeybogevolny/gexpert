@@ -7,13 +7,24 @@ include_once AppRoot . '/inc/common/cForm.php';
 $cFormObj = new cForm();
 session_start();
 
-//print_r($_POST);
-//print_r($_GET);
-//exit;
+
+
 $_GET = $cFormObj->urlDecode($_GET);
 
+if ($_SESSION['user_id']) {
+    //include_once AppRoot . AppScriptURL . 'menu.php';
+    if ($_GET['f'] == 'login'||$_GET['f']=='') {
+        $_GET['f'] = AppHomePage;
+    }
+}else{
+    $_GET['f']='login';
+}
 
 if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
+    $page=$_GET['f'];
+    if (is_readable('src/scripts/' . $page . '.php')) {
+        include_once 'src/scripts/' . $page . '.php';
+    }
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -62,6 +73,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <script src="src/js/daterangepicker.js"></script>
             <script src="src/js/jquery.bootstrap.wizard.js"></script>
             <script src="src/js/jquery.table.addrow.js"></script>
+
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-inner">
                     <div class="container">
@@ -71,53 +83,63 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                             <span class="icon-bar"></span>
                         </a>
                         <a class="brand" href="#">G-Expertise</a>
-                        <div class="btn-group">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">
-                                Take A Test
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">Take a Test</a></li>
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>">Questions</a></li>
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'instructions')); ?>">Instructions</a></li>
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'results')); ?>">Results</a></li>
-                            </ul>
-                            </a>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                Test Manager
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                Admin<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'users')); ?>">Users</a></li>
-                                <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
-                                
+                        <?php if ($_SESSION["user_id"]) { ?>
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">
+                                    Take A Test
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">Take a Test</a></li>
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>">Questions</a></li>
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'instructions')); ?>">Instructions</a></li>
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'results')); ?>">Results</a></li>
+                                </ul>
+                                </a>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Test Manager
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Admin<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'users')); ?>">Users</a></li>
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
 
-                            </ul>
-                        </div>
-                        <div class="btn-group pull-right">
-                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                Action
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>Settings</li>
-                            </ul>
-                        </div>
+
+                                </ul>
+                            </div>
+                            <div class="btn-group pull-right">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Action
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>Settings</li>
+                                </ul>
+                            </div>
+                        <?php } ?>
                         <div class="nav-collapse collapse pull-right">
                             <ul class="nav ">
 
-                                <li><a href="#contact">Login</a></li>
+                                <?php if ($_SESSION["user_id"]) { ?>
+                                    <li><a href="<?php echo $cFormObj->createLinkUrl(array('f' => 'logout')); ?>">Logout</a></li>
+                                <?php } else { ?>
+
+                                    <li><a href="<?php echo $cFormObj->createLinkUrl(array('f' => 'login')); ?>">Login</a></li>
+                                <?php } ?>
+
+
+
                             </ul>
                         </div><!--/.nav-collapse -->
                     </div>
@@ -127,12 +149,11 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                 <?php
             }
 
-            $page = $_GET['f'] ? $_GET['f'] : 'home';
-            if (is_readable('src/scripts/' . $page . '.php')) {
-                include_once 'src/scripts/' . $page . '.php';
+            if ($_SESSION["user_id"])
+                include 'src/templates/' . $page . '.php';
+            else {
+                include 'src/templates/login.php';
             }
-
-            include 'src/templates/' . $page . '.php';
             if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                 ?>
 
