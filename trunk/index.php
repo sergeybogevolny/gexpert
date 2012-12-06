@@ -15,7 +15,6 @@ $_GET = $cFormObj->urlDecode($_GET);
 
 if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
     ?>
-
     <!DOCTYPE html>
     <html lang="en">
         <head>
