@@ -70,7 +70,25 @@ class cUtil {
         }
         return $serial;
     }
-    
+
+    function redirect($uri = '', $method = 'default', $http_response_code = 302) {
+//		if ( ! preg_match('#^https?://#i', $uri))
+//		{
+//			$uri = site_url($uri);
+//		}
+
+        switch ($method) {
+            case 'refresh' : header("Refresh:0;url=" . $uri);
+                break;
+            case 'default' :
+                $encoded=$this->createLinkUrl($uri);
+                header("Location: $encoded", TRUE, $http_response_code);
+                break;
+            default : header("Location: " . $uri, TRUE, $http_response_code);
+                break;
+        }
+        exit;
+    }
 
 }
 
