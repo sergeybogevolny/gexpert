@@ -9,33 +9,33 @@
             </div>
         </div>
         <div class="control-group">  
-            <label class="control-label" for="logo">Employee Code</label>  
+            <label class="control-label" for="emplyoee_code">Employee Code</label>  
             <div class="controls">  
-                <input name="name" type="text" id="emplyoee_code" />
+                <input name="emplyoee_code" type="text" id="emplyoee_code" />
             </div>  
         </div>  
         <div class="control-group">
-            <label class="control-label" for="code">Email</label>
+            <label class="control-label" for="email">Email</label>
             <div class="controls">
-                <input name="code" type="text" id="email" />
+                <input name="email" type="text" id="email" />
             </div>
         </div>   
         <div class="control-group">
-            <label class="control-label" for="code">Phone</label>
+            <label class="control-label" for="phone">Phone</label>
             <div class="controls">
-                <input name="code" type="text" id="phone" />
+                <input name="phone" type="text" id="phone" />
             </div>
         </div>   
         <div class="control-group">
-            <label class="control-label" for="code">Username</label>
+            <label class="control-label" for="username">Username</label>
             <div class="controls">
-                <input name="code" type="text" id="username" />
+                <input name="username" type="text" id="username" />
             </div>    
         </div>     
         <div class="control-group">
-            <label class="control-label" for="code">Password</label>
+            <label class="control-label" for="password">Password</label>
             <div class="controls">
-                <input name="code" type="password" id="password" />
+                <input name="password" type="password" id="password" />
             </div>
         </div> 
         <div class="control-group">

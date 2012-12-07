@@ -25,15 +25,16 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <input name="rememberme" type="checkbox" id="rememberme" value="forever" />
-                &nbsp; Remember me&nbsp;&nbsp;
+<!--                <input name="rememberme" type="checkbox" id="rememberme" value="forever" />-->
+                <!--&nbsp; Remember me&nbsp;&nbsp;-->
                 <input type="submit" name="Submit" value="Login" class="btn btn-primary" />
+                <a href="<?php echo $cFormObj->createLinkUrl(array('f' => 'forget_password')); ?>">Forget Password</a>	
             </div>
         </div>                        
 
         <div class="clear"></div>
-        <div align="left">New User?&nbsp;
-            <a href="index.php?f=cmVnaXN0ZXI=">Click here to register</a></div>	
+        <div align="left">New User ?&nbsp;
+            <a href="<?php echo $cFormObj->createLinkUrl(array('f' => 'register')); ?>">Click here to register</a></div>	
         <div class="clear"></div>
     </fieldset>		
 </form>

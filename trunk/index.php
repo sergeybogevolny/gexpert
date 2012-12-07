@@ -10,18 +10,21 @@ session_start();
 
 
 $_GET = $cFormObj->urlDecode($_GET);
-
+$page = $_GET['f'];
 if ($_SESSION['user_id']) {
     //include_once AppRoot . AppScriptURL . 'menu.php';
-    if ($_GET['f'] == 'login'||$_GET['f']=='') {
-        $_GET['f'] = AppHomePage;
+    if ($page == 'login' || $page == '') {
+        $page = AppHomePage;
     }
-}else{
-    $_GET['f']='login';
+} else {
+
+    if (in_array($page, unserialize(AppSessionLessPages)) === false) {
+        $page = 'login';
+    }
 }
 
 if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
-    $page=$_GET['f'];
+    
     if (is_readable('src/scripts/' . $page . '.php')) {
         include_once 'src/scripts/' . $page . '.php';
     }
@@ -82,7 +85,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
-                        <a class="brand" href="#">G-Expertise</a>
+                        <a class="brand" href="#">GExpertise</a>
                         <?php if ($_SESSION["user_id"]) { ?>
                             <div class="btn-group">
                                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">
@@ -149,11 +152,8 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                 <?php
             }
 
-            if ($_SESSION["user_id"])
-                include 'src/templates/' . $page . '.php';
-            else {
-                include 'src/templates/login.php';
-            }
+            
+            include 'src/templates/' . $page . '.php';
             if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                 ?>
 
