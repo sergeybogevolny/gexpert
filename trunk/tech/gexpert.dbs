@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="MySql" database="MySql" >
 	<schema name="gexpert" catalogname="gexpert" defo="y" >
-		<table name="__login" >
-			<column name="id" type="INT" length="10" jt="4" mandatory="y" autoincrement="y" />
-			<column name="name" type="INT" length="10" jt="4" mandatory="y" />
-			<column name="password" type="INT" length="10" jt="4" mandatory="y" />
-			<column name="last_login" type="INT" length="10" jt="4" mandatory="y" />
-			<column name="user_id" type="INT" jt="4" todo="0" />
-			<column name="status" type="INT" length="10" jt="4" mandatory="y" />
-			<index name="pk___login" unique="PRIMARY_KEY" >
-				<column name="id" />
-			</index>
-			<index name="idx___login" unique="NORMAL" >
-				<column name="user_id" />
-			</index>
-			<fk name="fk___login" to_schema="gexpert" to_table="__users" >
-				<fk_column name="user_id" pk="id" />
-			</fk>
-		</table>
 		<table name="__users" >
 			<column name="id" type="INT" length="10" jt="4" mandatory="y" autoincrement="y" />
 			<column name="name" type="VARCHAR" length="500" jt="12" mandatory="y" />
@@ -27,6 +10,8 @@
 			<column name="user_type" type="INT" jt="4" todo="0" >
 				<defo>1</defo>
 			</column>
+			<column name="username" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="password" type="VARCHAR" length="100" jt="12" mandatory="y" />
 			<index name="pk___users" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
@@ -172,14 +157,12 @@
 	<connector name="gexpert" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gexpert" user="root" schema_mapping="" />
 	<connector name="gflat_manager" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.20-bin.jar" host="localhost" port="3306" instance="gflat_manager" user="root" schema_mapping="" />
 	<layout name="gexpert" show_relation_columns="y" >
-		<entity schema="gexpert" name="__login" x="742" y="70" />
 		<entity schema="gexpert" name="__users" x="588" y="70" />
 		<entity schema="gexpert" name="category" x="42" y="322" />
 		<entity schema="gexpert" name="test_details" x="182" y="42" />
 		<entity schema="gexpert" name="answers" x="182" y="336" />
 		<entity schema="gexpert" name="questions" x="378" y="238" />
 		<group name="__login" color="ffffcc" >
-			<entity schema="gexpert" name="__login" />
 			<entity schema="gexpert" name="__users" />
 		</group>
 		<group name="Unreferenced" color="fff8d6" >
@@ -190,14 +173,13 @@
 		</group>
 	</layout>
 	<layout name="Layout_" joined_routing="y" show_column_type="y" >
-		<entity schema="gexpert" name="test_details" x="602" y="42" />
-		<entity schema="gexpert" name="questions" x="630" y="294" />
-		<entity schema="gexpert" name="scores" x="854" y="434" />
-		<entity schema="gexpert" name="category" x="826" y="56" />
-		<entity schema="gexpert" name="product_key_test_users" x="826" y="196" />
-		<entity schema="gexpert" name="__login" x="42" y="42" />
-		<entity schema="gexpert" name="__users" x="224" y="42" />
-		<entity schema="gexpert" name="answers" x="588" y="462" />
+		<entity schema="gexpert" name="test_details" x="420" y="42" />
+		<entity schema="gexpert" name="questions" x="448" y="294" />
+		<entity schema="gexpert" name="scores" x="672" y="434" />
+		<entity schema="gexpert" name="category" x="644" y="56" />
+		<entity schema="gexpert" name="product_key_test_users" x="644" y="196" />
+		<entity schema="gexpert" name="__users" x="42" y="42" />
+		<entity schema="gexpert" name="answers" x="406" y="462" />
 		<group name="test" color="c4e0f9" >
 			<entity schema="gexpert" name="test_details" />
 			<entity schema="gexpert" name="questions" />
@@ -206,7 +188,6 @@
 			<entity schema="gexpert" name="product_key_test_users" />
 		</group>
 		<group name="Application" color="ffcccc" >
-			<entity schema="gexpert" name="__login" />
 			<entity schema="gexpert" name="__users" />
 		</group>
 		<script name="product_key_test_users" confirmed="y" >
