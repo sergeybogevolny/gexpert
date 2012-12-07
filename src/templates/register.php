@@ -5,45 +5,51 @@
         <div class="control-group">
             <label class="control-label" for="name">Name</label>
             <div class="controls">
-                <input name="name" type="text" id="name" />
+                <input name="name" type="text" id="name" placeholder="Enter your name" required/>
             </div>
         </div>
         <div class="control-group">  
             <label class="control-label" for="emplyoee_code">Employee Code</label>  
             <div class="controls">  
-                <input name="emplyoee_code" type="text" id="emplyoee_code" />
+                <input name="emplyoee_code" type="text" placeholder="Your Employee code" id="emplyoee_code" />
             </div>  
         </div>  
         <div class="control-group">
             <label class="control-label" for="email">Email</label>
             <div class="controls">
-                <input name="email" type="text" id="email" />
+                <input name="email" type="text" placeholder="Your Email address" id="email" required/>
+                <p class="help-block">yourname@email.com</p>
             </div>
         </div>   
         <div class="control-group">
             <label class="control-label" for="phone">Phone</label>
             <div class="controls">
-                <input name="phone" type="text" id="phone" />
+                <input name="phone" type="text" placeholder="Your Mobile number" id="phone" required/>
             </div>
         </div>   
         <div class="control-group">
             <label class="control-label" for="username">Username</label>
             <div class="controls">
-                <input name="username" type="text" id="username" />
+                <input name="username" type="text" placeholder="Username" id="username" required/>
             </div>    
         </div>     
         <div class="control-group">
             <label class="control-label" for="password">Password</label>
             <div class="controls">
-                <input name="password" type="password" id="password" />
+                <input name="password" type="password" placeholder="Password" id="password" required/>
             </div>
         </div> 
+        <div class="control-group">
+            <label class="control-label" for="product_key">Product Key</label>
+            <div class="controls">
+                <input name="product_key" type="text" placeholder="Enter Product key" id="product_key"/>
+            </div>
+        </div>
         <div class="control-group">
             <div class="controls">
                 <button type="submit" class="btn btn-primary">Register</button>
             </div>
         </div> 
         <div class="clear"></div>
-			<div align="left">Already Registered users?&nbsp;<a href="index.php?f=bG9naW4=">Click here to Login</a></div>
     </fieldset>
 </form>

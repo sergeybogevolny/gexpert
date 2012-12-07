@@ -15,6 +15,9 @@
 			<index name="pk___users" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
+			<index name="idx_email" unique="UNIQUE" >
+				<column name="email" />
+			</index>
 		</table>
 		<table name="answers" >
 			<column name="id" type="INT" length="10" jt="4" mandatory="y" />
@@ -178,8 +181,8 @@
 		<entity schema="gexpert" name="scores" x="672" y="434" />
 		<entity schema="gexpert" name="category" x="644" y="56" />
 		<entity schema="gexpert" name="product_key_test_users" x="644" y="196" />
-		<entity schema="gexpert" name="__users" x="42" y="42" />
 		<entity schema="gexpert" name="answers" x="406" y="462" />
+		<entity schema="gexpert" name="__users" x="42" y="42" />
 		<group name="test" color="c4e0f9" >
 			<entity schema="gexpert" name="test_details" />
 			<entity schema="gexpert" name="questions" />
@@ -229,6 +232,9 @@ ALTER TABLE gflat_manager.product_key_test_users ADD CONSTRAINT fk_product_key_t
 					</browse_table>
 				</browse_table>
 			</browse_table>
+		</browser>
+		<browser name="__users_001" >
+			<browse_table schema="gexpert" entity="__users" x="10" y="10" width="672" height="319" />
 		</browser>
 		<query name="Query" >
 			<query_table schema="gexpert" name="questions" x="42" y="56" >
