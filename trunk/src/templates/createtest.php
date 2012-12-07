@@ -18,7 +18,7 @@
                 <div class="control-group">
                     <label class="control-label" for="testname">Test Name</label>
                     <div class="controls">
-                        <input name="name" type="text" id="name" rel="tooltip" title="Your name cannot be Bob." placeholder="anything but Bob will work" />
+                        <input name="name" type="text" id="name" rel="tooltip" title="Your Test Name." placeholder="Name of the test" />
                     </div>
                 </div>
 
@@ -35,12 +35,6 @@
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label" for="description">Description</label>
-                    <div class="controls">
-                        <input name="description" type="text" id="description" />
-                    </div>
-                </div>
                 <fieldset>
                     <div class="control-group">
                         <label class="control-label" for="activedates">Active dates</label>
@@ -55,9 +49,9 @@
                 </fieldset>
 
                 <div class="control-group">
-                    <label class="control-label" for="instructions">Instructions</label>
+                    <label class="control-label" for="description">Description</label>
                     <div class="controls">
-                        <textarea name="instructions" id="instructions" class="htmleditor" style="width: 810px; height: 200px"></textarea>
+                        <textarea name="description" id="description" class="htmleditor" style="width: 700px; height: 150px"></textarea>
                     </div>
                 </div>
                 <div class="control-group">
@@ -227,7 +221,7 @@
                 }
 
             }
-        });
+        });8
         $('#rootwizard .finish').click(function() {
 
             $("#questionsdata").val(JSON.stringify(questionDetails));
@@ -248,9 +242,9 @@
         $('.calender').daterangepicker(
                 {
                     ranges: {
-                        'Today': ['today', 'today'],
-                        'This Month': [Date.today().moveToLastDayOfMonth(), Date.today().moveToFirstDayOfMonth()],
-                        'Next Month': [Date.today().moveToFirstDayOfMonth().add({days: -1}), Date.today().moveToFirstDayOfMonth().add({months: 1})]
+                        'Tomorrow': ['tomorrow', 'tomorrow'],
+                        'This Month': [Date.today().moveToFirstDayOfMonth(),Date.today().moveToLastDayOfMonth(),],
+                        'Next Month': [ Date.today().moveToFirstDayOfMonth().add({months: 1}),Date.today().moveToLastDayOfMonth().add({months: 1})]
                     }
                 },
         function(start, end) {
@@ -258,7 +252,7 @@
         }
         );
 
-        $('#instructions').wysihtml5({"color": true});
+        $('#description').wysihtml5({"color": true});
         $('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
         //$('#answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
         //$('#match_answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
