@@ -11,16 +11,14 @@ if ($_POST["questionsdata"]) {
     $cTestControllerObj->column["name"] = $_POST["testname"];
     $cTestControllerObj->column["description"] = $_POST["description"];
     $cTestControllerObj->column["logo"] = $_POST["logo"];
-    //$cTestControllerObj->column["date_created"]=$_POST[];
-    $cTestControllerObj->column["created_by"] = 1;
+    $cTestControllerObj->column["date_created"]=$cFormObj->formatDate(date(),AppDateFormatDbInput);
+    $cTestControllerObj->column["created_by"] = $_SESSION["user_id"];
     //$cTestControllerObj->column["last_modified"]=$_POST[];
-    //list( $start_date, $end_date) = explode("-",$_POST["activedates"]);
-    //echo $cFormObj->formatDate(strtotime($start_date),"")."--";
-    //echo strtotime($end_date)."--";
-//    $cTestControllerObj->column["valid_from"]=  explode($_POST["activedates"]);
-//    $cTestControllerObj->column["valid_to"]=$_POST["activedates"];
+    list( $start_date, $end_date) = explode("-",$_POST["activedates"]);
+    $cTestControllerObj->column["valid_from"]=  $cFormObj->formatDate(strtotime($start_date),AppDateFormatDbInput);
+    $cTestControllerObj->column["valid_to"]=$cFormObj->formatDate(strtotime($end_date),AppDateFormatDbInput);
     $cTestControllerObj->column["time_taken"] = $_POST["testtime"];
-    $cTestControllerObj->column["instruction"] = $_POST["instruction"];
+    
     $cTestControllerObj->table = "test_details";
     $cTestControllerObj->curd("add");
     $cTestControllerObj->debug = true;
