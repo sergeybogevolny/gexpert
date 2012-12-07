@@ -47,14 +47,16 @@
 
     <div id="rootwizard">
         <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container" >
-                    <ul id="nav_link">
+            <div class="navbar-inner progress progress-striped active">
+                <div class="container bar" >
+                    <ul id="nav_link" style="display: none">
 
                     </ul>
                 </div>
             </div>
+
         </div>
+        
         <div class="tab-content">
 
         </div>   
@@ -88,7 +90,20 @@
                 }, onLast: function(tab, navigation, index) {
                     getAnswer(index);
 
-                }, 'firstSelector': '.none', 'lastSelector': '.finish'});
+                }, onTabShow: function(tab, navigation, index) {
+                    var $total = JSON.parse($('#seq').val()).length;
+                    var $current = index + 1;
+                    var $percent = ($current / $total) * 100;
+                    if ($current >= $total) {
+                        $('#rootwizard').find('.pager .next').hide();
+                        $('#rootwizard').find('.pager .finish').show();
+                        $('#rootwizard').find('.pager .finish').removeClass('disabled');
+                    } else {
+                        $('#rootwizard').find('.pager .next').show();
+                        $('#rootwizard').find('.pager .finish').hide();
+                    }
+                    $('#rootwizard').find('.bar').css({width: $percent + '%'});
+                }});
             $("#sortable,#sortable1").sortable();
             $("#sortable").disableSelection();
             $("#rootwizard").parent().show();
