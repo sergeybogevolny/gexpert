@@ -18,7 +18,7 @@
                 <div class="control-group">
                     <label class="control-label" for="testname">Test Name</label>
                     <div class="controls">
-                        <input name="name" type="text" id="name" rel="tooltip" title="Your Test Name." placeholder="Name of the test" />
+                        <input name="name" type="text" id="name" title="Your Test Name." placeholder="Name of the test" required/>
                     </div>
                 </div>
 
@@ -27,7 +27,7 @@
                     <div class="controls">
                         <?php
                         $cFormObj->data = $cTestControllerObj->getSelectData("category", array("id", "name"));
-                        $cFormObj->options = array("name" => "subject");
+                        $cFormObj->options = array("name" => "subject","required"=>TRUE);
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
                         ?>
@@ -58,7 +58,7 @@
                     <label class="control-label" for="testtime">Test Time</label>
                     <div class="controls">
                         <div class="input-append">
-                            <input name="testtime" type="text" id="testtime" class="span1"  />
+                            <input name="testtime" type="text" id="testtime" class="span1" required/>
                             <span class="add-on">Mins</span>
                         </div>
 

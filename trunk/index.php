@@ -81,7 +81,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
-                        <a class="brand" href="#">GExpertise</a>
+                        <a class="brand" href="#">g-Xpertize</a>
                         <?php if ($_SESSION["user_id"]) { ?>
                             <div class="btn-group">
                                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">
