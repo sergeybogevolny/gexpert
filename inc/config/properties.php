@@ -114,5 +114,6 @@ define('AppDateFormatJs', 'yy-mm-dd');
 define('AppDateFormatDb', '%d/%m/%Y');
 define('AppDateFormatDbInput', 'yyyy-mm-dd');
 define('AppDateFormatTpl', '%d/%m/%Y');
+define('AppSessionLessPages',  serialize(array('login','register','forget_password')));
 
 ?>
