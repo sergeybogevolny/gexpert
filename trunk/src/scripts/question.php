@@ -3,35 +3,25 @@
 include_once(AppRoot . AppController . "cTestController.php");
 
 $cTestControllerObj = new cTestController();
-print_r($_POST);
-print_r($_GET);
-
-
 if ($_POST) {
-    print_r($_POST);
     $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
     $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
     foreach ($questionDetails as $key => $value) {
         $question_numbers[] = $value[id];
     }
-
-    shuffle($question_numbers);
-    print_r($question_numbers);
+ //   shuffle($question_numbers);
 }
 if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     $questionDetails = $cTestControllerObj->getQuestion($_GET["index"]);
-
     $cTestControllerObj->questionId = $questionDetails[0]["id"];
     $cTestControllerObj->questionType = $questionDetails[0]["question_type"];
-    print_r($questionDetails);
     $html = "<h4>" . $questionDetails[0]["question"] . "</h4></br>";
     $options = $cTestControllerObj->getOptions($questionDetails[0]["id"]);
-    //echo $cTestControllerObj->questionType;
     switch ($cTestControllerObj->questionType) {
         case 0:
             foreach ($options as $key => $value) {
                 $cFormObj->options["name"] = $cTestControllerObj->questionId;
-                $cFormObj->options["id"] = $cTestControllerObj->questionId;
+                $cFormObj->options["id"] = $value["id"];
                 $cFormObj->options["class"] = "answer";
                 $cFormObj->data = $value["answer"];
                 $cFormObj->createOption();
@@ -42,7 +32,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
         case 1:
             foreach ($options as $key => $value) {
                 $cFormObj->options["name"] = $cTestControllerObj->questionId;
-                $cFormObj->options["id"] = $cTestControllerObj->questionId;
+                $cFormObj->options["id"] = $value["id"];
                 $cFormObj->options["class"] = "answer";
                 $cFormObj->data = $value["answer"];
                 $cFormObj->createCheckBox();
@@ -61,7 +51,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
         case 3:
             foreach ($options as $key => $value) {
                 $cFormObj->options["name"] = $cTestControllerObj->questionId;
-                $cFormObj->options["id"] = $cTestControllerObj->questionId;
+                $cFormObj->options["id"] = $value["id"];
                 $cFormObj->options["class"] = "answer";
                 $cFormObj->data = $value["answer"];
                 $cFormObj->createOption();
@@ -95,7 +85,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
     }
 
-    echo $html."<input name='answer_type' value='".$cTestControllerObj->questionType."' type='hidden' />";
+    echo $html . "<input name='answer_type' class='answer_type' id='answer_type_".$cTestControllerObj->questionId."' value='" . $cTestControllerObj->questionType . "' type='hidden' />";
     exit;
 }
 ?>

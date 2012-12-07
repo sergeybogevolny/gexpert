@@ -86,8 +86,9 @@
                 }, onPrevious: function(tab, navigation, index) {
 
                 }, onLast: function(tab, navigation, index) {
+                    getAnswer(index);
 
-                }});
+                }, 'firstSelector': '.none', 'lastSelector': '.finish'});
             $("#sortable,#sortable1").sortable();
             $("#sortable").disableSelection();
             $("#rootwizard").parent().show();
@@ -96,64 +97,67 @@
 
 
         var cnt = 1;
-        console.log($('#seq').val());
+
         jQuery.each(JSON.parse($('#seq').val()), function() {
-            console.log(cnt);
+
             $("#nav_link").append(' <li><a href="#tab' + cnt + '" data-toggle="tab">' + cnt + '</a></li>');
             $(".tab-content").append(' <div class="tab-pane" id="tab' + cnt + '">');
             cnt++;
         });
 
     });
-//
+    //
     function getQuestion(seq) {
         var questions = JSON.parse($('#seq').val());
-        console.log(questions);
+
         $.ajax({
             url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'question', "a" => "getquestion", "type" => "ajax")); ?>' +
                     "&index=" + questions[seq],
-//                        data: {"tab": tab, "navigation": navigation, "index": index},
+            //                        data: {"tab": tab, "navigation": navigation, "index": index},
             success: function(data) {
                 seq = parseInt(seq + 1)
                 $("#tab" + seq).html(data);
-                console.log(data);
+
                 $(".sortable").sortable({
-//                    update: function(event, ui) {
-//                        $.post("ajax.php", {pages: $('#menu-pages').sortable('serialize')});
-//                    }
                 });
             }
         });
     }
-    var answer = new Array();
+    var answer = new Object();
     function getAnswer(seq) {
-
-        var current_answer = new Array();
+        var questions = JSON.parse($('#seq').val());
+        var current_answer = '';
+        var question_id = questions[seq];
         var divid = '#tab' + seq;
-        switch ($('#answer_type').val()) {
-            case 0:
-                current_answer[0] = $(divid + ' .answer:checked');
-                break;
-
-            case 1:
-                current_answer[0] = $(divid + ' .answer:checked');
-                break;
-            case 2:
-                current_answer[0] = $(divid + '.active').val();
-                break;
-            case 3:
-                current_answer = $(divid + ' .answer:checked');
-                break;
-            case 4:
-                current_answer = $(".sortable").sortable("toArray");
-                break;
-            case 5:
-                current_answer = $(".sortable").sortable("toArray");
-                break;
+        if (questions[seq] != 'undefined') {
+            switch ($(divid + ' .answer_type').val()) {
+                case '0':
+                    current_answer = $(divid + ' .answer:checked').attr('id');
+                    break;
+                case '1':
+                    var current_answer_tmp = new Array();
+                    $(divid + ' .answer:checked').each(function(index) {
+                        current_answer_tmp[index] = parseInt($(this).attr('id'));
+                    });
+                    current_answer = JSON.stringify(current_answer_tmp)
+                    break;
+                case '2':
+                    current_answer = $(divid + ' .active').val();
+                    break;
+                case '3':
+                    current_answer = $(divid + ' .answer:checked');
+                    break;
+                case '4':
+                    current_answer = $(".sortable").sortable("toArray");
+                    break;
+                case '5':
+                    current_answer = $(".sortable").sortable("toArray");
+                    break;
+            }
+            answer[ question_id ] = current_answer;
+            $('#answers').val(JSON.stringify(answer));
+            console.log($('#answers').val());
         }
-        answer[seq] = current_answer;
-        console.log(answer);
-        $('#answers').val(JSON.stringify(answer));
     }
 </script>
 <style>

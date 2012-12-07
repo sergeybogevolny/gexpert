@@ -7,8 +7,6 @@ include_once AppRoot . '/inc/common/cForm.php';
 $cFormObj = new cForm();
 session_start();
 
-
-
 $_GET = $cFormObj->urlDecode($_GET);
 $page = $_GET['f'];
 if ($_SESSION['user_id']) {
@@ -22,12 +20,10 @@ if ($_SESSION['user_id']) {
         $page = 'login';
     }
 }
-
+if (is_readable('src/scripts/' . $page . '.php')) {
+    include_once 'src/scripts/' . $page . '.php';
+}
 if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
-    
-    if (is_readable('src/scripts/' . $page . '.php')) {
-        include_once 'src/scripts/' . $page . '.php';
-    }
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -152,7 +148,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                 <?php
             }
 
-            
+
             include 'src/templates/' . $page . '.php';
             if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                 ?>
