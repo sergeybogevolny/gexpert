@@ -9,7 +9,7 @@ if ($_POST) {
     foreach ($questionDetails as $key => $value) {
         $question_numbers[] = $value[id];
     }
- //   shuffle($question_numbers);
+    shuffle($question_numbers);
 }
 if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     $questionDetails = $cTestControllerObj->getQuestion($_GET["index"]);
@@ -85,7 +85,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
     }
 
-    echo $html . "<input name='answer_type' class='answer_type' id='answer_type_".$cTestControllerObj->questionId."' value='" . $cTestControllerObj->questionType . "' type='hidden' />";
+    echo $html . "<input name='answer_type' class='answer_type' id='answer_type_" . $cTestControllerObj->questionId . "' value='" . $cTestControllerObj->questionType . "' type='hidden' />";
     exit;
 }
 ?>
