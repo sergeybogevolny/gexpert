@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.5.2
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 06, 2012 at 07:47 AM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Generation Time: Dec 08, 2012 at 10:33 AM
+-- Server version: 5.5.25a
+-- PHP Version: 5.4.4
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `product_key_test_users` (
   PRIMARY KEY (`id`),
   KEY `idx_product_key_test_users` (`test_user_id`),
   KEY `idx_product_key_test_users_0` (`test_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `product_key_test_users`
@@ -112,7 +112,7 @@ INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`, `test_user
 (8, 'OZN9MWQFR8LOD4FV', 15, NULL, '1'),
 (9, 'Y2BZ62ZEW1PON08F', 15, NULL, '1'),
 (10, '6S2L3O1BARLBP86L', 15, NULL, '1'),
-(11, 'KV2H4N6BMGWFDWQ9', 15, NULL, '1'),
+(11, 'KV2H4N6BMGWFDWQ9', 15, 11, '1'),
 (12, 'IEL4DZ3B9Q13G4CB', 15, NULL, '1'),
 (13, '2URKEFYM6KPYCUQX', 15, NULL, '1'),
 (14, '9XPUR2ZBOPEPYF06', 15, NULL, '1'),
@@ -130,7 +130,17 @@ INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`, `test_user
 (26, 'AW4JO0CAV3LZGQ5', 15, NULL, '1'),
 (27, '07Y7W4DEJ8GOEK8A', 15, NULL, '1'),
 (28, 'NXU5ICXX7EQRL3M1', 15, NULL, '1'),
-(29, '25S4M100W77AIP0R', 15, NULL, '1');
+(29, '25S4M100W77AIP0R', 15, NULL, '1'),
+(30, 'IDQW6BUV0H26FL4', 3, NULL, '1'),
+(31, 'R02ODRJVGP3VGJ1G', 3, NULL, '1'),
+(32, 'Z3VSXBGEJK2G4DZ', 3, NULL, '1'),
+(33, 'KJNXDYJ46GMSF5G', 3, NULL, '1'),
+(34, '2B1S9JR2GIONH8LU', 3, NULL, '1'),
+(35, '1Q4EQ8A526L1P9WI', 3, NULL, '1'),
+(36, '113VI4GTDM7DTECE', 3, NULL, '1'),
+(37, '93SV8BPXUOUZBOJ', 3, NULL, '1'),
+(38, 'IT6FCARS80KG9SMY', 3, NULL, '1'),
+(39, 'PY2GR4RBHLJDIWP8', 3, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -205,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `test_details` (
   PRIMARY KEY (`id`),
   KEY `created_by` (`created_by`),
   KEY `category` (`category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `test_details`
@@ -215,24 +225,8 @@ INSERT INTO `test_details` (`id`, `category`, `name`, `description`, `instructio
 (3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22 16:59:26', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0),
 (13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0),
 (14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0),
-(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `__login`
---
-
-CREATE TABLE IF NOT EXISTS `__login` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` int(11) NOT NULL,
-  `password` int(11) NOT NULL,
-  `last_login` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx___login` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0),
+(16, 2, '', '', NULL, '', 0, '2012-12-07 13:18:08', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -247,15 +241,19 @@ CREATE TABLE IF NOT EXISTS `__users` (
   `email` varchar(500) NOT NULL,
   `phone` varchar(50) NOT NULL,
   `user_type` int(11) DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_email` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `__users`
 --
 
-INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`) VALUES
-(1, 'Sundar', '001', 'meenakshi.sun20@gmail.com', '9841673880', 1);
+INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`, `username`, `password`) VALUES
+(1, 'Sundar', '001', 'meenakshi.sun20@gmail.com', '9841673880', 1, 'test', '40be4e59b9a2a2b5dffb918c0e86b3d7'),
+(11, 'Tamilarasan J', '00126', 'tamilarasanj@in.com', '09840176277', 1, 'tamil', '0937938b0449317df0ce0cb2bbcdad79');
 
 --
 -- Constraints for dumped tables
@@ -293,12 +291,6 @@ ALTER TABLE `scores`
 ALTER TABLE `test_details`
   ADD CONSTRAINT `fk_test_details` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_test_details_0` FOREIGN KEY (`created_by`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `__login`
---
-ALTER TABLE `__login`
-  ADD CONSTRAINT `fk___login` FOREIGN KEY (`user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
