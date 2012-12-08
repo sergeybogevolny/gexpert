@@ -1,4 +1,5 @@
-
+<script src="src/js/jquery.countdown.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="src/css/jquery.countdown.css">
 <div class="container-fluid" id="instructions">
     <legend>Rules /Instructions</legend> 
     <h2>Taking the Quiz</h2>
@@ -47,16 +48,24 @@
 
     <div id="rootwizard">
         <div class="navbar">
-            <div class="navbar-inner progress progress-striped active">
-                <div class="container bar" >
+            <div class="navbar-inner ">
+                <div class="container" >
+                    <div id="question_count"><span id="current_question"></span><span>/<?php echo count($question_numbers); ?></span></div>
                     <ul id="nav_link" style="display: none">
 
                     </ul>
+                    <div id="counter" class="pull-right"></div>
                 </div>
             </div>
 
         </div>
-        
+        <div class="progress progress-striped active">
+            <div class=" bar">
+
+            </div>
+
+        </div>
+
         <div class="tab-content">
 
         </div>   
@@ -70,25 +79,48 @@
 <input type="hidden" id="seq" name="seq" value="<?php echo json_encode($question_numbers); ?>"/>
 <input type="hidden" id="answers" name="answers" value=""/>
 </form>
-
+<div id="loading" style="display: none"></div>
 <script>
 
     $(document).ready(function() {
 
+        $('#loading').ajaxStart(function() {
+            $(this).dialog({
+                title: "Loading data...",
+                modal: true,
+                width: 150,
+                height: 100,
+                closeOnEscape: false,
+                resizable: false,
+                open: function() {
+                    $(".ui-dialog-titlebar-close", $(this).parent()).hide(); //hides the little 'x' button
+                }
+            });
+        }).ajaxStop(function() {
+            $(this).dialog('close');
+        });
         $("#start_test").click(function() {
 
             $("#instructions").hide();
 
             getQuestion(0);
+            $('#counter').countdown({
+                until: '+3000',
+                format: 'M:S',
+                layout: '{desc}{mnn}{sep}{snn}',
+                description: 'Time : '
+            });
             $('#rootwizard').bootstrapWizard({onTabClick: function(tab, navigation, index) {
                     return false;
                 }, onNext: function(tab, navigation, index) {
                     getAnswer(index);
                     getQuestion(index);
-                }, onPrevious: function(tab, navigation, index) {
 
+                }, onPrevious: function(tab, navigation, index) {
+                    if (index >= 0)
+                        $('#current_question').html(index + 1);
                 }, onLast: function(tab, navigation, index) {
-                    getAnswer(index);
+                    //getAnswer(index);
 
                 }, onTabShow: function(tab, navigation, index) {
                     var $total = JSON.parse($('#seq').val()).length;
@@ -124,7 +156,6 @@
     //
     function getQuestion(seq) {
         var questions = JSON.parse($('#seq').val());
-
         $.ajax({
             url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'question', "a" => "getquestion", "type" => "ajax")); ?>' +
                     "&index=" + questions[seq],
@@ -135,6 +166,7 @@
 
                 $(".sortable").sortable({
                 });
+                $('#current_question').html(seq);
             }
         });
     }
@@ -178,4 +210,16 @@
 <style>
     .sortable,.match { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px; }
     .sortable li,.match li{ margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 50px;min-width: 100% }
+    #loading_text {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -10px;
+        line-height: 20px;
+        text-align: center;
+    }
+    #counter{
+        width: 140px; height: 25px;
+    }
 </style>
