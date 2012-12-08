@@ -83,44 +83,27 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                         </a>
                         <a class="brand" href="#">g-Xpertize</a>
                         <?php if ($_SESSION["user_id"]) { ?>
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">
-                                    Take A Test
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Take a Test</a></li>
-                                </ul>
-                                </a>
-                            </div>
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Test Manager
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
-                                </ul>
-                            </div>
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Admin<span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'users')); ?>">Users</a></li>
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
-
-
-                                </ul>
-                            </div>
-                            <div class="btn-group pull-right">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Action
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>Settings</li>
+                            <div class="nav-collapse">
+                                <ul class="nav">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Take a Test <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Take a Test</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Test Manager<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
+                                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'users')); ?>">Users</a></li>
+                                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>                                     </ul>
+                                    </li>
                                 </ul>
                             </div>
                         <?php } ?>
