@@ -29,7 +29,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
     <html lang="en">
         <head>
             <meta charset="utf-8">
-            <title>GExperting</title>
+            <title>g-Xpertize</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="description" content="">
             <meta name="author" content="">
@@ -89,10 +89,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'take_a_test')); ?>">Take a Test</a></li>
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>">Questions</a></li>
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'instructions')); ?>">Instructions</a></li>
-                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'results')); ?>">Results</a></li>
+                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Take a Test</a></li>
                                 </ul>
                                 </a>
                             </div>
