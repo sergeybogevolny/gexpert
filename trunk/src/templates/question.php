@@ -155,20 +155,24 @@
     });
     //
     function getQuestion(seq) {
-        var questions = JSON.parse($('#seq').val());
-        $.ajax({
-            url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'question', "a" => "getquestion", "type" => "ajax")); ?>' +
-                    "&index=" + questions[seq],
-            //                        data: {"tab": tab, "navigation": navigation, "index": index},
-            success: function(data) {
-                seq = parseInt(seq + 1)
-                $("#tab" + seq).html(data);
+        if ($("#tab" + parseInt(seq + 1)).html() == '') {
 
-                $(".sortable").sortable({
-                });
-                $('#current_question').html(seq);
-            }
-        });
+            var questions = JSON.parse($('#seq').val());
+
+            $.ajax({
+                url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'question', "a" => "getquestion", "type" => "ajax")); ?>' +
+                        "&index=" + questions[seq],
+                //                        data: {"tab": tab, "navigation": navigation, "index": index},
+                success: function(data) {
+                    seq = parseInt(seq + 1)
+                    $("#tab" + seq).html(data);
+
+                    $(".sortable").sortable({
+                    });
+                    $('#current_question').html(seq);
+                }
+            });
+        }
     }
     var answer = new Object();
     function getAnswer(seq) {
