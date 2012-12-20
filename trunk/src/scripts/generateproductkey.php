@@ -27,7 +27,7 @@ for ($i = 1; $i <= $_POST['count']; $i++) {
             $cTestControllerObj->create()->executeWrite();
             $productKeys[$skey][] = 2;
         }
-        if ($_POST["academic"] === 'on') {
+        if ($_POST["certification"] === 'on') {
             $cTestControllerObj->table = "product_key_test_users";
             $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type" => 3);
             $cTestControllerObj->create()->executeWrite();

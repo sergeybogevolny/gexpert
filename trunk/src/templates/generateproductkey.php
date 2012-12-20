@@ -7,11 +7,11 @@
 
             <!-- Multiple Checkboxes -->
             <label class="checkbox">
-                <input type="checkbox" value="pre_test">
+                <input type="checkbox" value="pretest">
                 Pre-Test
             </label>
             <label class="checkbox">
-                <input type="checkbox" value="post_test">
+                <input type="checkbox" value="posttest">
                 Post-Test
             </label>
             <label class="checkbox">
@@ -22,7 +22,7 @@
 
     </div>
     <div class="control-group">
-        <label class="control-label" for="subject">Test Available</label>
+        <label class="control-label" for="test_type">Test Available</label>
         <div class="controls">
             <?php
             $cFormObj->data = $cTestControllerObj->getSelectData("test_details", array("id", "name"));

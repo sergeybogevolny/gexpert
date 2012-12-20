@@ -16,7 +16,7 @@
         <div class="tab-content">
             <div class="tab-pane" id="tab1">
                 <div class="control-group">
-                    <label class="control-label" for="testname">Test Name</label>
+                    <label class="control-label" for="name">Test Name</label>
                     <div class="controls">
                         <input name="name" type="text" id="name" title="Your Test Name." placeholder="Name of the test" required/>
                     </div>
@@ -196,7 +196,14 @@
 
     $(document).ready(function() {
         $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
-
+                if(index==1) {
+				// Make sure we entered the name
+				if(!$('#name').val()) {
+					alert('You must enter Test Name');
+					$('#name').focus();
+					return false;
+				}
+			}
             },
             'firstSelector': '.button-first', 'lastSelector': '.last',
             onTabShow: function(tab, navigation, index) {
