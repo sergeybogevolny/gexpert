@@ -9,7 +9,7 @@ $testName = $data[0]["name"];
 for ($i = 1; $i <= $_POST['count']; $i++) {
 
 
-    $skey = $cUtil->generateProductKey();
+    $skey = $cUtil->generateProductKey();        
     $cTestControllerObj->table = "product_key_test_users";
     $sukey = $cTestControllerObj->addWhereCondition("product_key='" . $skey . "'")->select()->executeRead();
     if (count($sukey) > 0) {

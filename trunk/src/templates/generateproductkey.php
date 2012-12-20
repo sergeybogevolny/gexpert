@@ -1,6 +1,38 @@
 <form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>">
-    <h2><?php echo $testName; ?></h2>
-    <h4>Key Generation </h4>
+    <legend>Key Generation</legend>
+    
+    <div class="control-group">
+        <label class="control-label">Test Type</label>
+        <div class="controls">
+
+            <!-- Multiple Checkboxes -->
+            <label class="checkbox">
+                <input type="checkbox" value="pre_test">
+                Pre-Test
+            </label>
+            <label class="checkbox">
+                <input type="checkbox" value="post_test">
+                Post-Test
+            </label>
+            <label class="checkbox">
+                <input type="checkbox" value="certification">
+                Certification
+            </label>
+        </div>
+
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="subject">Test Available</label>
+        <div class="controls">
+            <?php
+            $cFormObj->data = $cTestControllerObj->getSelectData("test_details", array("id", "name"));
+            $cFormObj->options = array("name" => "test_type", "required" => TRUE);
+            $cFormObj->createSelect();
+            echo $cFormObj->html();
+            ?>
+
+        </div>
+    </div>
     <div class="control-group">
         <label class="control-label" for="testtime">No of Keys Required</label>
         <div class="controls">
