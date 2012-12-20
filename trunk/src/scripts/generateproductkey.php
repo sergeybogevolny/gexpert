@@ -15,10 +15,24 @@ for ($i = 1; $i <= $_POST['count']; $i++) {
     if (count($sukey) > 0) {
         $i--;
     } else {
-        $cTestControllerObj->table = "product_key_test_users";
-        $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey);
-        $cTestControllerObj->create()->executeWrite();
-        $productKeys[] = $skey;
+        if ($_POST["pretest"] === 'on') {
+            $cTestControllerObj->table = "product_key_test_users";
+            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type" => 1);
+            $cTestControllerObj->create()->executeWrite();
+            $productKeys[$skey][] = 1;
+        }
+        if ($_POST["posttest"] === 'on') {
+            $cTestControllerObj->table = "product_key_test_users";
+            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type" => 2);
+            $cTestControllerObj->create()->executeWrite();
+            $productKeys[$skey][] = 2;
+        }
+        if ($_POST["academic"] === 'on') {
+            $cTestControllerObj->table = "product_key_test_users";
+            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type" => 3);
+            $cTestControllerObj->create()->executeWrite();
+            $productKeys[$skey][] = 3;
+        }
     }
 }
 //($cUtil)
