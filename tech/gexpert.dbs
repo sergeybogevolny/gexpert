@@ -108,6 +108,7 @@
 		<table name="product_key_test_users" >
 			<column name="id" type="INT" length="10" jt="4" mandatory="y" autoincrement="y" />
 			<column name="product_key" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<column name="test_type" type="INT" jt="4" mandatory="y" todo="0" />
 			<column name="test_id" type="INT" length="10" jt="4" mandatory="y" />
 			<column name="test_user_id" type="INT" jt="4" />
 			<column name="status" type="CHAR" length="1" jt="1" mandatory="y" >
@@ -180,9 +181,9 @@
 		<entity schema="gexpert" name="questions" x="448" y="294" />
 		<entity schema="gexpert" name="scores" x="672" y="434" />
 		<entity schema="gexpert" name="category" x="644" y="56" />
-		<entity schema="gexpert" name="product_key_test_users" x="644" y="196" />
 		<entity schema="gexpert" name="answers" x="406" y="462" />
 		<entity schema="gexpert" name="__users" x="42" y="42" />
+		<entity schema="gexpert" name="product_key_test_users" x="644" y="196" />
 		<group name="test" color="c4e0f9" >
 			<entity schema="gexpert" name="test_details" />
 			<entity schema="gexpert" name="questions" />
@@ -219,6 +220,10 @@ ALTER TABLE gflat_manager.product_key_test_users ADD CONSTRAINT fk_product_key_t
 		</script>
 		<script name="Sql" confirmed="y" >
 			<string><![CDATA[SELECT u.name,emp_code,td.name,product_key,email,pktu.id FROM product_key_test_users pktu join test_details td on td.id=pktu.test_id left join __users u on u.id=pktu.test_user_id]]></string>
+		</script>
+		<script name="Sql_001" >
+			<string><![CDATA[
+]]></string>
 		</script>
 		<browser name="__users" >
 			<browse_table schema="gexpert" entity="__users" x="10" y="10" width="457" height="352" />
