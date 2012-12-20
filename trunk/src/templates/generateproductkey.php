@@ -22,11 +22,11 @@
 
     </div>
     <div class="control-group">
-        <label class="control-label" for="test_type">Test Available</label>
+        <label class="control-label" for="test_id">Test Available</label>
         <div class="controls">
             <?php
             $cFormObj->data = $cTestControllerObj->getSelectData("test_details", array("id", "name"));
-            $cFormObj->options = array("name" => "test_type", "required" => TRUE);
+            $cFormObj->options = array("name" => "test_id", "required" => TRUE);
             $cFormObj->createSelect();
             echo $cFormObj->html();
             ?>
