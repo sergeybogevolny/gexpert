@@ -3,13 +3,28 @@
 include_once(AppRoot . AppController . "cTestController.php");
 
 $cTestControllerObj = new cTestController();
-if ($_POST) {
+if ($_POST["test_id"]) {
     $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
     $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
-    foreach ($questionDetails as $key => $value) {
-        $question_numbers[] = $value[id];
+    if ($_POST['answers'] != '') {
+
+        foreach ($questionDetails as $key => $value) {
+            $question_type[$value['id']] = $value['question_type'];
+        }
+        $options = $cTestControllerObj->getOptions($questionDetails[0]["id"]);
+        $answers = json_decode($_POST['answers']);
+        print_r($question_type);
+        print_r($options);
+        foreach ($options as $answer_id => $selected_answer) {
+            
+        }
+        exit;
+    } else {
+        foreach ($questionDetails as $key => $value) {
+            $question_numbers[] = $value[id];
+        }
+        shuffle($question_numbers);
     }
-    shuffle($question_numbers);
 }
 if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     $questionDetails = $cTestControllerObj->getQuestion($_GET["index"]);
@@ -17,6 +32,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     $cTestControllerObj->questionType = $questionDetails[0]["question_type"];
     $html = "<h4>" . $questionDetails[0]["question"] . "</h4></br>";
     $options = $cTestControllerObj->getOptions($questionDetails[0]["id"]);
+    $options = $cFormObj->shuffleAssoc($options);
     switch ($cTestControllerObj->questionType) {
         case 0:
             foreach ($options as $key => $value) {
@@ -64,6 +80,9 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             $html_match_right.="<ul class=\"sortable span5\" id=\"answer_" . $cTestControllerObj->questionId . "\">";
             foreach ($options as $key => $value) {
                 $html_match_left.= "<li class=\"ui-state-default fill answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
+            }
+            $options = $cFormObj->shuffleAssoc($options);
+            foreach ($options as $key => $value) {
                 $html_match_right.= "<li class=\"ui-state-highlight fill answer\" id=\"" . $value["id"] . "\">" . $value["match_answer"] . "</li>";
             }
             $html_match_left.="</ul>";
@@ -80,8 +99,6 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             }
             $html.="</ul>";
             $html.="</div>";
-            break;
-        default:
             break;
     }
 

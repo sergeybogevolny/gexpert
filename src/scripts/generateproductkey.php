@@ -9,7 +9,7 @@ $testName = $data[0]["name"];
 for ($i = 1; $i <= $_POST['count']; $i++) {
 
 
-    $skey = $cUtil->generateProductKey();        
+    $skey = $cUtil->generateProductKey();
     $cTestControllerObj->table = "product_key_test_users";
     $sukey = $cTestControllerObj->addWhereCondition("product_key='" . $skey . "'")->select()->executeRead();
     if (count($sukey) > 0) {
@@ -17,19 +17,19 @@ for ($i = 1; $i <= $_POST['count']; $i++) {
     } else {
         if ($_POST["pretest"] === 'on') {
             $cTestControllerObj->table = "product_key_test_users";
-            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type" => 1);
+            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 1);
             $cTestControllerObj->create()->executeWrite();
             $productKeys[$skey][] = 1;
         }
         if ($_POST["posttest"] === 'on') {
             $cTestControllerObj->table = "product_key_test_users";
-            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type" => 2);
+            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 2);
             $cTestControllerObj->create()->executeWrite();
             $productKeys[$skey][] = 2;
         }
         if ($_POST["certification"] === 'on') {
             $cTestControllerObj->table = "product_key_test_users";
-            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type" => 3);
+            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 3);
             $cTestControllerObj->create()->executeWrite();
             $productKeys[$skey][] = 3;
         }
