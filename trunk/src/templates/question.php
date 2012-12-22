@@ -42,17 +42,13 @@
 
 </div>
 
-
-
-<form method="POST" class="well form-inline" style="display: none" id="">
-
+<form method="POST" class="well form-inline" action="" style="display: none" id="quiz">
     <div id="rootwizard">
         <div class="navbar">
             <div class="navbar-inner ">
                 <div class="container" >
                     <div id="question_count"><span id="current_question"></span><span>/<?php echo count($question_numbers); ?></span></div>
                     <ul id="nav_link" style="display: none">
-
                     </ul>
                     <div id="counter" class="pull-right"></div>
                 </div>
@@ -78,6 +74,7 @@
 </div>
 <input type="hidden" id="seq" name="seq" value="<?php echo json_encode($question_numbers); ?>"/>
 <input type="hidden" id="answers" name="answers" value=""/>
+<input type="hidden" id="test_id" name="test_id" value="<?php echo$_POST["test_id"] ?>"/>
 </form>
 <div id="loading" style="display: none"></div>
 <script>
@@ -102,7 +99,6 @@
         $("#start_test").click(function() {
 
             $("#instructions").hide();
-
             getQuestion(0);
             $('#counter').countdown({
                 until: '+3000',
@@ -113,14 +109,20 @@
             $('#rootwizard').bootstrapWizard({onTabClick: function(tab, navigation, index) {
                     return false;
                 }, onNext: function(tab, navigation, index) {
-                    getAnswer(index);
-                    getQuestion(index);
+                    if (JSON.parse($('#seq').val()).length == (index + 1)) {
+                        alert('Finish');
+                        $('#quiz').submit();
+                    } else {
 
+                        getAnswer(index);
+                        getQuestion(index);
+                    }
                 }, onPrevious: function(tab, navigation, index) {
                     if (index >= 0)
                         $('#current_question').html(index + 1);
                 }, onLast: function(tab, navigation, index) {
-                    //getAnswer(index);
+                    $('#quiz').submit();
+                    //alert('asdasd');
 
                 }, onTabShow: function(tab, navigation, index) {
                     var $total = JSON.parse($('#seq').val()).length;
@@ -140,9 +142,6 @@
             $("#sortable").disableSelection();
             $("#rootwizard").parent().show();
         });
-
-
-
         var cnt = 1;
 
         jQuery.each(JSON.parse($('#seq').val()), function() {
@@ -153,12 +152,9 @@
         });
 
     });
-    //
     function getQuestion(seq) {
         if ($("#tab" + parseInt(seq + 1)).html() == '') {
-
             var questions = JSON.parse($('#seq').val());
-
             $.ajax({
                 url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'question', "a" => "getquestion", "type" => "ajax")); ?>' +
                         "&index=" + questions[seq],
