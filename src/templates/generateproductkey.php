@@ -2,25 +2,25 @@
     <legend>Key Generation</legend>
 
     <div class="control-group">
-        <label class="control-label">Test Type</label>
-        <div class="controls">
+        <?php
+        $cTestControllerObj->column = array("id", "code", "test_name");
+        $cTestControllerObj->table = "test_type";
+        $data = $cTestControllerObj->select()->executeRead();
 
-            <!-- Multiple Checkboxes -->
-            <label class="checkbox">
-                <input type="checkbox" name="pretest">
-                Pre-Test
-            </label>
-            <label class="checkbox">
-                <input type="checkbox" name="posttest">
-                Post-Test
-            </label>
-            <label class="checkbox">
-                <input type="checkbox" name="certification">
-                Certification
-            </label>
-        </div>
+        foreach ($data as $key => $value) {
+
+            $cFormObj->options['name'] = $value["code"];
+            $cFormObj->options['id'] = $value["code"];
+            $cFormObj->options['value'] = $value["id"];
+            $cFormObj->data = $value["test_name"];
+            $cFormObj->createCheckBox();
+            echo $cFormObj->html();
+        }
+        ?>
 
     </div>
+
+
     <div class="control-group">
         <label class="control-label" for="test_id">Test Available</label>
         <div class="controls">
@@ -45,12 +45,13 @@
 
     <h4>Tests Keys Available</h4>
     <?php
-    $cTestControllerObj->column = array("pktu.id", "pktu.product_key", "u.name", "u.emp_code", "u.email", "pktu.status");
+    $cTestControllerObj->column = array("pktu.id", "pktu.product_key", "tt.test_name", "u.name", "u.emp_code", "u.email");
     $cTestControllerObj->table = "product_key_test_users pktu";
-    $cTestControllerObj->join_condition = "left join __users u on u.id=pktu.test_user_id";
-    $cFormObj->data = $cTestControllerObj->addWhereCondition("test_id=" . $_POST["test_id"])->select()->executeRead();
+    $cTestControllerObj->join_condition = "left join __users u on u.id=pktu.test_user_id join test_type tt on tt.id= pktu.test_type_id";
+    $cFormObj->data = $cTestControllerObj->addWhereCondition("test_id=" . $_POST["test_id"])->addOrderBy("pktu.product_key", "tt.test_name")->select()->executeRead();
     $cFormObj->options['actioncolumn'] = false;
-    $cFormObj->options['header'] = array("Id", "Product Key", "Test Type", "User Name", "Emp Code", "Email", "Status");
+    $cFormObj->options['serialnocolumn'] = true;
+    $cFormObj->options['header'] = array("Id", "Product Key", "Test Type", "User Name", "Emp Code", "Email");
     $cFormObj->createHTable();
     echo $cFormObj->html();
     ?>

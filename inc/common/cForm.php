@@ -48,17 +48,18 @@ class cForm extends cUtil {
         $this->html.= '</tr>';
         $this->html.= '</thead>';
         $this->html.= '<tbody>';
+        $colcount = 1;
         if (is_array($this->data)) {
             foreach ($this->data as $row => $record) {
                 $this->html.= '<tr>';
-                $colcount = 1;
+                if ($this->options['serialnocolumn'] === true) {
+
+                    $this->html.= '<td> ' . $colcount . '</td>';
+                    $colcount++;
+                }
                 foreach ($record as $columnname => $columnvalue) {
 
-                    if ($this->options['serialnocolumn'] === true) {
 
-                        $this->html.= '<td> ' . $colcount . '</td>';
-                        $colcount++;
-                    }
                     if ($this->options['column']['type'][$columnname] == 'date') {
                         $columnvalue = $this->formatDate($columnvalue, $this->options['column']['format'][$columnname]);
                     }
@@ -136,7 +137,7 @@ class cForm extends cUtil {
     }
 
     function createLabel() {
-        
+
     }
 
     function html() {

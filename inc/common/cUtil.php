@@ -81,13 +81,26 @@ class cUtil {
             case 'refresh' : header("Refresh:0;url=" . $uri);
                 break;
             case 'default' :
-                $encoded=$this->createLinkUrl($uri);
+                $encoded = $this->createLinkUrl($uri);
                 header("Location: $encoded", TRUE, $http_response_code);
                 break;
             default : header("Location: " . $uri, TRUE, $http_response_code);
                 break;
         }
         exit;
+    }
+
+    function shuffleAssoc($list) {
+        if (!is_array($list))
+            return $list;
+
+        $keys = array_keys($list);
+        shuffle($keys);
+        $random = array();
+        foreach ($keys as $key)
+            $random[$key] = $list[$key];
+
+        return $random;
     }
 
 }

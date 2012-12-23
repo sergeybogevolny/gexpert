@@ -41,34 +41,10 @@ class cTestController extends cController {
         return $this->addWhereCondition("id=" . $id)->select()->executeRead();
     }
 
-    //9551550467
     function getOptions($id) {
         $this->table = "answers";
+
         return $this->addWhereCondition("question_id=" . $id)->select()->executeRead();
-    }
-
-    function createMultipleOption() {
-        
-        
-    }
-
-    function createMultipleResponse() {
-        
-    }
-
-    function createTrueFalse() {
-        
-    }
-
-    function createSequencing() {
-        
-    }
-
-    function createMatching() {
-        
-    }
-
-    function createFillInTheBlanks() {
         
     }
 

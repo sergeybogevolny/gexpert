@@ -91,8 +91,7 @@ class cModel extends cDatabase {
         return $this;
     }
 
-    
-     public function alter() {
+    public function alter() {
 
         foreach ($this->column as $columnName => $columnValue) {
 
@@ -100,13 +99,12 @@ class cModel extends cDatabase {
                 $columnNames[] = $columnName . " = '" . $columnValue . "'";
             }
         }
-        $this->query = "ALTER TABLE "  . $this->table . " SET " . implode(",", $columnNames) . "" . $this->condition;
+        $this->query = "ALTER TABLE " . $this->table . " SET " . implode(",", $columnNames) . "" . $this->condition;
 
         $this->resetQuery();
         return $this;
     }
 
-    
     public function delete() {
 
         $this->query = "DELETE FROM " . $this->parent_only . " " . $this->table . $this->condition;
@@ -182,8 +180,8 @@ class cModel extends cDatabase {
         return $this->dbObj->getColumnDetails($table);
     }
 
-    function getTableDetails($columns="",$condition="") {
-        return $this->dbObj->getTableDetails($columns,$condition);
+    function getTableDetails($columns = "", $condition = "") {
+        return $this->dbObj->getTableDetails($columns, $condition);
     }
 
     function getNextVal($seq_name) {
