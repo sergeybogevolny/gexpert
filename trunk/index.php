@@ -67,7 +67,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <script src="src/js/jquery.js"></script>
             <script src="src/js/jquery-ui.js"></script>
             <script src="src/js/bootstrap.min.js"  ></script>
-            <script src="src/js/bootstrap-toggle.js"></script>           
+            <script src="src/js/bootstrap-toggle.js"></script>
             <script src="src/js/date.js"></script>
             <script src="src/js/daterangepicker.js"></script>
             <script src="src/js/jquery.bootstrap.wizard.js"></script>
@@ -96,6 +96,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                                         <ul class="dropdown-menu">
                                             <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
                                             <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
+                                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>">Product Keys</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
