@@ -1,12 +1,22 @@
 <form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>">
-    <legend>Tests Available</legend>  
+
+    <div class="input-append">
+        <input name="test_key" id="test_key" class="span2" id="appendedInputButton" type="text">
+        <button id="add_test" class="btn" type="button">Add Test</button>
+    </div>
+
+
+    <legend>Tests Available</legend>
+
+
     <?php
-    $cTestControllerObj->column = array("id", "name", "description", "logo", "created_by", "status");
-    $cTestControllerObj->table = "test_details";
+    $cTestControllerObj->column = array("td.id", "td.name", "description", "u.name" => "username");
+    $cTestControllerObj->table = "test_details td";
+    $cTestControllerObj->join_condition = "join __users u on u.id=td.created_by";
     $cFormObj->data = $cTestControllerObj->curd();
     $cFormObj->options['actioncolumn'] = true;
     $cFormObj->options['actioncolumnicons'] = '<i class="icon-eye-open"></i><i class="icon-lock"></i>';
-    $cFormObj->options['header'] = array("Id", "Name", "Desc", "Logo", "Created", "Status");
+    $cFormObj->options['header'] = array("Id", "Name", "Desc", "Created");
     $cFormObj->createHTable();
     echo $cFormObj->html();
     ?>
@@ -25,6 +35,12 @@
         $("#test_id").val($(this).parent().siblings(":first").html());
         $("#listtests").attr('action', url2).submit();
     });
+
+    $('#add_test').click(function() {
+
+        $.ajax
+    });
+
 
 </script>
 

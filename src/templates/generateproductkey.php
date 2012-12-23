@@ -26,7 +26,7 @@
         <div class="controls">
             <?php
             $cFormObj->data = $cTestControllerObj->getSelectData("test_details", array("id", "name"));
-            $cFormObj->options = array("name" => "test_id", "required" => TRUE);
+            $cFormObj->options = array("name" => "test_id", "required" => TRUE, "selected" => $_POST["test_id"]);
             $cFormObj->createSelect();
             echo $cFormObj->html();
             ?>
@@ -45,13 +45,17 @@
 
     <h4>Tests Keys Available</h4>
     <?php
-    $cTestControllerObj->column = array("pktu.id", "pktu.product_key", "tt.test_name", "u.name", "u.emp_code", "u.email");
+    $cTestControllerObj->column = array("pktu.product_key", "tt.test_name", "u.name", "u.emp_code", "u.email");
     $cTestControllerObj->table = "product_key_test_users pktu";
     $cTestControllerObj->join_condition = "left join __users u on u.id=pktu.test_user_id join test_type tt on tt.id= pktu.test_type_id";
-    $cFormObj->data = $cTestControllerObj->addWhereCondition("test_id=" . $_POST["test_id"])->addOrderBy("pktu.product_key", "tt.test_name")->select()->executeRead();
+    if ($_POST["test_id"] != '') {
+        $condition = "test_id=" . $_POST["test_id"];
+    }
+
+    $cFormObj->data = $cTestControllerObj->addWhereCondition($condition)->addOrderBy("pktu.product_key", "tt.test_name")->select()->executeRead();
     $cFormObj->options['actioncolumn'] = false;
     $cFormObj->options['serialnocolumn'] = true;
-    $cFormObj->options['header'] = array("Id", "Product Key", "Test Type", "User Name", "Emp Code", "Email");
+    $cFormObj->options['header'] = array("Product Key", "Test Type", "User Name", "Emp Code", "Email");
     $cFormObj->createHTable();
     echo $cFormObj->html();
     ?>
