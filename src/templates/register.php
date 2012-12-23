@@ -39,6 +39,12 @@
                 <input name="password" type="password" placeholder="Password" id="password" required/>
             </div>
         </div> 
+		<div class="control-group">
+            <label class="control-label" for="confirm_password">Confirm Password</label>
+            <div class="controls">
+                <input name="confirm_password" type="password" placeholder="Confirm Password" id="confirm_password" required/>
+            </div>
+        </div> 
         <div class="control-group">
             <label class="control-label" for="product_key">Product Key</label>
             <div class="controls">
