@@ -72,6 +72,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <script src="src/js/daterangepicker.js"></script>
             <script src="src/js/jquery.bootstrap.wizard.js"></script>
             <script src="src/js/jquery.table.addrow.js"></script>
+            <script src="src/js/jquery.base64.js"></script>
 
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-inner">

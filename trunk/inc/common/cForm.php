@@ -70,9 +70,7 @@ class cForm extends cUtil {
                 if ($this->options['actioncolumn'] == true) {
 
                     $this->html.= '<td>
-            <i class="icon-edit"></i>
-            <i class="icon-trash"></i>
-            <i class="icon-ok"></i>' . $this->options['actioncolumnicons']
+            ' . $this->options['actioncolumnicons']
                     ;
 
                     $this->html.= '</td>';
