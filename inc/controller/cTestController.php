@@ -23,7 +23,7 @@ class cTestController extends cController {
     }
 
     function getTestDetails($id) {
-        $this->column = array("id", "name", "description", "logo", "created_by", "status");
+        //$this->column = array("id", "name", "description", "logo", "created_by", "status");
         $testDetails = $this->curd("view", $id);
         $this->table = "questions";
         $questions = $this->addWhereCondition("test_id=" . $id)->select()->executeRead();
@@ -45,7 +45,6 @@ class cTestController extends cController {
         $this->table = "answers";
 
         return $this->addWhereCondition("question_id=" . $id)->select()->executeRead();
-        
     }
 
     function createQuestion($id) {

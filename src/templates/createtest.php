@@ -18,7 +18,7 @@
                 <div class="control-group">
                     <label class="control-label" for="name">Test Name</label>
                     <div class="controls">
-                        <input name="name" type="text" id="name" title="Your Test Name." placeholder="Name of the test" required/>
+                        <input name="name" type="text" id="name" title="Your Test Name." placeholder="Name of the test" value="<?php echo $testDetails['name']; ?>" required/>
                     </div>
                 </div>
 
@@ -27,7 +27,7 @@
                     <div class="controls">
                         <?php
                         $cFormObj->data = $cTestControllerObj->getSelectData("category", array("id", "name"));
-                        $cFormObj->options = array("name" => "subject","required"=>TRUE);
+                        $cFormObj->options = array("name" => "category", "required" => TRUE, 'selected' => $testDetails['category']);
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
                         ?>
@@ -41,7 +41,7 @@
                         <div class="controls">
                             <div class="calender activedates">
                                 <i class="icon-calendar icon-large"></i>
-                                <span></span>
+                                <span><?php echo $testDetails['valid_from'] . " - " . $testDetails['valid_to']; ?></span>
                                 <b class="caret" style="vertical-align: middle"></b>
                             </div>
                         </div>
@@ -51,32 +51,32 @@
                 <div class="control-group">
                     <label class="control-label" for="description">Description</label>
                     <div class="controls">
-                        <textarea name="description" id="description" class="htmleditor" style="width: 700px; height: 150px"></textarea>
+                        <textarea name="description" id="description" class="htmleditor" style="width: 700px; height: 150px"><?php echo $testDetails['description']; ?></textarea>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="testtime">Test Time</label>
                     <div class="controls">
                         <div class="input-append">
-                            <input name="testtime" type="text" id="testtime" class="span1" required/>
+                            <input name="testtime" type="text" id="testtime" value="<?php echo $testDetails['time_taken']; ?>" class="span1" required/>
                             <span class="add-on">Mins</span>
                         </div>
 
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="testtime">Allow Correction</label>
+                    <label class="control-label" for="allow_correction">Allow Correction</label>
                     <div class="controls">
-                        <input name="allow_review" type="checkbox" id="allow_review" checked="true"/>
+                        <input name="allow_correction" type="checkbox" id="allow_correction" "<?php echo $testDetails['allow_correction']; ?>"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="question_type">Sharing</label>
+                    <label class="control-label" for="sharing">Sharing</label>
                     <div class="controls">
 
                         <?php
                         $cFormObj->data = array("0" => "Public", "1" => "Private");
-                        $cFormObj->options = array("name" => "sharing", "default" => false);
+                        $cFormObj->options = array("name" => "sharing", "default" => false, 'selected' => $testDetails['name']);
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
                         ?>
@@ -160,9 +160,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <input name="currentrow" type="hidden" id="currentrow" value="0"/>
+                    <input name="currentrow" type="hidden" id="currentrow" value="<?php echo $currentRow; ?>"/>
                     <input name="questionsdata" type="hidden" id="questionsdata" value=""/>
-
                     <button  type="submit" id="addquestion" class="btn">Add Question</button>
                     <br/>
                     <?php
@@ -178,14 +177,14 @@
                     ?>
                 </div>
             </div>
-
             <ul class="pager wizard">
                 <li class="previous" ><a href="#">Previous</a></li>
                 <li class="next"><a href="#">Next</a></li>
                 <li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
             </ul>
-        </div>	
+        </div>
     </div>
+    <input name="test_id" type="hidden" id="test_id" value="<?php echo $testDetails['id']; ?>"/>
 </form>
 <script src="src/js/wysihtml5-0.3.0.min.js"></script>
 <script src="src/js/bootstrap-wysihtml5.js"></script>
@@ -196,14 +195,14 @@
 
     $(document).ready(function() {
         $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
-                if(index==1) {
-				// Make sure we entered the name
-				if(!$('#name').val()) {
-					alert('You must enter Test Name');
-					$('#name').focus();
-					return false;
-				}
-			}
+                if (index == 1) {
+                    // Make sure we entered the name
+                    if (!$('#name').val()) {
+                        alert('You must enter Test Name');
+                        $('#name').focus();
+                        return false;
+                    }
+                }
             },
             'firstSelector': '.button-first', 'lastSelector': '.last',
             onTabShow: function(tab, navigation, index) {
@@ -228,7 +227,8 @@
                 }
 
             }
-        });8
+        });
+
         $('#rootwizard .finish').click(function() {
 
             $("#questionsdata").val(JSON.stringify(questionDetails));
@@ -236,7 +236,7 @@
 
             //            $.ajax({
             //                type: "POST",
-            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));                    ?>',
+            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));                                                                 ?>',
             //                data: $("#testmanager").serialize(),
             //                success: function() {
             //
@@ -250,8 +250,8 @@
                 {
                     ranges: {
                         'Tomorrow': ['tomorrow', 'tomorrow'],
-                        'This Month': [Date.today().moveToFirstDayOfMonth(),Date.today().moveToLastDayOfMonth(),],
-                        'Next Month': [ Date.today().moveToFirstDayOfMonth().add({months: 1}),Date.today().moveToLastDayOfMonth().add({months: 1})]
+                        'This Month': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth(), ],
+                        'Next Month': [Date.today().moveToFirstDayOfMonth().add({months: 1}), Date.today().moveToLastDayOfMonth().add({months: 1})]
                     }
                 },
         function(start, end) {
@@ -261,10 +261,7 @@
 
         $('#description').wysihtml5({"color": true});
         $('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
-        //$('#answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
-        //$('#match_answer').wysihtml5({"font-styles": false, "color": false, "emphasis": false, "lists": false, "link": false});
-
-
+        createTable(questionDetails);
         $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber"}, function() {
 
             return false;
@@ -274,7 +271,7 @@
         $('#addquestion').bind('click', function() {
 
             //            $("#testmanager").submit(function(event){
-            //            
+            //
             event.preventDefault();
             //            });
             addQuestion();
@@ -293,7 +290,7 @@
 
 
 
-    var questionDetails = {};
+    var questionDetails = <?php echo $questiondata ?>;
 
 
     function addQuestion() {
@@ -309,11 +306,6 @@
             $(".optionrow").each(function(index, element) {
                 if (jQuery.isEmptyObject(questionDetails[currentrow]['answers'][opt]))
                     questionDetails[currentrow]['answers'][opt] = {};
-
-                console.log($(element));
-                console.log(element);
-                console.log(opt);
-
                 questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
                 questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_answer_data").val();
                 questionDetails[currentrow]['answers'][opt]['multipleanswer'] = $(element).find(".true_false_data").val();
@@ -333,6 +325,15 @@
 
     function resetQuestion() {
         $('.reset').val("");
+        var len = $('#optionstable tr').length;
+        $('#optionstable tr').each(function(index) {
+            if (len > 1) {
+                $(this).find('.icon-trash').trigger('click');
+            }
+            len--;
+
+        });
+
     }
 
     function validate() {
@@ -422,7 +423,7 @@
             html += value['question'];
             html += '</td>';
             html += '<td>';
-            html += value['question_type'];
+            html += $("#question_type option[value='" + value['question_type'] + "']").text();
             html += '</td>';
             html += '<td>';
             html += $.map(value['answers'], function(n, i) {
@@ -450,15 +451,13 @@
     function loadQuestion(item) {
         resetQuestion();
 
-        item = parseInt(item);
+        item = parseInt(item - 1);
         if (isNaN(item)) {
         } else {
             $("#currentrow").val(item)
             $('#question_type').val(questionDetails[item]['question_type']);
             $('#question').val(questionDetails[item]['question']);
             $.map(questionDetails[item]['answers'], function(key, value) {
-                console.log(key);
-                console.log(value);
 
             });
         }
@@ -479,7 +478,7 @@
 
 
     }
-    
+
 </script>
 
 
