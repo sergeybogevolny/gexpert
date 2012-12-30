@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 23, 2012 at 09:10 AM
+-- Generation Time: Dec 30, 2012 at 11:01 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -409,6 +409,8 @@ CREATE TABLE IF NOT EXISTS `test_details` (
   `last_modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `valid_from` date NOT NULL,
   `valid_to` date NOT NULL,
+  `allow_correction` tinyint(1) NOT NULL,
+  `sharing` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `created_by` (`created_by`),
@@ -419,11 +421,11 @@ CREATE TABLE IF NOT EXISTS `test_details` (
 -- Dumping data for table `test_details`
 --
 
-INSERT INTO `test_details` (`id`, `category`, `name`, `description`, `instruction`, `logo`, `time_taken`, `date_created`, `created_by`, `last_modified`, `valid_from`, `valid_to`, `status`) VALUES
-(3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22 16:59:26', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0),
-(13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0),
-(14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0),
-(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0);
+INSERT INTO `test_details` (`id`, `category`, `name`, `description`, `instruction`, `logo`, `time_taken`, `date_created`, `created_by`, `last_modified`, `valid_from`, `valid_to`, `allow_correction`, `sharing`, `status`) VALUES
+(3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22 16:59:26', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -513,5 +515,3 @@ ALTER TABLE `test_details`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
---971563015215
