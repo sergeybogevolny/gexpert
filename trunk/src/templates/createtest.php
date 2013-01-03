@@ -42,6 +42,7 @@
                             <div class="calender activedates">
                                 <i class="icon-calendar icon-large"></i>
                                 <span><?php echo $testDetails['valid_from'] . " - " . $testDetails['valid_to']; ?></span>
+                                <input type="hidden" value="<?php echo $testDetails['valid_from'] . " - " . $testDetails['valid_to']; ?>" id="activedates" name="activedates" />
                                 <b class="caret" style="vertical-align: middle"></b>
                             </div>
                         </div>
@@ -236,7 +237,7 @@
 
             //            $.ajax({
             //                type: "POST",
-            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));                                                                 ?>',
+            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));                                                                   ?>',
             //                data: $("#testmanager").serialize(),
             //                success: function() {
             //
@@ -347,8 +348,6 @@
             case 'multiplechoice':
                 if ($('.answer_data').length >= 3) {
                     $.each($('.answer_data'), function() {
-
-
 
                     });
                 } else {
