@@ -40,7 +40,7 @@ define('EncryptKey', '25c6c7ff35b9979b151f2136cd13b0ff');
 
 define('AppHost', $_SERVER['HTTP_HOST']);
 define('AppProtocol', ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://");
-define('AppURL', AppProtocol . AppHost . '/gexpert');
+define('AppURL', AppProtocol . AppHost . '/gexpert/trunk');
 define('PublicDir', 'src/');
 define('IncDir', 'inc/');
 define('AppController', '/' . IncDir . 'controller/');
@@ -109,11 +109,10 @@ define('AppHomePage', 'tests');
 define('AppName', 'GFlatManager');
 
 
-define('AppDateFormatPhp', 'd/m/Y');
+define('AppDateFormatPhp', 'F j,Y');
 define('AppDateFormatJs', 'yy-mm-dd');
 define('AppDateFormatDb', '%d/%m/%Y');
-define('AppDateFormatDbInput', 'yyyy-mm-dd');
+define('AppDateFormatDbInput', 'Y-m-d');
 define('AppDateFormatTpl', '%d/%m/%Y');
-define('AppSessionLessPages',  serialize(array('login','register','forget_password')));
-
+define('AppSessionLessPages', serialize(array('login', 'register', 'forget_password')));
 ?>
