@@ -19,7 +19,7 @@ if ($_GET['a'] == 'd') {
 if ($_POST["questionsdata"]) {
     list( $start_date, $end_date) = explode("-", $_POST["activedates"]);
     $cTestControllerObj->column["category"] = $_POST["category"];
-    $cTestControllerObj->column["name"] = $_POST["testname"];
+    $cTestControllerObj->column["name"] = $_POST["name"];
     $cTestControllerObj->column["description"] = $_POST["description"];
     $cTestControllerObj->column["logo"] = $_POST["logo"];
     $cTestControllerObj->column["valid_from"] = date(AppDateFormatDbInput, strtotime($start_date));
@@ -45,6 +45,7 @@ if ($_POST["questionsdata"]) {
 
 
     $questions = (array) json_decode($_POST["questionsdata"]);
+    print_r($questions);
     $testid = $cTestControllerObj->id;
     foreach ($questions as $key => $value) {
 
@@ -59,7 +60,7 @@ if ($_POST["questionsdata"]) {
         foreach ($value->answers as $key1 => $value1) {
             $cTestControllerObj->column["answer"] = $value1->answer;
             $cTestControllerObj->column["match_answer"] = $value1->match_answer;
-            $cTestControllerObj->column["is_correct"] = ($value1->multipleanswer || $value1->multipleoption) ? 1 : 0;
+            $cTestControllerObj->column["is_correct"] = ($value1->is_correct) ? 1 : 0;
             $cTestControllerObj->column["percent"] = $value1->correctness_percentage;
             $cTestControllerObj->column["question_id"] = $questionid;
             $cTestControllerObj->table = "answers";
@@ -94,6 +95,7 @@ if ($id != '') {
     }
 }
 if ($_GET['a'] == 'c') {
+
 
     $cTestControllerObj->column["category"] = $testDetails["category"];
     $cTestControllerObj->column["name"] = $testDetails["name"];

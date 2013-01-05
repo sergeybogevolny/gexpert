@@ -235,16 +235,6 @@
             $("#questionsdata").val(JSON.stringify(questionDetails));
             $("#testmanager").submit();
 
-            //            $.ajax({
-            //                type: "POST",
-            //                url: '<?php //echo $cFormObj->createLinkUrl(array('f' => 'createtest', "a" => "add", "type" => "ajax"));                                                                   ?>',
-            //                data: $("#testmanager").serialize(),
-            //                success: function() {
-            //
-            //                }
-            //            });
-
-            //$('#rootwizard').find("a[href*='tab1']").trigger('click');
         });
 
         $('.calender').daterangepicker(
@@ -270,19 +260,11 @@
         $(".icon-trash").btnDelRow();
         $('.multipleanswer,.multipleoption,.matchanswer').hide();
         $('#addquestion').bind('click', function() {
-
-            //            $("#testmanager").submit(function(event){
-            //
             event.preventDefault();
-            //            });
             addQuestion();
-
-
         });
 
-        //$('#optionstable th:nth-child('+(2)+')').hide();
         $("#question_type").bind('change', function() {
-
             resetOptionsTable($(this).val());
         });
         $("#question_type").trigger('change');
@@ -308,15 +290,25 @@
                 if (jQuery.isEmptyObject(questionDetails[currentrow]['answers'][opt]))
                     questionDetails[currentrow]['answers'][opt] = {};
                 questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
-                questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_answer_data").val();
-                questionDetails[currentrow]['answers'][opt]['multipleanswer'] = $(element).find(".true_false_data").val();
-                questionDetails[currentrow]['answers'][opt]['multipleoption'] = $(element).find(".correct_answer_data").val();
+                questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_data").val();
+                if ($('#question_type').val() == 0) {
+                    questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data").val();
+                } else {
+                    if ($('#question_type').val() == 1) {
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".true_false_data").val();
+
+
+                    }
+                }
+
+
                 questionDetails[currentrow]['answers'][opt]['correctness_percentage'] = $(element).find(".mcorrect_answer_data").val();
                 opt++;
 
             });
             createTable(questionDetails);
-            $("#currentrow").val(currentrow + 1);
+            $("#currentrow").val(questionDetails.length + 1);
+            resetQuestion();
         }
         else {
 
@@ -326,6 +318,8 @@
 
     function resetQuestion() {
         $('.reset').val("");
+
+
         var len = $('#optionstable tr').length;
         $('#optionstable tr').each(function(index) {
             if (len > 1) {
@@ -347,7 +341,7 @@
         switch (questiontype) {
             case 'multiplechoice':
                 if ($('.answer_data').length >= 3) {
-                    $.each($('.answer_data'), function() {
+                    $.each($('.answer_data'), function(ele) {
 
                     });
                 } else {
@@ -451,14 +445,28 @@
         resetQuestion();
 
         item = parseInt(item - 1);
+        console.log(item);
         if (isNaN(item)) {
         } else {
             $("#currentrow").val(item)
-            $('#question_type').val(questionDetails[item]['question_type']);
+            $('#question_type').val(questionDetails[item]['question_type']).trigger('change');
             $('#question').val(questionDetails[item]['question']);
-            $.map(questionDetails[item]['answers'], function(key, value) {
+            var len = questionDetails[item]['answers'].length;
 
-            });
+            for (i = 1; i <= len; i++) {
+                if (i < len) {
+                    $('#optionstable tr:nth-child(' + i + ')').find('.icon-plus').trigger('click');
+                }
+
+                $('#optionstable tr:nth-child(' + i + ')').find(".answer_data").val(questionDetails[item]['answers'][i - 1]['answer']);
+                $('#optionstable tr:nth-child(' + i + ')').find(".match_data").val(questionDetails[item]['answers'][i - 1]['match_answer']);
+                $('#optionstable tr:nth-child(' + i + ')').find(".correct_answer_data").val(questionDetails[item]['answers'][i - 1]['is_correct']);
+                $('#optionstable tr:nth-child(' + i + ')').find(".mcorrect_answer_data").val(questionDetails[item]['answers'][i - 1]['correctness_percentage']);
+
+            }
+
+
+
         }
 
 
@@ -469,7 +477,7 @@
         $('#answer').val();
         $('#question').val();
         $('#instructions').val();
-        $('#testname').val();
+        $('#name').val();
         $('#subject').val();
         $('#description').val();
         $('#activedates').val();
