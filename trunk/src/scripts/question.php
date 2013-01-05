@@ -7,16 +7,17 @@ if ($_POST["test_id"]) {
     $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
     $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
     if ($_POST['answers'] != '') {
-
-        foreach ($questionDetails as $key => $value) {
-            $question_type[$value['id']] = $value['question_type'];
-        }
-        $options = $cTestControllerObj->getOptions($questionDetails[0]["id"]);
         $answers = json_decode($_POST['answers']);
-        print_r($question_type);
-        print_r($options);
-        foreach ($options as $answer_id => $selected_answer) {
-            
+        print_r($answers);
+        foreach ($questionDetails as $key => $value) {
+            $options = $cTestControllerObj->getOptions($value["id"]);
+
+            //print_r($question_type);
+
+
+            foreach ($options as $key1 => $value1) {
+                print_r($value1);
+            }
         }
         exit;
     } else {

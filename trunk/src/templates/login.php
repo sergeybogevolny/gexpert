@@ -1,3 +1,10 @@
+<?php
+$cFormObj->options["alert"]["type"] = $_GET['mc'];
+$cFormObj->options["alert"]["data"] = $_GET['m'];
+
+$cFormObj->addAlert();
+echo $cFormObj->html();
+?>
 <form method="POST" class="form-horizontal">
 
     <div class="pull-right">
@@ -30,12 +37,12 @@
 <!--                <input name="rememberme" type="checkbox" id="rememberme" value="forever" />-->
                 <!--&nbsp; Remember me&nbsp;&nbsp;-->
                 <input type="submit" name="Submit" value="Login" class="btn btn-primary" />
-                <a href="<?php echo $cFormObj->createLinkUrl(array('f' => 'forget_password')); ?>">Forget Password</a>	
+                <a href="<?php echo $cFormObj->createLinkUrl(array('f' => 'forget_password')); ?>">Forget Password</a>
                 <div align="left">New User ?&nbsp;
                     <a href="<?php echo $cFormObj->createLinkUrl(array('f' => 'register')); ?>">Click here to register</a>
                 </div>
             </div>
-        </div>                        
+        </div>
 
     </div>
 

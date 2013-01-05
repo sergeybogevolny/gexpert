@@ -36,7 +36,5 @@ if ($_POST["test_id"]) {
             }
         }
     }
-//($cUtil)
 }
-print_r($productKeys);
 ?>

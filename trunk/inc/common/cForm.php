@@ -90,7 +90,7 @@ class cForm extends cUtil {
             $this->options['alert']['type'] = $this->options['alert']['type'] ? $this->options['alert']['type'] : "block";
             $this->html.='<div class="alert alert-' . $this->options['alert']['type'] . '">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <h4>' . $this->options['alert']['title'] . '!</h4>
+        <h4>' . $this->options['alert']['title'] . '</h4>
         ' . $this->options['alert']['data'] . '
         </div>';
         }
@@ -134,8 +134,14 @@ class cForm extends cUtil {
         return $this;
     }
 
-    function createLabel() {
-
+    function createInformationLabel() {
+        if ($_GET['m'] != "") {
+            $_GET['mc'] = $_GET['mc'] ? $_GET['mc'] : 'alert-error';
+            echo '<div class="alert ' . $_GET['mc'] . '">
+                ' . $_GET['m'] . '
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>';
+        }
     }
 
     function html() {
