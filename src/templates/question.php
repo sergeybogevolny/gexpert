@@ -100,16 +100,29 @@
 
             $("#instructions").hide();
             getQuestion(0);
-            $('#counter').countdown({
-                until: '+3000',
-                format: 'M:S',
-                layout: '{desc}{mnn}{sep}{snn}',
-                description: 'Time : '
-            });
+<?php
+if ($data[0]['time_taken'] > 0) {
+    ?>
+                $('#counter').countdown({
+                    until: '<?php echo $data[0]['time_taken'] * 60; ?>',
+                    format: 'M:S',
+                    layout: '{desc}{mnn}{sep}{snn}',
+                    description: 'Time : ',
+                    onExpiry: quizTimeOut
+                });
+
+    <?php
+}
+?>
+            function quizTimeOut() {
+                alert('Time up!!!');
+                $('#quiz').submit();
+            }
             $('#rootwizard').bootstrapWizard({onTabClick: function(tab, navigation, index) {
                     return false;
                 }, onNext: function(tab, navigation, index) {
-                    if (JSON.parse($('#seq').val()).length == (index + 1)) {
+                    if (JSON.parse($('#seq').val()).length == (index)) {
+                        getAnswer(index);
                         alert('Finish');
                         $('#quiz').submit();
                     } else {
@@ -179,9 +192,11 @@
         if (questions[seq] != 'undefined') {
             switch ($(divid + ' .answer_type').val()) {
                 case '0':
+                    console.log(divid + ' .answer:checked');
                     current_answer = $(divid + ' .answer:checked').attr('id');
                     break;
                 case '1':
+
                     var current_answer_tmp = new Array();
                     $(divid + ' .answer:checked').each(function(index) {
                         current_answer_tmp[index] = parseInt($(this).attr('id'));

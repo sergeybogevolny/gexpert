@@ -3,9 +3,16 @@
 include_once(AppRoot . AppController . "cTestController.php");
 
 $cTestControllerObj = new cTestController();
+
+if(is_array($_POST) && $_POST["test_id"]==''&&$_GET['type'] != 'ajax'){
+    header("Location:" . $cFormObj->createLinkUrl(array("f" => "tests")));
+    exit;
+}
 if ($_POST["test_id"]) {
+    
     $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
     $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
+    
     if ($_POST['answers'] != '') {
         $answers = json_decode($_POST['answers']);
         print_r($answers);
@@ -22,9 +29,10 @@ if ($_POST["test_id"]) {
         exit;
     } else {
         foreach ($questionDetails as $key => $value) {
-            $question_numbers[] = $value[id];
+            $question_numbers[] = $value['id'];
         }
         shuffle($question_numbers);
+        
     }
 }
 if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
