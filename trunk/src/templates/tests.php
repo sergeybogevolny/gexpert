@@ -28,7 +28,6 @@ echo $cFormObj->html();
         $cTestControllerObj->table = "test_details td";
         $cTestControllerObj->join_condition = "join __users u on u.id=td.created_by";
     }
-
     $cFormObj->data = $cTestControllerObj->addWhereCondition("td.status=1" . $condition)->select()->executeRead();
     $cFormObj->options['actioncolumn'] = true;
     if ($_SESSION['user_type'] == 1) {

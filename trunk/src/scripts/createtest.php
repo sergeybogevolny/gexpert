@@ -14,8 +14,6 @@ if ($_GET['a'] == 'd') {
     exit;
 }
 
-
-
 if ($_POST["questionsdata"]) {
     list( $start_date, $end_date) = explode("-", $_POST["activedates"]);
     $cTestControllerObj->column["category"] = $_POST["category"];
@@ -45,7 +43,6 @@ if ($_POST["questionsdata"]) {
 
 
     $questions = (array) json_decode($_POST["questionsdata"]);
-    print_r($questions);
     $testid = $cTestControllerObj->id;
     foreach ($questions as $key => $value) {
 
