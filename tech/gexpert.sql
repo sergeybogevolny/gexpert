@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.5.3
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 30, 2012 at 11:01 AM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Generation Time: Jan 10, 2013 at 07:09 PM
+-- Server version: 5.5.28-0ubuntu0.12.10.1
+-- PHP Version: 5.4.6-1ubuntu1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,40 +27,38 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `answers` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `answer` varchar(3000) NOT NULL,
   `match_answer` varchar(5000) NOT NULL,
   `is_correct` bit(1) NOT NULL DEFAULT b'0',
   `question_id` int(11) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `percent` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `pk_answers` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `answers`
 --
 
 INSERT INTO `answers` (`id`, `answer`, `match_answer`, `is_correct`, `question_id`, `date_created`, `percent`) VALUES
-(0, '', '', '1', 1, '2012-11-24 17:26:59', 0),
-(0, '', '', '1', 3, '2012-11-24 17:27:41', 0),
-(0, 'Smarty', '', '1', 4, '2012-11-24 17:27:41', 0),
-(0, '', '', '1', 5, '2012-11-24 17:28:24', 0),
-(1, 'Smarty', '', '1', 6, '2012-11-24 17:28:24', 0),
-(2, 'HTML', '', '1', 6, '2012-11-24 17:28:24', 0),
-(3, 'CSS', '', '1', 6, '2012-11-24 17:28:24', 0),
-(4, 'Jquery', '', '1', 6, '2012-11-24 17:28:24', 0),
-(5, 'eval', '', '1', 7, '2012-11-24 17:28:24', 0),
-(6, 'wel', '', '1', 7, '2012-11-24 17:28:24', 0),
-(7, 'echo', '', '1', 7, '2012-11-24 17:28:24', 0),
-(8, 'system.out.println', '', '1', 7, '2012-11-24 17:28:24', 0),
-(9, 'PHP server scripts are surrounded by ', '', '1', 8, '2012-11-24 17:28:24', 0),
-(10, 'write "Hello World" in PHP\n', '', '1', 8, '2012-11-24 17:28:24', 0),
-(11, 'variables in PHP start with', '', '1', 8, '2012-11-24 17:28:24', 0),
-(12, 'correct way to end a PHP statement', '', '1', 8, '2012-11-24 17:28:24', 0),
-(13, 'A', '', '1', 9, '2012-11-24 17:28:24', 0),
-(14, 'B', '', '1', 9, '2012-11-24 17:28:24', 0),
-(15, 'C', '', '1', 9, '2012-11-24 17:28:24', 0);
+(1, '', '', b'1', 15, '2013-01-10 16:37:27', 0),
+(2, 'Smarty', '', b'1', 16, '2013-01-10 16:37:27', 0),
+(3, 'HTML', '', b'1', 16, '2013-01-10 16:37:27', 0),
+(4, 'CSS', '', b'1', 16, '2013-01-10 16:37:27', 0),
+(5, 'Jquery', '', b'1', 16, '2013-01-10 16:37:27', 0),
+(6, 'eval', '', b'1', 17, '2013-01-10 16:37:27', 0),
+(7, 'wel', '', b'1', 17, '2013-01-10 16:37:27', 0),
+(8, 'echo', '', b'1', 17, '2013-01-10 16:37:27', 0),
+(9, 'system.out.println', '', b'1', 17, '2013-01-10 16:37:27', 0),
+(10, 'PHP server scripts are surrounded by ', 'A\n', b'1', 18, '2013-01-10 16:37:27', 0),
+(11, 'write "Hello World" in PHP\n', 'B', b'1', 18, '2013-01-10 16:37:27', 0),
+(12, 'variables in PHP start with', 'C', b'1', 18, '2013-01-10 16:37:27', 0),
+(13, 'correct way to end a PHP statement', 'D\n', b'1', 18, '2013-01-10 16:37:27', 0),
+(14, 'A', '', b'1', 19, '2013-01-10 16:37:27', 0),
+(15, 'B', '', b'1', 19, '2013-01-10 16:37:28', 0),
+(16, 'C', '', b'1', 19, '2013-01-10 16:37:28', 0);
 
 -- --------------------------------------------------------
 
@@ -356,7 +354,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `question` varchar(1500) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pk_questions_0` (`test_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `questions`
@@ -366,11 +364,11 @@ INSERT INTO `questions` (`id`, `test_id`, `question_type`, `level_id`, `date_cre
 (1, 13, 0, 1, '2012-11-24 17:26:59', 0, 'is_array is a function in PHP'),
 (3, 14, 0, 1, '2012-11-24 17:27:41', 0, 'is_array is a function in PHP'),
 (4, 14, 0, 1, '2012-11-24 17:27:41', 0, 'Template Frameworks for PHP'),
-(5, 15, 2, 1, '2012-11-24 17:28:24', 0, 'is_array is a function in PHP'),
-(6, 15, 0, 1, '2012-11-24 17:28:24', 0, 'Template Frameworks for PHP'),
-(7, 15, 1, 1, '2012-11-24 17:28:24', 0, 'Functions available in PHP'),
-(8, 15, 4, 1, '2012-11-24 17:28:24', 0, 'Match the following'),
-(9, 15, 5, 1, '2012-11-24 17:28:24', 0, 'Sequencing');
+(15, 15, 2, 1, '2013-01-10 16:37:27', 0, 'is_array is a function in PHP'),
+(16, 15, 0, 1, '2013-01-10 16:37:27', 0, 'Template Frameworks for PHP'),
+(17, 15, 1, 1, '2013-01-10 16:37:27', 0, 'Functions available in PHP'),
+(18, 15, 4, 1, '2013-01-10 16:37:27', 0, 'Match the following'),
+(19, 15, 5, 1, '2013-01-10 16:37:27', 0, 'Sequencing');
 
 -- --------------------------------------------------------
 
@@ -422,10 +420,10 @@ CREATE TABLE IF NOT EXISTS `test_details` (
 --
 
 INSERT INTO `test_details` (`id`, `category`, `name`, `description`, `instruction`, `logo`, `time_taken`, `date_created`, `created_by`, `last_modified`, `valid_from`, `valid_to`, `allow_correction`, `sharing`, `status`) VALUES
-(3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22 16:59:26', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0),
-(13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0),
-(14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0),
-(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0);
+(3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22 16:59:26', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
+(13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
+(14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
+(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1, '2013-01-09 18:30:00', '2013-11-30', '2013-01-10', 0, 0, 1);
 
 -- --------------------------------------------------------
 
