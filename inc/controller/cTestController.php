@@ -47,6 +47,10 @@ class cTestController extends cController {
         return $this->addWhereCondition("question_id=" . $id)->select()->executeRead();
     }
 
+    function getCorrectAnswers($id){
+        $this->table = "answers";
+        return $this->addWhereCondition("question_id=" . $id." and is_correct=1")->select()->executeRead();
+    }
     function createQuestion($id) {
         $questionDetails = $this->getQuestionDetails($id);
         $this->questionId = $questionDetails[0]['id'];
