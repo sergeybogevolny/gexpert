@@ -1,7 +1,7 @@
 <script src="src/js/jquery.countdown.js" type="text/javascript" charset="utf-8"></script>
 <link rel="stylesheet" href="src/css/jquery.countdown.css">
 <div class="container-fluid" id="instructions">
-    <legend>Rules /Instructions</legend> 
+    <legend>Rules /Instructions</legend>
     <h2>Taking the Quiz</h2>
     <ol>
         <li>
@@ -64,7 +64,7 @@
 
         <div class="tab-content">
 
-        </div>   
+        </div>
         <ul class="pager wizard">
             <li class="previous" ><a href="#">Previous</a></li>
             <li class="next"><a href="#">Next</a></li>
@@ -121,6 +121,7 @@ if ($data[0]['time_taken'] > 0) {
             $('#rootwizard').bootstrapWizard({onTabClick: function(tab, navigation, index) {
                     return false;
                 }, onNext: function(tab, navigation, index) {
+                    console.log(tab, navigation, index);
                     if (JSON.parse($('#seq').val()).length == (index)) {
                         getAnswer(index);
                         alert('Finish');
@@ -187,7 +188,7 @@ if ($data[0]['time_taken'] > 0) {
     function getAnswer(seq) {
         var questions = JSON.parse($('#seq').val());
         var current_answer = '';
-        var question_id = questions[seq];
+        var question_id = questions[seq - 1];
         var divid = '#tab' + seq;
         if (questions[seq] != 'undefined') {
             switch ($(divid + ' .answer_type').val()) {
@@ -210,10 +211,10 @@ if ($data[0]['time_taken'] > 0) {
                     current_answer = $(divid + ' .answer:checked');
                     break;
                 case '4':
-                    current_answer = $(".sortable").sortable("toArray");
+                    current_answer = $(divid + " .sortable").sortable("toArray");
                     break;
                 case '5':
-                    current_answer = $(".sortable").sortable("toArray");
+                    current_answer = $(divid + " .sortable").sortable("toArray");
                     break;
             }
             answer[ question_id ] = current_answer;

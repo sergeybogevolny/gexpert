@@ -4,35 +4,90 @@ include_once(AppRoot . AppController . "cTestController.php");
 
 $cTestControllerObj = new cTestController();
 
-if(is_array($_POST) && $_POST["test_id"]==''&&$_GET['type'] != 'ajax'){
+if (is_array($_POST) && $_POST["test_id"] == '' && $_GET['type'] != 'ajax') {
     header("Location:" . $cFormObj->createLinkUrl(array("f" => "tests")));
     exit;
 }
 if ($_POST["test_id"]) {
-    
+
     $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
     $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
-    
+
     if ($_POST['answers'] != '') {
         $answers = json_decode($_POST['answers']);
-        print_r($answers);
+        $scores = 0;
+
         foreach ($questionDetails as $key => $value) {
-            $options = $cTestControllerObj->getOptions($value["id"]);
+            $correctanswers = $cTestControllerObj->getCorrectAnswers($value["id"]);
+            $current_answer = $answers->{$value["id"]};
+            switch ($value['question_type']) {
+                case 0:
+                    //   print_r($correctanswers);
+                    if ($current_answer == $correctanswers[0]['id']) {
+                        $scores+=1;
+                    }
 
-            //print_r($question_type);
+                    break;
+                case 1:
+                    $selected_array = json_decode($current_answer);
+                    $answercnt = count($correctanswers);
+                    foreach ($correctanswers as $key1 => $value1) {
+                        if (in_array($value1['id'], $selected_array)) {
+                            $scores+=(1 / $answercnt);
+                        }
+                    }
 
 
-            foreach ($options as $key1 => $value1) {
-                print_r($value1);
+                    break;
+                case 2:
+                    //     echo $value['question_type'];
+                    $correctanswers = $correctanswers[0]['answer'] === 1 ? true : false;
+                    if ($correctanswers == $current_answer) {
+                        $scores+=1;
+                    }
+
+                    break;
+                case 3:
+//                    print_r($answers);
+//                    print_r($current_answer);
+
+                    break;
+                case 4:
+//                    echo $value['question_type'];
+//                    print_r($current_answer);
+//                    print_r($correctanswers);
+                    foreach ($correctanswers as $key1 => $value1) {
+                        if ($current_answer[$key1] == $value1['id']) {
+                            $scores+=1;
+                        }
+                    }
+
+                    break;
+
+                case 5:
+
+                    foreach ($correctanswers as $key1 => $value1) {
+                        if ($current_answer[$key1] == $value1['id']) {
+                            $scores+=1;
+                        }
+                    }
+                    break;
             }
+            //  print_r($value);
+//            foreach ($options as $key1 => $value1) {
+//                print_r($value1);
+//            }
         }
+
+
+        echo $scores;
+
         exit;
     } else {
         foreach ($questionDetails as $key => $value) {
             $question_numbers[] = $value['id'];
         }
         shuffle($question_numbers);
-        
     }
 }
 if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
