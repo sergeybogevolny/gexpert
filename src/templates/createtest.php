@@ -68,7 +68,7 @@
                 <div class="control-group">
                     <label class="control-label" for="allow_correction">Allow Correction</label>
                     <div class="controls">
-                        <input name="allow_correction" type="checkbox" id="allow_correction" "<?php echo $testDetails['allow_correction']; ?>"/>
+                        <input name="allow_correction" type="checkbox" id="allow_correction" "<?php echo $testDetails['allow_correction']; ?>" checked />
                     </div>
                 </div>
                 <div class="control-group">
@@ -76,7 +76,7 @@
                     <div class="controls">
 
                         <?php
-                        $cFormObj->data = array("0" => "Public", "1" => "Private");
+                        $cFormObj->data = array("0" => "Private", "1" => "Public");
                         $cFormObj->options = array("name" => "sharing", "default" => false, 'selected' => $testDetails['name']);
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
@@ -134,12 +134,16 @@
                                     <textarea rows="1" class="htmleditor match_answer match_data reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
                                 </td>
                                 <td class="multipleanswer multipleoption true_false">
-                                    <label class="checkbox multipleanswer true_false">
-                                        <input type="checkbox" class="multipleanswer reset true_false true_false_data" name="multipleanswer" id="multipleanswer">
+                                    <label class="checkbox multipleanswer ">
+                                        <input type="checkbox" class="multipleanswer reset " name="multipleanswer" id="multipleanswer">
                                         Multiple Option
                                     </label>
+                                    <label class="checkbox true_false">
+                                        <input type="checkbox" class="reset true_false true_false_data" name="true_false" id="true_false">
+
+                                    </label>
                                     <label class="radio multipleoption">
-                                        <input type="radio" class="multipleoption correct_answer_data reset" name="correctanswer" id="correctanswer"  checked>
+                                        <input type="radio" class="multipleoption correct_answer_data reset" name="correctanswer" id="correctanswer" >
                                         Correct
                                     </label>
                                 </td>
@@ -245,9 +249,9 @@
                         'Next Month': [Date.today().moveToFirstDayOfMonth().add({months: 1}), Date.today().moveToLastDayOfMonth().add({months: 1})]
                     }
                 },
-        function(start, end) {
-            $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-        }
+                function(start, end) {
+                    $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+                }
         );
 
         $('#description').wysihtml5({"color": true});
@@ -289,17 +293,35 @@
             $(".optionrow").each(function(index, element) {
                 if (jQuery.isEmptyObject(questionDetails[currentrow]['answers'][opt]))
                     questionDetails[currentrow]['answers'][opt] = {};
-                questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
-                questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_data").val();
-                if ($('#question_type').val() == 0) {
-                    questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data").val();
-                } else {
-                    if ($('#question_type').val() == 1) {
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".true_false_data").val();
 
+                console.log($(element).find(".correct_answer_data:selected"));
+                console.log($(element).find(".correct_answer_data").val());
+                switch ($('#question_type').val()) {
+                    case 0:
+                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
 
-                    }
+                        break;
+                    case 1:
+                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
+                        break;
+                    case 2:
+                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
+                        questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_data").val();
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = 1;
+                        break;
+                    case 5:
+                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = 1;
+                        break;
                 }
+
 
 
                 questionDetails[currentrow]['answers'][opt]['correctness_percentage'] = $(element).find(".mcorrect_answer_data").val();
@@ -307,7 +329,14 @@
 
             });
             createTable(questionDetails);
-            $("#currentrow").val(questionDetails.length + 1);
+//            var currentquestionsno = 1;
+//
+//            if ($(questionDetails).length >= 1) {
+//                currentquestionsno = $(questionDetails).length + 1;
+//            }
+            $("#currentrow").val($.map(questionDetails, function(n, i) {
+                return i;
+            }).length);
             resetQuestion();
         }
         else {
@@ -379,7 +408,7 @@
     }
 
     function resetOptionsTable(val) {
-        $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage').hide();
+        $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage,.true_false').hide();
         switch (val) {
             case '0':
                 $('.multipleoption,.answer').show();
