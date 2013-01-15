@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 10, 2013 at 07:09 PM
+-- Generation Time: Jan 15, 2013 at 10:48 AM
 -- Server version: 5.5.28-0ubuntu0.12.10.1
 -- PHP Version: 5.4.6-1ubuntu1
 
@@ -43,15 +43,15 @@ CREATE TABLE IF NOT EXISTS `answers` (
 --
 
 INSERT INTO `answers` (`id`, `answer`, `match_answer`, `is_correct`, `question_id`, `date_created`, `percent`) VALUES
-(1, '', '', b'1', 15, '2013-01-10 16:37:27', 0),
+(1, '1', '', b'1', 15, '2013-01-10 16:37:27', 0),
 (2, 'Smarty', '', b'1', 16, '2013-01-10 16:37:27', 0),
-(3, 'HTML', '', b'1', 16, '2013-01-10 16:37:27', 0),
-(4, 'CSS', '', b'1', 16, '2013-01-10 16:37:27', 0),
-(5, 'Jquery', '', b'1', 16, '2013-01-10 16:37:27', 0),
+(3, 'HTML', '', b'0', 16, '2013-01-10 16:37:27', 0),
+(4, 'CSS', '', b'0', 16, '2013-01-10 16:37:27', 0),
+(5, 'Jquery', '', b'0', 16, '2013-01-10 16:37:27', 0),
 (6, 'eval', '', b'1', 17, '2013-01-10 16:37:27', 0),
-(7, 'wel', '', b'1', 17, '2013-01-10 16:37:27', 0),
+(7, 'wel', '', b'0', 17, '2013-01-10 16:37:27', 0),
 (8, 'echo', '', b'1', 17, '2013-01-10 16:37:27', 0),
-(9, 'system.out.println', '', b'1', 17, '2013-01-10 16:37:27', 0),
+(9, 'system.out.println', '', b'0', 17, '2013-01-10 16:37:27', 0),
 (10, 'PHP server scripts are surrounded by ', 'A\n', b'1', 18, '2013-01-10 16:37:27', 0),
 (11, 'write "Hello World" in PHP\n', 'B', b'1', 18, '2013-01-10 16:37:27', 0),
 (12, 'variables in PHP start with', 'C', b'1', 18, '2013-01-10 16:37:27', 0),
@@ -381,12 +381,22 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `score` decimal(10,0) NOT NULL,
   `test_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `test_time` int(11) NOT NULL DEFAULT '0',
+  `total_questions` int(11) NOT NULL DEFAULT '0',
+  `correct_answers` int(11) NOT NULL DEFAULT '0',
   `status` char(1) DEFAULT '1',
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_scores` (`test_id`),
   KEY `idx_scores_0` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `scores`
+--
+
+INSERT INTO `scores` (`id`, `score`, `test_id`, `user_id`, `test_time`, `total_questions`, `correct_answers`, `status`, `add_date`) VALUES
+(2, 10, 15, 1, 42, 5, 5, '1', '2013-01-15 06:57:49');
 
 -- --------------------------------------------------------
 
