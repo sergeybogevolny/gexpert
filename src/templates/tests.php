@@ -29,6 +29,9 @@ echo $cFormObj->html();
         $cTestControllerObj->join_condition = "join __users u on u.id=td.created_by";
     }
     $cFormObj->data = $cTestControllerObj->addWhereCondition("td.status=1" . $condition)->select()->executeRead();
+    foreach ($cFormObj->data as $key => $value) {
+
+    }
     $cFormObj->options['actioncolumn'] = true;
     if ($_SESSION['user_type'] == 1) {
         $cFormObj->options['actioncolumnicons'] = '<i class="icon-edit"></i>
