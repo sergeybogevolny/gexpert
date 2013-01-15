@@ -47,10 +47,11 @@ class cTestController extends cController {
         return $this->addWhereCondition("question_id=" . $id)->select()->executeRead();
     }
 
-    function getCorrectAnswers($id){
+    function getCorrectAnswers($id) {
         $this->table = "answers";
-        return $this->addWhereCondition("question_id=" . $id." and is_correct=1")->select()->executeRead();
+        return $this->addWhereCondition("question_id=" . $id . " and is_correct=1")->select()->executeRead();
     }
+
     function createQuestion($id) {
         $questionDetails = $this->getQuestionDetails($id);
         $this->questionId = $questionDetails[0]['id'];
@@ -75,6 +76,25 @@ class cTestController extends cController {
                 $this->createSequencing();
                 break;
         }
+    }
+
+    function updateScores($data) {
+        $this->table = "scores";
+        $is_scores = $this->addWhereCondition("user_id=" . $data['user_id'] . " and test_id=" . $data['test_id'])->select()->executeRead();
+        $this->column = $data;
+        $this->table = "scores";
+        if ($is_scores[0]['id'] != '') {
+            return $this->addWhereCondition("user_id=" . $data['user_id'] . " and test_id=" . $data['test_id'])->update()->executeWrite();
+        } else {
+            return $this->create()->executeWrite();
+        }
+    }
+
+    function getScores($condition = "") {
+        $this->column = array('score', 'test_time', 'total_questions', 'correct_answers', 'add_date');
+        $this->table = "scores s";
+        $this->join_condition = " join test_details td on s.test_id = td.id join `__users` u on u.id = s.user_id";
+        return $this->addWhereCondition($condition)->select()->executeRead();
     }
 
 }

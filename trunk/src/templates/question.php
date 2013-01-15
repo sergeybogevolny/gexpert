@@ -75,6 +75,7 @@
 <input type="hidden" id="seq" name="seq" value="<?php echo json_encode($question_numbers); ?>"/>
 <input type="hidden" id="answers" name="answers" value=""/>
 <input type="hidden" id="test_id" name="test_id" value="<?php echo$_POST["test_id"] ?>"/>
+<input type="hidden" id="test_time" name="test_time" value="0"/>
 </form>
 <div id="loading" style="display: none"></div>
 <script>
@@ -115,6 +116,7 @@ if ($data[0]['time_taken'] > 0) {
 }
 ?>
             function quizTimeOut() {
+                $('#test_time').val($('#counter').countdown('getTimes'));
                 alert('Time up!!!');
                 $('#quiz').submit();
             }
@@ -125,6 +127,7 @@ if ($data[0]['time_taken'] > 0) {
                     if (JSON.parse($('#seq').val()).length == (index)) {
                         getAnswer(index);
                         alert('Finish');
+                        $('#test_time').val($('#counter').countdown('getTimes'));
                         $('#quiz').submit();
                     } else {
 
@@ -136,7 +139,7 @@ if ($data[0]['time_taken'] > 0) {
                         $('#current_question').html(index + 1);
                 }, onLast: function(tab, navigation, index) {
                     $('#quiz').submit();
-                    //alert('asdasd');
+
 
                 }, onTabShow: function(tab, navigation, index) {
                     var $total = JSON.parse($('#seq').val()).length;
