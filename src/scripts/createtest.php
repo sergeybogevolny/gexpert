@@ -54,6 +54,7 @@ if ($_POST["questionsdata"]) {
 
         $cTestControllerObj->curd("add");
         $questionid = $cTestControllerObj->id;
+        print_r($value);
         foreach ($value->answers as $key1 => $value1) {
             $cTestControllerObj->column["answer"] = $value1->answer;
             $cTestControllerObj->column["match_answer"] = $value1->match_answer;
