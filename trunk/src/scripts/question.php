@@ -88,7 +88,7 @@ if ($_POST["test_id"]) {
         $scoredata['status'] = 1;
         $cTestControllerObj->updateScores($scoredata);
 
-        header("Location:" . $cFormObj->createLinkUrl(array("f" => "scores")));
+        header("Location:" . $cFormObj->createLinkUrl(array("f" => "scores", "id" => $_POST["test_id"])));
         exit;
     } else {
         foreach ($questionDetails as $key => $value) {

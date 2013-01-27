@@ -36,10 +36,12 @@ echo $cFormObj->html();
     if ($_SESSION['user_type'] == 1) {
         $cFormObj->options['actioncolumnicons'] = '<i class="icon-edit"></i>
             <i class="icon-trash"></i>
-            <i class="icon-share-alt"></i></i><i class="icon-lock"></i>';
+            <i class="icon-share-alt"></i>
+            <i class="icon-lock"></i>';
     }
 
-    $cFormObj->options['actioncolumnicons'] .='<i class="icon-eye-open">';
+    $cFormObj->options['actioncolumnicons'] .='<i class="icon-eye-open"></i>
+        <i class="icon-thumbs-up"></i>';
 
     $cFormObj->options['header'] = array("Id", "Name", "Desc", "Created");
     $cFormObj->createHTable();
@@ -51,12 +53,11 @@ echo $cFormObj->html();
 
 <script>
     $(document).ready(function() {
-
-
         var url1 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>';
         var url2 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>';
         var url3 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>';
         var url4 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'addtest')); ?>';
+        var url5 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'scores')); ?>';
         $(".icon-eye-open").click(function() {
             $("#test_id").val($(this).parent().siblings(":first").html());
             $("#listtests").attr('action', url1).submit();
@@ -76,18 +77,15 @@ echo $cFormObj->html();
         });
         $('.icon-edit').click(function() {
             window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:first').html());
-
-
+        });
+        $('.icon-thumbs-up').click(function() {
+            window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:first').html());
         });
         $('.icon-trash').click(function() {
             window.location = url3 + "&a=" + $.base64.encode("d") + "&id=" + $.base64.encode($(this).parent().parent().find('td:first').html());
-
-
         });
         $('.icon-share-alt').click(function() {
             window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('td:first').html());
-
-
         });
 
 
