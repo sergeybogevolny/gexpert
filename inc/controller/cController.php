@@ -17,8 +17,8 @@ class cController extends cModel {
 
         $this->table = $table;
         $this->column = $columns;
-        
-        
+
+
         $data = $this->addWhereCondition($condition)->addOrderBy($orderby)->select()->executeRead();
 
         if (is_array($data)) {
@@ -34,18 +34,18 @@ class cController extends cModel {
     public function curd($action = '', $id = "") {
 
 
-        if ($action == 'view'||$action == 'editview') {
+        if ($action == 'view' || $action == 'editview') {
             return $this->addWhereCondition($this->table . '.id=' . $id)->select()->executeRead();
-        }elseif ($action == 'edit') {
+        } elseif ($action == 'edit') {
             $this->setSessionValues();
             $this->addWhereCondition('id=' . $id)->update()->executeWrite();
-            $this->id =$id;
+            $this->id = $id;
             $_SESSION['lastaction'] = array('info' => array('url' => "index.php?file=" . $_GET['file'] . "&action=view&id=" . $this->id, 'text' => "Record Updated Successfully[ $this->id ]"));
             return $this->id;
         } elseif ($action == 'delete') {
-            
+
             $this->addWhereCondition('id=' . $id)->delete()->executeWrite();
-            $this->id =$id;
+            $this->id = $id;
             $_SESSION['lastaction'] = array('info' => array('url' => "index.php?file=" . $_GET['file'] . "&id=" . $this->id, 'text' => "Record Deleted Successfully[ $this->id ]"));
             return $this->id;
         } elseif ($action == 'add') {

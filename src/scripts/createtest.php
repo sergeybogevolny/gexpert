@@ -8,6 +8,7 @@ $cTestControllerObj = new cTestController();
 if ($_GET['a'] == 'd') {
 
     $cTestControllerObj->table = "test_details";
+    $cTestControllerObj->column["last_modified"] = date(AppDateFormatDbInput);
     $cTestControllerObj->column["status"] = 0;
     $cTestControllerObj->addWhereCondition("id=" . $_GET["id"])->update()->executeWrite();
     header("Location:" . $cFormObj->createLinkUrl(array("f" => "tests")));
@@ -15,6 +16,7 @@ if ($_GET['a'] == 'd') {
 }
 
 if ($_POST["questionsdata"]) {
+
     list( $start_date, $end_date) = explode("-", $_POST["activedates"]);
     $cTestControllerObj->column["category"] = $_POST["category"];
     $cTestControllerObj->column["name"] = $_POST["name"];

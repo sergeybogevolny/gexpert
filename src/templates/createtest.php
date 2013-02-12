@@ -157,8 +157,6 @@
 
                                 </td>
                                 <td class="answer">
-                                    <i class="icon-edit"></i>
-                                    <i class="icon-ok"></i>
                                     <i class="icon-trash"></i>
                                     <i class="icon-plus"></i>
                                 </td>
@@ -255,7 +253,7 @@
         );
 
         $('#description').wysihtml5({"color": true});
-        $('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
+        //$('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
         createTable(questionDetails);
         $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber"}, function() {
 
@@ -289,51 +287,38 @@
             questionDetails[currentrow]["question_type"] = $('#question_type').val();
             questionDetails[currentrow]["question"] = $('#question').val();
             var opt = 0;
-            questionDetails[currentrow]['answers'] = {};
+            questionDetails[currentrow]['answers'] = new Array();
             $(".optionrow").each(function(index, element) {
                 if (jQuery.isEmptyObject(questionDetails[currentrow]['answers'][opt]))
                     questionDetails[currentrow]['answers'][opt] = {};
-
-                console.log($(element).find(".correct_answer_data:selected"));
-                console.log($(element).find(".correct_answer_data").val());
+                questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
                 switch ($('#question_type').val()) {
-                    case 0:
-                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
+                    case '0':
                         questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
 
                         break;
-                    case 1:
-                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
+                    case '1':
+
                         questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
                         break;
-                    case 2:
-                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
+                    case '2':
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
                         break;
                     case 3:
                         break;
-                    case 4:
-                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
+                    case '4':
                         questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_data").val();
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = 1;
+
                         break;
-                    case 5:
-                        questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = 1;
+                    case '5':
+
                         break;
                 }
-
-
-
                 questionDetails[currentrow]['answers'][opt]['correctness_percentage'] = $(element).find(".mcorrect_answer_data").val();
                 opt++;
 
             });
             createTable(questionDetails);
-//            var currentquestionsno = 1;
-//
-//            if ($(questionDetails).length >= 1) {
-//                currentquestionsno = $(questionDetails).length + 1;
-//            }
             $("#currentrow").val($.map(questionDetails, function(n, i) {
                 return i;
             }).length);
