@@ -13,7 +13,7 @@ if ($_POST["test_id"]) {
     $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
 
     if ($_POST['answers'] != '') {
-        $answers = json_decode($_POST['answers']);
+        $answers = json_decode(stripslashes($_POST['answers']));
         $scores = 0;
         $correctanswercnt = array();
         foreach ($questionDetails as $key => $value) {
@@ -29,7 +29,8 @@ if ($_POST["test_id"]) {
 
                     break;
                 case 1:
-                    $selected_array = json_decode($current_answer);
+                    $selected_array =
+json_decode(stripslashes($current_answer));
                     $answercnt = count($correctanswers);
                     foreach ($correctanswers as $key1 => $value1) {
                     if(is_array($selected_array)){
