@@ -33,7 +33,7 @@ if ($_POST["test_id"]) {
                     $selected_array = json_decode($current_answer);
                     $answercnt = count($correctanswers);
                     foreach ($correctanswers as $key1 => $value1) {
-                    if(is_array($selected_array){
+                    if(is_array($selected_array)){
                         if (in_array($value1['id'], $selected_array)) {
                             $scores+=(1 / $answercnt);
                             $correctanswercnt[$value["id"]]++;
