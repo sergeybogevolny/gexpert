@@ -25,6 +25,7 @@
                     <?php } ?>
                 </td>
                 <td>
+                    <a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'cert001', 'id' => $_GET['id'])); ?>">Certificate</a>
                     <!--<img data-src="holder.js/260x180" alt="260x180" style="width: 260px; height: 180px; " src="">-->
 
                 </td>
