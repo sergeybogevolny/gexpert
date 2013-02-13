@@ -1,11 +1,11 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 3.5.3
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 15, 2013 at 10:48 AM
+-- Generation Time: Feb 14, 2013 at 12:06 AM
 -- Server version: 5.5.28-0ubuntu0.12.10.1
--- PHP Version: 5.4.6-1ubuntu1
+-- PHP Version: 5.4.6-1ubuntu1.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -36,29 +36,49 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `percent` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pk_answers` (`question_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
 
 --
 -- Dumping data for table `answers`
 --
 
-INSERT INTO `answers` (`id`, `answer`, `match_answer`, `is_correct`, `question_id`, `date_created`, `percent`) VALUES
-(1, '1', '', b'1', 15, '2013-01-10 16:37:27', 0),
-(2, 'Smarty', '', b'1', 16, '2013-01-10 16:37:27', 0),
-(3, 'HTML', '', b'0', 16, '2013-01-10 16:37:27', 0),
-(4, 'CSS', '', b'0', 16, '2013-01-10 16:37:27', 0),
-(5, 'Jquery', '', b'0', 16, '2013-01-10 16:37:27', 0),
-(6, 'eval', '', b'1', 17, '2013-01-10 16:37:27', 0),
-(7, 'wel', '', b'0', 17, '2013-01-10 16:37:27', 0),
-(8, 'echo', '', b'1', 17, '2013-01-10 16:37:27', 0),
-(9, 'system.out.println', '', b'0', 17, '2013-01-10 16:37:27', 0),
-(10, 'PHP server scripts are surrounded by ', 'A\n', b'1', 18, '2013-01-10 16:37:27', 0),
-(11, 'write "Hello World" in PHP\n', 'B', b'1', 18, '2013-01-10 16:37:27', 0),
-(12, 'variables in PHP start with', 'C', b'1', 18, '2013-01-10 16:37:27', 0),
-(13, 'correct way to end a PHP statement', 'D\n', b'1', 18, '2013-01-10 16:37:27', 0),
-(14, 'A', '', b'1', 19, '2013-01-10 16:37:27', 0),
-(15, 'B', '', b'1', 19, '2013-01-10 16:37:28', 0),
-(16, 'C', '', b'1', 19, '2013-01-10 16:37:28', 0);
+INSERT INTO `answers` (`id`, `answer`, `match_answer`, `is_correct`,
+`question_id`, `date_created`, `percent`) VALUES
+(17, '1', '', b'1', 20, '2013-01-15 18:26:23', 0),
+(18, '2', '', b'1', 20, '2013-01-15 18:26:23', 0),
+(19, '3', '', b'1', 20, '2013-01-15 18:26:23', 0),
+(20, '4', '', b'1', 20, '2013-01-15 18:26:23', 0),
+(21, '1', '', b'1', 21, '2013-01-15 18:26:23', 0),
+(22, '2', '', b'1', 21, '2013-01-15 18:26:23', 0),
+(23, '3', '', b'1', 21, '2013-01-15 18:26:23', 0),
+(24, '4', '', b'1', 21, '2013-01-15 18:26:23', 0),
+(25, '', '', b'1', 22, '2013-01-15 18:26:23', 0),
+(26, '1', '1', b'1', 23, '2013-01-15 18:26:23', 0),
+(27, '2', '2', b'1', 23, '2013-01-15 18:26:23', 0),
+(28, '3', '3', b'1', 23, '2013-01-15 18:26:23', 0),
+(29, '4', '4', b'1', 23, '2013-01-15 18:26:23', 0),
+(30, '1', '', b'1', 24, '2013-01-15 18:26:24', 0),
+(31, '2', '', b'1', 24, '2013-01-15 18:26:24', 0),
+(32, '3', '', b'1', 24, '2013-01-15 18:26:24', 0),
+(33, '4', '', b'1', 24, '2013-01-15 18:26:24', 0),
+(114, '', '', b'1', 50, '2013-02-13 07:37:53', 0),
+(115, 'Smarty', '', b'1', 51, '2013-02-13 07:37:53', 0),
+(116, 'HTML', '', b'1', 51, '2013-02-13 07:37:53', 0),
+(117, 'CSS', '', b'1', 51, '2013-02-13 07:37:53', 0),
+(118, 'Jquery', '', b'1', 51, '2013-02-13 07:37:53', 0),
+(119, 'eval', '', b'1', 52, '2013-02-13 07:37:53', 0),
+(120, 'wel', '', b'1', 52, '2013-02-13 07:37:53', 0),
+(121, 'echo', '', b'1', 52, '2013-02-13 07:37:53', 0),
+(122, 'system.out.println', '', b'1', 52, '2013-02-13 07:37:53', 0),
+(123, 'PHP server scripts are surrounded by ', 'A\n', b'1', 53, '2013-02-13
+07:37:54', 0),
+(124, 'write "Hello World" in PHP\n', 'B', b'1', 53, '2013-02-13 07:37:54', 0),
+(125, 'variables in PHP start with', 'C', b'1', 53, '2013-02-13 07:37:54', 0),
+(126, 'correct way to end a PHP statement', 'D\n', b'1', 53, '2013-02-13
+07:37:54', 0),
+(127, 'A', '', b'1', 54, '2013-02-13 07:37:54', 0),
+(128, 'B', '', b'1', 54, '2013-02-13 07:37:54', 0),
+(129, 'C', '', b'1', 54, '2013-02-13 07:37:54', 0);
 
 -- --------------------------------------------------------
 
@@ -80,7 +100,8 @@ CREATE TABLE IF NOT EXISTS `category` (
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `code`, `logo`, `date_created`, `status`) VALUES
+INSERT INTO `category` (`id`, `name`, `code`, `logo`, `date_created`, `status`)
+VALUES
 (2, 'PHP', 'php', '', '2012-11-22 16:58:55', 0),
 (11, 'PHP', 'php', '', '2012-11-22 16:58:55', 0);
 
@@ -100,13 +121,14 @@ CREATE TABLE IF NOT EXISTS `product_key_test_users` (
   PRIMARY KEY (`id`),
   KEY `idx_product_key_test_users` (`test_user_id`),
   KEY `idx_product_key_test_users_0` (`test_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=237 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=267 ;
 
 --
 -- Dumping data for table `product_key_test_users`
 --
 
-INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`, `test_type_id`, `test_user_id`, `status`) VALUES
+INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`,
+`test_type_id`, `test_user_id`, `status`) VALUES
 (7, 'RL6DL9CCPW2Z6XU3', 15, 0, NULL, '1'),
 (8, 'OZN9MWQFR8LOD4FV', 15, 0, NULL, '1'),
 (9, 'Y2BZ62ZEW1PON08F', 15, 0, NULL, '1'),
@@ -336,7 +358,37 @@ INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`, `test_type
 (233, 'OS6124NYXDW8Y262', 13, 3, NULL, '1'),
 (234, 'HTM4G1T6G8QT3GGT', 13, 1, NULL, '1'),
 (235, 'HTM4G1T6G8QT3GGT', 13, 2, NULL, '1'),
-(236, 'HTM4G1T6G8QT3GGT', 13, 3, NULL, '1');
+(236, 'HTM4G1T6G8QT3GGT', 13, 3, NULL, '1'),
+(237, 'YMPKPAWUTD459MS5', 16, 1, NULL, '1'),
+(238, 'YMPKPAWUTD459MS5', 16, 2, NULL, '1'),
+(239, 'YMPKPAWUTD459MS5', 16, 3, NULL, '1'),
+(240, 'HM3D5CY6055ARVR9', 16, 1, NULL, '1'),
+(241, 'HM3D5CY6055ARVR9', 16, 2, NULL, '1'),
+(242, 'HM3D5CY6055ARVR9', 16, 3, NULL, '1'),
+(243, 'KHFKSVLM4ZPEYFC7', 16, 1, NULL, '1'),
+(244, 'KHFKSVLM4ZPEYFC7', 16, 2, NULL, '1'),
+(245, 'KHFKSVLM4ZPEYFC7', 16, 3, NULL, '1'),
+(246, 'HU9SJFL6F4D3DD0O', 16, 1, NULL, '1'),
+(247, 'HU9SJFL6F4D3DD0O', 16, 2, NULL, '1'),
+(248, 'HU9SJFL6F4D3DD0O', 16, 3, NULL, '1'),
+(249, 'S4RKK1HGID1SF6', 16, 1, NULL, '1'),
+(250, 'S4RKK1HGID1SF6', 16, 2, NULL, '1'),
+(251, 'S4RKK1HGID1SF6', 16, 3, NULL, '1'),
+(252, 'OWOIKZ527Y2OWQ89', 16, 1, NULL, '1'),
+(253, 'OWOIKZ527Y2OWQ89', 16, 2, NULL, '1'),
+(254, 'OWOIKZ527Y2OWQ89', 16, 3, NULL, '1'),
+(255, '59NSHERHYSI161KI', 16, 1, NULL, '1'),
+(256, '59NSHERHYSI161KI', 16, 2, NULL, '1'),
+(257, '59NSHERHYSI161KI', 16, 3, NULL, '1'),
+(258, 'E57RAZBE3VS65B6P', 16, 1, NULL, '1'),
+(259, 'E57RAZBE3VS65B6P', 16, 2, NULL, '1'),
+(260, 'E57RAZBE3VS65B6P', 16, 3, NULL, '1'),
+(261, 'JRG8CBH5PU9HY67', 16, 1, NULL, '1'),
+(262, 'JRG8CBH5PU9HY67', 16, 2, NULL, '1'),
+(263, 'JRG8CBH5PU9HY67', 16, 3, NULL, '1'),
+(264, 'MYGT82ZL69LYD38S', 16, 1, NULL, '1'),
+(265, 'MYGT82ZL69LYD38S', 16, 2, NULL, '1'),
+(266, 'MYGT82ZL69LYD38S', 16, 3, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -354,21 +406,27 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `question` varchar(1500) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pk_questions_0` (`test_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
 
 --
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `test_id`, `question_type`, `level_id`, `date_created`, `status`, `question`) VALUES
+INSERT INTO `questions` (`id`, `test_id`, `question_type`, `level_id`,
+`date_created`, `status`, `question`) VALUES
 (1, 13, 0, 1, '2012-11-24 17:26:59', 0, 'is_array is a function in PHP'),
 (3, 14, 0, 1, '2012-11-24 17:27:41', 0, 'is_array is a function in PHP'),
 (4, 14, 0, 1, '2012-11-24 17:27:41', 0, 'Template Frameworks for PHP'),
-(15, 15, 2, 1, '2013-01-10 16:37:27', 0, 'is_array is a function in PHP'),
-(16, 15, 0, 1, '2013-01-10 16:37:27', 0, 'Template Frameworks for PHP'),
-(17, 15, 1, 1, '2013-01-10 16:37:27', 0, 'Functions available in PHP'),
-(18, 15, 4, 1, '2013-01-10 16:37:27', 0, 'Match the following'),
-(19, 15, 5, 1, '2013-01-10 16:37:27', 0, 'Sequencing');
+(20, 16, 0, 1, '2013-01-15 18:26:22', 0, 'MC'),
+(21, 16, 1, 1, '2013-01-15 18:26:23', 0, 'MR'),
+(22, 16, 2, 1, '2013-01-15 18:26:23', 0, 'TF'),
+(23, 16, 4, 1, '2013-01-15 18:26:23', 0, 'Ma'),
+(24, 16, 5, 1, '2013-01-15 18:26:24', 0, 'Seq'),
+(50, 15, 2, 1, '2013-02-13 07:37:53', 0, 'c'),
+(51, 15, 0, 1, '2013-02-13 07:37:53', 0, 'Template Frameworks for PHP'),
+(52, 15, 1, 1, '2013-02-13 07:37:53', 0, 'Functions available in PHP'),
+(53, 15, 4, 1, '2013-02-13 07:37:53', 0, 'Match the following'),
+(54, 15, 5, 1, '2013-02-13 07:37:54', 0, 'Sequencing');
 
 -- --------------------------------------------------------
 
@@ -395,8 +453,9 @@ CREATE TABLE IF NOT EXISTS `scores` (
 -- Dumping data for table `scores`
 --
 
-INSERT INTO `scores` (`id`, `score`, `test_id`, `user_id`, `test_time`, `total_questions`, `correct_answers`, `status`, `add_date`) VALUES
-(2, 10, 15, 1, 42, 5, 5, '1', '2013-01-15 06:57:49');
+INSERT INTO `scores` (`id`, `score`, `test_id`, `user_id`, `test_time`,
+`total_questions`, `correct_answers`, `status`, `add_date`) VALUES
+(2, 9, 15, 1, 29, 5, 4, '1', '2013-01-15 06:57:49');
 
 -- --------------------------------------------------------
 
@@ -423,17 +482,27 @@ CREATE TABLE IF NOT EXISTS `test_details` (
   PRIMARY KEY (`id`),
   KEY `created_by` (`created_by`),
   KEY `category` (`category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `test_details`
 --
 
-INSERT INTO `test_details` (`id`, `category`, `name`, `description`, `instruction`, `logo`, `time_taken`, `date_created`, `created_by`, `last_modified`, `valid_from`, `valid_to`, `allow_correction`, `sharing`, `status`) VALUES
-(3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22 16:59:26', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
-(13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
-(14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
-(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1, '2013-01-09 18:30:00', '2013-11-30', '2013-01-10', 0, 0, 1);
+INSERT INTO `test_details` (`id`, `category`, `name`, `description`,
+`instruction`, `logo`, `time_taken`, `date_created`, `created_by`,
+`last_modified`, `valid_from`, `valid_to`, `allow_correction`, `sharing`,
+`status`) VALUES
+(3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22
+16:59:26', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
+(13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1,
+'0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
+(14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1,
+'0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
+(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1,
+'2013-02-12 18:30:00', '2013-11-30', '2013-01-10', 0, 0, 1),
+(16, 2, 'Basic clone', '<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>sd', NULL,
+'', 10, '2013-01-14 18:30:00', 1, '0000-00-00 00:00:00', '2013-01-15',
+'2013-01-15', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -480,8 +549,10 @@ CREATE TABLE IF NOT EXISTS `__users` (
 -- Dumping data for table `__users`
 --
 
-INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`, `username`, `password`) VALUES
-(1, 'Sundar', '001', 'meenakshi.sun20@gmail.com', '9841673880', 1, 'admin', '0192023a7bbd73250516f069df18b500');
+INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`,
+`username`, `password`) VALUES
+(1, 'Sundar', '001', 'meenakshi.sun20@gmail.com', '9841673880', 1, 'admin',
+'0192023a7bbd73250516f069df18b500');
 
 --
 -- Constraints for dumped tables
@@ -491,34 +562,42 @@ INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`, 
 -- Constraints for table `answers`
 --
 ALTER TABLE `answers`
-  ADD CONSTRAINT `fk_answers` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_answers` FOREIGN KEY (`question_id`) REFERENCES `questions`
+(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product_key_test_users`
 --
 ALTER TABLE `product_key_test_users`
-  ADD CONSTRAINT `fk_product_key_test_users` FOREIGN KEY (`test_user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_product_key_test_users_0` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_product_key_test_users` FOREIGN KEY (`test_user_id`)
+REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_product_key_test_users_0` FOREIGN KEY (`test_id`)
+REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
-  ADD CONSTRAINT `fk_questions` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_questions` FOREIGN KEY (`test_id`) REFERENCES
+`test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `scores`
 --
 ALTER TABLE `scores`
-  ADD CONSTRAINT `fk_scores` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_scores_0` FOREIGN KEY (`user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_scores` FOREIGN KEY (`test_id`) REFERENCES `test_details`
+(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_scores_0` FOREIGN KEY (`user_id`) REFERENCES `__users`
+(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `test_details`
 --
 ALTER TABLE `test_details`
-  ADD CONSTRAINT `fk_test_details` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_test_details_0` FOREIGN KEY (`created_by`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_test_details` FOREIGN KEY (`category`) REFERENCES
+`category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_test_details_0` FOREIGN KEY (`created_by`) REFERENCES
+`__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
