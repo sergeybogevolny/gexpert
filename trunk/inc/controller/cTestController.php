@@ -97,6 +97,13 @@ class cTestController extends cController {
         return $this->addWhereCondition($condition)->select()->executeRead();
     }
 
+    function getCertificateDetails($condition = "") {
+        $this->column = array('score', 'u.name as username', 'td.name as test_name', 's.add_date', 'total_questions', 'correct_answers');
+        $this->table = "scores s";
+        $this->join_condition = " join test_details td on s.test_id = td.id join `__users` u on u.id = s.user_id";
+        return $this->addWhereCondition($condition)->select()->executeRead();
+    }
+
 }
 
 ?>
