@@ -97,7 +97,8 @@
                     <div class="controls">
 
                         <?php
-                        $cFormObj->data = array("0" => "Multiple Choice", "1" => "Multiple Response", "2" => "True/False", "3" => "Fill in the Blank", "4" => "Matching", "5" => "Sequencing");
+                        //TODO "3" => "Fill in the Blank",
+                        $cFormObj->data = array("0" => "Multiple Choice", "1" => "Multiple Response", "2" => "True/False", "4" => "Matching", "5" => "Sequencing");
                         $cFormObj->options = array("name" => "question_type", "default" => false, "class" => "reset");
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
@@ -135,7 +136,7 @@
                                 </td>
                                 <td class="multipleanswer multipleoption true_false">
                                     <label class="checkbox multipleanswer ">
-                                        <input type="checkbox" class="multipleanswer reset " name="multipleanswer" id="multipleanswer">
+                                        <input type="checkbox" class="multipleanswer reset multipleanswer_correct_data" name="multipleanswer" id="multipleanswer">
                                         Multiple Option
                                     </label>
                                     <label class="checkbox true_false">
@@ -143,7 +144,7 @@
 
                                     </label>
                                     <label class="radio multipleoption">
-                                        <input type="radio" class="multipleoption correct_answer_data reset" name="correctanswer" id="correctanswer" >
+                                        <input type="radio" class="multipleoption correct_answer_data reset" name="correctanswer" id="correctanswer" value="0" checked="false" />
                                         Correct
                                     </label>
                                 </td>
@@ -294,17 +295,17 @@
                 questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
                 switch ($('#question_type').val()) {
                     case '0':
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find("input[type=radio]").attr('checked') === 'checked' ? 1 : 0;
 
                         break;
                     case '1':
 
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.multipleanswer_correct_data').attr('checked') === 'checked' ? 1 : 0;
                         break;
                     case '2':
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find(".correct_answer_data:selected") ? 1 : 0;
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.true_false_data').attr('checked') === 'checked' ? 1 : 0;
                         break;
-                    case 3:
+                    case '3':
                         break;
                     case '4':
                         questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_data").val();
