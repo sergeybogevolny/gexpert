@@ -7,7 +7,7 @@
             <tr>
                 <td >
                     <h1 class="text-success">Total Score : <?php echo $scores[0]['score']; ?></h1>
-                    <h2 class="text-info">Score Percentage: <?php echo ($scores[0]['correct_answers'] / $scores[0]['total_questions']) * 100; ?> %  </h2>
+                    <h2 class="text-info">Score Percentage: <?php echo round(($scores[0]['correct_answers'] / $scores[0]['total_questions']) * 100, 0); ?> %  </h2>
                     <h3>
                         No of correct answers
                         <span class="badge badge-success"><?php echo $scores[0]['correct_answers']; ?></span>
