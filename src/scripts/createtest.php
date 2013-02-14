@@ -44,9 +44,10 @@ if ($_POST["questionsdata"]) {
     }
 
 
-    $questions = (array) json_decode($_POST["questionsdata"]);
+    $questions = (array) json_decode(stripslashes($_POST["questionsdata"]));
     $testid = $cTestControllerObj->id;
     foreach ($questions as $key => $value) {
+
 
         $cTestControllerObj->column["question_type"] = $value->question_type;
         $cTestControllerObj->column["question"] = $value->question;
