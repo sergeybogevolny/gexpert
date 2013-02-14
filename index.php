@@ -1,11 +1,12 @@
 <?php
 define('AppRoot', dirname(__FILE__));
 include_once AppRoot . '/inc/config/properties.php';
+session_start();
 include_once AppRoot . '/inc/common/cForm.php';
 //include_once AppRoot .AppLocalizationURL. 'common.php';
 
 $cFormObj = new cForm();
-session_start();
+
 
 $_GET = $cFormObj->urlDecode($_GET);
 $page = $_GET['f'];
