@@ -58,14 +58,18 @@ class cForm extends cUtil {
                     $colcount++;
                 }
                 foreach ($record as $columnname => $columnvalue) {
-
-
+                    $style = '';
+                    if (in_array($columnname, $this->options['hidden_columns'])) {
+                        $style = "display:none";
+                    }
                     if ($this->options['column']['type'][$columnname] == 'date') {
                         $columnvalue = $this->formatDate($columnvalue, $this->options['column']['format'][$columnname]);
+                    } elseif ($this->options['column']['type'][$columnname] == 'string') {
+                        $columnvalue = $this->options['column']['format'][$columnname][$columnvalue];
                     }
                     $columnvalue = $this->options['customcontrol'][$columnname][$columnvalue] ? str_replace("[columndata]", $columnvalue, $this->options['customcontrol'][$columnname][$columnvalue]) : $columnvalue;
 
-                    $this->html.= '<td>' . $columnvalue . '</td>';
+                    $this->html.= '<td style="' . $style . '">' . $columnvalue . '</td>';
                 }
                 if ($this->options['actioncolumn'] == true) {
 
