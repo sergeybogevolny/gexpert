@@ -55,7 +55,7 @@ class cUtil {
     }
 
     function formatDate($date, $dateformat = AppDateFormatPhp) {
-        return strftime($dateformat, strtotime($date));
+        return date($dateformat, strtotime($date));
     }
 
     function generateProductKey() {
@@ -101,6 +101,27 @@ class cUtil {
             $random[$key] = $list[$key];
 
         return $random;
+    }
+
+    function flipArrayKeys($array, $columns = "") {
+        if ($array) {
+            foreach ($array as $key => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $key1 => $value1) {
+                        if ($columns) {
+                            foreach ($columns as $column_name) {
+                                if ($column_name == $key)
+                                    $new_array[$key1][$key] = $value1;
+                            }
+                        }
+                        else {
+                            $new_array[$key1][$key] = $value1;
+                        }
+                    }
+                }
+            }
+        }
+        return $new_array;
     }
 
 }

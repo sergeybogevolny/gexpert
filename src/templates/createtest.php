@@ -169,13 +169,15 @@
                     <button  type="submit" id="addquestion" class="btn">Add Question</button>
                     <br/>
                     <?php
-                    $cTestControllerObj->table = "test_details";
-                    $cTestControllerObj->curd();
                     $cFormObj->options['actioncolumn'] = true;
                     $cFormObj->options['serialnocolumn'] = true;
                     $cFormObj->options['id'] = 'available_questions';
                     $cFormObj->options['name'] = 'available_questions';
-                    $cFormObj->options['header'] = array("Question", "Type", "No of Options");
+
+                    //$cFormObj->options['header'] = array("Question", "Type", "No of Options");
+                    $cFormObj->options['column']['question'] = array('name' => "Question", 'type' => "string", 'sort' => true, 'index' => 1);
+                    $cFormObj->options['column']['type'] = array('name' => "Type", 'type' => "string", 'sort' => true, 'index' => 2);
+                    $cFormObj->options['column']['no_of_questions'] = array('name' => "No of Options", 'type' => "string", 'sort' => true, 'index' => 3);
                     $cFormObj->createHTable();
                     echo $cFormObj->html();
                     ?>
@@ -248,9 +250,9 @@
                         'Next Month': [Date.today().moveToFirstDayOfMonth().add({months: 1}), Date.today().moveToLastDayOfMonth().add({months: 1})]
                     }
                 },
-                function(start, end) {
-                    $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-                }
+        function(start, end) {
+            $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+        }
         );
 
         $('#description').wysihtml5({"color": true});

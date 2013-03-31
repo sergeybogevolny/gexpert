@@ -1,31 +1,31 @@
 <form method="POST" class="form-horizontal">
-    <legend>Tests Available</legend>  
-    <table class="table table-striped" id="datatable">  
-        <thead>  
-            <tr>  
-                <th>Test Name</th>  
-                <th>Status</th>  
-                <th>Take Test</th>            
-            </tr>  
-        </thead>  
-        <tbody>  
-            <tr>  
-                <td>Excel Experting for Entry level test</td>  
-                <td>Available </td>  
-                <td><a href="test1.html">Take Test</a></td>  
-            </tr>  
-            <tr>  
-                <td>MS Powerpoint Experting for Entry level test</td>  
-                <td>Available </td>  
-                <td><a href="test1.html">Take Test</a></td>  
+    <legend>Tests Available</legend>
+    <table class="table table-striped" id="datatable">
+        <thead>
+            <tr>
+                <th>Test Name</th>
+                <th>Status</th>
+                <th>Take Test</th>
             </tr>
-        </tbody>  
-    </table>  
+        </thead>
+        <tbody>
+            <tr>
+                <td>Excel Experting for Entry level test</td>
+                <td>Available </td>
+                <td><a href="test1.html">Take Test</a></td>
+            </tr>
+            <tr>
+                <td>MS Powerpoint Experting for Entry level test</td>
+                <td>Available </td>
+                <td><a href="test1.html">Take Test</a></td>
+            </tr>
+        </tbody>
+    </table>
 </form>
 <form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>">
-    <legend>Tests Available</legend>  
+    <legend>Tests Available</legend>
     <?php
-    $cTestControllerObj->column = array("description","status");
+    $cTestControllerObj->column = array("description", "status");
     $cTestControllerObj->table = "test_details";
     $cFormObj->data = $cTestControllerObj->curd();
     $cFormObj->options['actioncolumn'] = true;
@@ -39,9 +39,9 @@
 
 
 <script>
-    $(".icon-eye-open").click(function(){
+    $(".icon-eye-open").click(function() {
         $("#test_id").val($(this).parent().siblings(":first").html());
-        
+
         $("#listtests").submit();
     });
 
