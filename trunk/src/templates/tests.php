@@ -2,10 +2,11 @@
 $cFormObj->options["alert"]["type"] = $_GET['mc'];
 $cFormObj->options["alert"]["data"] = $_GET['m'];
 
+
 $cFormObj->addAlert();
 echo $cFormObj->html();
 ?>
-<form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>">
+<form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">
 
     <div class="input-append">
         <input name="test_key" id="test_key" class="span2" id="appendedInputButton" type="text">
@@ -17,18 +18,29 @@ echo $cFormObj->html();
 
 
     <?php
-    $cTestControllerObj->column = array("td.id", "td.name", "description", "u.name" => "username");
+    $cTestControllerObj->column = array("td.id", "td.name", "description", "u.name" => "username", "td.valid_from");
+
+
+    $cFormObj->options['column']['id'] = array('name' => "Id", 'type' => "string", 'sort' => true, 'index' => 1, 'filter' => 'inline', 'dbcolumn' => 'td.id');
+    $cFormObj->options['column']['name'] = array('name' => "Name", 'type' => "string", 'sort' => true, 'index' => 2);
+    $cFormObj->options['column']['description'] = array('name' => "Desc", 'type' => "string", 'sort' => true, 'index' => 3);
+    $cFormObj->options['column']['username'] = array('name' => "Created By", 'type' => "string", 'sort' => true, 'index' => 4);
+    $cFormObj->options['column']['valid_from'] = array("name" => 'Valid From', 'type' => "date", 'sort' => true, 'index' => -1, 'filter' => 'box');
 
     if ($_SESSION['user_type'] > 1) {
         $cTestControllerObj->table = "product_key_test_users pktu";
 
         $cTestControllerObj->join_condition .= " join test_details td on pktu.test_id = td.id join `__users` u on u.id = td.created_by";
-        $condition = " And pktu.test_user_id =" . $_SESSION['user_id'];
+        $condition = " pktu.test_user_id =" . $_SESSION['user_id'];
     } else {
         $cTestControllerObj->table = "test_details td";
         $cTestControllerObj->join_condition = "join __users u on u.id=td.created_by";
     }
-    $cFormObj->data = $cTestControllerObj->addWhereCondition("td.status=1" . $condition)->select()->executeRead();
+    $conditionArray = $cFormObj->createFilterCondition($_POST['filter_type'], $_POST['filter_data']);
+    $conditionArray[] = "td.status=1";
+    $conditionArray[] = $condition;
+    $cTestControllerObj->debug = true;
+    $cFormObj->data = $cTestControllerObj->addWhereCondition($conditionArray)->select()->executeRead();
     foreach ($cFormObj->data as $key => $value) {
 
     }
@@ -92,6 +104,7 @@ echo $cFormObj->html();
 
 
     });
+
 
 </script>
 

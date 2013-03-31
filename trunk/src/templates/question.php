@@ -9,7 +9,7 @@
         </li>
         <li>
             <p>There are three possible question types:
-            </p>
+            </p>liftoffTime
             <ul>
                 <li>
                     <p><strong>Multiple Choice</strong>: click the radio button to indicate your choice. Currently, only one answer can be selected for a multiple choice question.</p>
@@ -51,6 +51,17 @@
                     <ul id="nav_link" style="display: none">
                     </ul>
                     <div id="counter" class="pull-right"></div>
+                    <div class="clock_seconds">
+                        <div class="bgLayer">
+                            <div class="topLayer"></div>
+                            <canvas id="canvas_seconds" width="188" height="188">
+                            </canvas>
+                            <div class="text">
+                                <p class="val">0</p>
+                                <p class="type_seconds">Seconds</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -110,6 +121,13 @@ if ($data[0]['time_taken'] > 0) {
                     layout: '{desc}{mnn}{sep}{snn}',
                     description: 'Time : ',
                     onExpiry: quizTimeOut
+                });
+                $(document).ready(function() {
+                    JBCountDown({
+                        secondsColor: "#ffdc50",
+                        secondsGlow: "#378cff",
+                        seconds: '<?php echo $data[0]['time_taken'] * 60; ?>'
+                    });
                 });
 
     <?php

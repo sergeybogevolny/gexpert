@@ -114,13 +114,13 @@ class cModel extends cDatabase {
 
     public function addWhereCondition($condition) {
 
-        $this->condition = ($condition) ? " WHERE " . ((is_array($condition)) ? implode(' AND ', $condition) : $condition) : "";
+        $this->condition = ($condition) ? " WHERE " . ((is_array($condition)) ? implode(' AND ', array_filter($condition)) : $condition) : "";
 
         return $this;
     }
 
     public function addGroupBy($group_by) {
-        $this->group_by = ($group_by) ? " GROUP BY " . ((is_array($group_by)) ? implode(', ', $group_by) : $group_by) : "";
+        $this->group_by = ($group_by) ? " GROUP BY " . ((is_array($group_by)) ? implode(', ', array_filter($group_by)) : $group_by) : "";
         return $this;
     }
 
@@ -131,7 +131,7 @@ class cModel extends cDatabase {
 
     public function addOrderBy($order_by) {
 
-        $this->order_by = ($order_by) ? " ORDER BY " . ((is_array($order_by)) ? implode(', ', $order_by) : $order_by) : "";
+        $this->order_by = ($order_by) ? " ORDER BY " . ((is_array($order_by)) ? implode(', ', array_filter($order_by)) : $order_by) : "";
         return $this;
     }
 

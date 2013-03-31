@@ -52,6 +52,8 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <link rel="stylesheet" href="src/css/wysiwyg-color.css">
             <link rel="stylesheet" href="src/css/jquery_ui.css">
             <link rel="stylesheet" href="src/css/bootstrap-toggle.css">
+            <link rel="stylesheet" href="src/css/jbclock.css">
+            <link rel="stylesheet" href="src/css/style.css">
 
             <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
             <!--[if lt IE 9]>
@@ -73,6 +75,8 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <script src="src/js/jquery.bootstrap.wizard.js"></script>
             <script src="src/js/jquery.table.addrow.js"></script>
             <script src="src/js/jquery.base64.js"></script>
+            <script src="src/js/jbclock.js"></script>
+            <script src="src/js/jquery.dataTables.js"></script>
 
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-inner">
