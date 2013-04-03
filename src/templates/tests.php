@@ -21,8 +21,8 @@ echo $cFormObj->html();
     $cTestControllerObj->column = array("td.id", "td.name", "description", "u.name" => "username", "td.valid_from");
 
 
-    $cFormObj->options['column']['id'] = array('name' => "Id", 'type' => "string", 'sort' => true, 'index' => 1, 'filter' => 'inline', 'dbcolumn' => 'td.id');
-    $cFormObj->options['column']['name'] = array('name' => "Name", 'type' => "string", 'sort' => true, 'index' => 2);
+    $cFormObj->options['column']['id'] = array('name' => "Id", 'type' => "number", 'sort' => true, 'index' => 1, 'filter' => 'box', 'dbcolumn' => 'td.id');
+    $cFormObj->options['column']['name'] = array('name' => "Name", 'type' => "string", 'sort' => true, 'index' => 2, 'filter' => 'box', 'dbcolumn' => 'td.name');
     $cFormObj->options['column']['description'] = array('name' => "Desc", 'type' => "string", 'sort' => true, 'index' => 3);
     $cFormObj->options['column']['username'] = array('name' => "Created By", 'type' => "string", 'sort' => true, 'index' => 4);
     $cFormObj->options['column']['valid_from'] = array("name" => 'Valid From', 'type' => "date", 'sort' => true, 'index' => -1, 'filter' => 'box');
@@ -41,9 +41,7 @@ echo $cFormObj->html();
     $conditionArray[] = $condition;
     $cTestControllerObj->debug = true;
     $cFormObj->data = $cTestControllerObj->addWhereCondition($conditionArray)->select()->executeRead();
-    foreach ($cFormObj->data as $key => $value) {
 
-    }
     $cFormObj->options['actioncolumn'] = true;
     if ($_SESSION['user_type'] == 1) {
         $cFormObj->options['actioncolumnicons'] = '<i class="icon-edit"></i>
@@ -71,11 +69,11 @@ echo $cFormObj->html();
         var url4 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'addtest')); ?>';
         var url5 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'scores')); ?>';
         $(".icon-eye-open").click(function() {
-            $("#test_id").val($(this).parent().siblings(":first").html());
+            $("#test_id").val($(this).parent().siblings(":nth(1)").html());
             $("#listtests").attr('action', url1).submit();
         });
         $(".icon-lock").click(function() {
-            $("#test_id").val($(this).parent().siblings(":first").html());
+            $("#test_id").val($(this).parent().siblings(":nth(1)").html());
             $("#listtests").attr('action', url2).submit();
         });
 
@@ -88,16 +86,16 @@ echo $cFormObj->html();
 
         });
         $('.icon-edit').click(function() {
-            window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:first').html());
+            window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(1)').html());
         });
         $('.icon-thumbs-up').click(function() {
-            window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:first').html());
+            window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(1)').html());
         });
         $('.icon-trash').click(function() {
-            window.location = url3 + "&a=" + $.base64.encode("d") + "&id=" + $.base64.encode($(this).parent().parent().find('td:first').html());
+            window.location = url3 + "&a=" + $.base64.encode("d") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(1)').html());
         });
         $('.icon-share-alt').click(function() {
-            window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('td:first').html());
+            window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(1)').html());
         });
 
 

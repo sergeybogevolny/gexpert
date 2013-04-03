@@ -28,7 +28,7 @@ class cForm extends cUtil {
      */
 
     function createHTable() {
-        $dynamiccolumns = 0;
+        $columns = 1;
         $classoptions = $this->options['striped'] ? $this->options['striped'] : ' table-striped';
         $classoptions.=$this->options['border'] ? $this->options['border'] : ' table-bordered';
         $classoptions.=$this->options['hover'] ? $this->options['hover'] : ' table-hover';
@@ -39,7 +39,7 @@ class cForm extends cUtil {
         $this->html.= '<thead>';
         $this->html.= '<tr>';
         if ($this->options['serialnocolumn'] === true) {
-            $dynamiccolumns++;
+            $columns++;
             $this->html.= '<th> No.</th>';
         }
 
@@ -49,48 +49,49 @@ class cForm extends cUtil {
         }
         array_multisort($columnorder, SORT_ASC, $this->options['column']);
 
-
-
         foreach ($this->options['column'] as $columnname => $columnDetails) {
+            $columns++;
             if ($columnDetails['index'] > 0) {
+
                 $this->html.= '<th>' . $columnDetails['name'];
                 if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'inline') {
 
-                    $this->html.='<div class="input-append">' . $this->options['column'][$columnname]['filter_html'] . '</div>';
+                    $this->html.='<div class="span3">' . $this->options['column'][$columnname]['filter_html'] . '</div>';
                 }
                 $this->html.='</th>';
             } else {
                 $this->html.='<th class="hide"></th>';
             }
             if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'box') {
-                $boxfilter .= '<label>' . $columnDetails['name'] . ' : </label>' . $this->options['column'][$columnname]['filter_html'];
+                $boxfilter .= '<span class="report-filter"> <span class="report-filter-title">' . $columnDetails['name'] . ' : </span>' . $this->options['column'][$columnname]['filter_html'] . "</span>";
             }
         }
         if ($boxfilter != '') {
-
-            $this->html = '<div class="form-inline">' . $boxfilter . '</div>' . $this->html;
+            $this->html = '<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filtercontainer" data-toggle-text="Hide">
+                            Show/Hide Filter(s)
+                          </button>
+                          <div id="filtercontainer" class="collapse in" ><div class="report-filters" id="reportfilters">' . $boxfilter . '</div></div>' . $this->html;
         }
 
         if ($this->options['actioncolumn'] == true) {
-            $dynamiccolumns++;
+            $columns++;
             $this->html.= '<th>Action</th>';
         }
         $this->html.= '</tr>';
         $this->html.= '</thead>';
         $this->html.= '<tbody>';
-        $colcount = 1;
+
         if (is_array($this->data)) {
             foreach ($this->data as $row => $record) {
                 $this->html.= '<tr>';
                 if ($this->options['serialnocolumn'] === true) {
-                    $this->html.= '<td> ' . $colcount . '</td>';
-                    $colcount++;
+                    $this->html.= '<td> ' . $row + 1 . '</td>';
                 }
                 foreach ($this->options['column'] as $columnname => $columnDetails) {
                     $columnvalue = $record[$columnname];
                     $class = '';
                     if ($columnDetails['index'] < 0) {
-                        $class = "hide ";
+                        $class = " hide ";
                     }
                     if ($columnDetails['type'] == 'date') {
                         $columnvalue = $this->formatDate($columnvalue, $columnDetails['format']);
@@ -104,27 +105,34 @@ class cForm extends cUtil {
                 }
                 $this->html.= '</tr>';
             }
-        } else {
-            $this->html.= '</tr><td colspan=' . ($dynamiccolumns) . '>No Data to display</td></tr>';
         }
+//         else {
+//            //$this->html.= '</tr><td colspan="' . $columns - 1 . '">No Data to display</td></tr>';
+//        }
         $this->html.= '</tbody>';
         $this->html.= '</table>';
 
         $this->html.='<script>$(document).ready(function(){
             $("#' . $this->options['id'] . '").dataTable({
 
-   "sDom": "<\'row\'<\'span6\'l><\'span6\'f>r>t<\'row\'<\'span6\'i><\'span6\'p>>",
+   "sDom": "<\'row\'<\'span6\'><\'span6\'>r>t<\'row\' <\'span3\' l><\'span5\'i ><\'span4\'p>>",
 		"sPaginationType": "bootstrap",
 		"oLanguage": {
 			"sLengthMenu": "_MENU_ records per page"
 		}
 
-}).find(".filterdata").keydown(function (e){
+});
+$(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(function (e){
                         if(e.keyCode == 13){
-                            $("#' . $this->options['id'] . '").parent("form").submit();
+
+                            $("#' . $this->options['id'] . '").parents("form").submit();
+                                e.stopPropagation();
                         }
                     });
+                    $(".filter_type").change(function(e){
 
+
+});
             $(".calendar").daterangepicker(
                             {
                                 ranges: {
@@ -143,7 +151,7 @@ class cForm extends cUtil {
                         $(".calendar span").html(start.toString("MMMM d, yyyy") + " - " + end.toString("MMMM d, yyyy"));
                         $(".calendar input").val(start.toString("yyyy-MM-dd") + " ~ " + end.toString("yyyy-MM-dd"));
                         console.log($(this));
-            $("#' . $this->options['id'] . '").parent("form").submit();
+            $("#' . $this->options['id'] . '").parents("form").submit();
                     }
                   );
                           });
@@ -155,7 +163,7 @@ class cForm extends cUtil {
     function createFilterCondition($filtertype, $filterdata) {
 
         $filtercondition = array();
-        print_r($filterdata);
+        $conditionString = array();
         if (is_array($filtertype)) {
             foreach ($filtertype as $column_name => $type) {
                 switch ($type) {
@@ -258,7 +266,7 @@ class cForm extends cUtil {
         $numberFilterTypeData['empty'] = 'Empty';
         $numberFilterTypeData['not_empty'] = "Not Empty";
         //For String
-        $stringFilterData['contians'] = "Contains";
+        $stringFilterData['contains'] = "Contains";
         $stringFilterData['not_contains'] = "Not Contains";
         $stringFilterData['is'] = "Is";
         $stringFilterData['is_not'] = "Is Not";
@@ -316,7 +324,7 @@ class cForm extends cUtil {
                 $columnname = $details['dbcolumn'] ? $details['dbcolumn'] : $column;
                 $this->options['id'] = "filter_data[" . $columnname . "]";
                 $this->options['name'] = "filter_data[" . $columnname . "]";
-                $this->options['class'] = 'input-small filterdata ' . $details['type'];
+                $this->options['class'] = 'filterdata ' . $details['type'];
                 $this->options['value'] = $_POST['filter_data'][$columnname];
                 $this->options['type'] = $details['type'] == 'number' ? 'number' : 'text';
 
@@ -325,7 +333,7 @@ class cForm extends cUtil {
 
                 switch ($details['type']) {
                     case 'number':
-                        $this->options['class'] .=' number ';
+                        $this->options['class'] .=' number input-small';
                         $this->options['type'] = 'number';
                         $this->createInput();
                         $filter_data = $this->html;
@@ -338,12 +346,12 @@ class cForm extends cUtil {
                         $this->createInput();
                         $filter_data = $this->html;
                         $filter_data = '
-                            <div class="calendar">
+                            <span class="calendar">
                                 <i class="icon-calendar icon-large"></i>
                                 <span>' . $_POST['filter_data'][$columnname] . '</span>
                                 ' . $filter_data . '
                                 <b class="caret" style="vertical-align: middle"></b>
-                            </div>';
+                            </span>';
                         $this->data = $dateFilterData;
                         break;
                     default:
@@ -359,7 +367,7 @@ class cForm extends cUtil {
                 $this->options['name'] = "filter_type[" . $columnname . "]";
                 $this->options['default'] = "-- All --";
                 $this->options['selected'] = $_POST['filter_type'][$columnname];
-                $this->options['class'] = 'input-small filter_type';
+                $this->options['class'] = 'span1 filter_type';
                 $this->createSelect();
                 $filter_type = $this->html;
 
