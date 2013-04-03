@@ -186,3 +186,17 @@ div.DTFC_LeftBodyWrapper tbody tr:first-child td {
 div.DTFC_LeftFootWrapper table {
     border-top: none;
 }
+.report-filters{
+    border: 1px solid #dddddd;
+    margin: 5px 0 5px;
+    padding: 5px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    background: #f5f5f5;
+}.report-filter-title{
+    font-weight: bold;
+}
+.report-filter{
+    margin: 10px;
+}
