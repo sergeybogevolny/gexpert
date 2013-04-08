@@ -24,34 +24,35 @@
             if (!this.goLive) {
                 var t = this;
                 this.update();
-                $(".addRow" + this.seed).on("click", function() {
-                    var newRow = t.addRow();
-                });
-                $(".delRow" + this.seed)
-                        .on("click", function() {
-                    var oj = $(this).closest("." + t.cloneClass),
-                            o = oj.clone();
-                    oj.hide().find("*").each(function(i, v) {
-                        if ($(v).data("destroy"))
-                            ;
-                        for (var k in $(v).data("destroy")) {
-                            $(v).data("destroy")[k](v);
-                        }
-                    });
-                    oj.remove();
-                    $(".addRow" + t.seed)
-                            .attr("disabled", false);
-                    t.update();
-                    if (t.deleteCallBack && $.isFunction(t.deleteCallBack))
-                        t.deleteCallBack(o);
-                });
-                $(".autoAdd" + this.seed)
-                        .on("keyup", function() {
-                    if ((this.nodeName.toLowerCase() == "textarea" && $(this).html() != "") ||
-                            (this.nodeName.toLowerCase() == "textarea" && $(this).val() != "") ||
-                            (this.nodeName.toLowerCase() == "input" && $(this).val() != ""))
-                        t.addRow();
-                });
+                $("table").on({"click": function() {
+                        var newRow = t.addRow();
+                    }
+                }, ".addRow" + this.seed);
+                $("table")
+                        .on({"click": function() {
+                        var oj = $(this).closest("." + t.cloneClass),
+                                o = oj.clone();
+                        oj.hide().find("*").each(function(i, v) {
+                            if ($(v).data("destroy"))
+                                ;
+                            for (var k in $(v).data("destroy")) {
+                                $(v).data("destroy")[k](v);
+                            }
+                        });
+                        oj.remove();
+                        $(".addRow" + t.seed)
+                                .attr("disabled", false);
+                        t.update();
+                        if (t.deleteCallBack && $.isFunction(t.deleteCallBack))
+                            t.deleteCallBack(o);
+                    }}, ".delRow" + this.seed);
+                $("table")
+                        .on({"keyup": function() {
+                        if ((this.nodeName.toLowerCase() == "textarea" && $(this).html() != "") ||
+                                (this.nodeName.toLowerCase() == "textarea" && $(this).val() != "") ||
+                                (this.nodeName.toLowerCase() == "input" && $(this).val() != ""))
+                            t.addRow();
+                    }}, ".autoAdd" + this.seed);
                 this.goLive = true;
             }
             return this

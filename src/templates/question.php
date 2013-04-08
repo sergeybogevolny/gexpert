@@ -9,7 +9,7 @@
         </li>
         <li>
             <p>There are three possible question types:
-            </p>liftoffTime
+            </p>
             <ul>
                 <li>
                     <p><strong>Multiple Choice</strong>: click the radio button to indicate your choice. Currently, only one answer can be selected for a multiple choice question.</p>
@@ -51,28 +51,10 @@
                     <ul id="nav_link" style="display: none">
                     </ul>
                     <div id="counter" class="pull-right"></div>
-                    <div class="clock_seconds">
-                        <div class="bgLayer">
-                            <div class="topLayer"></div>
-                            <canvas id="canvas_seconds" width="188" height="188">
-                            </canvas>
-                            <div class="text">
-                                <p class="val">0</p>
-                                <p class="type_seconds">Seconds</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
         </div>
-        <div class="progress progress-striped active">
-            <div class=" bar">
-
-            </div>
-
-        </div>
-
         <div class="tab-content">
 
         </div>
@@ -112,23 +94,13 @@
 
             $("#instructions").hide();
             getQuestion(0);
+
 <?php
 if ($data[0]['time_taken'] > 0) {
     ?>
-                $('#counter').countdown({
-                    until: '<?php echo $data[0]['time_taken'] * 60; ?>',
-                    format: 'M:S',
-                    layout: '{desc}{mnn}{sep}{snn}',
-                    description: 'Time : ',
-                    onExpiry: quizTimeOut
-                });
-                $(document).ready(function() {
-                    JBCountDown({
-                        secondsColor: "#ffdc50",
-                        secondsGlow: "#378cff",
-                        seconds: '<?php echo $data[0]['time_taken'] * 60; ?>'
-                    });
-                });
+                $('#counter').countdown({until: <?php echo $data[0]['time_taken'] * 60; ?>, format: 'M:S', layout: '{desc}{mnn}{sep}{snn}', description: 'Time : ', onExpiry: quizTimeOut});
+
+
 
     <?php
 }
@@ -158,11 +130,9 @@ if ($data[0]['time_taken'] > 0) {
                 }, onLast: function(tab, navigation, index) {
                     $('#quiz').submit();
 
-
                 }, onTabShow: function(tab, navigation, index) {
                     var $total = JSON.parse($('#seq').val()).length;
                     var $current = index + 1;
-                    var $percent = ($current / $total) * 100;
                     if ($current >= $total) {
                         $('#rootwizard').find('.pager .next').hide();
                         $('#rootwizard').find('.pager .finish').show();
@@ -171,7 +141,7 @@ if ($data[0]['time_taken'] > 0) {
                         $('#rootwizard').find('.pager .next').show();
                         $('#rootwizard').find('.pager .finish').hide();
                     }
-                    $('#rootwizard').find('.bar').css({width: $percent + '%'});
+
                 }});
             $("#sortable,#sortable1").sortable();
             $("#sortable").disableSelection();

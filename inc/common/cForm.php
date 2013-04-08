@@ -33,7 +33,9 @@ class cForm extends cUtil {
         $classoptions.=$this->options['border'] ? $this->options['border'] : ' table-bordered';
         $classoptions.=$this->options['hover'] ? $this->options['hover'] : ' table-hover';
         $classoptions.=$this->options['condensed'] ? $this->options['condensed'] : ' table-condensed';
-        $this->createFilter();
+        if ($this->options['reporttable'] == true) {
+            $this->createFilter();
+        }
         $this->options['id'] = $this->options['id'] ? $this->options['id'] : rand();
         $this->html.= '<table class="table ' . $classoptions . '" name="' . $this->options['name'] . '" id="' . $this->options['id'] . '">';
         $this->html.= '<thead>';
@@ -111,8 +113,10 @@ class cForm extends cUtil {
 //        }
         $this->html.= '</tbody>';
         $this->html.= '</table>';
+        if ($this->options['reporttable'] == true) {
 
-        $this->html.='<script>$(document).ready(function(){
+
+            $this->html.='<script>$(document).ready(function(){
             $("#' . $this->options['id'] . '").dataTable({
 
    "sDom": "<\'row\'<\'span6\'><\'span6\'>r>t<\'row\' <\'span3\' l><\'span5\'i ><\'span4\'p>>",
@@ -157,6 +161,7 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
                           });
 
 </script>';
+        }
         return $this;
     }
 

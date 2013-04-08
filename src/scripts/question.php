@@ -21,12 +21,10 @@ if ($_POST["test_id"]) {
             $current_answer = $answers->{$value["id"]};
             switch ($value['question_type']) {
                 case 0:
-                    //   print_r($correctanswers);
                     if ($current_answer == $correctanswers[0]['id']) {
                         $scores+=1;
                         $correctanswercnt[$value["id"]]++;
                     }
-
                     break;
                 case 1:
                     $selected_array = json_decode(stripslashes($current_answer));
@@ -42,7 +40,6 @@ if ($_POST["test_id"]) {
 
                     break;
                 case 2:
-                    //     echo $value['question_type'];
                     if ($correctanswers[0]['answer'] == $current_answer) {
                         $scores+=1;
                         $correctanswercnt[$value["id"]]++;
@@ -50,13 +47,8 @@ if ($_POST["test_id"]) {
 
                     break;
                 case 3:
-//                    print_r($answers);
-//                    print_r($current_answer);
                     break;
                 case 4:
-//                    echo $value['question_type'];
-//                    print_r($current_answer);
-//                    print_r($correctanswers);
                     foreach ($correctanswers as $key1 => $value1) {
                         if ($current_answer[$key1] == $value1['id']) {
                             $scores+=1;
