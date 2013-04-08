@@ -405,7 +405,7 @@
                 $('.multipleanswer,.answer').show();
                 break;
             case '2':
-                $('.true_false,').show();
+                $('.true_false').show();
                 break;
             case '3':
                 $('.multipleoption,.answer').show();
