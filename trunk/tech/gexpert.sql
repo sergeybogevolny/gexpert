@@ -1,11 +1,11 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 3.5.3
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 14, 2013 at 12:06 AM
--- Server version: 5.5.28-0ubuntu0.12.10.1
--- PHP Version: 5.4.6-1ubuntu1.1
+-- Generation Time: Apr 10, 2013 at 02:11 PM
+-- Server version: 5.5.29-0ubuntu1
+-- PHP Version: 5.4.9-4ubuntu2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -36,14 +36,13 @@ CREATE TABLE IF NOT EXISTS `answers` (
   `percent` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pk_answers` (`question_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=368 ;
 
 --
 -- Dumping data for table `answers`
 --
 
-INSERT INTO `answers` (`id`, `answer`, `match_answer`, `is_correct`,
-`question_id`, `date_created`, `percent`) VALUES
+INSERT INTO `answers` (`id`, `answer`, `match_answer`, `is_correct`, `question_id`, `date_created`, `percent`) VALUES
 (17, '1', '', b'1', 20, '2013-01-15 18:26:23', 0),
 (18, '2', '', b'1', 20, '2013-01-15 18:26:23', 0),
 (19, '3', '', b'1', 20, '2013-01-15 18:26:23', 0),
@@ -70,15 +69,188 @@ INSERT INTO `answers` (`id`, `answer`, `match_answer`, `is_correct`,
 (120, 'wel', '', b'1', 52, '2013-02-13 07:37:53', 0),
 (121, 'echo', '', b'1', 52, '2013-02-13 07:37:53', 0),
 (122, 'system.out.println', '', b'1', 52, '2013-02-13 07:37:53', 0),
-(123, 'PHP server scripts are surrounded by ', 'A\n', b'1', 53, '2013-02-13
-07:37:54', 0),
+(123, 'PHP server scripts are surrounded by ', 'A\n', b'1', 53, '2013-02-13 07:37:54', 0),
 (124, 'write "Hello World" in PHP\n', 'B', b'1', 53, '2013-02-13 07:37:54', 0),
 (125, 'variables in PHP start with', 'C', b'1', 53, '2013-02-13 07:37:54', 0),
-(126, 'correct way to end a PHP statement', 'D\n', b'1', 53, '2013-02-13
-07:37:54', 0),
+(126, 'correct way to end a PHP statement', 'D\n', b'1', 53, '2013-02-13 07:37:54', 0),
 (127, 'A', '', b'1', 54, '2013-02-13 07:37:54', 0),
 (128, 'B', '', b'1', 54, '2013-02-13 07:37:54', 0),
-(129, 'C', '', b'1', 54, '2013-02-13 07:37:54', 0);
+(129, 'C', '', b'1', 54, '2013-02-13 07:37:54', 0),
+(130, 'Aple', '', b'1', 55, '2013-02-21 07:19:22', 0),
+(131, 'Appl', '', b'1', 55, '2013-02-21 07:19:22', 0),
+(132, 'Applae', '', b'1', 55, '2013-02-21 07:19:22', 0),
+(133, 'Apple', '', b'1', 55, '2013-02-21 07:19:22', 0),
+(134, 'Finding bugs', '', b'1', 56, '2013-02-21 07:19:22', 0),
+(135, 'Testing Application', '', b'1', 56, '2013-02-21 07:19:22', 0),
+(136, 'verifying whether application meeting customer requirements or not', '', b'1', 56, '2013-02-21 07:19:22', 0),
+(137, 'Releasing the application without bugs.', '', b'1', 56, '2013-02-21 07:19:23', 0),
+(138, 'New, Open, Fixed, Closed', '', b'1', 57, '2013-02-21 07:19:23', 0),
+(139, 'New, Asign, Open, Fixed, Reopen/Closed', '', b'1', 57, '2013-02-21 07:19:23', 0),
+(140, 'New, Asign, Open, Fixed, Reopen', '', b'1', 57, '2013-02-21 07:19:23', 0),
+(141, 'New, Open, Fixed, Closed', '', b'1', 57, '2013-02-21 07:19:23', 0),
+(142, '', '', b'1', 58, '2013-02-21 07:19:23', 0),
+(143, 'Developper', '', b'1', 59, '2013-02-21 07:26:39', 0),
+(144, 'Tester', '', b'1', 59, '2013-02-21 07:26:39', 0),
+(145, 'Admin', '', b'1', 59, '2013-02-21 07:26:39', 0),
+(146, 'HR', '', b'1', 59, '2013-02-21 07:26:39', 0),
+(147, '', '', b'1', 60, '2013-02-21 07:26:39', 0),
+(148, 'tester is a tester', '', b'1', 61, '2013-02-21 07:26:39', 0),
+(149, 'he is developer', '', b'1', 61, '2013-02-21 07:26:39', 0),
+(150, 'he is man', '', b'1', 61, '2013-02-21 07:26:39', 0),
+(151, '', '', b'1', 62, '2013-02-21 07:26:39', 0),
+(152, 'who never leave the bugs', '', b'1', 63, '2013-02-21 07:46:20', 0),
+(153, 'who leave the bugs', '', b'1', 63, '2013-02-21 07:46:20', 0),
+(154, 'who will not test properly', '', b'1', 63, '2013-02-21 07:46:20', 0),
+(155, 'who will test all customer requirements', '', b'1', 63, '2013-02-21 07:46:20', 0),
+(156, '', '', b'1', 64, '2013-02-21 07:46:20', 0),
+(157, '', '', b'1', 65, '2013-02-21 07:46:20', 0),
+(158, 'Requirements, Planning, estimation, coading, testing, implement, Maintenance  ', '', b'1', 66, '2013-02-21 07:46:20', 0),
+(159, 'Requirements, planning, estimation, desing, coading, testing', '', b'1', 66, '2013-02-21 07:46:20', 0),
+(160, 'requirement, planning, design, coading, testing, maintenance', '', b'1', 66, '2013-02-21 07:46:20', 0),
+(161, 'Finding bugs', '', b'1', 67, '2013-02-21 10:58:43', 0),
+(162, 'creating scenarios', '', b'1', 67, '2013-02-21 10:58:43', 0),
+(163, 'verifying application', '', b'1', 67, '2013-02-21 10:58:43', 0),
+(164, 'New, Open, Fix, Close', '', b'1', 68, '2013-02-21 10:58:43', 0),
+(165, 'New, Asign, Open, Fix, Reopen/Close', '', b'1', 68, '2013-02-21 10:58:43', 0),
+(166, 'New, fix, Close', '', b'1', 68, '2013-02-21 10:58:43', 0),
+(167, 'Test the application', '', b'1', 69, '2013-02-21 10:58:43', 0),
+(168, 'He will do coading', '', b'1', 69, '2013-02-21 10:58:43', 0),
+(169, 'He will do desing', '', b'1', 69, '2013-02-21 10:58:43', 0),
+(170, 'asd', '', b'1', 70, '2013-03-22 13:59:08', 0),
+(171, '23', '', b'1', 70, '2013-03-22 13:59:09', 0),
+(198, '1', '', b'1', 81, '2013-04-04 13:22:14', 0),
+(199, '2', '', b'1', 81, '2013-04-04 13:22:14', 0),
+(200, '3', '', b'1', 81, '2013-04-04 13:22:14', 0),
+(201, '4', '', b'1', 81, '2013-04-04 13:22:14', 0),
+(202, '1', '', b'1', 82, '2013-04-04 13:22:14', 0),
+(203, '2', '', b'1', 82, '2013-04-04 13:22:14', 0),
+(204, '3', '', b'1', 82, '2013-04-04 13:22:14', 0),
+(205, 'R1', '', b'1', 83, '2013-04-04 13:22:15', 0),
+(206, 'R2', '', b'1', 83, '2013-04-04 13:22:15', 0),
+(207, 'R3', '', b'1', 83, '2013-04-04 13:22:15', 0),
+(208, '1', 'A', b'1', 84, '2013-04-04 13:22:15', 0),
+(209, '2', 'B', b'1', 84, '2013-04-04 13:22:15', 0),
+(210, '3', 'C', b'1', 84, '2013-04-04 13:22:15', 0),
+(211, '12', '', b'1', 85, '2013-04-04 13:22:15', 0),
+(212, '13', '', b'1', 85, '2013-04-04 13:22:15', 0),
+(213, '14', '', b'1', 85, '2013-04-04 13:22:15', 0),
+(232, '1', '', b'1', 91, '2013-04-05 07:46:23', 0),
+(233, '2', '', b'1', 91, '2013-04-05 07:46:23', 0),
+(234, '3', '', b'1', 91, '2013-04-05 07:46:23', 0),
+(235, '4', '', b'1', 91, '2013-04-05 07:46:23', 0),
+(236, '3', '', b'1', 92, '2013-04-05 07:46:24', 0),
+(237, '4', '', b'1', 92, '2013-04-05 07:46:24', 0),
+(238, '5', '', b'1', 92, '2013-04-05 07:46:24', 0),
+(239, '2', '', b'1', 92, '2013-04-05 07:46:24', 0),
+(240, '3', 'Three', b'1', 93, '2013-04-05 07:46:24', 0),
+(241, '4', 'four', b'1', 93, '2013-04-05 07:46:24', 0),
+(242, '5', 'five', b'1', 93, '2013-04-05 07:46:24', 0),
+(243, '4', '', b'1', 94, '2013-04-05 07:46:24', 0),
+(244, '5', '', b'1', 94, '2013-04-05 07:46:24', 0),
+(245, '6', '', b'1', 94, '2013-04-05 07:46:24', 0),
+(246, '6', '', b'1', 95, '2013-04-05 07:46:24', 0),
+(247, '5', '', b'1', 95, '2013-04-05 07:46:24', 0),
+(248, '8', '', b'1', 95, '2013-04-05 07:46:24', 0),
+(249, '9', '', b'1', 95, '2013-04-05 07:46:24', 0),
+(250, '2', '', b'1', 96, '2013-04-05 11:22:22', 0),
+(251, '1', '', b'1', 96, '2013-04-05 11:22:22', 0),
+(252, '3', '', b'1', 96, '2013-04-05 11:22:22', 0),
+(253, '4', '', b'1', 96, '2013-04-05 11:22:22', 0),
+(254, '2', '', b'1', 97, '2013-04-05 11:22:23', 0),
+(255, '3', '', b'1', 97, '2013-04-05 11:22:23', 0),
+(256, '2', '', b'1', 97, '2013-04-05 11:22:23', 0),
+(257, '5', '', b'1', 97, '2013-04-05 11:22:23', 0),
+(258, '3', 'Three', b'1', 98, '2013-04-05 11:22:23', 0),
+(259, '4', 'four', b'1', 98, '2013-04-05 11:22:23', 0),
+(260, '5', 'five', b'1', 98, '2013-04-05 11:22:23', 0),
+(261, '1', '', b'1', 99, '2013-04-05 11:22:23', 0),
+(262, '2', '', b'1', 99, '2013-04-05 11:22:23', 0),
+(263, '3', '', b'1', 99, '2013-04-05 11:22:23', 0),
+(264, '4', '', b'1', 99, '2013-04-05 11:22:23', 0),
+(265, '1', '', b'1', 100, '2013-04-06 08:15:02', 0),
+(266, '2', '', b'1', 100, '2013-04-06 08:15:02', 0),
+(267, '3', '', b'1', 100, '2013-04-06 08:15:02', 0),
+(268, '4', '', b'1', 100, '2013-04-06 08:15:02', 0),
+(269, '1', '', b'1', 101, '2013-04-06 08:15:02', 0),
+(270, '2', '', b'1', 101, '2013-04-06 08:15:02', 0),
+(271, '3', '', b'1', 101, '2013-04-06 08:15:02', 0),
+(272, '4', '', b'1', 101, '2013-04-06 08:15:03', 0),
+(273, '', '', b'1', 102, '2013-04-06 08:15:03', 0),
+(274, '1', 'A', b'1', 103, '2013-04-06 08:15:03', 0),
+(275, '2', 'B', b'1', 103, '2013-04-06 08:15:03', 0),
+(276, '3', 'C', b'1', 103, '2013-04-06 08:15:03', 0),
+(277, '4', 'D', b'1', 103, '2013-04-06 08:15:03', 0),
+(278, '1', '', b'1', 104, '2013-04-06 08:15:03', 0),
+(279, '2', '', b'1', 104, '2013-04-06 08:15:03', 0),
+(280, '3', '', b'1', 104, '2013-04-06 08:15:03', 0),
+(281, '4', '', b'1', 104, '2013-04-06 08:15:03', 0),
+(301, 'two', '', b'1', 110, '2013-04-08 09:08:37', 0),
+(302, 'three', '', b'1', 110, '2013-04-08 09:08:37', 0),
+(303, 'one', '', b'1', 110, '2013-04-08 09:08:37', 0),
+(304, 'five', '', b'1', 110, '2013-04-08 09:08:37', 0),
+(305, 'three', '', b'1', 111, '2013-04-08 09:08:37', 0),
+(306, 'two', '', b'1', 111, '2013-04-08 09:08:37', 0),
+(307, 'five', '', b'1', 111, '2013-04-08 09:08:37', 0),
+(308, 'two', '', b'1', 111, '2013-04-08 09:08:38', 0),
+(309, 'one', '1', b'1', 112, '2013-04-08 09:08:38', 0),
+(310, 'two', '2', b'1', 112, '2013-04-08 09:08:38', 0),
+(311, 'three', '3', b'1', 112, '2013-04-08 09:08:38', 0),
+(312, 'three', '', b'1', 113, '2013-04-08 09:08:38', 0),
+(313, 'four', '', b'1', 113, '2013-04-08 09:08:38', 0),
+(314, 'five', '', b'1', 113, '2013-04-08 09:08:38', 0),
+(315, 'six', '', b'1', 113, '2013-04-08 09:08:38', 0),
+(316, '2', 'two', b'1', 114, '2013-04-08 09:08:38', 0),
+(317, '3', 'three', b'1', 114, '2013-04-08 09:08:38', 0),
+(318, '4', 'four', b'1', 114, '2013-04-08 09:08:38', 0),
+(319, '5', 'five', b'1', 114, '2013-04-08 09:08:38', 0),
+(320, 'two', '', b'1', 115, '2013-04-08 09:10:30', 0),
+(321, 'three', '', b'1', 115, '2013-04-08 09:10:30', 0),
+(322, 'one', '', b'1', 115, '2013-04-08 09:10:30', 0),
+(323, 'five', '', b'1', 115, '2013-04-08 09:10:30', 0),
+(324, 'three', '', b'1', 116, '2013-04-08 09:10:30', 0),
+(325, 'two', '', b'1', 116, '2013-04-08 09:10:30', 0),
+(326, 'five', '', b'1', 116, '2013-04-08 09:10:30', 0),
+(327, 'two', '', b'1', 116, '2013-04-08 09:10:30', 0),
+(328, 'one', '1', b'1', 117, '2013-04-08 09:10:31', 0),
+(329, 'two', '2', b'1', 117, '2013-04-08 09:10:31', 0),
+(330, 'three', '3', b'1', 117, '2013-04-08 09:10:31', 0),
+(331, 'three', '', b'1', 118, '2013-04-08 09:10:31', 0),
+(332, 'four', '', b'1', 118, '2013-04-08 09:10:31', 0),
+(333, 'five', '', b'1', 118, '2013-04-08 09:10:31', 0),
+(334, 'six', '', b'1', 118, '2013-04-08 09:10:31', 0),
+(335, '2', 'two', b'1', 119, '2013-04-08 09:10:31', 0),
+(336, '3', 'three', b'1', 119, '2013-04-08 09:10:31', 0),
+(337, '4', 'four', b'1', 119, '2013-04-08 09:10:31', 0),
+(338, '5', 'five', b'1', 119, '2013-04-08 09:10:31', 0),
+(339, '1', '', b'1', 120, '2013-04-08 12:16:41', 0),
+(340, '2', '', b'1', 120, '2013-04-08 12:16:41', 0),
+(341, '3', '', b'1', 120, '2013-04-08 12:16:41', 0),
+(342, '4', '', b'1', 120, '2013-04-08 12:16:41', 0),
+(343, '4', '', b'1', 121, '2013-04-09 06:38:02', 0),
+(344, '3', '', b'1', 121, '2013-04-09 06:38:02', 0),
+(345, '2', '', b'1', 121, '2013-04-09 06:38:02', 0),
+(346, '1', '', b'1', 121, '2013-04-09 06:38:02', 0),
+(347, '2', '', b'1', 122, '2013-04-09 06:38:03', 0),
+(348, '3', '', b'1', 122, '2013-04-09 06:38:03', 0),
+(349, '2', '', b'1', 122, '2013-04-09 06:38:03', 0),
+(350, '4', '', b'1', 122, '2013-04-09 06:38:03', 0),
+(351, '1', 'One', b'1', 123, '2013-04-09 06:38:03', 0),
+(352, '2', 'Two', b'1', 123, '2013-04-09 06:38:03', 0),
+(353, '3', 'Three', b'1', 123, '2013-04-09 06:38:03', 0),
+(354, '4', 'Four', b'1', 123, '2013-04-09 06:38:03', 0),
+(355, '1', '', b'1', 124, '2013-04-09 06:38:03', 0),
+(356, '2', '', b'1', 124, '2013-04-09 06:38:03', 0),
+(357, '3', '', b'1', 124, '2013-04-09 06:38:03', 0),
+(358, '4', '', b'1', 124, '2013-04-09 06:38:03', 0),
+(359, '5', '', b'1', 125, '2013-04-09 06:38:03', 0),
+(360, '4', '', b'1', 125, '2013-04-09 06:38:03', 0),
+(361, '3', '', b'1', 125, '2013-04-09 06:38:03', 0),
+(362, '2', '', b'1', 125, '2013-04-09 06:38:04', 0),
+(363, '1', '', b'1', 125, '2013-04-09 06:38:04', 0),
+(364, '2', '', b'1', 126, '2013-04-09 07:06:38', 0),
+(365, '3', '', b'1', 126, '2013-04-09 07:06:38', 0),
+(366, '2', '', b'1', 126, '2013-04-09 07:06:38', 0),
+(367, '4', '', b'1', 126, '2013-04-09 07:06:38', 0);
 
 -- --------------------------------------------------------
 
@@ -94,16 +266,26 @@ CREATE TABLE IF NOT EXISTS `category` (
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `code`, `logo`, `date_created`, `status`)
-VALUES
+INSERT INTO `category` (`id`, `name`, `code`, `logo`, `date_created`, `status`) VALUES
 (2, 'PHP', 'php', '', '2012-11-22 16:58:55', 0),
-(11, 'PHP', 'php', '', '2012-11-22 16:58:55', 0);
+(11, 'PHP', 'php', '', '2012-11-22 16:58:55', 0),
+(12, 'xml', '1', '', '2013-04-02 08:03:17', 1),
+(13, 'HTML', '2', '', '2013-04-02 08:14:58', 1),
+(14, 'satya', '88881111', '', '2013-04-02 10:07:59', 1),
+(15, 'Testing', 'Testing', '', '2013-04-02 10:20:52', 1),
+(16, 'Java', 'java1', '', '2013-04-04 06:39:02', 1),
+(17, 'Css', 'css1', '', '2013-04-04 06:45:52', 0),
+(18, 'Bootstrap', 'boot1', '', '2013-04-04 06:46:05', 1),
+(19, 'Jquery', 'jquery1', '', '2013-04-04 06:46:19', 1),
+(20, 'JS', 'js1', '', '2013-04-04 06:46:47', 1),
+(21, 'Oracle', 'ora1', '', '2013-04-04 06:47:22', 1),
+(22, 'Dot net', 'dot1', '', '2013-04-04 06:48:24', 1);
 
 -- --------------------------------------------------------
 
@@ -121,14 +303,13 @@ CREATE TABLE IF NOT EXISTS `product_key_test_users` (
   PRIMARY KEY (`id`),
   KEY `idx_product_key_test_users` (`test_user_id`),
   KEY `idx_product_key_test_users_0` (`test_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=267 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=287 ;
 
 --
 -- Dumping data for table `product_key_test_users`
 --
 
-INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`,
-`test_type_id`, `test_user_id`, `status`) VALUES
+INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`, `test_type_id`, `test_user_id`, `status`) VALUES
 (7, 'RL6DL9CCPW2Z6XU3', 15, 0, NULL, '1'),
 (8, 'OZN9MWQFR8LOD4FV', 15, 0, NULL, '1'),
 (9, 'Y2BZ62ZEW1PON08F', 15, 0, NULL, '1'),
@@ -275,7 +456,7 @@ INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`,
 (150, 'GBEPHX6NYNV7Y0R', 13, 1, NULL, '1'),
 (151, 'GBEPHX6NYNV7Y0R', 13, 2, NULL, '1'),
 (152, 'GBEPHX6NYNV7Y0R', 13, 3, NULL, '1'),
-(153, '010ESHUAYLUYZYZH', 13, 1, NULL, '1'),
+(153, '010ESHUAYLUYZYZH', 13, 1, 2, '1'),
 (154, '010ESHUAYLUYZYZH', 13, 2, NULL, '1'),
 (155, '010ESHUAYLUYZYZH', 13, 3, NULL, '1'),
 (156, '3IT5C0OB4M9L717Y', 13, 1, NULL, '1'),
@@ -388,7 +569,27 @@ INSERT INTO `product_key_test_users` (`id`, `product_key`, `test_id`,
 (263, 'JRG8CBH5PU9HY67', 16, 3, NULL, '1'),
 (264, 'MYGT82ZL69LYD38S', 16, 1, NULL, '1'),
 (265, 'MYGT82ZL69LYD38S', 16, 2, NULL, '1'),
-(266, 'MYGT82ZL69LYD38S', 16, 3, NULL, '1');
+(266, 'MYGT82ZL69LYD38S', 16, 3, NULL, '1'),
+(267, 'RGN79Q0K6IQKEICV', 17, 1, NULL, '1'),
+(268, 'FEZHAC0NK7BF6HM4', 17, 1, NULL, '1'),
+(269, 'PMPNPXA6DL5LAAA', 17, 1, NULL, '1'),
+(270, 'IB53MJ4GLZQRAGBU', 17, 1, NULL, '1'),
+(271, '7J94YS7VGDH98X7N', 17, 1, NULL, '1'),
+(272, 'CEWD11W0NFF8K5HD', 17, 1, NULL, '1'),
+(273, 'UZABDR00FZNB9VA', 17, 1, NULL, '1'),
+(274, '6DPZ9XJMB93UYZN', 17, 1, NULL, '1'),
+(275, 'LVGDQY1UK8XAS1N', 17, 1, NULL, '1'),
+(276, 'VGOQZW18XVJMIG1', 18, 3, NULL, '1'),
+(277, 'UQ54X2UXGEG8EDP', 17, 3, NULL, '1'),
+(278, 'CDIF1YNZWTJKT6N', 22, 1, 2, '0'),
+(279, 'MQXOT5BQCOYMPZEM', 22, 1, NULL, '1'),
+(280, 'RF6G5AQOUM33T4D', 22, 1, NULL, '1'),
+(281, 'S7AH12I3BTTVXO4G', 22, 1, NULL, '1'),
+(282, 'WC83954T61J1O', 22, 1, 3, '0'),
+(283, '5SSJC0VOI5SSKVE', 25, 1, NULL, '1'),
+(284, 'LEN2OXAUCWJBXJM', 26, 1, NULL, '1'),
+(285, 'NQC7RUCYA1Y68XG', 26, 1, NULL, '1'),
+(286, 'SCVH4IC2PQ5NEW', 29, 1, NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -406,14 +607,13 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `question` varchar(1500) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pk_questions_0` (`test_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=127 ;
 
 --
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `test_id`, `question_type`, `level_id`,
-`date_created`, `status`, `question`) VALUES
+INSERT INTO `questions` (`id`, `test_id`, `question_type`, `level_id`, `date_created`, `status`, `question`) VALUES
 (1, 13, 0, 1, '2012-11-24 17:26:59', 0, 'is_array is a function in PHP'),
 (3, 14, 0, 1, '2012-11-24 17:27:41', 0, 'is_array is a function in PHP'),
 (4, 14, 0, 1, '2012-11-24 17:27:41', 0, 'Template Frameworks for PHP'),
@@ -426,7 +626,59 @@ INSERT INTO `questions` (`id`, `test_id`, `question_type`, `level_id`,
 (51, 15, 0, 1, '2013-02-13 07:37:53', 0, 'Template Frameworks for PHP'),
 (52, 15, 1, 1, '2013-02-13 07:37:53', 0, 'Functions available in PHP'),
 (53, 15, 4, 1, '2013-02-13 07:37:53', 0, 'Match the following'),
-(54, 15, 5, 1, '2013-02-13 07:37:54', 0, 'Sequencing');
+(54, 15, 5, 1, '2013-02-13 07:37:54', 0, 'Sequencing'),
+(55, 17, 0, 1, '2013-02-21 07:19:21', 0, 'Apple spelling'),
+(56, 17, 0, 1, '2013-02-21 07:19:22', 0, 'what is software testing?'),
+(57, 17, 0, 1, '2013-02-21 07:19:23', 0, 'What is Bug life cycle'),
+(58, 17, 2, 1, '2013-02-21 07:19:23', 0, 'Smoke testing is nothing but, testing the primary functionality of the application'),
+(59, 18, 0, 1, '2013-02-21 07:26:39', 0, 'Who will test the application?'),
+(60, 18, 2, 1, '2013-02-21 07:26:39', 0, 'Developer will not test the application'),
+(61, 18, 0, 1, '2013-02-21 07:26:39', 0, 'who is tester'),
+(62, 18, 2, 1, '2013-02-21 07:26:39', 0, 'developer will test the application'),
+(63, 19, 0, 1, '2013-02-21 07:46:20', 0, 'Who is good tester'),
+(64, 19, 2, 1, '2013-02-21 07:46:20', 0, 'tester will test application only, he will not involve into coading'),
+(65, 19, 2, 1, '2013-02-21 07:46:20', 0, 'Testing means finding bugs'),
+(66, 19, 1, 1, '2013-02-21 07:46:20', 0, 'SDLC Phases'),
+(67, 20, 0, 1, '2013-02-21 10:58:43', 0, 'Testing is what?'),
+(68, 20, 0, 1, '2013-02-21 10:58:43', 0, 'Bug life cycle'),
+(69, 20, 0, 1, '2013-02-21 10:58:43', 0, 'what tester will do?'),
+(70, 21, 0, 1, '2013-03-22 13:59:08', 0, 'Welcome'),
+(81, 24, 1, 1, '2013-04-04 13:22:14', 0, 'Welcome'),
+(82, 24, 0, 1, '2013-04-04 13:22:14', 0, 'MC'),
+(83, 24, 1, 1, '2013-04-04 13:22:14', 0, 'MR'),
+(84, 24, 4, 1, '2013-04-04 13:22:15', 0, 'match'),
+(85, 24, 5, 1, '2013-04-04 13:22:15', 0, 'S'),
+(91, 25, 0, 1, '2013-04-05 07:46:23', 0, 'One'),
+(92, 25, 0, 1, '2013-04-05 07:46:23', 0, 'Two'),
+(93, 25, 4, 1, '2013-04-05 07:46:24', 0, 'Three'),
+(94, 25, 5, 1, '2013-04-05 07:46:24', 0, 'four'),
+(95, 25, 0, 1, '2013-04-05 07:46:24', 0, 'Five'),
+(96, 26, 0, 1, '2013-04-05 11:22:22', 0, 'one'),
+(97, 26, 1, 1, '2013-04-05 11:22:23', 0, 'two'),
+(98, 26, 4, 1, '2013-04-05 11:22:23', 0, 'three'),
+(99, 26, 5, 1, '2013-04-05 11:22:23', 0, 'four'),
+(100, 27, 0, 1, '2013-04-06 08:15:02', 0, 'MC'),
+(101, 27, 1, 1, '2013-04-06 08:15:02', 0, 'MR'),
+(102, 27, 2, 1, '2013-04-06 08:15:03', 0, 'TF'),
+(103, 27, 4, 1, '2013-04-06 08:15:03', 0, 'Match'),
+(104, 27, 5, 1, '2013-04-06 08:15:03', 0, 'Seq'),
+(110, 29, 0, 1, '2013-04-08 09:08:37', 0, '1'),
+(111, 29, 1, 1, '2013-04-08 09:08:37', 0, '2'),
+(112, 29, 4, 1, '2013-04-08 09:08:38', 0, '3'),
+(113, 29, 5, 1, '2013-04-08 09:08:38', 0, '4'),
+(114, 29, 4, 1, '2013-04-08 09:08:38', 0, '5'),
+(115, 28, 0, 1, '2013-04-08 09:10:30', 0, '1'),
+(116, 28, 1, 1, '2013-04-08 09:10:30', 0, '2'),
+(117, 28, 4, 1, '2013-04-08 09:10:31', 0, '3'),
+(118, 28, 5, 1, '2013-04-08 09:10:31', 0, '4'),
+(119, 28, 4, 1, '2013-04-08 09:10:31', 0, '5'),
+(120, 30, 0, 1, '2013-04-08 12:16:41', 0, 'MC'),
+(121, 31, 0, 1, '2013-04-09 06:38:02', 0, 'One'),
+(122, 31, 1, 1, '2013-04-09 06:38:02', 0, 'Two'),
+(123, 31, 4, 1, '2013-04-09 06:38:03', 0, 'Three'),
+(124, 31, 5, 1, '2013-04-09 06:38:03', 0, 'four'),
+(125, 31, 5, 1, '2013-04-09 06:38:03', 0, 'Five'),
+(126, 32, 1, 1, '2013-04-09 07:06:38', 0, 'two');
 
 -- --------------------------------------------------------
 
@@ -447,15 +699,27 @@ CREATE TABLE IF NOT EXISTS `scores` (
   PRIMARY KEY (`id`),
   KEY `idx_scores` (`test_id`),
   KEY `idx_scores_0` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `scores`
 --
 
-INSERT INTO `scores` (`id`, `score`, `test_id`, `user_id`, `test_time`,
-`total_questions`, `correct_answers`, `status`, `add_date`) VALUES
-(2, 9, 15, 1, 29, 5, 4, '1', '2013-01-15 06:57:49');
+INSERT INTO `scores` (`id`, `score`, `test_id`, `user_id`, `test_time`, `total_questions`, `correct_answers`, `status`, `add_date`) VALUES
+(2, 9, 15, 1, 0, 5, 4, '1', '2013-01-15 06:57:49'),
+(3, 0, 17, 1, 0, 4, 0, '1', '2013-02-21 07:47:48'),
+(4, 0, 18, 1, 0, 4, 0, '1', '2013-02-21 07:48:49'),
+(5, 1, 19, 1, 0, 4, 1, '1', '2013-02-21 07:50:16'),
+(6, 2, 20, 1, 0, 3, 2, '1', '2013-02-21 10:59:36'),
+(7, 7, 24, 1, 44, 5, 5, '1', '2013-04-04 13:02:31'),
+(8, 5, 25, 1, 137, 5, 3, '1', '2013-04-05 07:43:29'),
+(9, 1, 13, 2, 4, 1, 1, '1', '2013-04-05 10:51:55'),
+(10, 5, 26, 1, 38, 4, 2, '1', '2013-04-05 11:25:23'),
+(11, 8, 27, 1, 74, 5, 5, '1', '2013-04-08 09:02:53'),
+(12, 7, 28, 1, 49, 5, 3, '1', '2013-04-08 09:11:45'),
+(13, 1, 30, 1, 3, 1, 1, '1', '2013-04-08 12:17:02'),
+(14, 10, 31, 1, 56, 5, 3, '1', '2013-04-09 06:38:58'),
+(15, 1, 32, 1, 6, 1, 1, '1', '2013-04-09 07:06:52');
 
 -- --------------------------------------------------------
 
@@ -482,27 +746,34 @@ CREATE TABLE IF NOT EXISTS `test_details` (
   PRIMARY KEY (`id`),
   KEY `created_by` (`created_by`),
   KEY `category` (`category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 --
 -- Dumping data for table `test_details`
 --
 
-INSERT INTO `test_details` (`id`, `category`, `name`, `description`,
-`instruction`, `logo`, `time_taken`, `date_created`, `created_by`,
-`last_modified`, `valid_from`, `valid_to`, `allow_correction`, `sharing`,
-`status`) VALUES
-(3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22
-16:59:26', 1, '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
-(13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1,
-'0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
-(14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1,
-'0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 1),
-(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1,
-'2013-02-12 18:30:00', '2013-11-30', '2013-01-10', 0, 0, 1),
-(16, 2, 'Basic clone', '<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>sd', NULL,
-'', 10, '2013-01-14 18:30:00', 1, '0000-00-00 00:00:00', '2013-01-15',
-'2013-01-15', 0, 0, 1);
+INSERT INTO `test_details` (`id`, `category`, `name`, `description`, `instruction`, `logo`, `time_taken`, `date_created`, `created_by`, `last_modified`, `valid_from`, `valid_to`, `allow_correction`, `sharing`, `status`) VALUES
+(3, 11, 'Sample test', 'Description for test', NULL, '', 15, '2012-11-22 16:59:26', 1, '2013-04-04 18:30:00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(13, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:26:59', 1, '2013-04-04 18:30:00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(14, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:27:41', 1, '2013-04-04 18:30:00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(15, 2, 'Basic', 'Basic test', NULL, '', 30, '2012-11-24 17:28:23', 1, '2013-04-04 18:30:00', '2013-11-30', '2013-01-10', 0, 0, 0),
+(16, 2, 'Basic clone', '<br>asd<br>asd<br>asd<br>asd<br>asd<br>asd<br>sd', NULL, '', 10, '2013-01-14 18:30:00', 1, '2013-04-04 18:30:00', '2013-01-15', '2013-01-15', 0, 0, 0),
+(17, 2, 'Test One', 'It is a good test', NULL, '', 10, '2013-02-20 18:30:00', 1, '2013-04-04 18:30:00', '2013-02-21', '2013-02-21', 0, 0, 0),
+(18, 2, 'Test Two', 'Ok', NULL, '', 10, '2013-02-20 18:30:00', 1, '2013-04-04 18:30:00', '2013-02-21', '2013-02-21', 0, 0, 0),
+(19, 2, 'Test Three', 'Ok', NULL, '', 10, '2013-02-20 18:30:00', 1, '2013-04-04 18:30:00', '2013-02-21', '2013-02-21', 0, 0, 0),
+(20, 2, 'Test Four', 'Ok', NULL, '', 10, '2013-02-20 18:30:00', 1, '2013-04-04 18:30:00', '2013-02-21', '2013-02-21', 0, 0, 0),
+(21, 11, 'Basic', '', NULL, '', 0, '2013-03-21 18:30:00', 1, '2013-04-04 18:30:00', '2013-03-22', '2013-03-22', 0, 0, 0),
+(22, 15, 'My Test', 'Ok', NULL, '', 10, '2013-04-01 18:30:00', 1, '2013-04-03 18:30:00', '2013-04-02', '2013-04-02', 0, 1, 0),
+(23, 11, 'Sample test', 'Description for test', NULL, '', 15, '2013-04-02 18:30:00', 1, '2013-04-04 18:30:00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(24, 2, 'Basicasd', 'asadasd', NULL, '', 2, '2013-04-03 18:30:00', 1, '2013-04-04 18:30:00', '2013-04-04', '2013-04-04', 0, 0, 0),
+(25, 15, 'Satya5413', '<b>ok</b>', NULL, '', 3, '2013-04-04 18:30:00', 1, '2013-04-04 18:30:00', '2013-04-05', '2013-04-05', 0, 0, 0),
+(26, 14, 'Satya5413', 'ok', NULL, '', 2, '2013-04-04 18:30:00', 1, '0000-00-00 00:00:00', '2013-04-05', '2013-04-05', 0, 1, 1),
+(27, 15, 'Sundar Test', 'Test Sample', NULL, '', 15, '2013-04-05 18:30:00', 1, '0000-00-00 00:00:00', '2013-04-06', '2013-04-06', 0, 0, 1),
+(28, 13, 'satya8413', 'Ok', NULL, '', 2, '2013-04-07 18:30:00', 1, '2013-04-07 18:30:00', '2013-04-08', '2013-04-08', 0, 0, 1),
+(29, 13, 'satya8413', 'Ok', NULL, '', 2, '2013-04-07 18:30:00', 1, '2013-04-07 18:30:00', '2013-04-08', '2013-04-08', 0, 1, 0),
+(30, 12, 'PHP', 'asdasdasd', NULL, '', 15, '2013-04-07 18:30:00', 1, '0000-00-00 00:00:00', '2013-04-08', '2013-04-08', 0, 0, 1),
+(31, 13, 'satya9413', 'Ok Proceed', NULL, '', 2, '2013-04-08 18:30:00', 1, '0000-00-00 00:00:00', '2013-04-09', '2013-04-09', 0, 1, 1),
+(32, 13, 'satya9413/2', 'ok', NULL, '', 2, '2013-04-08 18:30:00', 1, '2013-04-08 18:30:00', '2013-04-09', '2013-04-09', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -543,16 +814,16 @@ CREATE TABLE IF NOT EXISTS `__users` (
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `__users`
 --
 
-INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`,
-`username`, `password`) VALUES
-(1, 'Sundar', '001', 'meenakshi.sun20@gmail.com', '9841673880', 1, 'admin',
-'0192023a7bbd73250516f069df18b500');
+INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`, `username`, `password`) VALUES
+(1, 'Sundar', '001', 'meenakshi.sun20@gmail.com', '9841673880', 1, 'admin', '0192023a7bbd73250516f069df18b500'),
+(2, 'Satyam', '1120', 'sdonthi@sphata.com', '9994426636', 2, 'satyam', '0f2cdafc6b1adf94892b17f355bd9110'),
+(3, 'Jithendra', '1142', 'jpuchareddy@sphata.com', '9543079409', 2, 'jithu', 'da7299d750f16fc62f6c4abd7c3af8e7');
 
 --
 -- Constraints for dumped tables
@@ -562,42 +833,34 @@ INSERT INTO `__users` (`id`, `name`, `emp_code`, `email`, `phone`, `user_type`,
 -- Constraints for table `answers`
 --
 ALTER TABLE `answers`
-  ADD CONSTRAINT `fk_answers` FOREIGN KEY (`question_id`) REFERENCES `questions`
-(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_answers` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product_key_test_users`
 --
 ALTER TABLE `product_key_test_users`
-  ADD CONSTRAINT `fk_product_key_test_users` FOREIGN KEY (`test_user_id`)
-REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_product_key_test_users_0` FOREIGN KEY (`test_id`)
-REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_product_key_test_users` FOREIGN KEY (`test_user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_product_key_test_users_0` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
-  ADD CONSTRAINT `fk_questions` FOREIGN KEY (`test_id`) REFERENCES
-`test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_questions` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `scores`
 --
 ALTER TABLE `scores`
-  ADD CONSTRAINT `fk_scores` FOREIGN KEY (`test_id`) REFERENCES `test_details`
-(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_scores_0` FOREIGN KEY (`user_id`) REFERENCES `__users`
-(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_scores` FOREIGN KEY (`test_id`) REFERENCES `test_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_scores_0` FOREIGN KEY (`user_id`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `test_details`
 --
 ALTER TABLE `test_details`
-  ADD CONSTRAINT `fk_test_details` FOREIGN KEY (`category`) REFERENCES
-`category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_test_details_0` FOREIGN KEY (`created_by`) REFERENCES
-`__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_test_details` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_test_details_0` FOREIGN KEY (`created_by`) REFERENCES `__users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
