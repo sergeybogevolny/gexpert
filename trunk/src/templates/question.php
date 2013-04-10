@@ -196,10 +196,10 @@ if ($data[0]['time_taken'] > 0) {
                     current_answer = JSON.stringify(current_answer_tmp)
                     break;
                 case '2':
-                    current_answer = $(divid + ' .active').val();
+                    current_answer = $(divid).find('input:checked').attr('id');
                     break;
                 case '3':
-                    current_answer = $(divid + ' .answer:checked');
+                    current_answer = $(divid).find('input:checked').attr('id');
                     break;
                 case '4':
                     current_answer = $(divid + " .sortable").sortable("toArray");

@@ -19,7 +19,9 @@ if ($_POST["test_id"]) {
         foreach ($questionDetails as $key => $value) {
             $correctanswers = $cTestControllerObj->getCorrectAnswers($value["id"]);
             $current_answer = $answers->{$value["id"]};
+
             switch ($value['question_type']) {
+
                 case 0:
                     if ($current_answer == $correctanswers[0]['id']) {
                         $scores+=1;
@@ -28,7 +30,7 @@ if ($_POST["test_id"]) {
                     break;
                 case 1:
                     $selected_array = json_decode(stripslashes($current_answer));
-                    $answercnt = count($correctanswers);
+                    echo $answercnt = count($correctanswers);
                     foreach ($correctanswers as $key1 => $value1) {
                         if (is_array($selected_array)) {
                             if (in_array($value1['id'], $selected_array)) {
@@ -40,7 +42,9 @@ if ($_POST["test_id"]) {
 
                     break;
                 case 2:
-                    if ($correctanswers[0]['answer'] == $current_answer) {
+                    echo $correctanswers[0]['is_correct'];
+                    echo $current_answer;
+                    if ($correctanswers[0]['is_correct'] == $current_answer) {
                         $scores+=1;
                         $correctanswercnt[$value["id"]]++;
                     }
@@ -66,6 +70,7 @@ if ($_POST["test_id"]) {
                     }
                     break;
             }
+            //echo $scores . "~~~" . $value['question_type'] . "--";
         }
         if ($data[0]['time_taken'] > 0) {
 
@@ -74,14 +79,14 @@ if ($_POST["test_id"]) {
         }
 
         $scoredata['user_id'] = $_SESSION['user_id'];
-        $scoredata['score'] = $scores;
+        echo $scoredata['score'] = $scores;
         $scoredata['test_id'] = $_POST["test_id"];
-        $scoredata['correct_answers'] = count($correctanswercnt);
-        $scoredata['total_questions'] = count($questionDetails);
+        echo $scoredata['correct_answers'] = count($correctanswercnt);
+        echo $scoredata['total_questions'] = count($questionDetails);
         $scoredata['test_time'] = $timetaken;
         $scoredata['status'] = 1;
         $cTestControllerObj->updateScores($scoredata);
-
+        //exit;
         header("Location:" . $cFormObj->createLinkUrl(array("f" => "scores", "id" => $_POST["test_id"])));
         exit;
     } else {
@@ -121,12 +126,25 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             }
             break;
         case 2:
-            $html.='<div class = "btn-group" data-toggle = "buttons-radio">
-            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "answer btn btn-success active" value = "1">
-            <i class = "icon-ok icon-white"></i>
-            </button>
-            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "answer btn" value = "0"><i class = "icon-remove"></i></button>
-            </div >';
+
+            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["id"] = 1;
+            $cFormObj->options["class"] = "inline answer";
+            $cFormObj->data = "yes";
+            $cFormObj->createOption();
+            $html .= $cFormObj->html();
+            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["id"] = 0;
+            $cFormObj->options["class"] = "inline answer";
+            $cFormObj->data = "no";
+            $cFormObj->createOption();
+            $html .= $cFormObj->html();
+//            $html.='<div class = "btn-group" data-toggle = "buttons-radio">
+//            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "answer btn btn-success active" value = "1">
+//            <i class = "icon-ok icon-white"></i>
+//            </button>
+//            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "answer btn" value = "0"><i class = "icon-remove"></i></button>
+//            </div >';
 
             break;
         case 3:

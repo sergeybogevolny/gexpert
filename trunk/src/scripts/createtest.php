@@ -76,7 +76,7 @@ $id = $_GET['id'];
 if ($id != '') {
     list($testDetails) = $cTestControllerObj->getTestDetails($id);
 
-
+    $cTestControllerObj->debug = true;
     $questions = $cTestControllerObj->getQuestionDetails($id);
     $questiondata = array();
     foreach ($questions as $key => $question) {
