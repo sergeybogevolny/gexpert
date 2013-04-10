@@ -178,6 +178,7 @@
                     $cFormObj->options['column']['question'] = array('name' => "Question", 'type' => "string", 'sort' => true, 'index' => 1);
                     $cFormObj->options['column']['type'] = array('name' => "Type", 'type' => "string", 'sort' => true, 'index' => 2);
                     $cFormObj->options['column']['no_of_questions'] = array('name' => "No of Options", 'type' => "string", 'sort' => true, 'index' => 3);
+                    $cFormObj->options['column']['marks'] = array('name' => "Mark", 'type' => "string", 'sort' => true, 'index' => 4);
                     $cFormObj->createHTable();
                     echo $cFormObj->html();
                     ?>
@@ -298,10 +299,8 @@
                 switch ($('#question_type').val()) {
                     case '0':
                         questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find("input[type=radio]").attr('checked') === 'checked' ? 1 : 0;
-
                         break;
                     case '1':
-
                         questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.multipleanswer_correct_data').attr('checked') === 'checked' ? 1 : 0;
                         break;
                     case '2':
@@ -441,6 +440,23 @@
             }).length;
             //          console.log(value['answers']);
             html += '</td>';
+
+            html += '<td>';
+            var mark = 0;
+            $.map(value['answers'], function(n, i) {
+                value['question_type']
+
+                console.log(n)
+//                if (data[key]['is_correct'][i] == 1 && data[key]['question_type'] == 1) {
+//                    mark = 1 / i;
+//                } else if (data[key]['is_correct'][i] == 1) {
+//                    mark++;
+//                }
+
+            });
+            html += mark;
+            html += '</td>';
+
             html += '<td>';
             html += '<i class="icon-edit"></i><i class="icon-trash"></i>';
             html += '</td>';
