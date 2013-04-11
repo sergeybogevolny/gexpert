@@ -12,6 +12,9 @@ class cForm extends cUtil {
     public $data = "";
     public $html = "";
     public $options = "";
+    private $filters = "";
+    private $__loadedjs = array();
+    private $__loadedcss = array();
 
     public function __construct() {
         parent::__construct();
@@ -36,6 +39,7 @@ class cForm extends cUtil {
         if ($this->options['reporttable'] == true) {
             $this->createFilter();
         }
+
         $this->options['id'] = $this->options['id'] ? $this->options['id'] : rand();
         $this->html.= '<table class="table ' . $classoptions . '" name="' . $this->options['name'] . '" id="' . $this->options['id'] . '">';
         $this->html.= '<thead>';
@@ -50,30 +54,35 @@ class cForm extends cUtil {
             $columnorder[$columnname] = $columnDetails['index'];
         }
         array_multisort($columnorder, SORT_ASC, $this->options['column']);
+        if ($this->options['crosstab'] == true && count($this->data) > 0) {
+            $this->createCrossTabArray();
+            $this->createCrossTabHeader();
+        } else {
 
+            foreach ($this->options['column'] as $columnname => $columnDetails) {
 
-        foreach ($this->options['column'] as $columnname => $columnDetails) {
+                if ($columnDetails['index'] > 0) {
 
-            if ($columnDetails['index'] > 0) {
+                    $this->html.= '<th>' . $columnDetails['name'];
+                    if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'inline') {
 
-                $this->html.= '<th>' . $columnDetails['name'];
-                if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'inline') {
-
-                    $this->html.='<div class="span3">' . $this->options['column'][$columnname]['filter_html'] . '</div>';
+                        $this->html.='<div class="span3">' . $this->options['column'][$columnname]['filter_html'] . '</div>';
+                    }
+                    $this->html.='</th>';
+                } else {
+                    $this->html.='<th class="hide ' . $columnname . '">' . $columnname . '</th>';
                 }
-                $this->html.='</th>';
-            } else {
-                $this->html.='<th class="hide ' . $columnname . '">' . $columnname . '</th>';
-            }
-            if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'box') {
-                $boxfilter .= '<span class="report-filter"> <span class="report-filter-title">' . $columnDetails['name'] . ' : </span>' . $this->options['column'][$columnname]['filter_html'] . "</span>";
+                if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'box') {
+                    $this->filters .= '<span class="report-filter"> <span class="report-filter-title">' . $columnDetails['name'] . ' : </span>' . $this->options['column'][$columnname]['filter_html'] . "</span>";
+                }
             }
         }
-        if ($boxfilter != '') {
+
+        if ($this->filters != '') {
             $this->html = '<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filtercontainer" data-toggle-text="Hide">
                             Show/Hide Filter(s)
                           </button>
-                          <div id="filtercontainer" class="collapse in" ><div class="report-filters" id="reportfilters">' . $boxfilter . '</div></div>' . $this->html;
+                          <div id="filtercontainer" class="collapse in" ><div class="report-filters" id="reportfilters">' . $this->filters . '</div></div>' . $this->html;
         }
 
         if ($this->options['actioncolumn'] == true) {
@@ -140,10 +149,7 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
                                 e.stopPropagation();
                         }
                     });
-                    $(".filter_type").change(function(e){
 
-
-});
             $(".calendar").daterangepicker(
                             {
                                 ranges: {
@@ -169,7 +175,99 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
 
 </script>';
         }
+        $this->html = '<form name="' . $this->options['id'] . '_form" method="post">' . $this->html . '</form>';
+
         return $this;
+    }
+
+    function createChart() {
+
+        if ($this->__loadedjs['jqplot'] == false) {
+            $this->html .= "<script src='" . AppJsURL . "jquery.jqplot.js'></script>";
+            $this->__loadedjs['jqplot'] = true;
+        }
+        if ($this->__loadedcss['jqplot'] == false) {
+            $this->html .= '<link rel="stylesheet" href="' . AppCssURL . 'jquery.jqplot.css">';
+            $this->__loadedcss['jqplot'] = true;
+        }
+        $this->html .= "<div id='" . $this->options['id'] . "'></div><script>
+    $(document).ready(function() {
+    var plot1 = $.jqplot (
+            '" . $this->options['id'] . "',
+         [[3,7,9,1,4,6,8,2,5]],
+         {
+         animate: true,
+         animateReplot: true,
+         cursor: {
+            show: true,
+            zoom: true,
+            looseZoom: true,
+            showTooltip: true
+        },
+        title: {
+        text: '" . $this->options['title'] . "',   // title for the plot,
+        show: true,
+    }
+         }
+         );
+
+if (!$.jqplot.use_excanvas) {
+        $('div.jqplot-target').each(function(){
+            var outerDiv = $(document.createElement('div'));
+            var header = $(document.createElement('div'));
+            var div = $(document.createElement('div'));
+
+            outerDiv.append(header);
+            outerDiv.append(div);
+
+            outerDiv.addClass('jqplot-image-container');
+            outerDiv.addClass('modal');
+            header.addClass('jqplot-image-container-header');
+            header.addClass('modal-header');
+            div.addClass('jqplot-image-container-content');
+            div.addClass('modal-body');
+
+            header.html('Right Click to Save Image As...');
+
+            var close = $(document.createElement('button'));
+            close.addClass('jqplot-image-container-close');
+            close.html('Close');
+            close.attr('href', '#');
+            close.click(function() {
+                $(this).parents('div.jqplot-image-container').hide(500);
+            })
+            header.append('<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>');
+
+            $(this).after(outerDiv);
+            outerDiv.hide();
+
+            outerDiv = header = div = close = null;
+
+            if (!$.jqplot._noToImageButton) {
+                var btn = $(document.createElement('button'));
+                btn.text('View Plot Image');
+                btn.addClass('jqplot-image-button');
+                btn.bind('click', {chart: $(this)}, function(evt) {
+                    var imgelem = evt.data.chart.jqplotToImageElem();
+                    var div = $(this).nextAll('div.jqplot-image-container').first();
+                    div.children('div.jqplot-image-container-content').empty();
+                    div.children('div.jqplot-image-container-content').append(imgelem);
+                    div.show(500);
+                    div = null;
+                });
+
+                $(this).after(btn);
+                btn.after('<br />');
+                btn = null;
+            }
+        });
+    }
+
+    });</script>";
+    }
+
+    function formatChartData() {
+
     }
 
     function createFilterCondition($filtertype, $filterdata) {
@@ -253,6 +351,168 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
             }
             return $filtercondition;
         }
+    }
+
+    function createCrossTabHeader() {
+        $valuesep = '::';
+        $groupsep = "~~";
+        $tabbed_header = array_splice($this->data[0], count($this->options['keep_columns']));
+        foreach ($tabbed_header as $columnname => $value) {
+            list($prefix, $value_column) = explode($valuesep, $columnname);
+            $spanArray[$prefix][$value_column]++;
+            //$this->html.= '<th colspan="' . count($this->options['value_columns']) . '">' . 'Abc' . '</td>';
+        }
+
+        foreach ($this->options['keep_columns'] as $columnname) {
+
+
+            $this->html.= '<th rowspan="2">' . $this->options['column'][$columnname]['name'];
+            if ($this->options['column'][$columnname]['filter_html'] && $this->options['column'][$columnname]['filter'] == 'inline') {
+
+                $this->html.='<div class="span3">' . $this->options['column'][$columnname]['filter_html'] . '</div>';
+            }
+            $this->html.='</th>';
+
+            if ($this->options['column'][$columnname]['filter_html'] && $this->options['column'][$columnname]['filter'] == 'box') {
+                $this->filters .= '<span class="report-filter"> <span class="report-filter-title">' . $this->options['column'][$columnname]['name'] . ' : </span>' . $this->options['column'][$columnname]['filter_html'] . "</span>";
+            }
+        }
+
+
+
+        foreach ($spanArray as $key => $value) {
+            $this->html.="<th colspan='" . count($value) . "'>" . $key . "</th>";
+        }
+        $this->html.="</tr><tr>";
+        foreach ($spanArray as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                $this->html.="<th>" . $key1 . "</th>";
+            }
+        }
+    }
+
+//$this->data, $keep_columns_array, $group_column, $value_column, $need_percentage_column = "", $need_row_total = 't', $need_column_total = 't', $need_individual_column_percentage_array = array(), $is_sort = FALSE, $data_type_array = array()
+    function createCrossTabArray() {
+        // Declarations
+        $value_separator = "::";
+        $group_separator = "~~";
+        $keep_column_separator = "\t";
+        // form an array and fetch distinct values of keep columns group column ,and value Columns
+        //Eg:array[keep_column_data][group_column1~~group_column2.....~~group_columnn::value_column1].....
+        //array[keep_column_data][group_column1~~group_column2.....~~group_columnn::value_columnn]
+        foreach ($this->data as $key => $value) {
+            //creating Keep column String by appending all the keep columns as one data column
+            $keep_columns_value = '';
+            foreach ($this->options['keep_columns'] as $value1) {
+                $keep_columns_value.=($value[$value1]) ? $value[$value1] : "--";
+                $keep_columns_value.=$keep_column_separator;
+            }
+            $keep_columns_value = rtrim($keep_columns_value, $keep_column_separator);
+
+            //creating Group column String by appending all the group columns as one data column
+            $group_column_value = "";
+            foreach ($this->options['group_columns'] as $group_column_name) {
+                $group_column_value.=$value[$group_column_name] . $group_separator;
+                unset($this->options['column'][$group_column_name]);
+            }
+            $group_column_value = rtrim($group_column_value, $group_separator);
+            //creating Value column String by appending all the Value columns as one data column
+            foreach ($this->options['value_columns'] as $value_column_name) {
+                $group_column_value_and_value_column = $group_column_value . $value_separator . $value_column_name;
+                if ($this->options['column'][$value_column_name]['type'] == 'numeric')
+                    $formated_data_array[$keep_columns_value][$group_column_value_and_value_column]+=$value[$value_column_name];
+                else
+                    $formated_data_array[$keep_columns_value][$group_column_value_and_value_column] = $value[$value_column_name];
+
+                $row_to_column[$group_column_value_and_value_column]++;
+            }
+        }
+        $row = 0;
+        $columns = 0;
+        $result_data_array = array();
+
+        //push the keep columns name in to the first record of the result array
+        foreach ($this->options['keep_columns'] as $keep_column_name) {
+            $result_array[$row][$keep_column_name] = $keep_column_name;
+        }
+        $row_to_column = array_keys($row_to_column);
+        if ($is_sort)
+            natcasesort($row_to_column);
+
+
+        // push group_column distinct values into the first record of the result array
+        foreach ($row_to_column as $group_column_name) {
+            $result_array[$row][$group_column_name] = $group_column_name;
+        }
+        $row++;
+
+
+        $keep_column_data_array = array_keys($formated_data_array);
+        if ($is_sort)
+            natcasesort($keep_column_data_array);
+
+        // push the data of keep columns and the value column into the result array
+        foreach ($keep_column_data_array as $key => $keep_column_data) {
+
+            $is_master_data = str_replace(array("\t", "--"), "", $keep_column_data);
+            if ($is_master_data) {
+                $columns = 0;
+                $keep_column_data_splited = explode($keep_column_separator, $keep_column_data);
+
+                foreach ($keep_column_data_splited as $key => $value) {
+                    $result_array[$row][$columns] = $value;
+                    $group_column[$columns] = $columns;
+                    $columns++;
+                }
+                foreach ($row_to_column as $key => $value) {
+                    //Add column values for each row data
+                    list($prefix, $value_column_name) = explode($value_separator, $value);
+                    if (is_array($need_individual_column_percentage_array))
+
+                    //Add Individual Percent tage to the column data
+                        $column_value_percent = (in_array($value_column_name, $need_individual_column_percentage_array) && $formated_data_array[$keep_column_data][$value] > 0 && $result_array[$row][$position] > 0) ? "(" . (round($formated_data_array[$keep_column_data][$value] / $result_array[$row][$position] * 100, 2)) . "&nbsp;%)&nbsp;" : "";
+                    $result_array[$row][$columns] = $formated_data_array[$keep_column_data][$value] . $column_value_percent;
+                    //Increase the column count
+                    $columns++;
+                    $row_total_arrays[$row][$value_column_name]+=$formated_data_array[$keep_column_data][$value];
+                    //Add column values for each column data
+                    $column_total_arrays[$columns]+=$formated_data_array[$keep_column_data][$value];
+                }
+                $row++;
+            }
+        }
+
+
+        $this->data = $result_array;
+//Call Function to convert the number array to normal db array
+        $this->convertNumberArrayToAssosiavtiveArray();
+    }
+
+    function convertNumberArrayToAssosiavtiveArray() {
+        $value_separator = "::";
+        $key_set = array_keys($this->data[0]);
+        unset($this->data[0]);
+        $resultant_array = array();
+        $totalkeepcolumns = count($this->options['keep_columns']);
+        foreach ($this->data as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                $column_name = $key_set[$key1];
+                if ($key == 1) {
+                    if (strstr($column_name, $value_separator)) {
+                        list($prefix, $value_column_name) = explode($value_separator, $column_name);
+                        $display_name = $this->options['column'][$value_column_name]['name'];
+                        $unsetcolumns[] = $value_column_name;
+                        $this->options['column'][$column_name]['name'] = $prefix . $value_separator . $display_name;
+                        $this->options['column'][$column_name]['index'] = ($totalkeepcolumns + $key);
+                    }
+                }
+                $this->data[$key - 1][$column_name] = ($value1) ? $value1 : $fill_string;
+            }
+        }
+        foreach ($unsetcolumns as $valuecolumnname) {
+            unset($this->options['column'][$valuecolumnname]);
+        }
+//        $this->data = $resultant_array;
     }
 
     function createFilter() {

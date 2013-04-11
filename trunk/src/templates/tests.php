@@ -38,13 +38,13 @@ echo $cFormObj->html();
     $conditionArray[] = $condition;
 
     $cFormObj->data = $cTestControllerObj->addWhereCondition($conditionArray)->select()->executeRead();
-
-    foreach ($cFormObj->data as $key => $value) {
-        $cTestControllerObj->table = "scores";
-        $score = $cTestControllerObj->addWhereCondition("test_id=" . $value['id'] . " and user_id=" . $_SESSION['user_id'])->select()->executeRead();
-        $cFormObj->data[$key]['score'] = $score[0]['id'];
+    if (count($cFormObj->data) > 0) {
+        foreach ($cFormObj->data as $key => $value) {
+            $cTestControllerObj->table = "scores";
+            $score = $cTestControllerObj->addWhereCondition("test_id=" . $value['id'] . " and user_id=" . $_SESSION['user_id'])->select()->executeRead();
+            $cFormObj->data[$key]['score'] = $score[0]['id'];
+        }
     }
-
     $cFormObj->options['actioncolumn'] = true;
     $cFormObj->options['id'] = 'listtable';
     $cFormObj->options['exportoptions'] = true;
