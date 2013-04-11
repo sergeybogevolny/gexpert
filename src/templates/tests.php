@@ -47,6 +47,7 @@ echo $cFormObj->html();
 
     $cFormObj->options['actioncolumn'] = true;
     $cFormObj->options['id'] = 'listtable';
+    $cFormObj->options['exportoptions'] = true;
 
     $cFormObj->options['actioncolumnicons'] = '<i class="cus-control-play-blue" title="Take Test"></i>
         <i class="cus-rosette" title="Scores"></i>';
