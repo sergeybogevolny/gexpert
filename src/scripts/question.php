@@ -188,4 +188,6 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     echo $html . "<input name='answer_type' class='answer_type' id='answer_type_" . $cTestControllerObj->questionId . "' value='" . $cTestControllerObj->questionType . "' type='hidden' />";
     exit;
 }
+$pagename = "Questions";
+$pagedescription = "Questions may be of Choose, Mutliple Answers, True or False, Match The following and Sequencing";
 ?>

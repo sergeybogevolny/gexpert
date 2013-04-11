@@ -1,7 +1,6 @@
 <form method="POST" class="form-horizontal">
 
     <fieldset>
-        <legend>Category</legend>  
         <div class="control-group">
             <label class="control-label" for="name">Name</label>
             <div class="controls">

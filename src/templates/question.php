@@ -44,13 +44,13 @@
 
 <form method="POST" class="well form-inline" action="" style="display: none" id="quiz">
     <div id="rootwizard">
-        <div class="navbar">
-            <div class="navbar-inner ">
-                <div class="container" >
-                    <div id="question_count"><span id="current_question"></span><span>/<?php echo count($question_numbers); ?></span></div>
+        <div class="navbar-inner">
+            <div class="navbar">
+                <div class="container">
+                    <div id="question_count"><span id="current_question"></span> <b>of</b> <span><?php echo count($question_numbers); ?></span><span id="counter" class="pull-right"></span></div>
                     <ul id="nav_link" style="display: none">
                     </ul>
-                    <div id="counter" class="pull-right"></div>
+                    
                 </div>
             </div>
 

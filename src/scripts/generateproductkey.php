@@ -37,4 +37,6 @@ if ($_POST["test_id"]) {
         }
     }
 }
+$pagename = "Product Key";
+$pagedescription = "Generate a Product key for a test";
 ?>

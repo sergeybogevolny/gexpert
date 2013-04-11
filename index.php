@@ -30,7 +30,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
 <html lang="en">
 
 <head>
-<title>gXpertise</title>
+<title>gXpertize</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="src/theme1/img/favicon.png" type="image/x-icon">
@@ -60,7 +60,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
     <link rel="stylesheet" href="src/theme1/css/ie.css" type="text/src/theme1/css" media="screen">
   <![endif]-->
   <!-- gxpertise js files  -->
-            <script src="src/theme1/js/jquery.js"></script>
+            <script src="src/js/jquery.js"></script>
 			<script type="text/javascript" src="src/js/bootstrap.js"></script>
             <script src="src/js/jquery-ui.js"></script>
             <script src="src/js/bootstrap-toggle.js"></script>
@@ -91,27 +91,29 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <div class="container">
 			<?php if ($_SESSION["user_id"]) { ?>
               <!--=========== menu ===============-->
-              <div class="nav-collapse nav-collapse_ collapse">
-                <ul class="nav sf-menu">
-                  <li class="active sub-menu"><a href="#">Take a Test</a>
-                    <ul>
+              <div class="nav-collapse">
+                                    <ul class="nav">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Take a Test <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
                                                 <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Take a Test</a></li>
 												<li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'scores_report')); ?>">Scores</a></li>
-                    </ul>
-                  </li>
-				  <?php if ($_SESSION['user_type'] <= 1) { ?>
-                  <li class="sub-menu"><a href="#">Test Manager</a>
-                    <ul>
+                                            </ul>
+                                        </li>
+                                        <?php if ($_SESSION['user_type'] <= 1) { ?>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Test Manager<b class="caret"></b></a>
+                                                <ul class="dropdown-menu">
                                                     <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>">New Test</a></li>
                                                     <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Tests</a></li>
                                                     <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>">Product Keys</a></li>
-                    </ul>
-                  </li>
-                 <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
 
                                         <?php } ?>
-                </ul>
-              </div>
+                                    </ul>
+                                </div>
 			  <?php } ?>
             </div>
           </div>
@@ -127,7 +129,13 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
     <div class="shadowdrop"></div>
     <div class="container">
           <h2><?php echo $pagename; ?><small><?php echo $pagedescription; ?></small></h2>
+		<ul class="breadcrumb fright">
+		<?php if ($_SESSION["user_id"]) { ?>
+                                        <li><a href="<?php echo $cFormObj->createLinkUrl(array('f' => 'logout')); ?>">Logout</a></li>
+                                    <?php } else { ?>
 
+                                    <?php } ?>
+		</ul>
     </div>
   </div>
   <div class="container">
@@ -212,22 +220,6 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
     </div>
   </footer>
 </div>
-
-<!-- Placed at the end of the document so the pages load faster -->
-<!-- totop  -->
-<script type="text/javascript" src="src/theme1/js/jquery.ui.totop.js"></script>
-<script type="text/javascript" src="src/theme1/js/application.js"></script>
-<script type="text/javascript" src="src/theme1/js/jquery.cookie.js"></script>
-<!-- Image animated Style  -->
-<script type="text/javascript" src="src/theme1/js/jquery.mobile.customized.min.js"></script>
-<!-- Navigation  -->
-<script type="text/javascript" src="src/theme1/js/nav-small.js"></script>
-<script type="text/javascript" src="src/theme1/js/jquery.mobilemenu.js"></script>
-
-
-<!-- js files for theme1 -->
-
-
 
 </body>
 

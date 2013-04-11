@@ -38,4 +38,6 @@ if ($_POST) {
         exit;
     }
 }
+$pagename = "User Registration";
+$pagedescription = "Register to Take a test";
 ?>

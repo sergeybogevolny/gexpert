@@ -20,4 +20,7 @@ if ($_GET['show'] == 'all') {
 $cTestControllerObj->table = "scores s";
 $cTestControllerObj->join_condition = " join test_details td on s.test_id = td.id join `__users` u on u.id = s.user_id";
 $scores = $cTestControllerObj->addWhereCondition($abc)->select()->executeRead();
+
+$pagename = "Scores";
+$pagedescription = "What you Scored";
 ?>

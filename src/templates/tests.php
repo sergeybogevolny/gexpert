@@ -13,10 +13,6 @@ echo $cFormObj->html();
         <button id="add_test" class="btn" type="button">Add Test</button>
     </div>
 
-
-    <legend>Tests Available</legend>
-
-
     <?php
     $cTestControllerObj->column = array("td.id", "td.name", "description", "u.name" => "username", "td.valid_from");
 

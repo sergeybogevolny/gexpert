@@ -12,7 +12,7 @@ date_default_timezone_set('UTC');
 /**
  * Commercial
  */
-define('CompanyName', 'GS');
+define('CompanyName', 'Geotekh');
 define('CompanyURL', 'http://www.geotekh.com');
 
 /**
@@ -106,7 +106,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
  */
 define('AppRequiresLogin', true);
 define('AppHomePage', 'tests');
-define('AppName', 'GFlatManager');
+define('AppName', '');
+define('AppLogo', '');
 
 
 define('AppDateFormatPhp', 'F j,Y');
@@ -115,4 +116,12 @@ define('AppDateFormatDb', '%d/%m/%Y');
 define('AppDateFormatDbInput', 'Y-m-d');
 define('AppDateFormatTpl', '%d/%m/%Y');
 define('AppSessionLessPages', serialize(array('login', 'register', 'forget_password')));
+
+/**
+ * Client Settings
+ */
+ define('ClientName', '');
+ define('ClientLogo', AppImgURL .'c_logo.png');
+ define('ClientAddress', '');
+
 ?>

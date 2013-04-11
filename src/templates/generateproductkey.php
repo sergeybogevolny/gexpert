@@ -1,6 +1,4 @@
 <form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>">
-    <legend>Key Generation</legend>
-
     <div class="control-group">
         <?php
         $cTestControllerObj->column = array("id", "code", "test_name");

@@ -2023,34 +2023,4 @@
 
 
 }(window.jQuery);
-if($.browser.mozilla||$.browser.opera){document.removeEventListener("DOMContentLoaded",$.ready,false);document.addEventListener("DOMContentLoaded",function(){$.ready()},false)}$.event.remove(window,"load",$.ready);$.event.add( window,"load",function(){$.ready()});$.extend({includeStates:{},include:function(url,callback,dependency){if(typeof callback!='function'&&!dependency){dependency=callback;callback=null}url=url.replace('\n','');$.includeStates[url]=false;var script=document.createElement('script');script.type='text/javascript';script.onload=function(){$.includeStates[url]=true;if(callback)callback.call(script)};script.onreadystatechange=function(){if(this.readyState!="complete"&&this.readyState!="loaded")return;$.includeStates[url]=true;if(callback)callback.call(script)};script.src=url;if(dependency){if(dependency.constructor!=Array)dependency=[dependency];setTimeout(function(){var valid=true;$.each(dependency,function(k,v){if(!v()){valid=false;return false}});if(valid)document.getElementsByTagName('head')[0].appendChild(script);else setTimeout(arguments.callee,10)},10)}else document.getElementsByTagName('head')[0].appendChild(script);return function(){return $.includeStates[url]}},readyOld:$.ready,ready:function(){if($.isReady) return;imReady=true;$.each($.includeStates,function(url,state){if(!state)return imReady=false});if(imReady){$.readyOld.apply($,arguments)}else{setTimeout(arguments.callee,10)}}});
 
-$.include('src/theme1/js/superfish.js');
-jQuery(function(){
-      jQuery('.sf-menu').mobileMenu();
-    })
-$(function(){
-// IPad/IPhone
-  var viewportmeta = document.querySelector && document.querySelector('meta[name="viewport"]'),
-    ua = navigator.userAgent,
- 
-    gestureStart = function () {
-        viewportmeta.content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
-    },
- 
-    scaleFix = function () {
-      if (viewportmeta && /iPhone|iPad/.test(ua) && !/Opera Mini/.test(ua)) {
-        viewportmeta.content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
-        document.addEventListener("gesturestart", gestureStart, false);
-      }
-    };
-scaleFix();
-
-// Menu Android
-  var userag = navigator.userAgent.toLowerCase();
-  var isAndroid = userag.indexOf("android") > -1; 
-  if(isAndroid) {
-    $('.sf-menu').responsiveMenu({autoArrows:true});
-  }
-    
-});
