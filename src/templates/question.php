@@ -50,7 +50,7 @@
                     <div id="question_count"><span id="current_question"></span> <b>of</b> <span><?php echo count($question_numbers); ?></span><span id="counter" class="pull-right"></span></div>
                     <ul id="nav_link" style="display: none">
                     </ul>
-                    
+
                 </div>
             </div>
 
@@ -199,7 +199,7 @@ if ($data[0]['time_taken'] > 0) {
                     current_answer = $(divid).find('input:checked').attr('id');
                     break;
                 case '3':
-                    current_answer = $(divid).find('input:checked').attr('id');
+                    current_answer = $(divid).find('input').val();
                     break;
                 case '4':
                     current_answer = $(divid + " .sortable").sortable("toArray");

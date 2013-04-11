@@ -49,6 +49,10 @@ if ($_POST["test_id"]) {
 
                     break;
                 case 3:
+                    if ($current_answer == $correctanswers[0]['answer']) {
+                        $scores+=1;
+                        $correctanswercnt[$value["id"]]++;
+                    }
                     break;
                 case 4:
                     foreach ($correctanswers as $key1 => $value1) {
@@ -76,10 +80,10 @@ if ($_POST["test_id"]) {
         }
 
         $scoredata['user_id'] = $_SESSION['user_id'];
-        echo $scoredata['score'] = $scores;
+        $scoredata['score'] = $scores;
         $scoredata['test_id'] = $_POST["test_id"];
-        echo $scoredata['correct_answers'] = count($correctanswercnt);
-        echo $scoredata['total_questions'] = count($questionDetails);
+        $scoredata['correct_answers'] = count($correctanswercnt);
+        $scoredata['total_questions'] = count($questionDetails);
         $scoredata['test_time'] = $timetaken;
         $scoredata['status'] = 1;
         $cTestControllerObj->updateScores($scoredata);
@@ -136,23 +140,18 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             $cFormObj->data = "no";
             $cFormObj->createOption();
             $html .= $cFormObj->html();
-//            $html.='<div class = "btn-group" data-toggle = "buttons-radio">
-//            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "answer btn btn-success active" value = "1">
-//            <i class = "icon-ok icon-white"></i>
-//            </button>
-//            <button name = "' . $cTestControllerObj->questionId . '" type = "button" class = "answer btn" value = "0"><i class = "icon-remove"></i></button>
-//            </div >';
+
 
             break;
         case 3:
-            foreach ($options as $key => $value) {
-                $cFormObj->options["name"] = $cTestControllerObj->questionId;
-                $cFormObj->options["id"] = $value["id"];
-                $cFormObj->options["class"] = "answer";
-                $cFormObj->data = $value["answer"];
-                $cFormObj->createOption();
-                $html .= $cFormObj->html();
-            }
+            //foreach ($options as $key => $value) {
+            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["id"] = $value["id"];
+            $cFormObj->options["class"] = "answer";
+            //$cFormObj->data = $value["answer"];
+            $cFormObj->createInput();
+            $html .= $cFormObj->html();
+            //}
             break;
         case 4:
             $html.="<div class='row-fluid'>";
