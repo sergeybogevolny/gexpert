@@ -38,4 +38,7 @@ $cFormObj->options['column']['status'] = array('name' => "Status", 'type' => "st
 
 $cFormObj->createHTable();
 $datatable = $cFormObj->html();
+
+$pagename = "Category";
+$pagedescription = "Create Category for Tests";
 ?>

@@ -144,4 +144,7 @@ if ($testDetails['valid_from'] && $testDetails['valid_to']) {
 }
 $questiondata = $questiondata ? json_encode($questiondata) : "{}";
 $currentRow = $testDetails['question_count'] ? ((int) $testDetails['question_count'] ) : 0;
+
+$pagename = "Create Test";
+$pagedescription = "Create a test with Questions";
 ?>
