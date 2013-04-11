@@ -119,20 +119,20 @@ class cForm extends cUtil {
             $this->html.='<script>$(document).ready(function(){
             $("#' . $this->options['id'] . '").dataTable({
 
-   "sDom": "T<\'row-fluid\'<\'span6\'><\'span4\'>r>t <\'row\' <\'span3\' l><\'span2\' ><\'span2\'i ><\'span4\'p>>",
+   ';
+            if ($this->options['exportoptions'] === true) {
+
+                $tablettools = "T";
+                $this->html.='  "oTableTools": {
+            "sSwfPath": "' . AppTableToolsUrl . 'copy_csv_xls_pdf.swf"
+
+        },';
+            }
+            $this->html.='"sDom": "' . $tablettools . '<\'row-fluid\'<\'span6\'><\'span4\'>r>t <\'row\' <\'span3\' l><\'span2\' ><\'span2\'i ><\'span4\'p>>",
 		"sPaginationType": "bootstrap",
 		"oLanguage": {
 			"sLengthMenu": "_MENU_ records per page"
-		}';
-            if ($this->options['exportoptions'] == true) {
-
-
-                $this->html.='  ,"oTableTools": {
-            "sSwfPath": "' . AppTableToolsUrl . 'copy_csv_xls_pdf.swf"
-
-        }';
-            }
-            $this->html.='});
+		}});
 $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(function (e){
                         if(e.keyCode == 13){
 
