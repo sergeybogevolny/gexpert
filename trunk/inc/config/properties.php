@@ -9,11 +9,6 @@ ini_set('default_charset', 'utf-8');
 //ini_set('session.save_path','../../tech/sessions');
 date_default_timezone_set('UTC');
 
-/**
- * Commercial
- */
-define('CompanyName', 'Geotekh');
-define('CompanyURL', 'http://www.geotekh.com');
 
 /**
  * Database
@@ -118,10 +113,22 @@ define('AppDateFormatTpl', '%d/%m/%Y');
 define('AppSessionLessPages', serialize(array('login', 'register', 'forget_password')));
 
 /**
+ * Company Details
+ */
+define('CompanyName', 'Geotekh');
+define('CompanyLogo', AppImgURL .'logo.png');
+define('CompanyURL', 'http://www.geotekh.com');
+
+/**
  * Client Settings
  */
- define('ClientName', '');
+ define('ClientName', 'Client Name');
  define('ClientLogo', AppImgURL .'c_logo.png');
  define('ClientAddress', '');
 
+/**
+ * Brand Settings
+ */
+ define('BrandName', 'gXpertize');
+ define('BrandLogo', AppImgURL .'b_logo.png');
 ?>

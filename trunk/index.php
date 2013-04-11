@@ -85,7 +85,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
       <div class="row ">
         <div class="span12">
           <!-- Logo -->
-          <h1 class="brand brand_"><a href="index.html"><img src="src/theme1/img/logo1.png" alt=""></a></h1>
+          <h1 class="brand brand_"><a href="index.html"><img src="<?php echo BrandLogo;?>"  /></a></h1>
           <!-- Navigation -->
           <div class="navbar navbar_">
             <div class="container">
@@ -97,7 +97,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Take a Test <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
                                                 <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Take a Test</a></li>
-												<li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'scores_report')); ?>">Scores</a></li>
+												<li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'scores')); ?>">Scores</a></li>
                                             </ul>
                                         </li>
                                         <?php if ($_SESSION['user_type'] <= 1) { ?>
@@ -214,7 +214,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
     <div id="copyrights" class="footer-2 footer-dark">
       <div class="container">
         <div class="row">
-          <div class="span12">gXpertise &copy; 2013 Geotekh</div>
+          <div class="span12"><a href="index.html"><?php echo BrandName;?></a> &copy; 2013 <a href="<?php echo CompanyURL;?>"><img src="<?php echo CompanyLogo;?>"  /></a></div>
         </div>
       </div>
     </div>
