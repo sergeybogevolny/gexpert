@@ -22,6 +22,7 @@ echo $cFormObj->html();
     $cFormObj->options['column']['description'] = array('name' => "Desc", 'type' => "string", 'sort' => true, 'index' => 3);
     $cFormObj->options['column']['username'] = array('name' => "Created By", 'type' => "string", 'sort' => true, 'index' => 4);
     $cFormObj->options['column']['valid_from'] = array("name" => 'Valid From', 'type' => "date", 'sort' => true, 'index' => -1, 'filter' => 'box');
+    $cFormObj->options['column']['score'] = array("name" => 'score', 'type' => "number", 'sort' => true, 'index' => -2);
 
     if ($_SESSION['user_type'] > 1) {
         $cTestControllerObj->table = "product_key_test_users pktu";
@@ -38,7 +39,14 @@ echo $cFormObj->html();
 
     $cFormObj->data = $cTestControllerObj->addWhereCondition($conditionArray)->select()->executeRead();
 
+    foreach ($cFormObj->data as $key => $value) {
+        $cTestControllerObj->table = "scores";
+        $score = $cTestControllerObj->addWhereCondition("test_id=" . $value['id'] . " and user_id=" . $_SESSION['user_id'])->select()->executeRead();
+        $cFormObj->data[$key]['score'] = $score[0]['id'];
+    }
+
     $cFormObj->options['actioncolumn'] = true;
+    $cFormObj->options['id'] = 'listtable';
 
     $cFormObj->options['actioncolumnicons'] = '<i class="cus-control-play-blue" title="Take Test"></i>
         <i class="cus-rosette" title="Scores"></i>';
@@ -66,12 +74,16 @@ echo $cFormObj->html();
         var url2 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>';
         var url3 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>';
         var url4 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'addtest')); ?>';
-        var url5 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'scores')); ?>';
+<?php if ($_SESSION['user_type'] > 1) { ?>
+            var url5 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'scores', 'user_id' => $_SESSION['user_id'])); ?>';
+<?php } else { ?>
+            var url5 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'scores', 'show' => 'all')); ?>';
+<?php } ?>
         $("table").on({'click': function() {
-                $("#test_id").val($(this).parent().siblings(":nth(1)").html());
+                $("#test_id").val($(this).parent().siblings(":nth(2)").html());
                 $("#listtests").attr('action', url1).submit();
             }}, ".cus-control-play-blue").on({'click': function() {
-                $("#test_id").val($(this).parent().siblings(":nth(1)").html());
+                $("#test_id").val($(this).parent().siblings(":nth(2)").html());
                 $("#listtests").attr('action', url2).submit();
             }}, '.cus-bullet-key').on({'click': function() {
                 if ($('#test_key').val() != '') {
@@ -81,17 +93,25 @@ echo $cFormObj->html();
                 }
 
             }}, '#add_test').on({'click': function() {
-                window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(1)').html());
+                window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
             }}, '.cus-page-edit').on({'click': function() {
-                window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(1)').html()) + "&show=" + $.base64.encode("all");
+                window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
             }}, '.cus-rosette').on({'click': function() {
-                window.location = url3 + "&a=" + $.base64.encode("d") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(1)').html());
+                window.location = url3 + "&a=" + $.base64.encode("d") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
             }}, '.cus-page-delete').on({'click': function() {
-                window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(1)').html());
+                window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
             }}, '.cus-page-copy');
+<?php if ($_SESSION['user_type'] > 1) { ?>
+            $('#listtable').find('td.score').each(function(i, e) {
+                if ($(this).html() != '') {
+                    $(this).parent().find('.cus-control-play-blue').hide().parent().find('.cus-rosette').show();
+                } else {
 
-
-
+                    $(this).parent().find('.cus-rosette').hide().parent().find('.cus-control-play-blue').show();
+                }
+            });
+<?php }
+?>
 
     });
 

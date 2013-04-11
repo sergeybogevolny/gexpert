@@ -30,7 +30,7 @@ if ($_POST["test_id"]) {
                     break;
                 case 1:
                     $selected_array = json_decode(stripslashes($current_answer));
-                    echo $answercnt = count($correctanswers);
+                    $answercnt = count($correctanswers);
                     foreach ($correctanswers as $key1 => $value1) {
                         if (is_array($selected_array)) {
                             if (in_array($value1['id'], $selected_array)) {
@@ -42,8 +42,6 @@ if ($_POST["test_id"]) {
 
                     break;
                 case 2:
-                    echo $correctanswers[0]['is_correct'];
-                    echo $current_answer;
                     if ($correctanswers[0]['is_correct'] == $current_answer) {
                         $scores+=1;
                         $correctanswercnt[$value["id"]]++;
@@ -70,7 +68,6 @@ if ($_POST["test_id"]) {
                     }
                     break;
             }
-            //echo $scores . "~~~" . $value['question_type'] . "--";
         }
         if ($data[0]['time_taken'] > 0) {
 
@@ -87,7 +84,7 @@ if ($_POST["test_id"]) {
         $scoredata['status'] = 1;
         $cTestControllerObj->updateScores($scoredata);
         //exit;
-        header("Location:" . $cFormObj->createLinkUrl(array("f" => "scores", "id" => $_POST["test_id"])));
+        header("Location:" . $cFormObj->createLinkUrl(array("f" => "scores", "id" => $_POST["test_id"], 'user_id' => $_SESSION['user_id'])));
         exit;
     } else {
         foreach ($questionDetails as $key => $value) {

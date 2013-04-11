@@ -146,9 +146,9 @@
                 this.updateInputBoxName();
                 this.updateInputBoxId();
             }
-            if (this.inputBoxAutoId) {
-                this.updateInputBoxId();
-            }
+            //if (this.inputBoxAutoId) {
+            this.updateInputBoxId();
+            //}
             if (this.hideFirstOnly && this.hideFirstOnly != "") {
                 $("." + this.cloneClass).eq(0).find("." + this.hideFirstOnly).hide();
                 $("." + this.cloneClass).not(":first").find("." + this.hideFirstOnly).show();

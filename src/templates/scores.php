@@ -30,12 +30,13 @@
 } else {
 
 
-    $cFormObj->options['column']['username'] = array('name' => "User", 'type' => "string", 'sort' => true, 'index' => 1, 'filter' => 'box');
-    $cFormObj->options['column']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'index' => 2, 'filter' => 'box');
-    $cFormObj->options['column']['test_time'] = array('name' => "Time", 'type' => "string", 'sort' => true, 'index' => 3, 'filter' => 'box');
-    $cFormObj->options['column']['total_questions'] = array('name' => "Total Questions", 'type' => "string", 'sort' => true, 'index' => 4);
-    $cFormObj->options['column']['correct_answers'] = array('name' => "Correct Answers", 'type' => "string", 'sort' => true, 'index' => 5);
-    $cFormObj->options['column']['add_date'] = array("name" => 'Score Date', 'type' => "date", 'sort' => true, 'index' => 6, 'filter' => 'box');
+    $cFormObj->options['column']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'index' => 1, 'filter' => 'box');
+    $cFormObj->options['column']['username'] = array('name' => "User", 'type' => "string", 'sort' => true, 'index' => 2, 'filter' => 'box');
+    $cFormObj->options['column']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'index' => 3, 'filter' => 'box');
+    $cFormObj->options['column']['test_time'] = array('name' => "Test Time", 'type' => "string", 'sort' => true, 'index' => 4, 'filter' => 'box');
+    $cFormObj->options['column']['total_questions'] = array('name' => "Total Questions", 'type' => "string", 'sort' => true, 'index' => 5);
+    $cFormObj->options['column']['correct_answers'] = array('name' => "Correct Answers", 'type' => "string", 'sort' => true, 'index' => 6);
+    $cFormObj->options['column']['add_date'] = array("name" => 'Score Date', 'type' => "date", 'format' => AppDateFormatPhp, 'sort' => true, 'index' => 7, 'filter' => 'box');
 
 
     $cFormObj->data = $scores;

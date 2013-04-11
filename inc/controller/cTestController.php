@@ -99,5 +99,4 @@ class cTestController extends cController {
     }
 
 }
-
 ?>
