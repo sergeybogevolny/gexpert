@@ -30,21 +30,25 @@
 } else {
 
 
-    $cFormObj->options['column']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'index' => 1, 'filter' => 'box');
-    $cFormObj->options['column']['username'] = array('name' => "User", 'type' => "string", 'sort' => true, 'index' => 2, 'filter' => 'box');
-    $cFormObj->options['column']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'index' => 3, 'filter' => 'box');
-    $cFormObj->options['column']['test_time'] = array('name' => "Test Time", 'type' => "string", 'sort' => true, 'index' => 4, 'filter' => 'box');
-    $cFormObj->options['column']['total_questions'] = array('name' => "Total Questions", 'type' => "string", 'sort' => true, 'index' => 5);
-    $cFormObj->options['column']['correct_answers'] = array('name' => "Correct Answers", 'type' => "string", 'sort' => true, 'index' => 6);
-    $cFormObj->options['column']['add_date'] = array("name" => 'Score Date', 'type' => "date", 'format' => AppDateFormatPhp, 'sort' => true, 'index' => 7, 'filter' => 'box');
-
 
     $cFormObj->data = $scores;
 
     $cFormObj->options['actioncolumn'] = false;
-
-
     $cFormObj->options['reporttable'] = true;
+//    $cFormObj->options['crosstab'] = true;
+//    $cFormObj->options['keep_columns'] = array("name", "correct_answers", "add_date");
+//    $cFormObj->options['group_columns'] = array("username");
+//    $cFormObj->options['value_columns'] = array("score", "test_time", "total_questions");
     $cFormObj->createHTable();
+    echo $cFormObj->html();
+    $cFormObj->data = $scores;
+    $cFormObj->options['id'] = "test";
+    $cFormObj->options['title'] = "Sundar";
+    $cFormObj->options['axis']['x']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
+    //$cFormObj->options['axis_x']['username'] = array('name' => "User", 'type' => "string", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
+    $cFormObj->options['axis']['y']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
+
+
+    $cFormObj->createChart();
     echo $cFormObj->html();
 }?>
