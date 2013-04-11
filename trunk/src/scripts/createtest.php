@@ -46,6 +46,7 @@ if ($_POST["questionsdata"]) {
 
     $questions = (array) json_decode(stripslashes($_POST["questionsdata"]));
     $testid = $cTestControllerObj->id;
+
     foreach ($questions as $key => $value) {
 
 
@@ -76,7 +77,7 @@ $id = $_GET['id'];
 if ($id != '') {
     list($testDetails) = $cTestControllerObj->getTestDetails($id);
 
-    $cTestControllerObj->debug = true;
+    //$cTestControllerObj->debug = true;
     $questions = $cTestControllerObj->getQuestionDetails($id);
     $questiondata = array();
     foreach ($questions as $key => $question) {

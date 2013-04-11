@@ -135,16 +135,19 @@
                                     <textarea rows="1" class="htmleditor match_answer match_data reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
                                 </td>
                                 <td class="multipleanswer multipleoption true_false">
+
+
                                     <label class="checkbox multipleanswer ">
-                                        <input type="checkbox" class="multipleanswer reset multipleanswer_correct_data" name="multipleanswer" id="multipleanswer">
+                                        <input type="checkbox" class="multipleanswer reset multipleanswer_correct_data" name="multipleanswer" id="multipleanswer" />
                                         Multiple Option
                                     </label>
+
                                     <label class="checkbox true_false">
-                                        <input type="checkbox" class="reset true_false true_false_data" name="true_false" id="true_false">
+                                        <input type="checkbox" class="reset true_false true_false_data" name="true_false" id="true_false" >
 
                                     </label>
                                     <label class="radio multipleoption">
-                                        <input type="radio" class="multipleoption correct_answer_data reset" name="correctanswer" id="correctanswer" value="0" checked="false" />
+                                        <input type="radio" class="multipleoption correct_answer_data reset" name="correctanswer" id="correctanswer" value="0" />
                                         Correct
                                     </label>
                                 </td>
@@ -201,6 +204,7 @@
 <script>
 
     $(document).ready(function() {
+
         $('#rootwizard').bootstrapWizard({onNext: function(tab, navigation, index) {
                 if (index == 1) {
                     // Make sure we entered the name
@@ -259,7 +263,7 @@
         $('#description').wysihtml5({"color": true});
         //$('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
         createTable(questionDetails);
-        $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber"}, function() {
+        $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber", inputBoxAutoId: true}, function() {
 
             return false;
         });
@@ -298,19 +302,19 @@
                 questionDetails[currentrow]['answers'][opt]['answer'] = $(element).find(".answer_data").val();
                 switch ($('#question_type').val()) {
                     case '0':
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find("input[type=radio]").attr('checked') === 'checked' ? 1 : 0;
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find("input[type=radio]").prop('checked') === true ? 1 : 0;
                         break;
                     case '1':
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.multipleanswer_correct_data').attr('checked') === 'checked' ? 1 : 0;
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.multipleanswer_correct_data').prop('checked') === true ? 1 : 0;
                         break;
                     case '2':
-                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.true_false_data').attr('checked') === 'checked' ? 1 : 0;
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.true_false_data').prop('checked') === true ? 1 : 0;
                         break;
                     case '3':
                         break;
                     case '4':
                         questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_data").val();
-
+                        consol
                         break;
                     case '5':
 
@@ -446,7 +450,6 @@
             $.map(value['answers'], function(n, i) {
                 value['question_type']
 
-                console.log(n)
 //                if (data[key]['is_correct'][i] == 1 && data[key]['question_type'] == 1) {
 //                    mark = 1 / i;
 //                } else if (data[key]['is_correct'][i] == 1) {

@@ -41,18 +41,19 @@ class cForm extends cUtil {
         $this->html.= '<thead>';
         $this->html.= '<tr>';
         if ($this->options['serialnocolumn'] === true) {
-            $columns++;
             $this->html.= '<th> No.</th>';
         }
 
         $columnorder = array();
+        $rowno = 1;
         foreach ($this->options['column'] as $columnname => $columnDetails) {
             $columnorder[$columnname] = $columnDetails['index'];
         }
         array_multisort($columnorder, SORT_ASC, $this->options['column']);
 
+
         foreach ($this->options['column'] as $columnname => $columnDetails) {
-            $columns++;
+
             if ($columnDetails['index'] > 0) {
 
                 $this->html.= '<th>' . $columnDetails['name'];
@@ -62,7 +63,7 @@ class cForm extends cUtil {
                 }
                 $this->html.='</th>';
             } else {
-                $this->html.='<th class="hide"></th>';
+                $this->html.='<th class="hide ' . $columnname . '">' . $columnname . '</th>';
             }
             if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'box') {
                 $boxfilter .= '<span class="report-filter"> <span class="report-filter-title">' . $columnDetails['name'] . ' : </span>' . $this->options['column'][$columnname]['filter_html'] . "</span>";
@@ -82,18 +83,17 @@ class cForm extends cUtil {
         $this->html.= '</tr>';
         $this->html.= '</thead>';
         $this->html.= '<tbody>';
-
         if (is_array($this->data)) {
             foreach ($this->data as $row => $record) {
                 $this->html.= '<tr>';
                 if ($this->options['serialnocolumn'] === true) {
-                    $this->html.= '<td> ' . $row + 1 . '</td>';
+                    $this->html.= '<td> ' . ($row + 1) . '</td>';
                 }
                 foreach ($this->options['column'] as $columnname => $columnDetails) {
                     $columnvalue = $record[$columnname];
                     $class = '';
                     if ($columnDetails['index'] < 0) {
-                        $class = " hide ";
+                        $class = " hide $columnname ";
                     }
                     if ($columnDetails['type'] == 'date') {
                         $columnvalue = $this->formatDate($columnvalue, $columnDetails['format']);
