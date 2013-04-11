@@ -52,6 +52,7 @@ define('AppViewUploadsURL', AppURL . '/' . PublicDir . 'uploads/');
 define('Controllers', AppURL . IncDir . 'controller/');
 define('SmartyTemplateDir', 'templates/');
 define('AppAdminDirUrl', AppURL . IncDir . 'admin/');
+define('AppTableToolsUrl', AppURL . PublicDir . 'swf/');
 
 
 
@@ -116,19 +117,19 @@ define('AppSessionLessPages', serialize(array('login', 'register', 'forget_passw
  * Company Details
  */
 define('CompanyName', 'Geotekh');
-define('CompanyLogo', AppImgURL .'logo.png');
+define('CompanyLogo', AppImgURL . 'logo.png');
 define('CompanyURL', 'http://www.geotekh.com');
 
 /**
  * Client Settings
  */
- define('ClientName', 'Client Name');
- define('ClientLogo', AppImgURL .'c_logo.png');
- define('ClientAddress', '');
+define('ClientName', 'Client Name');
+define('ClientLogo', AppImgURL . 'c_logo.png');
+define('ClientAddress', '');
 
 /**
  * Brand Settings
  */
- define('BrandName', 'gXpertize');
- define('BrandLogo', AppImgURL .'b_logo.png');
+define('BrandName', 'gXpertize');
+define('BrandLogo', AppImgURL . 'b_logo.png');
 ?>

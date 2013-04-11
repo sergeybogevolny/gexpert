@@ -55,6 +55,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <link rel="stylesheet" href="src/css/jbclock.css">
             <link rel="stylesheet" href="src/css/style.css">
             <link rel="stylesheet" href="src/css/cus-icons.css">
+            <link rel="stylesheet" href="src/css/TableTools.css">
             <!--[if lt IE 9]>
                 <link rel="stylesheet" href="src/theme1/css/docs.css" type="text/src/theme1/css" media="screen">
                 <link rel="stylesheet" href="src/theme1/css/ie.css" type="text/src/theme1/css" media="screen">
@@ -71,6 +72,8 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <script src="src/js/jquery.base64.js"></script>
             <script src="src/js/jbclock.js"></script>
             <script src="src/js/jquery.dataTables.js"></script>
+            <script src="src/js/TableTools.js"></script>
+            <script src="src/js/ZeroClipboard.js"></script>
 
         </head>
         <body class="inner-page stretched">
