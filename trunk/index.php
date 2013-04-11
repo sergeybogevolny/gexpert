@@ -149,7 +149,6 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
 
                                     <?php
                                 }
-
                                 include 'src/templates/' . $page . '.php';
                                 if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                                     ?>

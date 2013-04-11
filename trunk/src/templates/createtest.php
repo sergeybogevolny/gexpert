@@ -97,8 +97,7 @@
                     <div class="controls">
 
                         <?php
-                        //TODO "3" => "Fill in the Blank",
-                        $cFormObj->data = array("0" => "Multiple Choice", "1" => "Multiple Response", "2" => "True/False", "4" => "Matching", "5" => "Sequencing");
+                        $cFormObj->data = array("0" => "Multiple Choice", "1" => "Multiple Response", "2" => "True/False", "3" => "Fill in the Blank", "4" => "Matching", "5" => "Sequencing");
                         $cFormObj->options = array("name" => "question_type", "default" => false, "class" => "reset");
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
@@ -128,8 +127,8 @@
                                 <td>
                                     <label class="rowNumber">1</label>
                                 </td>
-                                <td class="answer" >
-                                    <textarea rows="1" class="htmleditor answer answer_data reset" name="answer" id="answer" style="height: 25px"></textarea>
+                                <td class="answer fillintheblank" >
+                                    <textarea rows="1" class="htmleditor answer answer_data fillintheblank reset" name="answer" id="answer" style="height: 25px"></textarea>
                                 </td>
                                 <td class="matchanswer">
                                     <textarea rows="1" class="htmleditor match_answer match_data reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
@@ -261,7 +260,6 @@
         );
 
         $('#description').wysihtml5({"color": true});
-        //$('#question').wysihtml5({"font-styles": false, "color": true, "emphasis": true, "lists": false, "link": false});
         createTable(questionDetails);
         $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber", inputBoxAutoId: true}, function() {
 
@@ -309,15 +307,17 @@
                         break;
                     case '2':
                         questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.true_false_data').prop('checked') === true ? 1 : 0;
+
                         break;
                     case '3':
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = 1;
                         break;
                     case '4':
                         questionDetails[currentrow]['answers'][opt]['match_answer'] = $(element).find(".match_data").val();
-                        consol
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = 1;
                         break;
                     case '5':
-
+                        questionDetails[currentrow]['answers'][opt]['is_correct'] = 1;
                         break;
                 }
                 questionDetails[currentrow]['answers'][opt]['correctness_percentage'] = $(element).find(".mcorrect_answer_data").val();
@@ -376,7 +376,7 @@
                 $('.true_false,').show();
                 break;
             case 'fillintheblank':
-                $('.multipleoption,.answer').show();
+                $('.answer').show();
                 break;
             case 'matching':
                 $('.matchanswer,.answer').show();
@@ -399,7 +399,7 @@
     }
 
     function resetOptionsTable(val) {
-        $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage,.true_false').hide();
+        $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage,.true_false,.fillintheblank').hide();
         switch (val) {
             case '0':
                 $('.multipleoption,.answer').show();
@@ -411,7 +411,7 @@
                 $('.true_false').show();
                 break;
             case '3':
-                $('.multipleoption,.answer').show();
+                $('.fillintheblank').show();
                 break;
             case '4':
                 $('.matchanswer,.answer').show();
@@ -425,6 +425,7 @@
     function createTable(data) {
         var html = '';
         var cnt = 1;
+        var totalmark = 0;
         $("#available_questions").find("tbody > tr").remove();
         $.each(data, function(key, value) {
 
@@ -446,9 +447,14 @@
             html += '</td>';
 
             html += '<td>';
-            var mark = 0;
-            $.map(value['answers'], function(n, i) {
-                value['question_type']
+            var mark = 1;
+
+            var qt = value['question_type'];
+            if (qt == 4 || qt == 5) {
+                mark = $.map(value['answers'], function(n, i) {
+                    return i;
+                }).length;
+            }
 
 //                if (data[key]['is_correct'][i] == 1 && data[key]['question_type'] == 1) {
 //                    mark = 1 / i;
@@ -456,8 +462,9 @@
 //                    mark++;
 //                }
 
-            });
+
             html += mark;
+            totalmark = totalmark + mark;
             html += '</td>';
 
             html += '<td>';
@@ -467,7 +474,7 @@
             cnt++;
 
         });
-
+        html += '<tr><td colspan=4 style="text-align:right"><b>Total</b></td><td colspan=2 style="text-align:left">' + totalmark + '</td></tr>';
 
         //$(("#available_questions").find("tbody")
         $("#available_questions").find("tbody").append(html);
