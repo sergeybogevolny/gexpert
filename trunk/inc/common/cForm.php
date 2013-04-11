@@ -345,7 +345,7 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
 
                 switch ($details['type']) {
                     case 'number':
-                        $this->options['class'] .=' number input-small';
+                        $this->options['class'] .=' number input-mini';
                         $this->options['type'] = 'number';
                         $this->createInput();
                         $filter_data = $this->html;
@@ -369,6 +369,7 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
                     default:
 
                         $this->options['type'] = 'text';
+                        $this->options['class'] = ' input-small ';
                         $this->createInput();
                         $filter_data = $this->html;
                         $this->data = $stringFilterData;
