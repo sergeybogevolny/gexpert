@@ -18,6 +18,9 @@ if ($_GET['show'] == 'all') {
     $cFormObj->options['column']['correct_answers'] = array('name' => "Correct Answers", 'type' => "string", 'sort' => true, 'index' => 2);
     $cFormObj->options['column']['add_date'] = array("name" => 'Score Date', 'type' => "date", 'format' => AppDateFormatPhp, 'sort' => true, 'index' => 3, 'filter' => 'box');
     $condition = $cFormObj->createFilterCondition($_POST['filter_type'], $_POST['filter_data']);
+    if ($_SESSION['user_type'] > 1) {
+        $condition[] = "s.user_id=" . $_SESSION['user_id'];
+    }
 } else {
 
     $cTestControllerObj->column = array('score', 'test_time', 'total_questions', 'correct_answers', 'add_date');

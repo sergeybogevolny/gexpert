@@ -175,28 +175,38 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
 
 </script>';
         }
-        $this->html = '<form name="' . $this->options['id'] . '_form" method="post">' . $this->html . '</form>';
+        $this->html = '<form name="' . $this->options['id'] . '_form" method="post" style=\"padding:15px\">' . $this->html . '</form>';
 
         return $this;
     }
 
     function createChart() {
 
-        if ($this->__loadedjs['jqplot'] == false) {
+        if ($this->__loadedjs['jqplot']['core'] == false) {
             $this->html .= "<script src='" . AppJsURL . "jquery.jqplot.js'></script>";
-            $this->__loadedjs['jqplot'] = true;
+            $this->__loadedjs['jqplot']['core'] = true;
+        }
+        if ($this->__loadedjs['jqplot']['CategoryAxisRenderer'] == false) {
+            $this->html .= "<script src='" . AppJsURL . "jqplot_plugins/jqplot.categoryAxisRenderer.js'></script>";
+            $this->__loadedjs['jqplot']['CategoryAxisRenderer'] = true;
+        }
+        if ($this->__loadedjs['jqplot']['BarRenderer'] == false) {
+            $this->html .= "<script src='" . AppJsURL . "jqplot_plugins/jqplot.BarRenderer.js'></script>";
+            $this->__loadedjs['jqplot']['BarRenderer'] = true;
         }
         if ($this->__loadedcss['jqplot'] == false) {
             $this->html .= '<link rel="stylesheet" href="' . AppCssURL . 'jquery.jqplot.css">';
             $this->__loadedcss['jqplot'] = true;
         }
-        $this->html .= "<div id='" . $this->options['id'] . "'></div><script>
+        $this->formatChartData();
+        $this->html .= "<div id='" . $this->options['id'] . "_container' style=\"padding:15px\"><div id='" . $this->options['id'] . "' ></div></div><script>
     $(document).ready(function() {
+     $.jqplot.config.enablePlugins = true;
     var plot1 = $.jqplot (
             '" . $this->options['id'] . "',
-         [[3,7,9,1,4,6,8,2,5]],
+         [" . json_encode($this->data['y']) . "],
          {
-         animate: true,
+         animate: !$.jqplot.use_excanvas,
          animateReplot: true,
          cursor: {
             show: true,
@@ -207,7 +217,19 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
         title: {
         text: '" . $this->options['title'] . "',   // title for the plot,
         show: true,
-    }
+    }, seriesDefaults:{
+                renderer:$.jqplot.BarRenderer,
+                pointLabels: { show: true }
+            },
+ axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    ticks: " . json_encode($this->data['x']) . "
+
+
+                }
+            }
+
          }
          );
 
@@ -237,16 +259,19 @@ if (!$.jqplot.use_excanvas) {
                 $(this).parents('div.jqplot-image-container').hide(500);
             })
             header.append('<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>');
-
+$('table').on({
+    'click': function () {
+        $(this).parents('.modal').hide();
+            }
+            }, '.close ');
             $(this).after(outerDiv);
             outerDiv.hide();
 
             outerDiv = header = div = close = null;
 
             if (!$.jqplot._noToImageButton) {
-                var btn = $(document.createElement('button'));
-                btn.text('View Plot Image');
-                btn.addClass('jqplot-image-button');
+                var btn = $('<button type=\"button\" class=\"jqplot-image-button btn btn-primary\" >Export Chart Image</button>');
+
                 btn.bind('click', {chart: $(this)}, function(evt) {
                     var imgelem = evt.data.chart.jqplotToImageElem();
                     var div = $(this).nextAll('div.jqplot-image-container').first();
@@ -256,7 +281,7 @@ if (!$.jqplot.use_excanvas) {
                     div = null;
                 });
 
-                $(this).after(btn);
+                $(this).before(btn);
                 btn.after('<br />');
                 btn = null;
             }
@@ -267,7 +292,29 @@ if (!$.jqplot.use_excanvas) {
     }
 
     function formatChartData() {
+        $result = array();
+        foreach ($this->data as $record) {
+            foreach ($this->options['axis']['x'] as $xcolumnname => $xvalue) {
+                //print_r($columnname);
+                foreach ($this->options['axis']['y'] as $ycolumnname => $yvalue) {
+                    switch ($yvalue['agg_function']) {
+                        case 'count':
 
+                            $result[$record[$xcolumnname]]++;
+                            break;
+
+                        default:
+                            $result[$record[$xcolumnname]]+= $record[$ycolumnname];
+                            break;
+                    }
+                }
+            }
+        }
+
+
+        $this->data['x'] = array_keys($result);
+        $this->data['y'] = array_values($result);
+        //print_r(json_encode((array) $result));
     }
 
     function createFilterCondition($filtertype, $filterdata) {
@@ -734,5 +781,4 @@ if (!$.jqplot.use_excanvas) {
     }
 
 }
-
 ?>
