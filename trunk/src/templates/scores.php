@@ -52,7 +52,7 @@
         $cFormObj->options['title'] = "My Scores";
         $cFormObj->options['axis']['y']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'chart' => 'line', "agg_function" => "sum", 'filter' => 'box');
     } else {
-        $cFormObj->options['title'] = "Number of user attended VS Tests";
+        $cFormObj->options['title'] = "Number of Users attended VS Tests";
         $cFormObj->options['axis']['y']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'chart' => 'line', "agg_function" => "count", 'filter' => 'box');
     }
 
