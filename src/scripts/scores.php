@@ -9,11 +9,11 @@ if ($_GET['id']) {
 }
 
 if ($_GET['show'] == 'all') {
-    $cTestControllerObj->column = array("username" => "username", 'score', '(test_time/60) as test_time', 'total_questions', 'correct_answers', 'td.name', 'add_date');
+    $cTestControllerObj->column = array("username" => "username", 'score', 'test_time', 'total_questions', 'correct_answers', 'td.name', 'add_date');
     $cFormObj->options['column']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'index' => 1, 'filter' => 'box');
     $cFormObj->options['column']['username'] = array('name' => "User", 'type' => "string", 'sort' => true, 'index' => 2, 'filter' => 'box');
     $cFormObj->options['column']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'index' => 3, 'filter' => 'box');
-    $cFormObj->options['column']['test_time'] = array('name' => "Test Time (Minutes)", 'type' => "string", 'sort' => true, 'index' => 4, 'filter' => 'box');
+    $cFormObj->options['column']['test_time'] = array('name' => "Test Time (Seconds)", 'type' => "string", 'sort' => true, 'index' => 4, 'filter' => 'box');
     $cFormObj->options['column']['total_questions'] = array('name' => "Total Questions", 'type' => "string", 'sort' => true, 'index' => 5);
     $cFormObj->options['column']['correct_answers'] = array('name' => "Correct Answers", 'type' => "string", 'sort' => true, 'index' => 2);
     $cFormObj->options['column']['add_date'] = array("name" => 'Score Date', 'type' => "date", 'format' => AppDateFormatPhp, 'sort' => true, 'index' => 3, 'filter' => 'box');
