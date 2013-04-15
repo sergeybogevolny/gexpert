@@ -23,7 +23,7 @@
         <label class="control-label" for="test_id">Test Available</label>
         <div class="controls">
             <?php
-            $cFormObj->data = $cTestControllerObj->getSelectData("test_details", array("id", "name"));
+            $cFormObj->data = $cTestControllerObj->getSelectData("test_details", array("id", "name"), "status=1");
             $cFormObj->options = array("name" => "test_id", "required" => TRUE, "selected" => $_POST["test_id"]);
             $cFormObj->createSelect();
             echo $cFormObj->html();
