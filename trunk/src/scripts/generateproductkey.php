@@ -16,24 +16,24 @@ if ($_POST["test_id"]) {
         if (count($sukey) > 0) {
             $i--;
         } else {
-            if ($_POST["pretest"] === 'on') {
-                $cTestControllerObj->table = "product_key_test_users";
-                $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 1);
-                $cTestControllerObj->create()->executeWrite();
-                $productKeys[$skey][] = 1;
-            }
-            if ($_POST["posttest"] === 'on') {
-                $cTestControllerObj->table = "product_key_test_users";
-                $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 2);
-                $cTestControllerObj->create()->executeWrite();
-                $productKeys[$skey][] = 2;
-            }
-            if ($_POST["final"] === 'on') {
-                $cTestControllerObj->table = "product_key_test_users";
-                $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 3);
-                $cTestControllerObj->create()->executeWrite();
-                $productKeys[$skey][] = 3;
-            }
+//            if ($_POST["pretest"] === 'on') {
+//                $cTestControllerObj->table = "product_key_test_users";
+//                $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 1);
+//                $cTestControllerObj->create()->executeWrite();
+//                $productKeys[$skey][] = 1;
+//            }
+//            if ($_POST["posttest"] === 'on') {
+//                $cTestControllerObj->table = "product_key_test_users";
+//                $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 2);
+//                $cTestControllerObj->create()->executeWrite();
+//                $productKeys[$skey][] = 2;
+//            }
+//            if ($_POST["final"] === 'on') {
+            $cTestControllerObj->table = "product_key_test_users";
+            $cTestControllerObj->column = array("test_id" => $_POST["test_id"], "product_key" => $skey, "test_type_id" => 3);
+            $cTestControllerObj->create()->executeWrite();
+            $productKeys[$skey][] = 3;
+            //}
         }
     }
 }

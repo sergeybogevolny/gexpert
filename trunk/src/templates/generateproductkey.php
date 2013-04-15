@@ -1,22 +1,22 @@
 <form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>">
-    <div class="control-group">
-        <?php
-        $cTestControllerObj->column = array("id", "code", "test_name");
-        $cTestControllerObj->table = "test_type";
-        $data = $cTestControllerObj->select()->executeRead();
+    <!--<div class="control-group">-->
+    <?php
+//        $cTestControllerObj->column = array("id", "code", "test_name");
+//        $cTestControllerObj->table = "test_type";
+//        $data = $cTestControllerObj->select()->executeRead();
+//
+//        foreach ($data as $key => $value) {
+//
+//            $cFormObj->options['name'] = $value["code"];
+//            $cFormObj->options['id'] = $value["code"];
+//            $cFormObj->options['value'] = $value["id"];
+//            $cFormObj->data = $value["test_name"];
+//            $cFormObj->createCheckBox();
+//            echo $cFormObj->html();
+//        }
+    ?>
 
-        foreach ($data as $key => $value) {
-
-            $cFormObj->options['name'] = $value["code"];
-            $cFormObj->options['id'] = $value["code"];
-            $cFormObj->options['value'] = $value["id"];
-            $cFormObj->data = $value["test_name"];
-            $cFormObj->createCheckBox();
-            echo $cFormObj->html();
-        }
-        ?>
-
-    </div>
+    <!--</div>-->
 
 
     <div class="control-group">

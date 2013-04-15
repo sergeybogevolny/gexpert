@@ -43,7 +43,7 @@ class cModel extends cDatabase {
 
     public function create() {
         $foreignkeycolumns = $this->dbObj->getForeignKeyDetails($this->table);
-        if (is_array($foreignkeycolumns['columns'])) {
+        if (@is_array($foreignkeycolumns['columns'])) {
             foreach ($this->column as $columnname => $value) {
                 if (array_key_exists($this->column[$columnname], $foreignkeycolumns['columns'])) {
                     $this->column[$columnname] = $this->column[$columnname] ? $this->column[$columnname] : "NULL";
