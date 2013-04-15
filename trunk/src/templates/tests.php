@@ -88,13 +88,6 @@ echo $cFormObj->html();
                 $("#test_id").val($(this).parent().siblings(":nth(2)").html());
                 $("#listtests").attr('action', url2).submit();
             }}, '.cus-bullet-key').on({'click': function() {
-                if ($('#test_key').val() != '') {
-                    window.location = url4 + "&a=" + $.base64.encode("a") + "&id=" + $.base64.encode($('#test_key').val());
-                } else {
-                    alert('Key is empty');
-                }
-
-            }}, '#add_test').on({'click': function() {
                 window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
             }}, '.cus-page-edit').on({'click': function() {
                 window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
@@ -103,6 +96,15 @@ echo $cFormObj->html();
             }}, '.cus-page-delete').on({'click': function() {
                 window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
             }}, '.cus-page-copy');
+        $('#add_test').click(function() {
+            if ($('#test_key').val() != '') {
+
+                window.location = url4 + "&a=" + $.base64.encode("a") + "&id=" + $.base64.encode($('#test_key').val());
+            } else {
+                alert('Key is empty');
+            }
+
+        });
 <?php if ($_SESSION['user_type'] > 1) { ?>
             $('#listtable').find('td.score').each(function(i, e) {
                 if ($(this).html() != '') {
