@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+
 /**
  * Description of cTestController
  *
@@ -99,4 +100,5 @@ class cTestController extends cController {
     }
 
 }
+
 ?>
