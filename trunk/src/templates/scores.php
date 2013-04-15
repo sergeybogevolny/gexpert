@@ -15,7 +15,7 @@
                         ?>
                         <h2 class="text-info">
                             Time Taken <?php
-                            $scores[0]['test_time'] = ($scores[0]['test_time'] < 60) ? $scores[0]['test_time'] . " Seconds" : $scores[0]['test_time'] . " Minutes";
+                            $scores[0]['test_time'] = ($scores[0]['test_time'] < 60) ? $scores[0]['test_time'] . " Seconds" : round($scores[0]['test_time'] / 60, 2) . " Minutes";
                             echo $scores[0]['test_time'];
                             ?>
                         </h2>
