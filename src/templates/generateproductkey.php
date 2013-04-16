@@ -54,11 +54,12 @@
     $cFormObj->options['actioncolumn'] = false;
     $cFormObj->options['serialnocolumn'] = true;
     $cFormObj->options['column']['product_key'] = array('name' => "Product Key", 'type' => "string", 'sort' => true, 'index' => 1);
-    $cFormObj->options['column']['test_name'] = array('name' => "Test Type", 'type' => "string", 'sort' => true, 'index' => 2);
+    //$cFormObj->options['column']['test_name'] = array('name' => "Test Type", 'type' => "string", 'sort' => true, 'index' => 2);
     $cFormObj->options['column']['name'] = array('name' => "User Name", 'type' => "string", 'sort' => true, 'index' => 3);
     $cFormObj->options['column']['emp_code'] = array('name' => "Emp Code", 'type' => "string", 'sort' => true, 'index' => 4);
     $cFormObj->options['column']['email'] = array('name' => "Email", 'type' => "string", 'sort' => true, 'index' => 5);
     $cFormObj->createHTable();
+    $cFormObj->options['having_form'] = true;
     echo $cFormObj->html();
     ?>
 

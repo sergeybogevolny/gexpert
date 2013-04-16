@@ -34,6 +34,9 @@ class cModel extends cDatabase {
         parent::__construct();
     }
 
+    /**
+     * @assert ($this->query) == ""
+     */
     function resetQuery() {
         if ($this->debug) {
             echo $this->query;
