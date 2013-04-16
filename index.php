@@ -26,28 +26,26 @@ if (is_readable('src/scripts/' . $page . '.php')) {
 }
 if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
     ?>
-    <!DOCTYPE html>
-    <html lang="en">
-
-        <head>
-            <title>gXpertize</title>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="icon" href="src/theme1/img/favicon.png" type="image/x-icon">
-            <link rel="shortcut icon" href="src/theme1/img/favicon.png" type="image/x-icon" />
-            <meta name="description" content="Your description">
-            <meta name="keywords" content="Your keywords">
-            <meta name="author" content="Your name">
-            <link rel="stylesheet" href="src/theme1/css/bootstrap.css" type="text/src/theme1/css" media="screen">
-            <link rel="stylesheet" href="src/theme1/css/responsive.css" type="text/src/theme1/css" media="screen">
-            <link rel="stylesheet" href="src/theme1/css/style.css" type="text/src/theme1/css" media="screen">
-            <link rel="stylesheet" href="src/theme1/css/inner.css" type="text/src/theme1/css" media="screen">
-            <link rel="stylesheet" href="src/theme1/css/footer-color.css" type="text/src/theme1/css" media="screen">
-            <link rel="stylesheet" href="src/theme1/css/color1.css" type="text/src/theme1/css" id="theme" />
-            <!-- src/theme1/css STYLE -->
-            <link rel="stylesheet" href="src/theme1/css/elements.css" type="text/src/theme1/css" media="screen">
-
-            <!-- gXpertise CSS Files-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Geotekh</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<meta name="description" content="Your description">
+<meta name="keywords" content="Your keywords">
+<meta name="author" content="Your name">
+<link rel="stylesheet" href="src/theme1/css/bootstrap.css" type="text/css" media="screen">
+<link rel="stylesheet" href="src/theme1/css/responsive.css" type="text/css" media="screen">
+<link rel="stylesheet" href="src/theme1/css/style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="src/theme1/css/inner.css" type="text/css" media="screen">
+<link rel="stylesheet" href="src/theme1/css/footer-color.css" type="text/css" media="screen">
+<link rel="stylesheet" href="src/theme1/css/color1.css" type="text/css" id="theme" />
+<link rel="stylesheet" href="src/theme1/css/footer-color.css" type="text/css" media="screen">
+<link rel="stylesheet" href="src/theme1/css/elements.css" type="text/css" media="screen">
+ <!-- gXpertise CSS Files-->
             <link rel="stylesheet" href="src/css/daterangepicker.css">
             <link rel="stylesheet" href="src/css/wysiwyg-color.css">
             <link rel="stylesheet" href="src/css/jquery_ui.css">
@@ -56,11 +54,12 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <link rel="stylesheet" href="src/css/style.css">
             <link rel="stylesheet" href="src/css/cus-icons.css">
             <link rel="stylesheet" href="src/css/TableTools.css">
-            <!--[if lt IE 9]>
-                <link rel="stylesheet" href="src/theme1/css/docs.css" type="text/src/theme1/css" media="screen">
-                <link rel="stylesheet" href="src/theme1/css/ie.css" type="text/src/theme1/css" media="screen">
-              <![endif]-->
-            <!-- gxpertise js files  -->
+<!--[if lt IE 9]>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="src/theme1/css/docs.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="src/theme1/css/ie.css" type="text/css" media="screen">
+  <![endif]-->
+  <!-- gxpertise js files  -->
             <script src="src/js/jquery.js"></script>
             <script type="text/javascript" src="src/js/bootstrap.js"></script>
             <script src="src/js/jquery-ui.js"></script>
@@ -74,9 +73,8 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             <script src="src/js/jquery.dataTables.js"></script>
             <script src="src/js/TableTools.js"></script>
             <script src="src/js/ZeroClipboard.js"></script>
-
-        </head>
-        <body class="inner-page stretched">
+</head>
+<body class="inner-page stretched">
             <div id="wrapper">
                 <!--==============================header=================================-->
                 <div class="header-block clearfix">
@@ -224,8 +222,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
             </div>
 
         </body>
-
-    </html>
+</html>
     <?php
 }
 ?>
