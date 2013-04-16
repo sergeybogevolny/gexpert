@@ -267,7 +267,7 @@
         });
         $(".icon-trash").btnDelRow();
         $('.multipleanswer,.multipleoption,.matchanswer').hide();
-        $('#addquestion').bind('click', function() {
+        $('#addquestion').bind('click', function(event) {
             event.preventDefault();
             addQuestion();
         });
