@@ -62,16 +62,17 @@ echo $cFormObj->html();
 
 
     $cFormObj->options['reporttable'] = true;
+    $cFormObj->options['having_form'] = true;
     $cFormObj->createHTable();
     echo $cFormObj->html();
     ?>
-
+    <input type="hidden" id="test_id" name="test_id" />
 </form>
 
 
 <script>
     $(document).ready(function() {
-        $("#listtable").append('<input type="hidden" id="test_id" name="test_id" />');
+        $("#listtable").append('');
         var url1 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'question')); ?>';
         var url2 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>';
         var url3 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>';

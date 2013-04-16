@@ -175,6 +175,7 @@
                     $cFormObj->options['serialnocolumn'] = true;
                     $cFormObj->options['id'] = 'available_questions';
                     $cFormObj->options['name'] = 'available_questions';
+                    $cFormObj->options['having_form'] = true;
 
                     //$cFormObj->options['header'] = array("Question", "Type", "No of Options");
                     $cFormObj->options['column']['question'] = array('name' => "Question", 'type' => "string", 'sort' => true, 'index' => 1);

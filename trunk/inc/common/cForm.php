@@ -175,7 +175,8 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
 
 </script>';
         }
-        $this->html = '<form name="' . $this->options['id'] . '_form" method="post" style=\"padding:15px\">' . $this->html . '</form>';
+        if ($this->options['having_form'] === false)
+            $this->html = '<form name="' . $this->options['id'] . '_form" method="post" style=\"padding:15px\">' . $this->html . '</form>';
 
         return $this;
     }
@@ -781,4 +782,5 @@ $('table').on({
     }
 
 }
+
 ?>
