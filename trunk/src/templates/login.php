@@ -9,8 +9,7 @@ echo $cFormObj->html();
 <form method="POST" class="form-horizontal">
 <div class="container-fluid">
 <div class="span6" align="center">
-      <img src="<?php echo ClientLogo;?>"  /></br>
-	  <h1><?php echo ClientName;?></h1>
+      <img src="src/img/showcase.png"  /></br>
       </div>
     <div class="span5">
       <legend>g-Xpertize Login</legend>

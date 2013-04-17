@@ -60,7 +60,7 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
     <link rel="stylesheet" href="src/theme1/css/ie.css" type="text/css" media="screen">
   <![endif]-->
   <!-- gxpertise js files  -->
-            <script src="src/js/jquery.js"></script>
+            <script src="src/theme1/js/jquery.js"></script>
             <script type="text/javascript" src="src/js/bootstrap.js"></script>
             <script src="src/js/jquery-ui.js"></script>
             <script src="src/js/bootstrap-toggle.js"></script>
