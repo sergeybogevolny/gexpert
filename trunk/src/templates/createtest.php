@@ -267,7 +267,9 @@
 
             return false;
         });
-        $(".icon-trash").btnDelRow();
+        $(".icon-trash").btnDelRow({}, function() {
+            calculateTotalMark();
+        });
         $('.multipleanswer,.multipleoption,.matchanswer').hide();
         $('#addquestion').bind('click', function(event) {
             event.preventDefault();
@@ -476,14 +478,22 @@
             cnt++;
 
         });
-        html += '<tr><td colspan=4 style="text-align:right"><b>Total</b></td><td colspan=2 style="text-align:left">' + totalmark + '</td></tr>';
-        $("#total_marks").val(totalmark);
+        html += '<tr><td colspan=4 style="text-align:right"><b>Total</b></td><td id="total_mark_display" colspan=2 style="text-align:left">' + totalmark + '</td></tr>';
+
         //$(("#available_questions").find("tbody")
         $("#available_questions").find("tbody").append(html);
         resetQuestion();
         $('#available_questions').find('.icon-edit').click(function(obj, a) {
             loadQuestion($(this).parent().siblings(":first").text())
         })
+    }
+    function calculateTotalMark() {
+        var total = 0;
+        $('#available_questions').find('tr').find('td:nth(4)').each(function(i, e) {
+            total += parseInt($(e).html());
+        });
+        $("#total_marks").val(total);
+        $("#total_mark_display").html(total);
     }
 
     function loadQuestion(item) {

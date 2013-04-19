@@ -102,9 +102,10 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     $cTestControllerObj->questionType = $questionDetails[0]["question_type"];
     $html = "<h4>" . $questionDetails[0]["question"] . "</h4></br>";
     $options = $cTestControllerObj->getOptions($questionDetails[0]["id"]);
-    $options = $cFormObj->shuffleAssoc($options);
+
     switch ($cTestControllerObj->questionType) {
         case 0:
+            $options = $cFormObj->shuffleAssoc($options);
             foreach ($options as $key => $value) {
                 $cFormObj->options["name"] = $cTestControllerObj->questionId;
                 $cFormObj->options["id"] = $value["id"];
@@ -116,6 +117,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
 
             break;
         case 1:
+            $options = $cFormObj->shuffleAssoc($options);
             foreach ($options as $key => $value) {
                 $cFormObj->options["name"] = $cTestControllerObj->questionId;
                 $cFormObj->options["id"] = $value["id"];
@@ -170,6 +172,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
 //            $html.="<input />";
             break;
         case 5:
+            $options = $cFormObj->shuffleAssoc($options);
             $html.="<div class='row-fluid'>";
             $html.="<ul class=\"sortable span9\" id=\"" . $cTestControllerObj->questionId . "\">";
             foreach ($options as $key => $value) {
