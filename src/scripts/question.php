@@ -16,13 +16,13 @@ if ($_POST["test_id"]) {
     if ($_POST['answers'] != '') {
         $answers = json_decode(stripslashes($_POST['answers']));
         $scores = 0;
+        $totalanswers = 0;
         $correctanswercnt = array();
         foreach ($questionDetails as $key => $value) {
             $correctanswers = $cTestControllerObj->getCorrectAnswers($value["id"]);
             $current_answer = $answers->{$value["id"]};
-
+            $totalanswers+=count($correctanswers);
             switch ($value['question_type']) {
-
                 case 0:
                     if ($current_answer == $correctanswers[0]['id']) {
                         $scores+=1;
@@ -40,14 +40,12 @@ if ($_POST["test_id"]) {
                             }
                         }
                     }
-
                     break;
                 case 2:
                     if ($correctanswers[0]['is_correct'] == $current_answer) {
                         $scores+=1;
                         $correctanswercnt[$value["id"]]++;
                     }
-
                     break;
                 case 3:
                     if ($current_answer == $correctanswers[0]['answer']) {
@@ -64,7 +62,6 @@ if ($_POST["test_id"]) {
                     }
                     break;
                 case 5:
-
                     foreach ($correctanswers as $key1 => $value1) {
                         if ($current_answer[$key1] == $value1['id']) {
                             $scores+=1;
@@ -74,6 +71,7 @@ if ($_POST["test_id"]) {
                     break;
             }
         }
+
         if ($data[0]['time_taken'] > 0) {
 
             $testtimeremaining = explode(",", $_POST['test_time']);

@@ -195,6 +195,7 @@
         </div>
     </div>
     <input name="test_id" type="hidden" id="test_id" value="<?php echo $testDetails['id']; ?>"/>
+    <input name="total_marks" type="hidden" id="total_marks" value="<?php echo $testDetails['total_marks']; ?>"/>
 </form>
 <script src="src/js/wysihtml5-0.3.0.min.js"></script>
 <script src="src/js/bootstrap-wysihtml5.js"></script>
@@ -476,7 +477,7 @@
 
         });
         html += '<tr><td colspan=4 style="text-align:right"><b>Total</b></td><td colspan=2 style="text-align:left">' + totalmark + '</td></tr>';
-
+        $("#total_marks").val(totalmark);
         //$(("#available_questions").find("tbody")
         $("#available_questions").find("tbody").append(html);
         resetQuestion();

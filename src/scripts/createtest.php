@@ -27,6 +27,7 @@ if ($_POST["questionsdata"]) {
     $cTestControllerObj->column["time_taken"] = $_POST["testtime"];
     $cTestControllerObj->column["sharing"] = $_POST["sharing"];
     $cTestControllerObj->column["allow_correction"] = $_POST["allow_review"] ? 1 : 0;
+    $cTestControllerObj->column["total_marks"] = $_POST["total_marks"];
     $cTestControllerObj->column["status"] = 1;
     $cTestControllerObj->table = "test_details";
     if ($_POST["test_id"]) {
@@ -61,7 +62,11 @@ if ($_POST["questionsdata"]) {
         foreach ($value->answers as $key1 => $value1) {
             $cTestControllerObj->column["answer"] = $value1->answer;
             $cTestControllerObj->column["match_answer"] = $value1->match_answer;
-            $cTestControllerObj->column["is_correct"] = ($value1->is_correct) ? 1 : 0;
+            if ($value->question_type == '3' || $value->question_type == '4' || $value->question_type == '5') {
+                $cTestControllerObj->column["is_correct"] = 1;
+            } else {
+                $cTestControllerObj->column["is_correct"] = ($value1->is_correct) ? 1 : 0;
+            }
             $cTestControllerObj->column["percent"] = $value1->correctness_percentage;
             $cTestControllerObj->column["question_id"] = $questionid;
             $cTestControllerObj->table = "answers";
@@ -76,8 +81,6 @@ if ($_POST["questionsdata"]) {
 $id = $_GET['id'];
 if ($id != '') {
     list($testDetails) = $cTestControllerObj->getTestDetails($id);
-
-    //$cTestControllerObj->debug = true;
     $questions = $cTestControllerObj->getQuestionDetails($id);
     $questiondata = array();
     foreach ($questions as $key => $question) {
@@ -107,6 +110,7 @@ if ($_GET['a'] == 'c') {
     $cTestControllerObj->column["sharing"] = $testDetails["sharing"];
     $cTestControllerObj->column["allow_correction"] = $testDetails['allow_correction'];
     $cTestControllerObj->column["status"] = 1;
+    $cTestControllerObj->column["total_marks"] = $testDetails['total_marks'];
     $cTestControllerObj->column["date_created"] = date(AppDateFormatDbInput);
     $cTestControllerObj->column["created_by"] = $_SESSION["user_id"];
 
