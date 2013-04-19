@@ -154,8 +154,8 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
                             {
                                 ranges: {
                                     "This Month": [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
-                                    "Next Month": [Date.today().moveToFirstDayOfMonth().add({months: 1}), Date.today().moveToLastDayOfMonth().add({months: 1})],
-                                    "Last Month": [Date.today().moveToFirstDayOfMonth().add({months: -1}), Date.today().moveToLastDayOfMonth().add({months: -1})],
+                                    "Next Month": [Date.today().moveToFirstDayOfMonth().add({months: 1}), Date.today().add({months: 1}).moveToLastDayOfMonth()],
+                                    "Last Month": [Date.today().moveToFirstDayOfMonth().add({months: -1}), Date.today().add({months: -1}).moveToLastDayOfMonth()],
                                     "Last Year": [Date.parse("jan").moveToFirstDayOfMonth().add({years:-1}), Date.parse("dec").moveToLastDayOfMonth().add({years:-1}) ],
                                     "This Year": [Date.parse("jan").moveToFirstDayOfMonth(), Date.parse("dec").moveToLastDayOfMonth()],
                                     "Next Year": [Date.parse("jan").moveToFirstDayOfMonth().add({years:1}), Date.parse("dec").moveToLastDayOfMonth().add({years:1})],
@@ -658,6 +658,7 @@ $('table').on({
                         $this->createInput();
                         $filter_data = $this->html;
                         $this->data = $numberFilterTypeData;
+                        $this->options['selected'] = 'is';
                         break;
                     case 'date':
 
@@ -673,6 +674,7 @@ $('table').on({
                                 <b class="caret" style="vertical-align: middle"></b>
                             </span>';
                         $this->data = $dateFilterData;
+                        $this->options['selected'] = 'between';
                         break;
                     default:
 
@@ -681,6 +683,7 @@ $('table').on({
                         $this->createInput();
                         $filter_data = $this->html;
                         $this->data = $stringFilterData;
+                        $this->options['selected'] = 'contains';
                         break;
                 }
 
