@@ -32,14 +32,25 @@ if ($_POST["test_id"]) {
                 case 1:
                     $selected_array = json_decode(stripslashes($current_answer));
                     $answercnt = count($correctanswers);
-                    foreach ($correctanswers as $key1 => $value1) {
-                        if (is_array($selected_array)) {
-                            if (in_array($value1['id'], $selected_array)) {
-                                $scores+=(1 / $answercnt);
-                                $correctanswercnt[$value["id"]]++;
+                    $is_scored = false;
+                    if (count($selected_array) == $answercnt) {
+
+
+                        foreach ($correctanswers as $key1 => $value1) {
+                            if (is_array($selected_array)) {
+                                if (in_array($value1['id'], $selected_array)) {
+                                    $is_scored = $is_scored == false ? false : true;
+                                } else {
+                                    $is_scored = false;
+                                }
                             }
                         }
                     }
+                    if ($is_scored !== false) {
+                        $scores+=1;
+                        $correctanswercnt[$value["id"]]++;
+                    }
+
                     break;
                 case 2:
                     if ($correctanswers[0]['is_correct'] == $current_answer) {
