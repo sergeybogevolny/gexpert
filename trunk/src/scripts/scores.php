@@ -23,7 +23,7 @@ if ($_GET['show'] == 'all') {
     }
 } else {
 
-    $cTestControllerObj->column = array('score', 'test_time', 'total_questions', 'correct_answers', 'add_date');
+    $cTestControllerObj->column = array('score', 'test_time', 'total_questions', 'total_marks', 'correct_answers', 'add_date');
     $condition[] = "s.user_id=" . $_GET['user_id'];
 }
 $cTestControllerObj->table = "scores s";

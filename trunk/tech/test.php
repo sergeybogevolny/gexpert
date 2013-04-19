@@ -1,4 +1,5 @@
 <?php
+
 //$iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
 //    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
 //    $key = "This is a very secret key";
@@ -25,11 +26,23 @@
 ////    echo '<br/>';
 //}
 //echo explode($serial);
-?>
-<html>
-    <body>
-        <ul> <li> <ol> <li>A</li> <li>B</li> <ul> <li>Item 1</li> <li>Item 2</li> </ul> <li>C</li> </ol> </li> </ul>
 
-    </body>
-    <#60&;>
-</html>
+$alphabet = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", 'o', "p", "q", "r", "s", "t", "u", "v", "w", "y", "z");
+$currIndex = mt_rand(0, count($alphabet));
+echo $alphabet[$currIndex];
+$array[0] = "moijr";
+//$array[1] = "gbpka";
+//$array[2] = "xklvf";
+//$array[3] = "rmqii";
+//$array[4] = "ynwdh";
+//
+//
+//
+//
+
+foreach ($array as $value) {
+    for ($i = 0; i <= 1; $i++) {
+        echo shuffle(str_split($value));
+    }
+}
+?>
