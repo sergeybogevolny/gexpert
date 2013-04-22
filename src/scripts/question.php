@@ -34,12 +34,10 @@ if ($_POST["test_id"]) {
                     $answercnt = count($correctanswers);
                     $is_scored = false;
                     if (count($selected_array) == $answercnt) {
-
-
                         foreach ($correctanswers as $key1 => $value1) {
                             if (is_array($selected_array)) {
                                 if (in_array($value1['id'], $selected_array)) {
-                                    $is_scored = $is_scored == false ? false : true;
+                                    $is_scored = true;
                                 } else {
                                     $is_scored = false;
                                 }

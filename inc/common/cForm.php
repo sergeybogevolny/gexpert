@@ -690,7 +690,7 @@ $('table').on({
                 $this->options['id'] = "filter_type[" . $columnname . "]";
                 $this->options['name'] = "filter_type[" . $columnname . "]";
                 $this->options['default'] = "-- All --";
-                $this->options['selected'] = $_POST['filter_type'][$columnname];
+                $this->options['selected'] = $_POST['filter_type'][$columnname] ? $_POST['filter_type'][$columnname] : $this->options['selected'];
                 $this->options['class'] = 'span1 filter_type';
                 $this->createSelect();
                 $filter_type = $this->html;
