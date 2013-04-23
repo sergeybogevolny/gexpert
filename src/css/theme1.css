@@ -36,7 +36,7 @@ h2 { font-size: 16px; margin: 35px 0 18px 0; }
 
 h2 > span { display: block; margin-top: -5px; }
 
-p { margin-bottom: 22px; }
+p { margin-bottom: 0px; }
 
 .lead { font-family: Arial, sans-serif; font-size: 15px; line-height: 22px; color: #169FE6; margin: 0; text-decoration: none; }
 
