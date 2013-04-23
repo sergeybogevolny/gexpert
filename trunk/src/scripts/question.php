@@ -196,5 +196,5 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     exit;
 }
 $pagename = "Questions";
-$pagedescription = "Questions may be of Choose, Mutliple Answers, True or False, Match The following and Sequencing";
+$pagedescription = "Questions may be of Choose, Multiple Answers, True or False, Match The following and Sequencing";
 ?>
