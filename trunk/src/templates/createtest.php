@@ -485,7 +485,8 @@
         resetQuestion();
         $('#available_questions').find('.icon-edit').click(function(obj, a) {
             loadQuestion($(this).parent().siblings(":first").text())
-        })
+        });
+        calculateTotalMark();
     }
     function calculateTotalMark() {
         var total = 0;

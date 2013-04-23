@@ -42,9 +42,12 @@ class cTestController extends cController {
         return $this->addWhereCondition("question_id=" . $id)->select()->executeRead();
     }
 
-    function getCorrectAnswers($id) {
+    function getCorrectAnswers($id, $questiontype) {
         $this->table = "answers";
-        return $this->addWhereCondition("question_id=" . $id . " and is_correct=1")->select()->executeRead();
+        if ($questiontype != 2) {
+            $condition = " and is_correct=1";
+        }
+        return $this->addWhereCondition("question_id=" . $id . $condition)->select()->executeRead();
     }
 
     function createQuestion($id) {

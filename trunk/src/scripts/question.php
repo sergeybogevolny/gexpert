@@ -19,7 +19,7 @@ if ($_POST["test_id"]) {
         $totalanswers = 0;
         $correctanswercnt = array();
         foreach ($questionDetails as $key => $value) {
-            $correctanswers = $cTestControllerObj->getCorrectAnswers($value["id"]);
+            $correctanswers = $cTestControllerObj->getCorrectAnswers($value["id"], $value['question_type']);
             $current_answer = $answers->{$value["id"]};
             $totalanswers+=count($correctanswers);
             switch ($value['question_type']) {
@@ -112,6 +112,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
     $html = "<h4>" . $questionDetails[0]["question"] . "</h4></br>";
     $options = $cTestControllerObj->getOptions($questionDetails[0]["id"]);
 
+
     switch ($cTestControllerObj->questionType) {
         case 0:
             $options = $cFormObj->shuffleAssoc($options);
@@ -178,7 +179,6 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             $html_match_right.="</ul>";
             $html.=$html_match_left . "" . $html_match_right;
             $html.="</div>";
-//            $html.="<input />";
             break;
         case 5:
             $options = $cFormObj->shuffleAssoc($options);
