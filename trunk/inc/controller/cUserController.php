@@ -21,7 +21,7 @@ class cUserController extends cUserModel {
     function validateCredencials($username, $password) {
         $userDetailsArray = $this->UserModel->validateLogin($username, $password);
         $this->userId = $userDetailsArray[0]['id'];
-        
+
 
         $this->setSessionUserDetails();
 
@@ -33,20 +33,18 @@ class cUserController extends cUserModel {
         $session = new cSessionController();
         if ($this->userId != '') {
             $userDetails = $this->UserModel->getUserDetails($this->userId);
-            $session->SessionValue('name', $userDetails[0]['first_name']);
+            $session->SessionValue('name', $userDetails[0]['name']);
             $session->SessionValue('last_name', $userDetails[0]['last_name']);
             $session->SessionValue('middle_name', $userDetails[0]['middle_name']);
             $session->SessionValue('email', $userDetails[0]['email']);
-            $session->SessionValue('mobile', $userDetails[0]['mobile']);
+            $session->SessionValue('phone', $userDetails[0]['phone']);
             $session->SessionValue('photo', $userDetails[0]['photo']);
             $session->SessionValue('sex', $userDetails[0]['sex']);
-            $session->SessionValue('user_type', $userDetails[0]['user_type']); 
-          
+            $session->SessionValue('user_type', $userDetails[0]['user_type']);
+
             $session->SessionValue('user_restrictions', $userDetails[0]['user_restrictions']);
             $session->SessionValue('user_id', $this->userId);
-          
-
-        }else{
+        } else {
 //            $session->SessionValue('pageerror', 'Login failed!!!');
         }
     }
