@@ -31,7 +31,7 @@
     <div id="rootwizard">
         <div class="navbar-inner">
             <div class="navbar">
-                <div class="container">
+                <div class="container" id="question_details">
                     <div id="question_count"><span id="current_question"></span> <b>of</b> <span><?php echo count($question_numbers); ?></span><span id="counter" class="pull-right"></span></div>
                     <ul id="nav_link" style="display: none">
                     </ul>
@@ -98,10 +98,8 @@ if ($data[0]['time_taken'] > 0) {
             $('#rootwizard').bootstrapWizard({onTabClick: function(tab, navigation, index) {
                     return false;
                 }, onNext: function(tab, navigation, index) {
-                    console.log(tab, navigation, index);
                     if (JSON.parse($('#seq').val()).length == (index)) {
                         getAnswer(index);
-                        alert('Finish');
                         $('#test_time').val($('#counter').countdown('getTimes'));
                         $('#quiz').submit();
                     } else {
@@ -143,6 +141,8 @@ if ($data[0]['time_taken'] > 0) {
 
     });
     function getQuestion(seq) {
+
+        var questionno = parseInt(seq + 1);
         if ($("#tab" + parseInt(seq + 1)).html() == '') {
             var questions = JSON.parse($('#seq').val());
             $.ajax({
@@ -155,10 +155,11 @@ if ($data[0]['time_taken'] > 0) {
 
                     $(".sortable").sortable({
                     });
-                    $('#current_question').html(seq);
+                    //$('#current_question').html(seq);
                 }
             });
         }
+        $('#current_question').html(questionno);
     }
     var answer = new Object();
     function getAnswer(seq) {
@@ -169,7 +170,6 @@ if ($data[0]['time_taken'] > 0) {
         if (questions[seq] != 'undefined') {
             switch ($(divid + ' .answer_type').val()) {
                 case '0':
-                    console.log(divid + ' .answer:checked');
                     current_answer = $(divid + ' .answer:checked').attr('id');
                     break;
                 case '1':
@@ -195,11 +195,13 @@ if ($data[0]['time_taken'] > 0) {
             }
             answer[ question_id ] = current_answer;
             $('#answers').val(JSON.stringify(answer));
-            console.log($('#answers').val());
         }
     }
 </script>
 <style>
+
+    #question_details{margin-top: 5px;font-size: 25px}
+    .navbar{margin-bottom: 0px;}
     .sortable,.match { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px; }
     .sortable li,.match li{ margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 50px;min-width: 100% }
     #loading_text {
