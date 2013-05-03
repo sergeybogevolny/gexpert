@@ -1,19 +1,19 @@
 <?php if ($_GET['show'] != 'all') { ?>
     <div class="hiring shadow-large span12">
         <div class="span6">
-
+            <h1><?php echo $_SESSION["name"] . ","; ?></h1>
             <?php
             $scorepercentage = round(($scores[0]['score'] / $scores[0]['total_marks']) * 100, 0);
-            if ($scorepercentage < 30) {
-                ?><h1>Congratulations</h1>    <?php
-            } elseif ($scorepercentage < 50) {
-                ?><h1>Congratulations</h1>    <?php
+            if ($scorepercentage < 50) {
+                ?><h1>Need Improvement</h1>    <?php
             } elseif ($scorepercentage < 70) {
-                ?><h1>Congratulations</h1>    <?php
+                ?><h1>Fair</h1>    <?php
+            } elseif ($scorepercentage < 80) {
+                ?><h1>Good</h1>    <?php
             } elseif ($scorepercentage < 90) {
-                ?><h1>Congratulations</h1>    <?php
+                ?><h1>Very Good</h1>    <?php
             } else {
-                ?><h1>Congratulations</h1>    <?php
+                ?><h1>Excellent</h1>    <?php
             }
             ?>
 
@@ -23,7 +23,7 @@
                 ?>
                 <h2 class="text-info"> Time Taken
                     <?php
-                    $scores[0]['test_time'] = ($scores[0]['test_time'] < 60) ? $scores[0]['test_time'] . " Seconds" : round($scores[0]['test_time'] / 60, 2) . " Minutes";
+                    $scores[0]['test_time'] = gmdate("H:i:s", $scores[0]['test_time']);
                     echo $scores[0]['test_time'];
                     ?>
                 </h2>
