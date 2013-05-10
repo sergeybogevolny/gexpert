@@ -7,13 +7,13 @@ $cTestControllerObj = new cTestController();
 
 
 if ($_GET['show'] == 'all') {
-    $cTestControllerObj->column = array("username" => "username", 'score', 'test_time', 'total_marks', 'total_questions', 'correct_answers', 'td.name', 'add_date', 'name', 'email');
+    $cTestControllerObj->column = array("username" => "username", 'score', 'test_time', 'total_marks', 'total_questions', 'correct_answers', 'td.name', 'add_date', 'name' => 'firstname', 'email');
     if ($_GET['id'] == "") {
         $cFormObj->options['column']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'index' => 1, 'filter' => 'box');
     }
     $cFormObj->options['column']['username'] = array('name' => "User", 'type' => "string", 'sort' => true, 'index' => 2, 'filter' => 'box');
     $cFormObj->options['column']['email'] = array('name' => "Email", 'type' => "string", 'sort' => true, 'index' => 3, 'filter' => 'box');
-    $cFormObj->options['column']['name'] = array('name' => "Name", 'type' => "string", 'sort' => true, 'index' => 4, 'filter' => 'box');
+    $cFormObj->options['column']['firstname'] = array('name' => "Name", 'type' => "string", 'sort' => true, 'index' => 4, 'filter' => 'box');
     $cFormObj->options['column']['score'] = array('name' => "User Score", 'type' => "number", 'sort' => true, 'index' => 5, 'filter' => 'box');
     $cFormObj->options['column']['total_marks'] = array('name' => "Total Score", 'type' => "number", 'sort' => true, 'index' => 6, 'filter' => 'box');
 
