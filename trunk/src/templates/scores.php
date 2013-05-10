@@ -55,6 +55,8 @@
 
     $cFormObj->options['actioncolumn'] = false;
     $cFormObj->options['reporttable'] = true;
+    $cFormObj->options['exportoptions'] = true;
+    $cFormObj->options['having_form'] = false;
 //    $cFormObj->options['crosstab'] = true;
 //    $cFormObj->options['keep_columns'] = array("name", "correct_answers", "add_date");
 //    $cFormObj->options['group_columns'] = array("username");
