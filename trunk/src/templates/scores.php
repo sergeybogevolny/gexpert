@@ -65,14 +65,20 @@
     $cFormObj->options['id'] = "test";
 
     $cFormObj->options['chart_type'] = 'line';
-    $cFormObj->options['axis']['x']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
+
     //$cFormObj->options['axis_x']['username'] = array('name' => "User", 'type' => "string", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
     //$cFormObj->options['axis']['x']['username'] = array('name' => "User", 'type' => "string", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
     if ($_SESSION['user_type'] > 1) {
         $cFormObj->options['title'] = "My Scores";
+        $cFormObj->options['axis']['x']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
+        $cFormObj->options['axis']['y']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'chart' => 'line', "agg_function" => "sum", 'filter' => 'box');
+    } elseif ($_GET['id']) {
+        $cFormObj->options['title'] = "Number of Users attended VS Tests";
+        $cFormObj->options['axis']['x']['username'] = array('name' => "User Name", 'type' => "string", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
         $cFormObj->options['axis']['y']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'chart' => 'line', "agg_function" => "sum", 'filter' => 'box');
     } else {
         $cFormObj->options['title'] = "Number of Users attended VS Tests";
+        $cFormObj->options['axis']['x']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'chart' => 'line', 'filter' => 'box');
         $cFormObj->options['axis']['y']['score'] = array('name' => "Score", 'type' => "number", 'sort' => true, 'chart' => 'line', "agg_function" => "count", 'filter' => 'box');
     }
 
