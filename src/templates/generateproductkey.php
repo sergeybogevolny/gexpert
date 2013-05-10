@@ -51,6 +51,8 @@
     }
 
     $cFormObj->data = $cTestControllerObj->addWhereCondition($condition)->addOrderBy("pktu.product_key", "tt.test_name")->select()->executeRead();
+    $cFormObj->options['reporttable'] = true;
+    $cFormObj->options['exportoptions'] = true;
     $cFormObj->options['actioncolumn'] = false;
     $cFormObj->options['serialnocolumn'] = true;
     $cFormObj->options['column']['product_key'] = array('name' => "Product Key", 'type' => "string", 'sort' => true, 'index' => 1);
