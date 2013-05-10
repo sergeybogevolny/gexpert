@@ -7,7 +7,7 @@ $cTestControllerObj = new cTestController();
 
 
 if ($_GET['show'] == 'all') {
-    $cTestControllerObj->column = array("username" => "username", 'score', 'test_time', 'total_marks', 'total_questions', 'correct_answers', 'td.name', 'add_date', 'name as firstname', 'email');
+    $cTestControllerObj->column = array("username" => "username", 'score', 'test_time', 'total_marks', 'total_questions', 'correct_answers', 'td.name', 'add_date', 'u.name as firstname', 'email');
     if ($_GET['id'] == "") {
         $cFormObj->options['column']['name'] = array('name' => "Test", 'type' => "string", 'sort' => true, 'index' => 1, 'filter' => 'box');
     }
