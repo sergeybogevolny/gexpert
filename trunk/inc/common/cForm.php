@@ -326,71 +326,95 @@ $('table').on({
             foreach ($filtertype as $column_name => $type) {
                 switch ($type) {
                     case 'is':
-                        if ($this->options['column'][$column_name]['type'] == 'date') {
-                            list($filterdata[$column_name]) = explode("~", $filterdata[$column_name]);
+                        if ($filterdata[$column_name] != '') {
+                            if ($this->options['column'][$column_name]['type'] == 'date') {
+                                list($filterdata[$column_name]) = explode("~", $filterdata[$column_name]);
+                            }
+                            $filtercondition[] = $column_name . "='" . $filterdata[$column_name] . "'";
                         }
-                        $filtercondition[] = $column_name . "='" . $filterdata[$column_name] . "'";
-
 
                         break;
                     case 'is_not':
-                        if ($this->options['column'][$column_name]['type'] == 'date') {
-                            list($filterdata[$column_name]) = explode("~", $filterdata[$column_name]);
+                        if ($filterdata[$column_name] != '') {
+                            if ($this->options['column'][$column_name]['type'] == 'date') {
+                                list($filterdata[$column_name]) = explode("~", $filterdata[$column_name]);
+                            }
+                            $filtercondition[] = $column_name . "<>'" . $filterdata[$column_name] . "'";
                         }
-                        $filtercondition[] = $column_name . "<>'" . $filterdata[$column_name] . "'";
                         break;
 
                     case 'less_than': case 'is_before':
-                        if ($this->options['column'][$column_name]['type'] == 'date') {
-                            list($filterdata[$column_name]) = explode("~", $filterdata[$column_name]);
+                        if ($filterdata[$column_name] != '') {
+                            if ($this->options['column'][$column_name]['type'] == 'date') {
+                                list($filterdata[$column_name]) = explode("~", $filterdata[$column_name]);
+                            }
+                            $filtercondition[] = $column_name . "<'" . $filterdata[$column_name] . "'";
                         }
-                        $filtercondition[] = $column_name . "<'" . $filterdata[$column_name] . "'";
                         break;
                     case 'greater_than': case 'is_after':
-                        if ($this->options['column'][$column_name]['type'] == 'date') {
-                            list($filterdata[$column_name]) = explode("~", $filterdata[$column_name]);
+                        if ($filterdata[$column_name] != '') {
+                            if ($this->options['column'][$column_name]['type'] == 'date') {
+                                list($filterdata[$column_name]) = explode("~", $filterdata[$column_name]);
+                            }
+                            $filtercondition[] = $column_name . ">'" . $filterdata[$column_name] . "'";
                         }
-                        $filtercondition[] = $column_name . ">'" . $filterdata[$column_name] . "'";
                         break;
                     case 'between':
-                        if ($this->options['column'][$column_name]['type'] == 'date') {
-                            list($fromdate, $todate) = explode("~", $filterdata[$column_name]);
-                            $filterdata[$column_name] = $fromdate . "' And '" . $todate;
+                        if ($filterdata[$column_name] != '') {
+                            if ($this->options['column'][$column_name]['type'] == 'date') {
+                                list($fromdate, $todate) = explode("~", $filterdata[$column_name]);
+                                $filterdata[$column_name] = $fromdate . "' And '" . $todate;
+                            }
+                            $filtercondition[] = $column_name . " between '" . $filterdata[$column_name] . "'";
                         }
-                        $filtercondition[] = $column_name . " between '" . $filterdata[$column_name] . "'";
                         break;
                     case 'not_between':
-
-                        if ($this->options['column'][$column_name]['type'] == 'date') {
-                            list($fromdate, $todate) = explode("~", $filterdata[$column_name]);
-                            $filterdata[$column_name] = $fromdate . "' And '" . $todate;
+                        if ($filterdata[$column_name] != '') {
+                            if ($this->options['column'][$column_name]['type'] == 'date') {
+                                list($fromdate, $todate) = explode("~", $filterdata[$column_name]);
+                                $filterdata[$column_name] = $fromdate . "' And '" . $todate;
+                            }
+                            $filtercondition[] = $column_name . " not between '" . $filterdata[$column_name] . "'";
                         }
-                        $filtercondition[] = $column_name . " not between '" . $filterdata[$column_name] . "'";
 
                         break;
                     case 'in':
-                        $filtercondition[] = $column_name . " in (" . $filterdata[$column_name] . ")";
+                        if ($filterdata[$column_name] != '') {
+                            $filtercondition[] = $column_name . " in (" . $filterdata[$column_name] . ")";
+                        }
                         break;
                     case 'not_in':
-                        $filtercondition[] = $column_name . " not in (" . $filterdata[$column_name] . ")";
+                        if ($filterdata[$column_name] != '') {
+                            $filtercondition[] = $column_name . " not in (" . $filterdata[$column_name] . ")";
+                        }
                         break;
                     case 'empty':
+
                         $filtercondition[] = $column_name . " =''";
                         break;
                     case 'not_empty':
                         $filtercondition[] = $column_name . " <>''";
                         break;
                     case 'contains':
-                        $filtercondition[] = 'lower(' . $column_name . ') like ' . "'%" . strtolower($filterdata[$column_name]) . "%'";
+                        if ($filterdata[$column_name] != '') {
+                            $filtercondition[] = 'lower(' . $column_name . ') like ' . "'%" . strtolower($filterdata[$column_name]) . "%'";
+                        }
                         break;
                     case 'not_contains':
-                        $filtercondition[] = 'lower(' . $column_name . ') Not like ' . "'%" . strtolower($filterdata[$column_name]) . "%'";
+
+                        if ($filterdata[$column_name] != '') {
+                            $filtercondition[] = 'lower(' . $column_name . ') Not like ' . "'%" . strtolower($filterdata[$column_name]) . "%'";
+                        }
                         break;
                     case 'starts_with':
-                        $filtercondition[] = 'lower(' . $column_name . ') like ' . "'" . strtolower($filterdata[$column_name]) . "%'";
+                        if ($filterdata[$column_name] != '') {
+                            $filtercondition[] = 'lower(' . $column_name . ') like ' . "'" . strtolower($filterdata[$column_name]) . "%'";
+                        }
                         break;
                     case 'ends_with':
-                        $filtercondition[] = 'lower(' . $column_name . ') Not like ' . "'%" . strtolower($filterdata[$column_name]) . "'";
+                        if ($filterdata[$column_name] != '') {
+                            $filtercondition[] = 'lower(' . $column_name . ') Not like ' . "'%" . strtolower($filterdata[$column_name]) . "'";
+                        }
                         break;
 
 
@@ -679,7 +703,7 @@ $('table').on({
                     default:
 
                         $this->options['type'] = 'text';
-                        $this->options['class'] = ' input-small ';
+                        $this->options['class'] .= ' input-small ';
                         $this->createInput();
                         $filter_data = $this->html;
                         $this->data = $stringFilterData;
