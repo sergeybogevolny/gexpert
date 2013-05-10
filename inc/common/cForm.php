@@ -365,7 +365,7 @@ $('table').on({
                                 list($fromdate, $todate) = explode("~", $filterdata[$column_name]);
                                 $filterdata[$column_name] = $fromdate . "' And '" . $todate;
                             }
-                            $filtercondition[] = $column_name . " between '" . $filterdata[$column_name] . "'";
+                            $filtercondition[] = "date(" . $column_name . ") between '" . $filterdata[$column_name] . "'";
                         }
                         break;
                     case 'not_between':
