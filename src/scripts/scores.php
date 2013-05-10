@@ -31,6 +31,7 @@ if ($_GET['show'] == 'all') {
 if ($_GET['id']) {
     $condition[] = " td.id=" . $_GET['id'];
 }
+$cTestControllerObj->debug = true;
 $cTestControllerObj->table = "scores s";
 $cTestControllerObj->join_condition = " join test_details td on s.test_id = td.id join `__users` u on u.id = s.user_id";
 $scores = $cTestControllerObj->addWhereCondition($condition)->select()->executeRead();
