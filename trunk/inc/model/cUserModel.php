@@ -9,11 +9,7 @@ include_once('cModel.php');
 
 class cUserModel extends cModel {
 
-    //put your code here
-
-
     function __construct() {
-
         parent::__construct();
     }
 
@@ -24,8 +20,14 @@ class cUserModel extends cModel {
 
     function getUserDetails($user_id) {
         $this->table = '__users';
-        
         return $this->addWhereCondition("id=" . $user_id)->select()->executeRead();
+    }
+
+    function getUserPermissions($user_type_id) {
+
+        $this->debug = true;
+        $this->table = '__user_type_permissions';
+        return $this->addWhereCondition("user_type_id=" . $user_type_id)->select()->executeRead();
     }
 
 }

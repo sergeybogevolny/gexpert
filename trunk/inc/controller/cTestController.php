@@ -18,7 +18,6 @@ class cTestController extends cController {
     }
 
     function getTestDetails($id) {
-        //$this->column = array("id", "name", "description", "logo", "created_by", "status");
         $testDetails = $this->curd("view", $id);
         $this->table = "questions";
         $questions = $this->addWhereCondition("test_id=" . $id)->select()->executeRead();
@@ -40,6 +39,11 @@ class cTestController extends cController {
         $this->table = "answers";
 
         return $this->addWhereCondition("question_id=" . $id)->select()->executeRead();
+    }
+
+    function getOption($id) {
+        $this->table = "answers";
+        return $this->addWhereCondition("id=" . $id)->select()->executeRead();
     }
 
     function getCorrectAnswers($id, $questiontype) {
@@ -77,10 +81,12 @@ class cTestController extends cController {
     }
 
     function updateScores($data) {
+
         $this->table = "scores";
         $is_scores = $this->addWhereCondition("user_id=" . $data['user_id'] . " and test_id=" . $data['test_id'])->select()->executeRead();
         $this->column = $data;
         $this->table = "scores";
+        $this->debug = true;
         if ($is_scores[0]['id'] != '') {
             return $this->addWhereCondition("user_id=" . $data['user_id'] . " and test_id=" . $data['test_id'])->update()->executeWrite();
         } else {
@@ -100,6 +106,16 @@ class cTestController extends cController {
         $this->table = "scores s";
         $this->join_condition = " join test_details td on s.test_id = td.id join `__users` u on u.id = s.user_id";
         return $this->addWhereCondition($condition)->select()->executeRead();
+    }
+
+    function storeUserResponses($reponses, $userId) {
+
+        foreach ($reponses as $key => $value) {
+            $value['user_id'] = $userId;
+            $this->column = $value;
+            $this->table = "responses";
+            $this->create()->executeWrite();
+        }
     }
 
 }

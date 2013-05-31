@@ -28,7 +28,6 @@ define('DataBaseType', 'mysql');
  */
 define('EncryptMethod', 'MCRYPT_RIJNDAEL_256');
 define('EncryptMode', 'MCRYPT_MODE_CBC');
-
 define('EncryptKey', '25c6c7ff35b9979b151f2136cd13b0ff');
 
 
