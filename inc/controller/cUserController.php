@@ -11,6 +11,7 @@ class cUserController extends cUserModel {
 
     public $UserModel;
     public $userId;
+    public $userTypeId;
     public $loginId;
 
     function __construct() {
@@ -22,7 +23,6 @@ class cUserController extends cUserModel {
         $userDetailsArray = $this->UserModel->validateLogin($username, $password);
         $this->userId = $userDetailsArray[0]['id'];
 
-
         $this->setSessionUserDetails();
 
         return $this->userId;
@@ -31,22 +31,28 @@ class cUserController extends cUserModel {
     function setSessionUserDetails() {
         include_once AppRoot . AppController . 'cSessionController.php';
         $session = new cSessionController();
-        if ($this->userId != '') {
-            $userDetails = $this->UserModel->getUserDetails($this->userId);
-            $session->SessionValue('name', $userDetails[0]['name']);
-            $session->SessionValue('last_name', $userDetails[0]['last_name']);
-            $session->SessionValue('middle_name', $userDetails[0]['middle_name']);
-            $session->SessionValue('email', $userDetails[0]['email']);
-            $session->SessionValue('phone', $userDetails[0]['phone']);
-            $session->SessionValue('photo', $userDetails[0]['photo']);
-            $session->SessionValue('sex', $userDetails[0]['sex']);
-            $session->SessionValue('user_type', $userDetails[0]['user_type']);
 
-            $session->SessionValue('user_restrictions', $userDetails[0]['user_restrictions']);
+        if ($this->userId != '') {
+            $session->createSession($this->userId);
+            $userDetails = $this->UserModel->getUserDetails($this->userId);
+            $this->userTypeId = $userDetails[0]['user_type'];
+            $session->SessionValue('name', $userDetails[0]['name']);
+            $session->SessionValue('user_type', $this->userTypeId);
             $session->SessionValue('user_id', $this->userId);
+            $userPermissons = $this->setSessionUserPermissions();
+            foreach ($userPermissons as $row => $record) {
+                $permissions[$record['module_id']] = $record['permission_id'];
+            }
+            $session->SessionValue('user_permissions', $permissions);
         } else {
-//            $session->SessionValue('pageerror', 'Login failed!!!');
+            //$session->SessionValue('pageerror', 'Login failed!!!');
         }
+    }
+
+    function setSessionUserPermissions() {
+
+
+        return $this->UserModel->getUserPermissions($this->userTypeId);
     }
 
 }

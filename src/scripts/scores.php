@@ -27,7 +27,7 @@ if ($_GET['show'] == 'all') {
     }
 } else {
 
-    $cTestControllerObj->column = array('score', 'test_time', 'total_questions', 'total_marks', 'correct_answers', 'add_date');
+    $cTestControllerObj->column = array('score', 'test_time', 'total_questions', 'total_marks', 'correct_answers', 'add_date', 'answers');
     $condition[] = "s.user_id=" . $_GET['user_id'];
 }
 if ($_GET['id']) {
@@ -37,6 +37,7 @@ if ($_GET['id']) {
 $cTestControllerObj->table = "scores s";
 $cTestControllerObj->join_condition = " join test_details td on s.test_id = td.id join `__users` u on u.id = s.user_id";
 $scores = $cTestControllerObj->addWhereCondition($condition)->select()->executeRead();
+$answersReview = json_decode($scores[0]['answers'], true);
 
 $pagename = "Scores";
 $pagedescription = "What you Scored";

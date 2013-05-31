@@ -28,6 +28,38 @@
                     ?>
                 </h2>
             <?php } ?>
+
+            <div class="accordion" id="accordion2">
+                <?php
+                foreach ($answersReview as $key => $value) {
+                    ?><div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#a<?php echo $key; ?>"> <?php echo $value['question'] . "- Score (" . $value['score'] . ")"; ?> </a>
+                        </div>
+                        <div id="a<?php echo $key; ?>" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <table>
+                                    <?php
+                                    foreach ($value['answers'] as $key1 => $value1) {
+                                        ?><tr>
+                                            <td><?php echo $key1; ?></td>
+                                            <? if ($value['match_answer'][$key1] != '')  ?>
+                                            <td><?php echo $value['match_answer'][$key1]; ?></td>
+                                            <td><?php echo $value1 === true ? '<i class="cus-accept"></i>' : '<i class="cus-delete"></i>'; ?></td>
+                                        </tr>
+
+                                        <?php
+                                    }
+                                    ?>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+
         </div>
         <div class="span4">
 
@@ -45,7 +77,12 @@
             }
             ?>
         </div>
+
+
+
     </div>
+    <br/>
+
     <?php
 } else {
 

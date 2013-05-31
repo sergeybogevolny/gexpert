@@ -18,63 +18,94 @@ if ($_POST["test_id"]) {
         $scores = 0;
         $totalanswers = 0;
         $correctanswercnt = array();
+
         foreach ($questionDetails as $key => $value) {
             $correctanswers = $cTestControllerObj->getCorrectAnswers($value["id"], $value['question_type']);
             $current_answer = $answers->{$value["id"]};
             $totalanswers+=count($correctanswers);
+            $userdata[$value["id"]]['question'] = $value['question'];
+            $userdata[$value["id"]]['score'] = 0;
             switch ($value['question_type']) {
                 case 0:
+                    $is_correct = false;
                     if ($current_answer == $correctanswers[0]['id']) {
                         $scores+=1;
+                        $userdata[$value["id"]]['score'] +=1;
                         $correctanswercnt[$value["id"]]++;
+                        $selectedAnswerText = $cTestControllerObj->getOption($current_answer);
+                        $is_correct = true;
                     }
+                    $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = $is_correct;
+
                     break;
                 case 1:
+
                     $selected_array = json_decode(stripslashes($current_answer));
                     $answercnt = count($correctanswers);
                     $is_scored = false;
                     if (count($selected_array) == $answercnt) {
                         foreach ($correctanswers as $key1 => $value1) {
+                            $selectedAnswerText = $cTestControllerObj->getOption($value1['id']);
                             if (is_array($selected_array)) {
                                 if (in_array($value1['id'], $selected_array)) {
+                                    $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = true;
                                     $is_scored = true;
                                 } else {
                                     $is_scored = false;
+                                    $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = false;
                                 }
                             }
                         }
                     }
                     if ($is_scored !== false) {
                         $scores+=1;
+                        $userdata[$value["id"]]['score'] +=1;
                         $correctanswercnt[$value["id"]]++;
                     }
-
                     break;
                 case 2:
                     if ($correctanswers[0]['is_correct'] == $current_answer) {
                         $scores+=1;
+                        $userdata[$value["id"]]['score'] +=1;
                         $correctanswercnt[$value["id"]]++;
+                        $is_correct = true;
                     }
+                    $userdata[$value["id"]]['answers'][$current_answer] = $is_correct;
                     break;
                 case 3:
+                    $is_correct = false;
+
                     if ($current_answer == $correctanswers[0]['answer']) {
                         $scores+=1;
+                        $userdata[$value["id"]]['score'] +=1;
                         $correctanswercnt[$value["id"]]++;
+                        $is_correct = true;
                     }
+                    $userdata[$value["id"]]['answers'][$current_answer] = $is_correct;
                     break;
                 case 4:
                     foreach ($correctanswers as $key1 => $value1) {
+                        $selectedAnswerText = $cTestControllerObj->getOption($current_answer[$key1]);
+                        $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = false;
+                        $userdata[$value["id"]]['match_answer'][$selectedAnswerText[0]['answer']] = $selectedAnswerText[0]['match_answer'];
                         if ($current_answer[$key1] == $value1['id']) {
                             $scores+=1;
+                            $userdata[$value["id"]]['score'] +=1;
                             $correctanswercnt[$value["id"]]++;
+                            $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = true;
                         }
                     }
                     break;
                 case 5:
                     foreach ($correctanswers as $key1 => $value1) {
+                        $selectedAnswerText = $cTestControllerObj->getOption($current_answer[$key1]);
+                        $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = false;
                         if ($current_answer[$key1] == $value1['id']) {
                             $scores+=1;
+                            $userdata[$value["id"]]['score'] +=1;
                             $correctanswercnt[$value["id"]]++;
+
+                            $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = true;
                         }
                     }
                     break;
@@ -94,6 +125,7 @@ if ($_POST["test_id"]) {
         $scoredata['total_questions'] = count($questionDetails);
         $scoredata['test_time'] = $timetaken;
         $scoredata['status'] = 1;
+        $scoredata['answers'] = json_encode($userdata);
         $cTestControllerObj->updateScores($scoredata);
         //exit;
         header("Location:" . $cFormObj->createLinkUrl(array("f" => "scores", "id" => $_POST["test_id"], 'user_id' => $_SESSION['user_id'])));
@@ -142,13 +174,13 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             $cFormObj->options["name"] = $cTestControllerObj->questionId;
             $cFormObj->options["id"] = 1;
             $cFormObj->options["class"] = "inline answer";
-            $cFormObj->data = "yes";
+            $cFormObj->data = "True";
             $cFormObj->createOption();
             $html .= $cFormObj->html();
             $cFormObj->options["name"] = $cTestControllerObj->questionId;
             $cFormObj->options["id"] = 0;
             $cFormObj->options["class"] = "inline answer";
-            $cFormObj->data = "no";
+            $cFormObj->data = "False";
             $cFormObj->createOption();
             $html .= $cFormObj->html();
 
