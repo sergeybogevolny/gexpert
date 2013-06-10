@@ -86,7 +86,7 @@ class cTestController extends cController {
         $is_scores = $this->addWhereCondition("user_id=" . $data['user_id'] . " and test_id=" . $data['test_id'])->select()->executeRead();
         $this->column = $data;
         $this->table = "scores";
-        $this->debug = true;
+
         if ($is_scores[0]['id'] != '') {
             return $this->addWhereCondition("user_id=" . $data['user_id'] . " and test_id=" . $data['test_id'])->update()->executeWrite();
         } else {
