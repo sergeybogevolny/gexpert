@@ -258,6 +258,8 @@
                 },
         function(start, end) {
             $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+            $('#activedates').val(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+
         }
         );
 
@@ -273,6 +275,7 @@
         $('.multipleanswer,.multipleoption,.matchanswer').hide();
         $('#addquestion').bind('click', function(event) {
             event.preventDefault();
+            $(this).html('Add Question');
             addQuestion();
         });
 
@@ -485,6 +488,7 @@
         resetQuestion();
         $('#available_questions').find('.icon-edit').click(function(obj, a) {
             loadQuestion($(this).parent().siblings(":first").text())
+            $('#addquestion').html('Save Changes');
         });
         calculateTotalMark();
     }
