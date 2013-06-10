@@ -1,4 +1,8 @@
 <?php
+$cUserObj->moduleId = 2;
+
+$cUserObj->getUserModulePermissions();
+
 $cFormObj->options["alert"]["type"] = $_GET['mc'];
 $cFormObj->options["alert"]["data"] = $_GET['m'];
 
@@ -24,7 +28,7 @@ echo $cFormObj->html();
     $cFormObj->options['column']['valid_from'] = array("name" => 'Valid From', 'type' => "date", 'sort' => true, 'index' => -1, 'filter' => 'box');
     $cFormObj->options['column']['score'] = array("name" => 'score', 'type' => "number", 'sort' => true, 'index' => -2);
 
-    if ($_SESSION['user_type'] > 1) {
+    if ($_SESSION['user_type'] != 1 && $_SESSION['user_type'] != -1) {
         $cTestControllerObj->table = "product_key_test_users pktu";
 
         $cTestControllerObj->join_condition .= " join test_details td on pktu.test_id = td.id join `__users` u on u.id = td.created_by";
@@ -51,13 +55,20 @@ echo $cFormObj->html();
 
     $cFormObj->options['actioncolumnicons'] = '<i class="cus-control-play-blue" title="Take Test"></i>
         <i class="cus-rosette" title="Scores"></i>';
+    if ($cUserObj->userPermissions[0] == 1) {
 
-    if ($_SESSION['user_type'] == 1) {
-        $cFormObj->options['actioncolumnicons'] .= '
-            <i class="cus-page-copy" title="Clone"></i>
-            <i class="cus-page-edit" title="Edit"></i>
-            <i class="cus-page-delete" title="Delete"></i>
-            <i class="cus-bullet-key" title="Product Key"></i>';
+        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-page-copy" title="Clone"></i>';
+    }
+    if ($cUserObj->userPermissions[2] == 1) {
+
+        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-page-edit" title="Edit"></i>';
+    }
+    if ($cUserObj->userPermissions[3] == 1) {
+
+        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-page-delete" title="Delete"></i>';
+    }
+    if ($cUserObj->userPermissions[0] == 1) {
+        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-bullet-key" title="Product Key"></i>';
     }
 
 

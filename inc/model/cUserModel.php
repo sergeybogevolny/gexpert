@@ -25,8 +25,10 @@ class cUserModel extends cModel {
 
     function getUserPermissions($user_type_id) {
 
-        $this->debug = true;
-        $this->table = '__user_type_permissions';
+
+        $this->column = array('c', 'r', 'u', 'd', 'p.id', 'module_id');
+        $this->table = '__user_type_permissions utp';
+        $this->join_condition = "Join __permissions p on p.id=utp.permission_id";
         return $this->addWhereCondition("user_type_id=" . $user_type_id)->select()->executeRead();
     }
 

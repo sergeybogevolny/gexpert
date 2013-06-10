@@ -13,6 +13,8 @@ class cUserController extends cUserModel {
     public $userId;
     public $userTypeId;
     public $loginId;
+    public $moduleId;
+    public $userPermissions;
 
     function __construct() {
 
@@ -41,7 +43,7 @@ class cUserController extends cUserModel {
             $session->SessionValue('user_id', $this->userId);
             $userPermissons = $this->setSessionUserPermissions();
             foreach ($userPermissons as $row => $record) {
-                $permissions[$record['module_id']] = $record['permission_id'];
+                $permissions[$record['module_id']] = $record['c'] . $record['r'] . $record['u'] . $record['d'];
             }
             $session->SessionValue('user_permissions', $permissions);
         } else {
@@ -53,6 +55,15 @@ class cUserController extends cUserModel {
 
 
         return $this->UserModel->getUserPermissions($this->userTypeId);
+    }
+
+    function getUserModulePermissions() {
+        $this->userPermissions = $_SESSION['user_permissions'][$this->moduleId];
+        if ($this->userPermissions[1] === 0) {
+            //TODO redirect to home page.
+            echo 'You dont have Access to View this page!!!';
+            exit;
+        }
     }
 
 }
