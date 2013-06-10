@@ -3,9 +3,11 @@ define('AppRoot', dirname(__FILE__));
 include_once AppRoot . '/inc/config/properties.php';
 session_start();
 include_once AppRoot . '/inc/common/cForm.php';
+include_once AppRoot . '/inc/controller/cUserController.php';
 //include_once AppRoot .AppLocalizationURL. 'common.php';
 
 $cFormObj = new cForm();
+$cUserObj = new cUserController();
 
 
 $_GET = $cFormObj->urlDecode($_GET);
