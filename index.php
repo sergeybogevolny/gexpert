@@ -112,6 +112,13 @@ if ($_POST['type'] != 'ajax' && $_GET['type'] != 'ajax') {
                                                                     <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>">Product Keys</a></li>
                                                                 </ul>
                                                             </li>
+                                                            <li class="dropdown">
+                                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Survey Manager<b class="caret"></b></a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'createsurvey')); ?>">New Survey</a></li>
+                                                                    <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">Existing Survey</a></li>
+                                                                </ul>
+                                                            </li>
                                                             <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'category')); ?>">Category</a></li>
                                                             <li><a  href="#"><?php echo "Welcome " . $_SESSION["name"]; ?></a></li>
                                                         <?php } ?>
