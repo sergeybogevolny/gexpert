@@ -13,7 +13,7 @@ date_default_timezone_set('UTC');
 /**
  * Database
  */
-define('DataBaseName', 'gexpert');
+define('DataBaseName', 'gxpertize');
 define('DataBasePort', '3306');
 define('DataBaseHost', 'localhost');
 define('DataBaseUser', 'root');
