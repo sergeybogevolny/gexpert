@@ -72,7 +72,7 @@
 
                         <?php
                         //Matrix option,matrix checkbox,essay,rating,scale, Answer randomize,demo graphics us,
-                        $cFormObj->data = array("0" => "Multiple Choice", "1" => "Multiple Response", "2" => "True/False", "3" => "Fill in the Blank", "4" => "Matching", "5" => "Sequencing");
+                        $cFormObj->data = array("0" => "Multiple Choice", "1" => "Multiple Response", "6" => "Matrix Options", "7" => "Matrix checkbox", "8" => "Essay", "9" => "Rating", "10" => "Scale");
                         $cFormObj->options = array("name" => "question_type", "default" => false, "class" => "reset");
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
@@ -90,12 +90,13 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th class="answer essay">Answer</th>
-                                <th class="multipleanswer multipleoption true_false">Value</th>
-                                <th class="matrixoptions row">Rows</th>
-                                <th class="matrixoptions column">Columns</th>
-                                <th class="correctness_percentage">Correctness Percentage</th>
-                                <th class="answer">Action</th>
+                                <th class="multiplechoice multipleoption ">Options</th>
+                                <th class="multiplechoice multipleoption rating">Value</th>
+                                <th class="matrixoptions matrixchoices">Rows</th>
+                                <th class="matrixoptions matrixchoices">Columns</th>
+                                <th class="scale">Min Value</th>
+                                <th class="scale">Max Value</th>
+                                <th class="action">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,41 +104,32 @@
                                 <td>
                                     <label class="rowNumber">1</label>
                                 </td>
-                                <td class="matrixoptions row " >
-                                    <textarea rows="1" class="htmleditor matrixoptions row  reset" name="row" id="row" style="height: 25px"></textarea>
+                                <td class="multiplechoice multipleoption " >
+                                    <textarea rows="1" class="htmleditor  reset" name="answer" id="mco" style="height: 25px"></textarea>
                                 </td>
 
-                                <td class="answer essay" >
-                                    <textarea rows="1" class="htmleditor answer essay answer_data reset" name="answer" id="answer" style="height: 25px"></textarea>
+                                <td class="multiplechoice multipleoption " >
+                                    <textarea rows="1" class="htmleditor reset" name="points" id="mcv" style="height: 25px"></textarea>
                                 </td>
-                                <td class="matchanswer">
-                                    <textarea rows="1" class="htmleditor match_answer match_data reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
+                                <td class="matrixoptions matrixchoices" >
+                                    <textarea rows="1" class="htmleditor reset" name="row" id="mor" style="height: 25px"></textarea>
                                 </td>
-                                <td class="multipleanswer multipleoption true_false">
+                                <td class="matrixoptions matrixchoices" >
+                                    <textarea rows="1" class="htmleditor reset" name="column" id="moc" style="height: 25px"></textarea>
+                                </td>
+                                <td class="rating" >
+
+                                    <textarea rows="1" class="htmleditor reset" name="ratings" id="rv" style="height: 25px"></textarea>
+                                </td>
+                                <td class="scale" >
+                                    <textarea rows="1" class="htmleditor reset" name="smin" id="smin" style="height: 25px"></textarea>
+                                </td>
+                                <td class="scale" >
+                                    <textarea rows="1" class="htmleditor reset" name="smax" id="smin" style="height: 25px"></textarea>
+                                </td>
 
 
-                                    <label class="checkbox true_false">
-                                        <input type="checkbox" class="reset true_false true_false_data" name="true_false" id="true_false" >
-
-                                    </label>
-                                    <label class="radio checkbox multipleanswer multipleoption">
-                                        <input type="text" class="multipleoption multipleanswer correct_answer_data reset" name="correctanswer" id="correctanswer" value="0" />
-
-                                    </label>
-                                </td>
-                                <td class="matrixoptions column" >
-                                    <textarea rows="1" class="htmleditor matrixoptions column  reset" name="column" id="column" style="height: 25px"></textarea>
-                                </td>
-                                <td class="correctness_percentage">
-                                    <div class="controls" style="margin-left: 0px">
-                                        <div class="input-append" >
-                                            <input name="correctness_percentage" type="text" id="correctness_percentage" class="correctness_percentage mcorrect_answer_data span1 reset"/>
-                                            <span class="add-on">%</span>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td class="answer">
+                                <td class="action">
                                     <i class="icon-trash"></i>
                                     <i class="icon-plus"></i>
                                 </td>
@@ -200,7 +192,6 @@
                 var $current = index + 1;
                 var $percent = ($current / $total) * 100;
                 $('#rootwizard').find('.bar').css({width: $percent + '%'});
-
                 // If it's the last tab then hide the last button and show the finish instead
                 if ($current >= $total) {
                     $('#rootwizard').find('.pager .next').hide();
@@ -218,14 +209,11 @@
 
             }
         });
-
         $('#rootwizard .finish').click(function() {
 
             $("#questionsdata").val(JSON.stringify(questionDetails));
             $("#testmanager").submit();
-
         });
-
         $('.calender').daterangepicker(
                 {
                     ranges: {
@@ -234,11 +222,10 @@
                         'Next Month': [Date.today().moveToFirstDayOfMonth().add({months: 1}), Date.today().moveToLastDayOfMonth().add({months: 1})]
                     }
                 },
-                function(start, end) {
-                    $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
-                }
+        function(start, end) {
+            $('.calender span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+        }
         );
-
         $('#description').wysihtml5({"color": true});
         createTable(questionDetails);
         $(".icon-plus").btnAddRow({rowNumColumn: "rowNumber", inputBoxAutoId: true}, function() {
@@ -253,19 +240,12 @@
             event.preventDefault();
             addQuestion();
         });
-
         $("#question_type").bind('change', function() {
             resetOptionsTable($(this).val());
         });
         $("#question_type").trigger('change');
-
     });
-
-
-
     var questionDetails = <?php echo $questiondata ?>;
-
-
     function addQuestion() {
 
         if (validate()) {
@@ -289,7 +269,6 @@
                         break;
                     case '2':
                         questionDetails[currentrow]['answers'][opt]['is_correct'] = $(element).find('.true_false_data').prop('checked') === true ? 1 : 0;
-
                         break;
                     case '3':
                         questionDetails[currentrow]['answers'][opt]['is_correct'] = 1;
@@ -304,7 +283,6 @@
                 }
                 questionDetails[currentrow]['answers'][opt]['correctness_percentage'] = $(element).find(".mcorrect_answer_data").val();
                 opt++;
-
             });
             createTable(questionDetails);
             $("#currentrow").val($.map(questionDetails, function(n, i) {
@@ -320,22 +298,17 @@
 
     function resetQuestion() {
         $('.reset').val("");
-
-
         var len = $('#optionstable tr').length;
         $('#optionstable tr').each(function(index) {
             if (len > 1) {
                 $(this).find('.icon-trash').trigger('click');
             }
             len--;
-
         });
-
     }
 
     function validate() {
         var questiontype = $('#question_type').val();
-
         var error = "";
         if ($('#question').val() == "") {
             error += "Question cannot be empty...";
@@ -384,28 +357,31 @@
     }
 
     function resetOptionsTable(val) {
-        $('.multipleanswer,.multipleoption,.matchanswer,.answer,.correctness_percentage,.true_false,.essay,.matrixoptions').hide();
+
+        $('.optionstable').show();
+        $('.mutiplechoice,.multipleoption,.rating,.matrixoptions,.matrixchoices,.scale,.action').hide();
         switch (val) {
             case '0':
-                $('.multipleoption,.answer').show();
+                $('.multiplechoice,.action').show();
                 break;
             case '1':
-                $('.multipleanswer,.answer').show();
-                break;
-            case '2':
-                $('.true_false').show();
-                break;
-            case '3':
-                $('.essay').show();
-                break;
-            case '4':
-                $('.matrixoptions,.row,.column').show();
-                break;
-            case '5':
-                $('.answer').show();
+                $('.multipleoption,.action').show();
                 break;
             case '6':
-                $('.matrixoptions,.row,.column').show();
+                $('.matrixoptions,.action').show();
+                break;
+            case '7':
+                $('.matrixchoices,.action').show();
+                break;
+            case '8':
+                $('.optionstable').hide();
+                //$('.action').hide();
+                break;
+            case '9':
+                $('.rating,.action').show();
+                break;
+            case '10':
+                $('.scale').show();
                 break;
         }
     }
@@ -433,10 +409,8 @@
             }).length;
             //          console.log(value['answers']);
             html += '</td>';
-
             html += '<td>';
             var mark = 1;
-
             var qt = value['question_type'];
             if (qt == 4 || qt == 5) {
                 mark = $.map(value['answers'], function(n, i) {
@@ -454,16 +428,13 @@
             html += mark;
             totalmark = totalmark + mark;
             html += '</td>';
-
             html += '<td>';
             html += '<i class="icon-edit"></i><i class="icon-trash"></i>';
             html += '</td>';
             html += '</tr>';
             cnt++;
-
         });
         html += '<tr><td colspan=4 style="text-align:right"><b>Total</b></td><td id="total_mark_display" colspan=2 style="text-align:left">' + totalmark + '</td></tr>';
-
         //$(("#available_questions").find("tbody")
         $("#available_questions").find("tbody").append(html);
         resetQuestion();
@@ -483,7 +454,6 @@
 
     function loadQuestion(item) {
         resetQuestion();
-
         item = parseInt(item - 1);
         console.log(item);
         if (isNaN(item)) {
@@ -492,7 +462,6 @@
             $('#question_type').val(questionDetails[item]['question_type']).trigger('change');
             $('#question').val(questionDetails[item]['question']);
             var len = questionDetails[item]['answers'].length;
-
             for (i = 1; i <= len; i++) {
                 if (i < len) {
                     $('#optionstable tr:nth-child(' + i + ')').find('.icon-plus').trigger('click');
@@ -502,7 +471,6 @@
                 $('#optionstable tr:nth-child(' + i + ')').find(".match_data").val(questionDetails[item]['answers'][i - 1]['match_answer']);
                 $('#optionstable tr:nth-child(' + i + ')').find(".correct_answer_data").val(questionDetails[item]['answers'][i - 1]['is_correct']);
                 $('#optionstable tr:nth-child(' + i + ')').find(".mcorrect_answer_data").val(questionDetails[item]['answers'][i - 1]['correctness_percentage']);
-
             }
 
 
@@ -522,8 +490,6 @@
         $('#description').val();
         $('#activedates').val();
         $('#testtime').val();
-
-
     }
 
 </script>

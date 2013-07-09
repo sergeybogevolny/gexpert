@@ -15,9 +15,9 @@ date_default_timezone_set('UTC');
  */
 define('DataBaseName', 'gxpertize');
 define('DataBasePort', '3306');
-define('DataBaseHost', 'localhost');
+define('DataBaseHost', '192.168.1.200');
 define('DataBaseUser', 'root');
-define('DataBasePass', '');
+define('DataBasePass', 'sundar123');
 define('DataBaseType', 'mysql');
 
 
