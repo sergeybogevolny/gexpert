@@ -6,7 +6,7 @@ $cFormObj->options["alert"]["data"] = $_GET['m'];
 $cFormObj->addAlert();
 echo $cFormObj->html();
 ?>
-<form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">
+<form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'survey_question')); ?>">
 
     <?php
     $cTestControllerObj->column = array("sd.id", "sd.name", "u.name" => "username", "sd.valid_from");
@@ -31,10 +31,8 @@ echo $cFormObj->html();
     $cFormObj->options['actioncolumn'] = true;
     $cFormObj->options['id'] = 'listtable';
     $cFormObj->options['exportoptions'] = true;
-
-    $cFormObj->options['actioncolumnicons'] = '';
-
-    if ($_SESSION['user_type'] == 1) {
+    print_r($_SESSION);
+    if ($_SESSION['user_type'] <= 1) {
         $cFormObj->options['actioncolumnicons'] .= '
             <i class="cus-control-play-blue" title="Preview Survey"></i>
             <i class="cus-rosette" title="Responses"></i>
@@ -56,7 +54,7 @@ echo $cFormObj->html();
 <script>
     $(document).ready(function() {
         $("#listtable").append('');
-        var url1 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'question'));
+        var url1 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'survery_question'));
     ?>';
         var url2 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>';
         var url3 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>';
@@ -73,13 +71,13 @@ echo $cFormObj->html();
                 $("#test_id").val($(this).parent().siblings(":nth(0)").html());
                 $("#listtests").attr('action', url2).submit();
             }}, '.cus-bullet-key').on({'click': function() {
-                window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('sd:nth(0)').html());
+                window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(0)').html());
             }}, '.cus-page-edit').on({'click': function() {
-                window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('sd:nth(0)').html());
+                window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(0)').html());
             }}, '.cus-rosette').on({'click': function() {
-                window.location = url3 + "&a=" + $.base64.encode("d") + "&id=" + $.base64.encode($(this).parent().parent().find('sd:nth(0)').html());
+                window.location = url3 + "&a=" + $.base64.encode("d") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(0)').html());
             }}, '.cus-page-delete').on({'click': function() {
-                window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('sd:nth(0)').html());
+                window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(0)').html());
             }}, '.cus-page-copy');
 
 <?php if ($_SESSION['user_type'] > 1) { ?>
