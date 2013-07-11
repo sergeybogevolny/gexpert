@@ -181,10 +181,6 @@ if ($data[0]['time_taken'] > 0) {
                     current_answer = JSON.stringify(current_answer_tmp)
                     break;
 
-                case '5':
-
-                    break;
-
                 case '6':
 
                     break;

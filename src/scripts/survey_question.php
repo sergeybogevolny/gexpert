@@ -5,9 +5,10 @@ include_once(AppRoot . AppController . "cTestController.php");
 $cTestControllerObj = new cTestController();
 
 if (is_array($_POST) && $_POST["test_id"] == '' && $_GET['type'] != 'ajax') {
-    header("Location:" . $cFormObj->createLinkUrl(array("f" => "tests")));
+    header("Location:" . $cFormObj->createLinkUrl(array("f" => "survey_list")));
     exit;
 }
+echo "sdfsdfsdf";
 if ($_POST["test_id"]) {
 
     $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
@@ -106,7 +107,7 @@ if ($_POST["test_id"]) {
         foreach ($questionDetails as $key => $value) {
             $question_numbers[] = $value['id'];
         }
-        shuffle($question_numbers);
+        // shuffle($question_numbers);
     }
 }
 if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
@@ -141,17 +142,33 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
                 $html .= $cFormObj->html();
             }
             break;
-        case 5:
-            $options = $cFormObj->shuffleAssoc($options);
-            foreach ($options as $key => $value) {
 
-            }
-            break;
         case 6:
-            $options = $cFormObj->shuffleAssoc($options);
-            foreach ($options as $key => $value) {
-
+            //Matrix Options
+            $answer = explode("\n", $options['answer']);
+            $match_answer = explode("\n", $options['match_answer']);
+            $html = "<table><tr><td></td>";
+            foreach ($match_answer as $value1) {
+                $html .= "<td>" . $value1 . "</td>";
             }
+            $html .= "</tr>";
+            foreach ($answer as $value) {
+                $html .= "<tr><td>" . $value . "</td>";
+                foreach ($match_answer as $value1) {
+
+                    $cFormObj->options["name"] = $cTestControllerObj->questionId . "_" . $value;
+                    $cFormObj->options["id"] = $value . "_" . $value1;
+                    $cFormObj->options["class"] = "answer";
+                    $cFormObj->createOption();
+
+                    $html .= "<td>" . $cFormObj->html() . "</td>";
+                }
+                $html .= "</tr>";
+            }
+            $html .="</table>";
+
+
+
             break;
         case 7:
             $options = $cFormObj->shuffleAssoc($options);
