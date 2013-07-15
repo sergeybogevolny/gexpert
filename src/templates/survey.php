@@ -192,6 +192,22 @@ if ($data[0]['time_taken'] > 0) {
                 case '5':
                     current_answer = $(divid + " .sortable").sortable("toArray");
                     break;
+                case '6':
+
+                    break;
+                case '7':
+
+                    break;
+                case '8':
+
+                    break;
+                case '9':
+
+                    break;
+                case '10':
+
+                    break;
+
             }
             answer[ question_id ] = current_answer;
             $('#answers').val(JSON.stringify(answer));

@@ -26,7 +26,7 @@
                     <label class="control-label" for="subject">Category</label>
                     <div class="controls">
                         <?php
-                        $cFormObj->data = $cTestControllerObj->getSelectData("category", array("id", "name"));
+                        $cFormObj->data = $cSurveyControllerObj->getSelectData("category", array("id", "name"));
                         $cFormObj->options = array("name" => "category", "required" => TRUE, 'selected' => $testDetails['category']);
                         $cFormObj->createSelect();
                         echo $cFormObj->html();

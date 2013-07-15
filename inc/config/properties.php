@@ -34,7 +34,7 @@ define('EncryptKey', '25c6c7ff35b9979b151f2136cd13b0ff');
 
 define('AppHost', $_SERVER['HTTP_HOST']);
 define('AppProtocol', ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://");
-define('AppURL', AppProtocol . AppHost . '/gexpert/');
+define('AppURL', AppProtocol . AppHost . '/gxpertize/');
 define('PublicDir', 'src/');
 define('IncDir', 'inc/');
 define('AppController', '/' . IncDir . 'controller/');

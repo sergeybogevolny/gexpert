@@ -9,7 +9,7 @@ echo $cFormObj->html();
 <form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'survey_question')); ?>">
 
     <?php
-    $cTestControllerObj->column = array("sd.id", "sd.name", "u.name" => "username", "sd.valid_from");
+    $cSurveyControllerObj->column = array("sd.id", "sd.name", "u.name" => "username", "sd.valid_from");
 
 
     $cFormObj->options['column']['id'] = array('name' => "Id", 'type' => "number", 'sort' => true, 'index' => 1, 'filter' => 'box', 'dbcolumn' => 'sd.id');
@@ -19,14 +19,14 @@ echo $cFormObj->html();
 
 
 
-    $cTestControllerObj->table = "survey_details sd";
-    $cTestControllerObj->join_condition = "join __users u on u.id=sd.created_by";
+    $cSurveyControllerObj->table = "survey_details sd";
+    $cSurveyControllerObj->join_condition = "join __users u on u.id=sd.created_by";
 
     $conditionArray = $cFormObj->createFilterCondition($_POST['filter_type'], $_POST['filter_data']);
     $conditionArray[] = "sd.status=1";
     $conditionArray[] = $condition;
 
-    $cFormObj->data = $cTestControllerObj->addWhereCondition($conditionArray)->select()->executeRead();
+    $cFormObj->data = $cSurveyControllerObj->addWhereCondition($conditionArray)->select()->executeRead();
 
     $cFormObj->options['actioncolumn'] = true;
     $cFormObj->options['id'] = 'listtable';
@@ -81,7 +81,7 @@ echo $cFormObj->html();
             }}, '.cus-page-copy');
 
 <?php if ($_SESSION['user_type'] > 1) { ?>
-            $('#listtable').find('sd.score').each(function(i, e) {
+            $('#listtable').find('td.score').each(function(i, e) {
                 if ($(this).html() != '') {
                     $(this).parent().find('.cus-control-play-blue').hide().parent().find('.cus-rosette').show();
                 } else {
