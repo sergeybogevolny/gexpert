@@ -1,16 +1,16 @@
 <?php
 
-include_once(AppRoot . AppController . "cTestController.php");
+include_once(AppRoot . AppController . "cSurveyController.php");
 
 
-$cTestControllerObj = new cTestController();
+$cSurveyControllerObj = new cSurveyController();
 
 if ($_GET['a'] == 'd') {
 
-    $cTestControllerObj->table = "test_details";
-    $cTestControllerObj->column["last_modified"] = date(AppDateFormatDbInput);
-    $cTestControllerObj->column["status"] = 0;
-    $cTestControllerObj->addWhereCondition("id=" . $_GET["id"])->update()->executeWrite();
+    $cSurveyControllerObj->table = "test_details";
+    $cSurveyControllerObj->column["last_modified"] = date(AppDateFormatDbInput);
+    $cSurveyControllerObj->column["status"] = 0;
+    $cSurveyControllerObj->addWhereCondition("id=" . $_GET["id"])->update()->executeWrite();
     header("Location:" . $cFormObj->createLinkUrl(array("f" => "tests")));
     exit;
 }
@@ -18,59 +18,59 @@ if ($_GET['a'] == 'd') {
 if ($_POST["questionsdata"]) {
 
     list( $start_date, $end_date) = explode("-", $_POST["activedates"]);
-    $cTestControllerObj->column["category"] = $_POST["category"];
-    $cTestControllerObj->column["name"] = $_POST["name"];
-    $cTestControllerObj->column["description"] = $_POST["description"];
-    $cTestControllerObj->column["logo"] = $_POST["logo"];
-    $cTestControllerObj->column["valid_from"] = date(AppDateFormatDbInput, strtotime($start_date));
-    $cTestControllerObj->column["valid_to"] = date(AppDateFormatDbInput, strtotime($end_date));
-    $cTestControllerObj->column["time_taken"] = $_POST["testtime"];
-    $cTestControllerObj->column["sharing"] = $_POST["sharing"];
-    $cTestControllerObj->column["allow_correction"] = $_POST["allow_review"] ? 1 : 0;
-    $cTestControllerObj->column["total_marks"] = $_POST["total_marks"];
-    $cTestControllerObj->column["status"] = 1;
-    $cTestControllerObj->table = "test_details";
+    $cSurveyControllerObj->column["category"] = $_POST["category"];
+    $cSurveyControllerObj->column["name"] = $_POST["name"];
+    $cSurveyControllerObj->column["description"] = $_POST["description"];
+    $cSurveyControllerObj->column["logo"] = $_POST["logo"];
+    $cSurveyControllerObj->column["valid_from"] = date(AppDateFormatDbInput, strtotime($start_date));
+    $cSurveyControllerObj->column["valid_to"] = date(AppDateFormatDbInput, strtotime($end_date));
+    $cSurveyControllerObj->column["time_taken"] = $_POST["testtime"];
+    $cSurveyControllerObj->column["sharing"] = $_POST["sharing"];
+    $cSurveyControllerObj->column["allow_correction"] = $_POST["allow_review"] ? 1 : 0;
+    $cSurveyControllerObj->column["total_marks"] = $_POST["total_marks"];
+    $cSurveyControllerObj->column["status"] = 1;
+    $cSurveyControllerObj->table = "test_details";
     if ($_POST["test_id"]) {
-        $cTestControllerObj->column["last_modified"] = date(AppDateFormatDbInput);
-        $cTestControllerObj->curd("edit", $_POST["test_id"]);
-        $cTestControllerObj->table = "answers";
-        $cTestControllerObj->addWhereCondition("question_id in (select id from questions where test_id=" . $_POST["test_id"] . ")")->delete()->executeWrite();
+        $cSurveyControllerObj->column["last_modified"] = date(AppDateFormatDbInput);
+        $cSurveyControllerObj->curd("edit", $_POST["test_id"]);
+        $cSurveyControllerObj->table = "answers";
+        $cSurveyControllerObj->addWhereCondition("question_id in (select id from questions where test_id=" . $_POST["test_id"] . ")")->delete()->executeWrite();
 
-        $cTestControllerObj->table = "questions";
-        $cTestControllerObj->addWhereCondition("test_id=" . $_POST["test_id"])->delete()->executeWrite();
+        $cSurveyControllerObj->table = "questions";
+        $cSurveyControllerObj->addWhereCondition("test_id=" . $_POST["test_id"])->delete()->executeWrite();
     } else {
-        $cTestControllerObj->column["date_created"] = date(AppDateFormatDbInput);
-        $cTestControllerObj->column["created_by"] = $_SESSION["user_id"];
-        $cTestControllerObj->curd("add");
+        $cSurveyControllerObj->column["date_created"] = date(AppDateFormatDbInput);
+        $cSurveyControllerObj->column["created_by"] = $_SESSION["user_id"];
+        $cSurveyControllerObj->curd("add");
     }
 
 
     $questions = (array) json_decode(stripslashes($_POST["questionsdata"]));
-    $testid = $cTestControllerObj->id;
+    $testid = $cSurveyControllerObj->id;
 
     foreach ($questions as $key => $value) {
 
 
-        $cTestControllerObj->column["question_type"] = $value->question_type;
-        $cTestControllerObj->column["question"] = $value->question;
-        $cTestControllerObj->column["test_id"] = $testid;
-        $cTestControllerObj->column["level_id"] = 1;
-        $cTestControllerObj->table = "questions";
+        $cSurveyControllerObj->column["question_type"] = $value->question_type;
+        $cSurveyControllerObj->column["question"] = $value->question;
+        $cSurveyControllerObj->column["test_id"] = $testid;
+        $cSurveyControllerObj->column["level_id"] = 1;
+        $cSurveyControllerObj->table = "questions";
 
-        $cTestControllerObj->curd("add");
-        $questionid = $cTestControllerObj->id;
+        $cSurveyControllerObj->curd("add");
+        $questionid = $cSurveyControllerObj->id;
         foreach ($value->answers as $key1 => $value1) {
-            $cTestControllerObj->column["answer"] = $value1->answer;
-            $cTestControllerObj->column["match_answer"] = $value1->match_answer;
+            $cSurveyControllerObj->column["answer"] = $value1->answer;
+            $cSurveyControllerObj->column["match_answer"] = $value1->match_answer;
             if ($value->question_type == '3' || $value->question_type == '4' || $value->question_type == '5') {
-                $cTestControllerObj->column["is_correct"] = 1;
+                $cSurveyControllerObj->column["is_correct"] = 1;
             } else {
-                $cTestControllerObj->column["is_correct"] = ($value1->is_correct) ? 1 : 0;
+                $cSurveyControllerObj->column["is_correct"] = ($value1->is_correct) ? 1 : 0;
             }
-            $cTestControllerObj->column["percent"] = $value1->correctness_percentage;
-            $cTestControllerObj->column["question_id"] = $questionid;
-            $cTestControllerObj->table = "answers";
-            $cTestControllerObj->curd("add");
+            $cSurveyControllerObj->column["percent"] = $value1->correctness_percentage;
+            $cSurveyControllerObj->column["question_id"] = $questionid;
+            $cSurveyControllerObj->table = "answers";
+            $cSurveyControllerObj->curd("add");
         }
     }
 
@@ -80,15 +80,15 @@ if ($_POST["questionsdata"]) {
 
 $id = $_GET['id'];
 if ($id != '') {
-    list($testDetails) = $cTestControllerObj->getTestDetails($id);
-    $questions = $cTestControllerObj->getQuestionDetails($id);
+    list($testDetails) = $cSurveyControllerObj->getTestDetails($id);
+    $questions = $cSurveyControllerObj->getQuestionDetails($id);
     $questiondata = array();
     foreach ($questions as $key => $question) {
 
         $questiondata[$key]["question_type"] = $question['question_type'];
         $questiondata[$key]["question"] = $question['question'];
         $questiondata[$key]['answers'] = array();
-        $answers = $cTestControllerObj->getOptions($question['id']);
+        $answers = $cSurveyControllerObj->getOptions($question['id']);
 
         foreach ($answers as $key1 => $answer) {
             $questiondata[$key]['answers'][$key1]['answer'] = $answer['answer'];
@@ -101,40 +101,40 @@ if ($id != '') {
 if ($_GET['a'] == 'c') {
 
 
-    $cTestControllerObj->column["category"] = $testDetails["category"];
-    $cTestControllerObj->column["name"] = $testDetails["name"];
-    $cTestControllerObj->column["description"] = $testDetails["description"];
-    $cTestControllerObj->column["valid_from"] = $testDetails["valid_from"];
-    $cTestControllerObj->column["valid_to"] = $testDetails["valid_to"];
-    $cTestControllerObj->column["time_taken"] = $testDetails["time_taken"];
-    $cTestControllerObj->column["sharing"] = $testDetails["sharing"];
-    $cTestControllerObj->column["allow_correction"] = $testDetails['allow_correction'];
-    $cTestControllerObj->column["status"] = 1;
-    $cTestControllerObj->column["total_marks"] = $testDetails['total_marks'];
-    $cTestControllerObj->column["date_created"] = date(AppDateFormatDbInput);
-    $cTestControllerObj->column["created_by"] = $_SESSION["user_id"];
+    $cSurveyControllerObj->column["category"] = $testDetails["category"];
+    $cSurveyControllerObj->column["name"] = $testDetails["name"];
+    $cSurveyControllerObj->column["description"] = $testDetails["description"];
+    $cSurveyControllerObj->column["valid_from"] = $testDetails["valid_from"];
+    $cSurveyControllerObj->column["valid_to"] = $testDetails["valid_to"];
+    $cSurveyControllerObj->column["time_taken"] = $testDetails["time_taken"];
+    $cSurveyControllerObj->column["sharing"] = $testDetails["sharing"];
+    $cSurveyControllerObj->column["allow_correction"] = $testDetails['allow_correction'];
+    $cSurveyControllerObj->column["status"] = 1;
+    $cSurveyControllerObj->column["total_marks"] = $testDetails['total_marks'];
+    $cSurveyControllerObj->column["date_created"] = date(AppDateFormatDbInput);
+    $cSurveyControllerObj->column["created_by"] = $_SESSION["user_id"];
 
-    $cTestControllerObj->table = "test_details";
-    $cTestControllerObj->curd("add");
-    $testid = $cTestControllerObj->id;
+    $cSurveyControllerObj->table = "test_details";
+    $cSurveyControllerObj->curd("add");
+    $testid = $cSurveyControllerObj->id;
     foreach ($questiondata as $key => $value) {
 
-        $cTestControllerObj->column["question_type"] = $value['question_type'];
-        $cTestControllerObj->column["question"] = $value['question'];
-        $cTestControllerObj->column["test_id"] = $testid;
-        $cTestControllerObj->column["level_id"] = 1;
-        $cTestControllerObj->table = "questions";
+        $cSurveyControllerObj->column["question_type"] = $value['question_type'];
+        $cSurveyControllerObj->column["question"] = $value['question'];
+        $cSurveyControllerObj->column["test_id"] = $testid;
+        $cSurveyControllerObj->column["level_id"] = 1;
+        $cSurveyControllerObj->table = "questions";
 
-        $cTestControllerObj->curd("add");
-        $questionid = $cTestControllerObj->id;
+        $cSurveyControllerObj->curd("add");
+        $questionid = $cSurveyControllerObj->id;
         foreach ($value['answers'] as $key1 => $value1) {
-            $cTestControllerObj->column["answer"] = $value1['answer'];
-            $cTestControllerObj->column["match_answer"] = $value1['match_answer'];
-            $cTestControllerObj->column["is_correct"] = $value1['is_correct'];
-            $cTestControllerObj->column["percent"] = $value1['correctness_percentage'];
-            $cTestControllerObj->column["question_id"] = $questionid;
-            $cTestControllerObj->table = "answers";
-            $cTestControllerObj->curd("add");
+            $cSurveyControllerObj->column["answer"] = $value1['answer'];
+            $cSurveyControllerObj->column["match_answer"] = $value1['match_answer'];
+            $cSurveyControllerObj->column["is_correct"] = $value1['is_correct'];
+            $cSurveyControllerObj->column["percent"] = $value1['correctness_percentage'];
+            $cSurveyControllerObj->column["question_id"] = $questionid;
+            $cSurveyControllerObj->table = "answers";
+            $cSurveyControllerObj->curd("add");
         }
     }
     header("Location:" . $cFormObj->createLinkUrl(array("f" => "tests")));
@@ -150,6 +150,6 @@ if ($testDetails['valid_from'] && $testDetails['valid_to']) {
 $questiondata = $questiondata ? json_encode($questiondata) : "{}";
 $currentRow = $testDetails['question_count'] ? ((int) $testDetails['question_count'] ) : 0;
 
-$pagename = "Create Test";
-$pagedescription = "Create a test with Questions";
+$pagename = "Create Survey";
+$pagedescription = "Create a Survey with Questions";
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of cTestController
+ * Description of cSurveyController
  *
  * @author mgovindan
  */
@@ -65,17 +65,20 @@ class cSurveyController extends cController {
             case "2":
                 $this->createMultipleResponse();
                 break;
-            case "3":
-                $this->createTrueFalse();
-                break;
-            case "4":
-                $this->createFillInTheBlanks();
-                break;
-            case "5":
-                $this->createMatching();
-                break;
             case "6":
-                $this->createSequencing();
+                $this->createMatrixOptions();
+                break;
+            case "7":
+                $this->createMatrixChoices();
+                break;
+            case "8":
+                $this->createOptionsTable();
+                break;
+            case "9":
+                $this->createRating();
+                break;
+            case "10":
+                $this->createScale();
                 break;
         }
     }
