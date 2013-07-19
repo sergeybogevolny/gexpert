@@ -1,3 +1,4 @@
+
 <?php
 $cFormObj->options["alert"]["type"] = $_GET['mc'];
 $cFormObj->options["alert"]["data"] = $_GET['m'];
@@ -6,7 +7,7 @@ $cFormObj->options["alert"]["data"] = $_GET['m'];
 $cFormObj->addAlert();
 echo $cFormObj->html();
 ?>
-<form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'survey_question')); ?>">
+<form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'survey_list')); ?>">
 
     <?php
     $cSurveyControllerObj->column = array("sd.id", "sd.name", "u.name" => "username", "sd.valid_from");
@@ -54,8 +55,7 @@ echo $cFormObj->html();
 <script>
     $(document).ready(function() {
         $("#listtable").append('');
-        var url1 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'survery_question'));
-    ?>';
+        var url1 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'survey_question')); ?>';
         var url2 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>';
         var url3 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>';
         var url4 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'addtest')); ?>';

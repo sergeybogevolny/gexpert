@@ -19,37 +19,37 @@ class cSurveyController extends cController {
 
     function getTestDetails($id) {
         $testDetails = $this->curd("view", $id);
-        $this->table = "questions";
+        $this->table = "survey_questions";
         $questions = $this->addWhereCondition("test_id=" . $id)->select()->executeRead();
         $testDetails[0]["question_count"] = count($questions);
         return $testDetails;
     }
 
     function getQuestionDetails($id) {
-        $this->table = "questions";
+        $this->table = "survey_questions";
         return $this->addWhereCondition("test_id=" . $id)->select()->executeRead();
     }
 
     function getQuestion($id) {
-        $this->table = "questions";
+        $this->table = "survey_questions";
         return $this->addWhereCondition("id=" . $id)->select()->executeRead();
     }
 
     function getOptions($id) {
-        $this->table = "answers";
+        $this->table = "survey_answers";
 
         return $this->addWhereCondition("question_id=" . $id)->select()->executeRead();
     }
 
     function getOption($id) {
-        $this->table = "answers";
+        $this->table = "survey_answers";
         return $this->addWhereCondition("id=" . $id)->select()->executeRead();
     }
 
     function getCorrectAnswers($id, $questiontype) {
-        $this->table = "answers";
+        $this->table = "survey_answers";
         if ($questiontype != 2) {
-            $condition = " and is_correct=1";
+            $condition = " and value=1";
         }
         return $this->addWhereCondition("question_id=" . $id . $condition)->select()->executeRead();
     }
