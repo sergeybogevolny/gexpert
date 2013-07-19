@@ -1,8 +1,8 @@
 <?php
 
-include_once(AppRoot . AppController . "cTestController.php");
+include_once(AppRoot . AppController . "cSurveyController.php");
 
-$cTestControllerObj = new cTestController();
+$cSurveyControllerObj = new cSurveyController();
 
 if (is_array($_POST) && $_POST["test_id"] == '' && $_GET['type'] != 'ajax') {
     header("Location:" . $cFormObj->createLinkUrl(array("f" => "tests")));
@@ -10,8 +10,8 @@ if (is_array($_POST) && $_POST["test_id"] == '' && $_GET['type'] != 'ajax') {
 }
 if ($_POST["test_id"]) {
 
-    $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
-    $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
+    $data = $cSurveyControllerObj->getSurveyDetails($_POST["test_id"]);
+    $questionDetails = $cSurveyControllerObj->getQuestionDetails($data[0]["id"]);
 
     if ($_POST['answers'] != '') {
         $answers = json_decode(stripslashes($_POST['answers']));
@@ -19,7 +19,7 @@ if ($_POST["test_id"]) {
         $totalanswers = 0;
         $correctanswercnt = array();
         foreach ($questionDetails as $key => $value) {
-            $correctanswers = $cTestControllerObj->getCorrectAnswers($value["id"], $value['question_type']);
+            $correctanswers = $cSurveyControllerObj->getCorrectAnswers($value["id"], $value['question_type']);
             $current_answer = $answers->{$value["id"]};
             $totalanswers+=count($correctanswers);
             switch ($value['question_type']) {
@@ -94,7 +94,7 @@ if ($_POST["test_id"]) {
         $scoredata['total_questions'] = count($questionDetails);
         $scoredata['test_time'] = $timetaken;
         $scoredata['status'] = 1;
-        $cTestControllerObj->updateScores($scoredata);
+        $cSurveyControllerObj->updateScores($scoredata);
         //exit;
         header("Location:" . $cFormObj->createLinkUrl(array("f" => "scores", "id" => $_POST["test_id"], 'user_id' => $_SESSION['user_id'])));
         exit;
@@ -106,18 +106,18 @@ if ($_POST["test_id"]) {
     }
 }
 if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
-    $questionDetails = $cTestControllerObj->getQuestion($_GET["index"]);
-    $cTestControllerObj->questionId = $questionDetails[0]["id"];
-    $cTestControllerObj->questionType = $questionDetails[0]["question_type"];
+    $questionDetails = $cSurveyControllerObj->getQuestion($_GET["index"]);
+    $cSurveyControllerObj->questionId = $questionDetails[0]["id"];
+    $cSurveyControllerObj->questionType = $questionDetails[0]["question_type"];
     $html = "<h4>" . $questionDetails[0]["question"] . "</h4></br>";
-    $options = $cTestControllerObj->getOptions($questionDetails[0]["id"]);
+    $options = $cSurveyControllerObj->getOptions($questionDetails[0]["id"]);
 
 
-    switch ($cTestControllerObj->questionType) {
+    switch ($cSurveyControllerObj->questionType) {
         case 0:
             $options = $cFormObj->shuffleAssoc($options);
             foreach ($options as $key => $value) {
-                $cFormObj->options["name"] = $cTestControllerObj->questionId;
+                $cFormObj->options["name"] = $cSurveyControllerObj->questionId;
                 $cFormObj->options["id"] = $value["id"];
                 $cFormObj->options["class"] = "answer";
                 $cFormObj->data = $value["answer"];
@@ -129,7 +129,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
         case 1:
             $options = $cFormObj->shuffleAssoc($options);
             foreach ($options as $key => $value) {
-                $cFormObj->options["name"] = $cTestControllerObj->questionId;
+                $cFormObj->options["name"] = $cSurveyControllerObj->questionId;
                 $cFormObj->options["id"] = $value["id"];
                 $cFormObj->options["class"] = "answer";
                 $cFormObj->data = $value["answer"];
@@ -139,13 +139,13 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
         case 2:
 
-            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["name"] = $cSurveyControllerObj->questionId;
             $cFormObj->options["id"] = 1;
             $cFormObj->options["class"] = "inline answer";
             $cFormObj->data = "yes";
             $cFormObj->createOption();
             $html .= $cFormObj->html();
-            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["name"] = $cSurveyControllerObj->questionId;
             $cFormObj->options["id"] = 0;
             $cFormObj->options["class"] = "inline answer";
             $cFormObj->data = "no";
@@ -156,7 +156,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
         case 3:
             //foreach ($options as $key => $value) {
-            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["name"] = $cSurveyControllerObj->questionId;
             $cFormObj->options["id"] = $value["id"];
             $cFormObj->options["class"] = "answer";
             //$cFormObj->data = $value["answer"];
@@ -166,8 +166,8 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
         case 4:
             $html.="<div class='row-fluid'>";
-            $html_match_left.="<ul class=\"match span5\" id=\"match_" . $cTestControllerObj->questionId . "\">";
-            $html_match_right.="<ul class=\"sortable span5\" id=\"answer_" . $cTestControllerObj->questionId . "\">";
+            $html_match_left.="<ul class=\"match span5\" id=\"match_" . $cSurveyControllerObj->questionId . "\">";
+            $html_match_right.="<ul class=\"sortable span5\" id=\"answer_" . $cSurveyControllerObj->questionId . "\">";
             foreach ($options as $key => $value) {
                 $html_match_left.= "<li class=\"ui-state-default fill answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
             }
@@ -183,7 +183,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
         case 5:
             $options = $cFormObj->shuffleAssoc($options);
             $html.="<div class='row-fluid'>";
-            $html.="<ul class=\"sortable span9\" id=\"" . $cTestControllerObj->questionId . "\">";
+            $html.="<ul class=\"sortable span9\" id=\"" . $cSurveyControllerObj->questionId . "\">";
             foreach ($options as $key => $value) {
                 $html .= "<li class=\"ui-state-highlight answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
             }
@@ -192,7 +192,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
     }
 
-    echo $html . "<input name='answer_type' class='answer_type' id='answer_type_" . $cTestControllerObj->questionId . "' value='" . $cTestControllerObj->questionType . "' type='hidden' />";
+    echo $html . "<input name='answer_type' class='answer_type' id='answer_type_" . $cSurveyControllerObj->questionId . "' value='" . $cSurveyControllerObj->questionType . "' type='hidden' />";
     exit;
 }
 $pagename = "Questions";

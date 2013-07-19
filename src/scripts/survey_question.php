@@ -10,7 +10,7 @@ if (is_array($_POST) && $_POST["test_id"] == '' && $_GET['type'] != 'ajax') {
 }
 if ($_POST["test_id"]) {
 
-    $data = $cSurveyControllerObj->getTestDetails($_POST["test_id"]);
+    $data = $cSurveyControllerObj->getSurveyDetails($_POST["test_id"]);
     $questionDetails = $cSurveyControllerObj->getQuestionDetails($data[0]["id"]);
 
     if ($_POST['answers'] != '') {
@@ -86,7 +86,7 @@ if ($_POST["test_id"]) {
                     break;
                 case 4:
                     foreach ($correctanswers as $key1 => $value1) {
-                        $selectedAnswerText = $cTestControllerObj->getOption($current_answer[$key1]);
+                        $selectedAnswerText = $cSurveyControllerObj->getOption($current_answer[$key1]);
                         $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = false;
                         $userdata[$value["id"]]['match_answer'][$selectedAnswerText[0]['answer']] = $selectedAnswerText[0]['match_answer'];
                         if ($current_answer[$key1] == $value1['id']) {
@@ -99,7 +99,7 @@ if ($_POST["test_id"]) {
                     break;
                 case 5:
                     foreach ($correctanswers as $key1 => $value1) {
-                        $selectedAnswerText = $cTestControllerObj->getOption($current_answer[$key1]);
+                        $selectedAnswerText = $cSurveyControllerObj->getOption($current_answer[$key1]);
                         $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = false;
                         if ($current_answer[$key1] == $value1['id']) {
                             $scores+=1;
@@ -192,13 +192,13 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
         case 2:
 
-            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["name"] = $cSurveyControllerObj->questionId;
             $cFormObj->options["id"] = 1;
             $cFormObj->options["class"] = "inline answer";
             $cFormObj->data = "True";
             $cFormObj->createOption();
             $html .= $cFormObj->html();
-            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["name"] = $cSurveyControllerObj->questionId;
             $cFormObj->options["id"] = 0;
             $cFormObj->options["class"] = "inline answer";
             $cFormObj->data = "False";
@@ -209,7 +209,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
         case 3:
             //foreach ($options as $key => $value) {
-            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["name"] = $cSurveyControllerObj->questionId;
             $cFormObj->options["id"] = $value["id"];
             $cFormObj->options["class"] = "answer";
             //$cFormObj->data = $value["answer"];
@@ -219,8 +219,8 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
         case 4:
             $html.="<div class='row-fluid'>";
-            $html_match_left.="<ul class=\"match span5\" id=\"match_" . $cTestControllerObj->questionId . "\">";
-            $html_match_right.="<ul class=\"sortable span5\" id=\"answer_" . $cTestControllerObj->questionId . "\">";
+            $html_match_left.="<ul class=\"match span5\" id=\"match_" . $cSurveyControllerObj->questionId . "\">";
+            $html_match_right.="<ul class=\"sortable span5\" id=\"answer_" . $cSurveyControllerObj->questionId . "\">";
             foreach ($options as $key => $value) {
                 $html_match_left.= "<li class=\"ui-state-default fill answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
             }
@@ -236,7 +236,7 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
         case 5:
             $options = $cFormObj->shuffleAssoc($options);
             $html.="<div class='row-fluid'>";
-            $html.="<ul class=\"sortable span9\" id=\"" . $cTestControllerObj->questionId . "\">";
+            $html.="<ul class=\"sortable span9\" id=\"" . $cSurveyControllerObj->questionId . "\">";
             foreach ($options as $key => $value) {
                 $html .= "<li class=\"ui-state-highlight answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
             }
@@ -245,9 +245,12 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
             break;
 
         case 6:
-            //Matrix Options
+            //Matrix Options;
+            print_r($options['answer']);
+            exit;
             $answer = explode("\n", $options['answer']);
             $match_answer = explode("\n", $options['match_answer']);
+
             $html = "<table><tr><td></td>";
             foreach ($match_answer as $value1) {
                 $html .= "<td>" . $value1 . "</td>";

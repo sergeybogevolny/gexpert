@@ -7,7 +7,7 @@ $cSurveyControllerObj = new cSurveyController();
 
 if ($_GET['a'] == 'd') {
 
-    $cSurveyControllerObj->table = "test_details";
+    $cSurveyControllerObj->table = "survey_details";
     $cSurveyControllerObj->column["last_modified"] = date(AppDateFormatDbInput);
     $cSurveyControllerObj->column["status"] = 0;
     $cSurveyControllerObj->addWhereCondition("id=" . $_GET["id"])->update()->executeWrite();
@@ -29,14 +29,14 @@ if ($_POST["questionsdata"]) {
     $cSurveyControllerObj->column["allow_correction"] = $_POST["allow_review"] ? 1 : 0;
     $cSurveyControllerObj->column["total_marks"] = $_POST["total_marks"];
     $cSurveyControllerObj->column["status"] = 1;
-    $cSurveyControllerObj->table = "test_details";
+    $cSurveyControllerObj->table = "survey_details";
     if ($_POST["test_id"]) {
         $cSurveyControllerObj->column["last_modified"] = date(AppDateFormatDbInput);
         $cSurveyControllerObj->curd("edit", $_POST["test_id"]);
-        $cSurveyControllerObj->table = "answers";
+        $cSurveyControllerObj->table = "survey_answers";
         $cSurveyControllerObj->addWhereCondition("question_id in (select id from questions where test_id=" . $_POST["test_id"] . ")")->delete()->executeWrite();
 
-        $cSurveyControllerObj->table = "questions";
+        $cSurveyControllerObj->table = "survey_questions";
         $cSurveyControllerObj->addWhereCondition("test_id=" . $_POST["test_id"])->delete()->executeWrite();
     } else {
         $cSurveyControllerObj->column["date_created"] = date(AppDateFormatDbInput);
@@ -55,7 +55,7 @@ if ($_POST["questionsdata"]) {
         $cSurveyControllerObj->column["question"] = $value->question;
         $cSurveyControllerObj->column["test_id"] = $testid;
         $cSurveyControllerObj->column["level_id"] = 1;
-        $cSurveyControllerObj->table = "questions";
+        $cSurveyControllerObj->table = "survey_questions";
 
         $cSurveyControllerObj->curd("add");
         $questionid = $cSurveyControllerObj->id;
@@ -69,7 +69,7 @@ if ($_POST["questionsdata"]) {
             }
             $cSurveyControllerObj->column["percent"] = $value1->correctness_percentage;
             $cSurveyControllerObj->column["question_id"] = $questionid;
-            $cSurveyControllerObj->table = "answers";
+            $cSurveyControllerObj->table = "survey_answers";
             $cSurveyControllerObj->curd("add");
         }
     }
@@ -80,7 +80,7 @@ if ($_POST["questionsdata"]) {
 
 $id = $_GET['id'];
 if ($id != '') {
-    list($testDetails) = $cSurveyControllerObj->getTestDetails($id);
+    list($surveyDetails) = $cSurveyControllerObj->getSurveyDetails($id);
     $questions = $cSurveyControllerObj->getQuestionDetails($id);
     $questiondata = array();
     foreach ($questions as $key => $question) {
@@ -101,20 +101,20 @@ if ($id != '') {
 if ($_GET['a'] == 'c') {
 
 
-    $cSurveyControllerObj->column["category"] = $testDetails["category"];
-    $cSurveyControllerObj->column["name"] = $testDetails["name"];
-    $cSurveyControllerObj->column["description"] = $testDetails["description"];
-    $cSurveyControllerObj->column["valid_from"] = $testDetails["valid_from"];
-    $cSurveyControllerObj->column["valid_to"] = $testDetails["valid_to"];
-    $cSurveyControllerObj->column["time_taken"] = $testDetails["time_taken"];
-    $cSurveyControllerObj->column["sharing"] = $testDetails["sharing"];
-    $cSurveyControllerObj->column["allow_correction"] = $testDetails['allow_correction'];
+    $cSurveyControllerObj->column["category"] = $surveyDetails["category"];
+    $cSurveyControllerObj->column["name"] = $surveyDetails["name"];
+    $cSurveyControllerObj->column["description"] = $surveyDetails["description"];
+    $cSurveyControllerObj->column["valid_from"] = $surveyDetails["valid_from"];
+    $cSurveyControllerObj->column["valid_to"] = $surveyDetails["valid_to"];
+    $cSurveyControllerObj->column["time_taken"] = $surveyDetails["time_taken"];
+    $cSurveyControllerObj->column["sharing"] = $surveyDetails["sharing"];
+    $cSurveyControllerObj->column["allow_correction"] = $surveyDetails['allow_correction'];
     $cSurveyControllerObj->column["status"] = 1;
-    $cSurveyControllerObj->column["total_marks"] = $testDetails['total_marks'];
+    $cSurveyControllerObj->column["total_marks"] = $surveyDetails['total_marks'];
     $cSurveyControllerObj->column["date_created"] = date(AppDateFormatDbInput);
     $cSurveyControllerObj->column["created_by"] = $_SESSION["user_id"];
 
-    $cSurveyControllerObj->table = "test_details";
+    $cSurveyControllerObj->table = "survey_details";
     $cSurveyControllerObj->curd("add");
     $testid = $cSurveyControllerObj->id;
     foreach ($questiondata as $key => $value) {
@@ -123,7 +123,7 @@ if ($_GET['a'] == 'c') {
         $cSurveyControllerObj->column["question"] = $value['question'];
         $cSurveyControllerObj->column["test_id"] = $testid;
         $cSurveyControllerObj->column["level_id"] = 1;
-        $cSurveyControllerObj->table = "questions";
+        $cSurveyControllerObj->table = "survey_questions";
 
         $cSurveyControllerObj->curd("add");
         $questionid = $cSurveyControllerObj->id;
@@ -133,7 +133,7 @@ if ($_GET['a'] == 'c') {
             $cSurveyControllerObj->column["is_correct"] = $value1['is_correct'];
             $cSurveyControllerObj->column["percent"] = $value1['correctness_percentage'];
             $cSurveyControllerObj->column["question_id"] = $questionid;
-            $cSurveyControllerObj->table = "answers";
+            $cSurveyControllerObj->table = "survey_answers";
             $cSurveyControllerObj->curd("add");
         }
     }
@@ -141,14 +141,14 @@ if ($_GET['a'] == 'c') {
     exit;
 }
 
-$testDetails['allow_correction'] = $testDetails['allow_correction'] ? 'checked' : '';
-if ($testDetails['valid_from'] && $testDetails['valid_to']) {
+$surveyDetails['allow_correction'] = $surveyDetails['allow_correction'] ? 'checked' : '';
+if ($surveyDetails['valid_from'] && $surveyDetails['valid_to']) {
 
-    $testDetails['valid_from'] = date(AppDateFormatPhp, strtotime($testDetails['valid_from']));
-    $testDetails['valid_to'] = date(AppDateFormatPhp, strtotime($testDetails['valid_to']));
+    $surveyDetails['valid_from'] = date(AppDateFormatPhp, strtotime($surveyDetails['valid_from']));
+    $surveyDetails['valid_to'] = date(AppDateFormatPhp, strtotime($surveyDetails['valid_to']));
 }
 $questiondata = $questiondata ? json_encode($questiondata) : "{}";
-$currentRow = $testDetails['question_count'] ? ((int) $testDetails['question_count'] ) : 0;
+$currentRow = $surveyDetails['question_count'] ? ((int) $surveyDetails['question_count'] ) : 0;
 
 $pagename = "Create Survey";
 $pagedescription = "Create a Survey with Questions";

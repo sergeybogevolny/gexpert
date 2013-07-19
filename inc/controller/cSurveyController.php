@@ -17,12 +17,12 @@ class cSurveyController extends cController {
         $this->table = "survey_details";
     }
 
-    function getTestDetails($id) {
-        $testDetails = $this->curd("view", $id);
+    function getSurveyDetails($id) {
+        $surveyDetails = $this->curd("view", $id);
         $this->table = "survey_questions";
         $questions = $this->addWhereCondition("test_id=" . $id)->select()->executeRead();
-        $testDetails[0]["question_count"] = count($questions);
-        return $testDetails;
+        $surveyDetails[0]["question_count"] = count($questions);
+        return $surveyDetails;
     }
 
     function getQuestionDetails($id) {

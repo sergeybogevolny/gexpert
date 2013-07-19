@@ -18,7 +18,7 @@
                 <div class="control-group">
                     <label class="control-label" for="name">Survey Name</label>
                     <div class="controls">
-                        <input name="name" type="text" id="name" title="Your Survey Name." placeholder="Name of the Survey" value="<?php echo $testDetails['name']; ?>" required/>
+                        <input name="name" type="text" id="name" title="Your Survey Name." placeholder="Name of the Survey" value="<?php echo $surveyDetails['name']; ?>" required/>
                     </div>
                 </div>
 
@@ -27,7 +27,7 @@
                     <div class="controls">
                         <?php
                         $cFormObj->data = $cSurveyControllerObj->getSelectData("category", array("id", "name"));
-                        $cFormObj->options = array("name" => "category", "required" => TRUE, 'selected' => $testDetails['category']);
+                        $cFormObj->options = array("name" => "category", "required" => TRUE, 'selected' => $surveyDetails['category']);
                         $cFormObj->createSelect();
                         echo $cFormObj->html();
                         ?>
@@ -41,8 +41,8 @@
                         <div class="controls">
                             <div class="calender activedates">
                                 <i class="icon-calendar icon-large"></i>
-                                <span><?php echo $testDetails['valid_from'] . " - " . $testDetails['valid_to']; ?></span>
-                                <input type="hidden" value="<?php echo $testDetails['valid_from'] . " - " . $testDetails['valid_to']; ?>" id="activedates" name="activedates" />
+                                <span><?php echo $surveyDetails['valid_from'] . " - " . $surveyDetails['valid_to']; ?></span>
+                                <input type="hidden" value="<?php echo $surveyDetails['valid_from'] . " - " . $surveyDetails['valid_to']; ?>" id="activedates" name="activedates" />
                                 <b class="caret" style="vertical-align: middle"></b>
                             </div>
                         </div>
@@ -50,12 +50,7 @@
                 </fieldset>
 
 
-                <div class="control-group">
-                    <label class="control-label" for="allow_correction">Allow Correction</label>
-                    <div class="controls">
-                        <input name="allow_correction" type="checkbox" id="allow_correction" "<?php echo $testDetails['allow_correction']; ?>" checked />
-                    </div>
-                </div>
+
 
             </div>
             <div class="tab-pane" id="tab2">
@@ -164,8 +159,8 @@
             </ul>
         </div>
     </div>
-    <input name="test_id" type="hidden" id="test_id" value="<?php echo $testDetails['id']; ?>"/>
-    <input name="total_marks" type="hidden" id="total_marks" value="<?php echo $testDetails['total_marks']; ?>"/>
+    <input name="test_id" type="hidden" id="test_id" value="<?php echo $surveyDetails['id']; ?>"/>
+    <input name="total_marks" type="hidden" id="total_marks" value="<?php echo $surveyDetails['total_marks']; ?>"/>
 </form>
 <script src="src/js/wysihtml5-0.3.0.min.js"></script>
 <script src="src/js/bootstrap-wysihtml5.js"></script>
