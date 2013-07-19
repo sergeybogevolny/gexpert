@@ -8,7 +8,6 @@ if (is_array($_POST) && $_POST["test_id"] == '' && $_GET['type'] != 'ajax') {
     header("Location:" . $cFormObj->createLinkUrl(array("f" => "survey_list")));
     exit;
 }
-echo "sdfsdfsdf";
 if ($_POST["test_id"]) {
 
     $data = $cSurveyControllerObj->getTestDetails($_POST["test_id"]);
