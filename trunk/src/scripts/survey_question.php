@@ -63,6 +63,53 @@ if ($_POST["test_id"]) {
                         $correctanswercnt[$value["id"]]++;
                     }
                     break;
+
+                case 2:
+                    if ($correctanswers[0]['is_correct'] == $current_answer) {
+                        $scores+=1;
+                        $userdata[$value["id"]]['score'] +=1;
+                        $correctanswercnt[$value["id"]]++;
+                        $is_correct = true;
+                    }
+                    $userdata[$value["id"]]['answers'][$current_answer] = $is_correct;
+                    break;
+                case 3:
+                    $is_correct = false;
+
+                    if ($current_answer == $correctanswers[0]['answer']) {
+                        $scores+=1;
+                        $userdata[$value["id"]]['score'] +=1;
+                        $correctanswercnt[$value["id"]]++;
+                        $is_correct = true;
+                    }
+                    $userdata[$value["id"]]['answers'][$current_answer] = $is_correct;
+                    break;
+                case 4:
+                    foreach ($correctanswers as $key1 => $value1) {
+                        $selectedAnswerText = $cTestControllerObj->getOption($current_answer[$key1]);
+                        $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = false;
+                        $userdata[$value["id"]]['match_answer'][$selectedAnswerText[0]['answer']] = $selectedAnswerText[0]['match_answer'];
+                        if ($current_answer[$key1] == $value1['id']) {
+                            $scores+=1;
+                            $userdata[$value["id"]]['score'] +=1;
+                            $correctanswercnt[$value["id"]]++;
+                            $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = true;
+                        }
+                    }
+                    break;
+                case 5:
+                    foreach ($correctanswers as $key1 => $value1) {
+                        $selectedAnswerText = $cTestControllerObj->getOption($current_answer[$key1]);
+                        $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = false;
+                        if ($current_answer[$key1] == $value1['id']) {
+                            $scores+=1;
+                            $userdata[$value["id"]]['score'] +=1;
+                            $correctanswercnt[$value["id"]]++;
+
+                            $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = true;
+                        }
+                    }
+                    break;
                 case 6:
                     //Matrix Options
 
@@ -142,6 +189,59 @@ if ($_GET['type'] == 'ajax' && $_GET["index"] != 'undefined') {
                 $cFormObj->createCheckBox();
                 $html .= $cFormObj->html();
             }
+            break;
+        case 2:
+
+            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["id"] = 1;
+            $cFormObj->options["class"] = "inline answer";
+            $cFormObj->data = "True";
+            $cFormObj->createOption();
+            $html .= $cFormObj->html();
+            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["id"] = 0;
+            $cFormObj->options["class"] = "inline answer";
+            $cFormObj->data = "False";
+            $cFormObj->createOption();
+            $html .= $cFormObj->html();
+
+
+            break;
+        case 3:
+            //foreach ($options as $key => $value) {
+            $cFormObj->options["name"] = $cTestControllerObj->questionId;
+            $cFormObj->options["id"] = $value["id"];
+            $cFormObj->options["class"] = "answer";
+            //$cFormObj->data = $value["answer"];
+            $cFormObj->createInput();
+            $html .= $cFormObj->html();
+            //}
+            break;
+        case 4:
+            $html.="<div class='row-fluid'>";
+            $html_match_left.="<ul class=\"match span5\" id=\"match_" . $cTestControllerObj->questionId . "\">";
+            $html_match_right.="<ul class=\"sortable span5\" id=\"answer_" . $cTestControllerObj->questionId . "\">";
+            foreach ($options as $key => $value) {
+                $html_match_left.= "<li class=\"ui-state-default fill answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
+            }
+            $options = $cFormObj->shuffleAssoc($options);
+            foreach ($options as $key => $value) {
+                $html_match_right.= "<li class=\"ui-state-highlight fill answer\" id=\"" . $value["id"] . "\">" . $value["match_answer"] . "</li>";
+            }
+            $html_match_left.="</ul>";
+            $html_match_right.="</ul>";
+            $html.=$html_match_left . "" . $html_match_right;
+            $html.="</div>";
+            break;
+        case 5:
+            $options = $cFormObj->shuffleAssoc($options);
+            $html.="<div class='row-fluid'>";
+            $html.="<ul class=\"sortable span9\" id=\"" . $cTestControllerObj->questionId . "\">";
+            foreach ($options as $key => $value) {
+                $html .= "<li class=\"ui-state-highlight answer\" id=\"" . $value["id"] . "\">" . $value["answer"] . "</li>";
+            }
+            $html.="</ul>";
+            $html.="</div>";
             break;
 
         case 6:
