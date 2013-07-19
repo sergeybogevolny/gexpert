@@ -143,22 +143,22 @@ if ($data[0]['time_taken'] > 0) {
     function getQuestion(seq) {
 
         var questionno = parseInt(seq + 1);
-        if ($("#tab" + parseInt(seq + 1)).html() == '') {
-            var questions = JSON.parse($('#seq').val());
-            $.ajax({
-                url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'question', "a" => "getquestion", "type" => "ajax")); ?>' +
-                        "&index=" + questions[seq],
-                //                        data: {"tab": tab, "navigation": navigation, "index": index},
-                success: function(data) {
-                    seq = parseInt(seq + 1)
-                    $("#tab" + seq).html(data);
+        //if ($("#tab" + parseInt(seq + 1)).html() == '') {
+        var questions = JSON.parse($('#seq').val());
+        $.ajax({
+            url: '<?php echo $cFormObj->createLinkUrl(array('f' => 'survey_question', "a" => "getquestion", "type" => "ajax")); ?>' +
+                    "&index=" + questions[seq],
+            //                        data: {"tab": tab, "navigation": navigation, "index": index},
+            success: function(data) {
+                seq = parseInt(seq + 1)
+                $("#tab" + seq).html(data);
 
-                    $(".sortable").sortable({
-                    });
-                    //$('#current_question').html(seq);
-                }
-            });
-        }
+                $(".sortable").sortable({
+                });
+                //$('#current_question').html(seq);
+            }
+        });
+        //}
         $('#current_question').html(questionno);
     }
     var answer = new Object();

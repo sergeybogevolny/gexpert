@@ -56,7 +56,7 @@ echo $cFormObj->html();
     $(document).ready(function() {
         $("#listtable").append('');
         var url1 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'survey_question')); ?>';
-        var url2 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'generateproductkey')); ?>';
+        var url2 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'survey_question')); ?>';
         var url3 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'createtest')); ?>';
         var url4 = '<?php echo $cFormObj->createLinkUrl(array('f' => 'addtest')); ?>';
 <?php if ($_SESSION['user_type'] > 1) { ?>
@@ -70,8 +70,6 @@ echo $cFormObj->html();
             }}, ".cus-control-play-blue").on({'click': function() {
                 $("#test_id").val($(this).parent().siblings(":nth(0)").html());
                 $("#listtests").attr('action', url2).submit();
-            }}, '.cus-bullet-key').on({'click': function() {
-                window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(0)').html());
             }}, '.cus-page-edit').on({'click': function() {
                 window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(0)').html());
             }}, '.cus-rosette').on({'click': function() {
