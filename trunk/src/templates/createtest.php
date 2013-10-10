@@ -1,5 +1,5 @@
 
-<div class="row-fluid">
+<div class="row-fluid"  id="rootwizard">
     <div class="span12">
         <div class="box box-color box-bordered">
             <div class="box-title">
