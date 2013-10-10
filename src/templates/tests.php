@@ -12,10 +12,16 @@ echo $cFormObj->html();
 ?>
 <form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">
 
+
     <div class="input-append">
-        <input name="test_key" id="test_key" class="span2" id="appendedInputButton" type="text">
+        <input type="text"  class="input-small" id="test_key"  name="test_key">
         <button id="add_test" class="btn" type="button">Add Test</button>
+<!--        <span class="add-on" id="add_test">Add Test</span>-->
     </div>
+    <!--    <div class="input-append">
+            <input name="test_key" id="test_key" class="span2" id="appendedInputButton" type="text">
+            <button id="add_test" class="btn" type="button">Add Test</button>
+        </div>-->
 
     <?php
     $cTestControllerObj->column = array("td.id", "td.name", "description", "u.name" => "username", "td.valid_from");

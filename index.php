@@ -167,7 +167,7 @@ if ($page == 'login' || $page == '') {
                                             <ul class="dropdown-menu">
 
                                                 <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'report', "id" => 1, "customization_id" => 1)); ?>">Full data</a></li>
-                                                                        <!--<li><a  href="<?php //echo $cFormObj->createLinkUrl(array('f' => 'report', "type" => "summary"));                                                                                ?>">Summary</a></li>-->
+                                                                        <!--<li><a  href="<?php //echo $cFormObj->createLinkUrl(array('f' => 'report', "type" => "summary"));                                                                                 ?>">Summary</a></li>-->
                                                 <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'report', "id" => 1, "customization_id" => 2)); ?>">CrossTab/Analytical</a></li>
                                                 <li><a  href="<?php echo $cFormObj->createLinkUrl(array('f' => 'report', "id" => 1, "customization_id" => 3)); ?>">Chart</a></li>
                                             </ul>
@@ -190,9 +190,9 @@ if ($page == 'login' || $page == '') {
                 <div id="main">
                     <div class="container-fluid">
                         <div class="page-header">
-                            <div class="pull-left">
-                                <?php echo $pagename; ?><small><?php echo $pagedescription; ?>
-                            </div>
+                            <!--                            <div class="pull-left">
+                            <?php echo $pagename; ?><small><?php echo $pagedescription; ?>
+                                                        </div>-->
 
                         </div>
                         <div class="breadcrumbs">

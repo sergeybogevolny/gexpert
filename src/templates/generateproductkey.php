@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <button type="submit" class="btn">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 
     <h4>Tests Keys Available</h4>
     <?php
