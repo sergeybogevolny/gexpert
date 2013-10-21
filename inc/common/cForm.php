@@ -58,7 +58,7 @@ class cForm extends cUtil {
             $this->createCrossTabArray();
             $this->createCrossTabHeader();
         } else {
-
+$filtergroup=2;
             foreach ($this->options['column'] as $columnname => $columnDetails) {
 
                 if ($columnDetails['index'] > 0) {
@@ -73,9 +73,16 @@ class cForm extends cUtil {
                     $this->html.='<th class="hide ' . $columnname . '">' . $columnname . '</th>';
                 }
                 if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'box') {
-                    $this->filters .= '<span class="report-filter"> <span class="report-filter-title">' . $columnDetails['name'] . ' : </span>' . $this->options['column'][$columnname]['filter_html'] . "</span>";
+                    $filtergroup=$filtergroup==0?2:$filtergroup;
+					$filters[$filtergroup].= '<div class="control-group report-filter">
+											<label for="textfield" class="control-label report-filter-title">' . $columnDetails['name'] . '</label>
+											<div class="controls">
+										' . $this->options['column'][$columnname]['filter_html'] . "</div></div>";
+				$filtergroup--;
                 }
             }
+			
+			$this->filters='<div class="span6">'.implode('</div><div class="span6">',$filters).'</div>';
         }
 
         if ($this->filters != '') {
@@ -138,7 +145,7 @@ class cForm extends cUtil {
         },';
             }
             $this->html.='"sDom": "' . $tablettools . '<\'row-fluid\'<\'span6\'><\'span4\'>r>t <\'row\' <\'span3\' l><\'span2\' ><\'span2\'i ><\'span4\'p>>",
-		"sPaginationType": "bootstrap",
+		"sPaginationType": "full_numbers",
 		"oLanguage": {
 			"sLengthMenu": "_MENU_ records per page"
 		}});
@@ -176,7 +183,7 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
 </script>';
         }
         if ($this->options['having_form'] === false)
-            $this->html = '<form name="' . $this->options['id'] . '_form" method="post" style=\"padding:15px\">' . $this->html . '</form>';
+            $this->html = '<form name="' . $this->options['id'] . '_form" method="post" class="form-horizontal form-column form-bordered" style=\"padding:15px\">' . $this->html . '</form>';
 
         return $this;
     }
@@ -294,6 +301,8 @@ $('table').on({
 
     function formatChartData() {
         $result = array();
+		if(is_array($this->data)){
+		
         foreach ($this->data as $record) {
             foreach ($this->options['axis']['x'] as $xcolumnname => $xvalue) {
                 //print_r($columnname);
@@ -316,6 +325,7 @@ $('table').on({
         $this->data['x'] = array_keys($result);
         $this->data['y'] = array_values($result);
         //print_r(json_encode((array) $result));
+		}
     }
 
     function createFilterCondition($filtertype, $filterdata) {
@@ -715,7 +725,7 @@ $('table').on({
                 $this->options['name'] = "filter_type[" . $columnname . "]";
                 $this->options['default'] = "-- All --";
                 $this->options['selected'] = $_POST['filter_type'][$columnname] ? $_POST['filter_type'][$columnname] : $this->options['selected'];
-                $this->options['class'] = 'span1 filter_type';
+                $this->options['class'] = 'filter_type';
                 $this->createSelect();
                 $filter_type = $this->html;
 
