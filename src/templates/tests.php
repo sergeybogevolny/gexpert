@@ -10,7 +10,7 @@ $cFormObj->options["alert"]["data"] = $_GET['m'];
 $cFormObj->addAlert();
 echo $cFormObj->html();
 ?>
-<form method="POST" class="form-horizontal" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">
+<form method="POST" class="form-horizontal form-column form-bordered" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">
 
 
     <div class="input-append">
