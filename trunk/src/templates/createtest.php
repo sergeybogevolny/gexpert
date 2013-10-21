@@ -9,7 +9,7 @@
                 </h3>
             </div>
             <div class="box-content nopadding">
-                <form name="testmanager" method="POST" class='form-horizontal form-wizard' id="testmanager">
+                <form name="testmanager" method="POST" class="form-horizontal form-wizard ui-formwizard" id="testmanager">
                     <div class="step" id="firstStep">
                         <ul class="wizard-steps steps-2">
                             <li class='active'>
@@ -165,7 +165,8 @@
                                             <label class="rowNumber">1</label>
                                         </td>
                                         <td class="answer fillintheblank" >
-                                            <textarea rows="1" class="htmleditor answer answer_data fillintheblank reset" name="answer" id="answer" style="height: 25px"></textarea>
+                                            <textarea name="answer" id="answer" class="htmleditor answer answer_data fillintheblank reset span8 ui-wizard-content" rows="7" ></textarea>
+<!--                                            <textarea rows="1" class="htmleditor answer answer_data fillintheblank reset" name="answer" id="answer" style="height: 25px"></textarea>-->
                                         </td>
                                         <td class="matchanswer">
                                             <textarea rows="1" class="htmleditor match_answer match_data reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
