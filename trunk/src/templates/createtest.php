@@ -70,7 +70,7 @@
                         <div class="control-group">
                             <label class="control-label" for="description">Description</label>
                             <div class="controls">
-                                <textarea name="description" id="description" class="htmleditor" style="width: 700px; height: 150px"><?php echo $testDetails['description']; ?></textarea>
+                                <textarea name="description" id="description" class="span10 ui-wizard-content" rows="5"><?php echo $testDetails['description']; ?></textarea>
                             </div>
                         </div>
                         <div class="control-group">
@@ -144,7 +144,7 @@
                         <div class="control-group">
                             <label class="control-label" for="question">Question</label>
                             <div class="controls">
-                                <textarea class="htmleditor reset" name="question" id="question" style="height: 50px;width: 500px" required="true"></textarea>
+                                <textarea class=" span10 ui-wizard-content" rows="5" name="question" id="question" required="true"></textarea>
                             </div>
                         </div>
                         <div>
