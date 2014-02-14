@@ -27,34 +27,43 @@
 
 </div>
 
-<form method="POST" class="well form-inline" action="" style="display: none" id="quiz">
+<form method="POST" class="form-inline form-wizard" action="" style="display: none" id="quiz">
     <div id="rootwizard">
-        <div class="navbar-inner">
-            <div class="navbar">
-                <div class="container" id="question_details">
-                    <div id="question_count"><span id="current_question"></span> <b>of</b> <span><?php echo count($question_numbers); ?></span><span id="counter" class="pull-right"></span></div>
-                    <ul id="nav_link" style="display: none">
-                    </ul>
+        <div class="box box-color box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="icon-question-sign"></i>
+                    <?php echo 'Test Name'; ?>
+                </h3>
+            </div>
+            <div class="box-content nopadding">
+                <div class="navbar-inner">
+                    <div class="navbar">
+                        <div id="question_details">
+                            <div id="question_count"><span id="current_question" class="btn btn-primary"></span><span class="btn"><b>of</b></span><span class="btn btn-primary"><?php echo count($question_numbers); ?></span><span id="counter" class="btn btn-danger pull-right"></span></div>
+                            <ul id="nav_link" style="display: none">
+                            </ul>
+
+                        </div>
+                    </div>
 
                 </div>
+                <div class="tab-content">
+
+                </div>
+                <ul class="pager wizard">
+                    <li class="previous" ><a href="#" class="btn btn-primary">Previous</a></li>
+                    <li class="next"><a href="#" class="btn btn-primary">Next</a></li>
+                    <li class="next finish" class="btn btn-primary" style="display:none;"><a href="javascript:;">Finish</a></li>
+                </ul>
             </div>
-
-        </div>
-        <div class="tab-content">
-
-        </div>
-        <ul class="pager wizard">
-            <li class="previous" ><a href="#">Previous</a></li>
-            <li class="next"><a href="#">Next</a></li>
-            <li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
-        </ul>
-    </div>
-</div>
-<input type="hidden" id="seq" name="seq" value="<?php echo json_encode($question_numbers); ?>"/>
-<input type="hidden" id="answers" name="answers" value=""/>
-<input type="hidden" id="test_id" name="test_id" value="<?php echo$_POST["test_id"] ?>"/>
-<input type="hidden" id="test_time" name="test_time" value="0"/>
+        </div></div>
+    <input type="hidden" id="seq" name="seq" value="<?php echo json_encode($question_numbers); ?>"/>
+    <input type="hidden" id="answers" name="answers" value=""/>
+    <input type="hidden" id="test_id" name="test_id" value="<?php echo$_POST["test_id"] ?>"/>
+    <input type="hidden" id="test_time" name="test_time" value="0"/>
 </form>
+
 <div id="loading" style="display: none"></div>
 <script>
 
@@ -200,7 +209,9 @@ if ($data[0]['time_taken'] > 0) {
 </script>
 <style>
 
-    #question_details{margin-top: 5px;font-size: 25px}
+    #question_details{
+        margin-top: 0px;
+    }
     .navbar{margin-bottom: 0px;}
     .sortable,.match { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px; }
     .sortable li,.match li{ margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 50px;min-width: 100% }
@@ -214,6 +225,9 @@ if ($data[0]['time_taken'] > 0) {
         text-align: center;
     }
     #counter{
-        width: 140px; height: 25px;
+        width: 140px;
+    }
+    .tab-content {
+        padding-left: 23px;
     }
 </style>

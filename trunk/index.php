@@ -55,8 +55,8 @@ if ($page == 'login' || $page == '') {
             <!-- PageGuide -->
             <link rel="stylesheet" href="src/theme2/css/plugins/pageguide/pageguide.css">
             <!-- Fullcalendar -->
-            <link rel="stylesheet" href="src/theme2/css/plugins/fullcalendar/fullcalendar.css">
-            <link rel="stylesheet" href="src/theme2/css/plugins/fullcalendar/fullcalendar.print.css" media="print">
+            <!--            <link rel="stylesheet" href="src/theme2/css/plugins/fullcalendar/fullcalendar.css">
+                        <link rel="stylesheet" href="src/theme2/css/plugins/fullcalendar/fullcalendar.print.css" media="print">-->
             <!-- chosen -->
             <link rel="stylesheet" href="src/theme2/css/plugins/chosen/chosen.css">
             <!-- select2 -->
@@ -109,8 +109,8 @@ if ($page == 'login' || $page == '') {
             <script src="src/theme2/js/plugins/imagesLoaded/jquery.imagesloaded.min.js"></script>
             <!-- PageGuide -->
             <script src="src/theme2/js/plugins/pageguide/jquery.pageguide.js"></script>
-            <!-- FullCalendar -->
-            <script src="src/theme2/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+            <!-- FullCalendar
+            <script src="src/theme2/js/plugins/fullcalendar/fullcalendar.min.js"></script> -->
 
             <!-- dataTables -->
             <script src="src/theme2/js/plugins/datatable/jquery.dataTables.min.js"></script>
@@ -128,9 +128,11 @@ if ($page == 'login' || $page == '') {
             <script src="src/theme2/js/plugins/icheck/jquery.icheck.min.js"></script>
             <!-- Form -->
             <script src="src/theme2/js/plugins/form/jquery.form.min.js"></script>
+            <script src="src/js/jquery.table.addrow.js"></script>
+            <script src="src/js/jquery.bootstrap.wizard.js"></script>
             <!-- Wizard -->
-            <script src="src/theme2/js/plugins/wizard/jquery.form.wizard.min.js"></script>
-            <script src="src/theme2/js/eakroko.js"></script>
+    <!--            <script src="src/theme2/js/plugins/wizard/jquery.form.wizard.min.js"></script>-->
+    <!--            <script src="src/theme2/js/eakroko.js"></script>-->
             <script src="src/theme2/js/application.min.js"></script>
 
 
@@ -268,20 +270,6 @@ if ($page == 'login' || $page == '') {
                         <div class="page-header">
                             <div class="pull-left">
                                 <h1><?php echo $pagename; ?></h1>
-                            </div>
-                        </div>
-                        <div class="breadcrumbs">
-                            <ul>
-                                <li>
-                                    <a href="src/theme2/more-login.html">Home</a>
-                                    <i class="icon-angle-right"></i>
-                                </li>
-                                <li>
-                                    <a href="src/theme2/index-2.html">Dashboard</a>
-                                </li>
-                            </ul>
-                            <div class="close-bread">
-                                <a href="#"><i class="icon-remove"></i></a>
                             </div>
                         </div>
                         <div class="row-fluid">

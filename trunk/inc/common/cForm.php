@@ -58,7 +58,7 @@ class cForm extends cUtil {
             $this->createCrossTabArray();
             $this->createCrossTabHeader();
         } else {
-$filtergroup=2;
+            $filtergroup = 2;
             foreach ($this->options['column'] as $columnname => $columnDetails) {
 
                 if ($columnDetails['index'] > 0) {
@@ -73,16 +73,18 @@ $filtergroup=2;
                     $this->html.='<th class="hide ' . $columnname . '">' . $columnname . '</th>';
                 }
                 if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'box') {
-                    $filtergroup=$filtergroup==0?2:$filtergroup;
-					$filters[$filtergroup].= '<div class="control-group report-filter">
+                    $filtergroup = $filtergroup == 0 ? 2 : $filtergroup;
+                    $filters[$filtergroup].= '<div class="control-group report-filter">
 											<label for="textfield" class="control-label report-filter-title">' . $columnDetails['name'] . '</label>
 											<div class="controls">
 										' . $this->options['column'][$columnname]['filter_html'] . "</div></div>";
-				$filtergroup--;
+                    $filtergroup--;
                 }
             }
-			
-			$this->filters='<div class="span6">'.implode('</div><div class="span6">',$filters).'</div>';
+
+            if (is_array($filters)) {
+                $this->filters = '<div class="span6">' . implode('</div><div class="span6">', $filters) . '</div>';
+            }
         }
 
         if ($this->filters != '') {
@@ -301,31 +303,31 @@ $('table').on({
 
     function formatChartData() {
         $result = array();
-		if(is_array($this->data)){
-		
-        foreach ($this->data as $record) {
-            foreach ($this->options['axis']['x'] as $xcolumnname => $xvalue) {
-                //print_r($columnname);
-                foreach ($this->options['axis']['y'] as $ycolumnname => $yvalue) {
-                    switch ($yvalue['agg_function']) {
-                        case 'count':
+        if (is_array($this->data)) {
 
-                            $result[$record[$xcolumnname]]++;
-                            break;
+            foreach ($this->data as $record) {
+                foreach ($this->options['axis']['x'] as $xcolumnname => $xvalue) {
+                    //print_r($columnname);
+                    foreach ($this->options['axis']['y'] as $ycolumnname => $yvalue) {
+                        switch ($yvalue['agg_function']) {
+                            case 'count':
 
-                        default:
-                            $result[$record[$xcolumnname]]+= $record[$ycolumnname];
-                            break;
+                                $result[$record[$xcolumnname]] ++;
+                                break;
+
+                            default:
+                                $result[$record[$xcolumnname]]+= $record[$ycolumnname];
+                                break;
+                        }
                     }
                 }
             }
+
+
+            $this->data['x'] = array_keys($result);
+            $this->data['y'] = array_values($result);
+            //print_r(json_encode((array) $result));
         }
-
-
-        $this->data['x'] = array_keys($result);
-        $this->data['y'] = array_values($result);
-        //print_r(json_encode((array) $result));
-		}
     }
 
     function createFilterCondition($filtertype, $filterdata) {
@@ -441,7 +443,7 @@ $('table').on({
         $tabbed_header = array_splice($this->data[0], count($this->options['keep_columns']));
         foreach ($tabbed_header as $columnname => $value) {
             list($prefix, $value_column) = explode($valuesep, $columnname);
-            $spanArray[$prefix][$value_column]++;
+            $spanArray[$prefix][$value_column] ++;
             //$this->html.= '<th colspan="' . count($this->options['value_columns']) . '">' . 'Abc' . '</td>';
         }
 
@@ -506,7 +508,7 @@ $('table').on({
                 else
                     $formated_data_array[$keep_columns_value][$group_column_value_and_value_column] = $value[$value_column_name];
 
-                $row_to_column[$group_column_value_and_value_column]++;
+                $row_to_column[$group_column_value_and_value_column] ++;
             }
         }
         $row = 0;

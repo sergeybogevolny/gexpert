@@ -59,22 +59,22 @@ echo $cFormObj->html();
     $cFormObj->options['id'] = 'listtable';
     $cFormObj->options['exportoptions'] = true;
 
-    $cFormObj->options['actioncolumnicons'] = '<i class="cus-control-play-blue" title="Take Test"></i>
-        <i class="cus-rosette" title="Scores"></i>';
+    $cFormObj->options['actioncolumnicons'] = '<i class="icon-play" title="Take Test"></i>&nbsp;
+        <i class="icon-certificate" title="Scores"></i>&nbsp;';
     if ($cUserObj->userPermissions[0] == 1) {
 
-        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-page-copy" title="Clone"></i>';
+        $cFormObj->options['actioncolumnicons'] .= '<i class="icon-copy" title="Clone"></i>&nbsp;';
     }
     if ($cUserObj->userPermissions[2] == 1) {
 
-        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-page-edit" title="Edit"></i>';
+        $cFormObj->options['actioncolumnicons'] .= '<i class="icon-edit" title="Edit"></i>&nbsp;';
     }
     if ($cUserObj->userPermissions[3] == 1) {
 
-        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-page-delete" title="Delete"></i>';
+        $cFormObj->options['actioncolumnicons'] .= '<i class="icon-trash" title="Delete"></i>&nbsp;';
     }
     if ($cUserObj->userPermissions[0] == 1) {
-        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-bullet-key" title="Product Key"></i>';
+        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-bullet-key" title="Product Key"></i>&nbsp;';
     }
 
 
@@ -102,18 +102,18 @@ echo $cFormObj->html();
         $("table").on({'click': function() {
                 $("#test_id").val($(this).parent().siblings(":nth(2)").html());
                 $("#listtests").attr('action', url1).submit();
-            }}, ".cus-control-play-blue").on({'click': function() {
+            }}, ".icon-play").on({'click': function() {
                 $("#test_id").val($(this).parent().siblings(":nth(2)").html());
                 $("#listtests").attr('action', url2).submit();
             }}, '.cus-bullet-key').on({'click': function() {
                 window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
-            }}, '.cus-page-edit').on({'click': function() {
+            }}, '.icon-edit').on({'click': function() {
                 window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
-            }}, '.cus-rosette').on({'click': function() {
+            }}, '.icon-certificate').on({'click': function() {
                 window.location = url3 + "&a=" + $.base64.encode("d") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
-            }}, '.cus-page-delete').on({'click': function() {
+            }}, '.icon-trash').on({'click': function() {
                 window.location = url3 + "&a=" + $.base64.encode("c") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
-            }}, '.cus-page-copy');
+            }}, '.icon-copy');
         $('#add_test').click(function() {
             if ($('#test_key').val() != '') {
 

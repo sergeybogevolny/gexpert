@@ -1,46 +1,38 @@
-
-<div class="row-fluid"  id="rootwizard">
-    <div class="span12">
-        <div class="box box-color box-bordered">
-            <div class="box-title">
-                <h3>
-                    <i class="icon-magic"></i>
-                    Create Test
-                </h3>
-            </div>
-            <div class="box-content nopadding">
-                <form name="testmanager" method="POST" class="form-horizontal form-wizard ui-formwizard" id="testmanager">
-                    <div class="step" id="firstStep">
-                        <ul class="wizard-steps steps-2">
-                            <li class='active'>
+<div class="box box-color box-bordered">
+    <div class="box-title">
+        <h3>
+            <i class="icon-magic"></i>
+            Create Test
+        </h3>
+    </div>
+    <div class="box-content nopadding">
+        <form method="POST" class="form-horizontal form-wizard" id="testmanager" name="testmanager">
+            <div id="rootwizard">
+                <div class="step">
+                    <ul class="wizard-steps steps-2">
+                        <li><a href="#tab1" data-toggle="tab">
                                 <div class="single-step">
                                     <span class="title">1</span>
-                                    <span class="circle">
-                                        <span class="active"></span>
-                                    </span>
-                                    <span class="description">
-                                        Test Manager
-                                    </span>
+                                    <span class="description">Test Manager</span>
                                 </div>
-                            </li>
-                            <li>
+                            </a></li>
+                        <li><a href="#tab2" data-toggle="tab">
                                 <div class="single-step">
                                     <span class="title">2</span>
-                                    <span class="circle">
-                                    </span>
-                                    <span class="description">
-                                        Questions
-                                    </span>
-                                </div>
-                            </li>
+                                    <span class="description">Questions</span>
+                                </div></a></li>
 
-                        </ul>
+                    </ul>
+                </div>
+                <div class="tab-content form-wizard">
+                    <div class="tab-pane step" id="tab1">
                         <div class="control-group">
-                            <label for="name" class="control-label">Test name</label>
+                            <label class="control-label" for="name">Test Name</label>
                             <div class="controls">
                                 <input name="name" type="text" id="name" title="Your Test Name." placeholder="Name of the test" value="<?php echo $testDetails['name']; ?>" required/>
                             </div>
                         </div>
+
                         <div class="control-group">
                             <label class="control-label" for="subject">Category</label>
                             <div class="controls">
@@ -53,6 +45,7 @@
 
                             </div>
                         </div>
+
                         <fieldset>
                             <div class="control-group">
                                 <label class="control-label" for="activedates">Active dates</label>
@@ -70,17 +63,16 @@
                         <div class="control-group">
                             <label class="control-label" for="description">Description</label>
                             <div class="controls">
-                                <textarea name="description" id="description" class="span10 ui-wizard-content" rows="5"><?php echo $testDetails['description']; ?></textarea>
+                                <textarea name="description" id="description" class="htmleditor" style="width: 700px; height: 150px"><?php echo $testDetails['description']; ?></textarea>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="testtime">Test Time</label>
                             <div class="controls">
                                 <div class="input-append">
-                                    <input name="testtime" type="text" id="testtime" value="<?php echo $testDetails['time_taken']; ?>" class="input-small">
+                                    <input name="testtime" type="text" id="testtime" value="<?php echo $testDetails['time_taken']; ?>" class="span1" required/>
                                     <span class="add-on">Mins</span>
                                 </div>
-
 
                             </div>
                         </div>
@@ -103,32 +95,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="step" id="secondStep">
-                        <ul class="wizard-steps steps-2">
-                            <li>
-                                <div class="single-step">
-                                    <span class="title">1</span>
-                                    <span class="circle">
-                                    </span>
-                                    <span class="description">
-                                        Test Manager
-                                    </span>
-                                </div>
-                            </li>
-                            <li class='active'>
-                                <div class="single-step">
-                                    <span class="title">
-                                        2</span>
-                                    <span class="circle">
-                                        <span class="active"></span>
-                                    </span>
-                                    <span class="description">
-                                        Questions
-                                    </span>
-                                </div>
-                            </li>
+                    <div class="tab-pane step" id="tab2">
+                        <div class="alert alert-error" style="display: none">
 
-                        </ul>
+                        </div>
+                        <div class="alert alert-error alert-block" style="display: none">
+
+                        </div>
+
                         <div class="control-group">
                             <label class="control-label" for="question_type">Question Type</label>
                             <div class="controls">
@@ -144,7 +118,7 @@
                         <div class="control-group">
                             <label class="control-label" for="question">Question</label>
                             <div class="controls">
-                                <textarea class=" span10 ui-wizard-content" rows="5" name="question" id="question" required="true"></textarea>
+                                <textarea class="htmleditor reset" name="question" id="question" style="height: 50px;width: 500px" required="true"></textarea>
                             </div>
                         </div>
                         <div>
@@ -165,8 +139,7 @@
                                             <label class="rowNumber">1</label>
                                         </td>
                                         <td class="answer fillintheblank" >
-                                            <textarea name="answer" id="answer" class="htmleditor answer answer_data fillintheblank reset span8 ui-wizard-content" rows="7" ></textarea>
-<!--                                            <textarea rows="1" class="htmleditor answer answer_data fillintheblank reset" name="answer" id="answer" style="height: 25px"></textarea>-->
+                                            <textarea rows="1" class="htmleditor answer answer_data fillintheblank reset" name="answer" id="answer" style="height: 25px"></textarea>
                                         </td>
                                         <td class="matchanswer">
                                             <textarea rows="1" class="htmleditor match_answer match_data reset" name="match_answer" id="match_answer" style="height: 25px"></textarea>
@@ -206,7 +179,7 @@
                             </table>
                             <input name="currentrow" type="hidden" id="currentrow" value="<?php echo $currentRow; ?>"/>
                             <input name="questionsdata" type="hidden" id="questionsdata" value=""/>
-                            <button  type="submit" id="addquestion" class="btn btn-info">Add Question</button>
+                            <button  type="submit" id="addquestion" class="btn">Add Question</button>
                             <br/>
                             <?php
                             $cFormObj->options['actioncolumn'] = true;
@@ -225,24 +198,18 @@
                             ?>
                         </div>
                     </div>
-
-                    <div class="form-actions">
-                        <input type="reset" class="btn" value="Back" id="back">
-                        <input type="submit" class="btn btn-primary" value="Submit" id="next">
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
+                    <ul class="pager wizard">
+                        <li class="previous" ><a href="#" class="btn btn-primary">Previous</a></li>
+                        <li class="next"><a href="#" class="btn btn-primary">Next</a></li>
+                        <li class="next finish" style="display:none;"><a href="javascript:;" class="btn btn-primary">Finish</a></li>
+                    </ul>
+                </div>
+            </div><!--root-->
+    </div><!--box-content-->
+</div> <!--box-->
 <input name="test_id" type="hidden" id="test_id" value="<?php echo $testDetails['id']; ?>"/>
 <input name="total_marks" type="hidden" id="total_marks" value="<?php echo $testDetails['total_marks']; ?>"/>
-
+</form>
 <script src="src/js/wysihtml5-0.3.0.min.js"></script>
 <script src="src/js/bootstrap-wysihtml5.js"></script>
 <link rel="stylesheet" href="src/css/bootstrap-wysihtml5.css">
@@ -441,7 +408,7 @@
 
 
         if (error != "") {
-            $(".alert-error").html('<button type="button" class="close" data-dismiss="alert">×</button><h3>Error ! </h3> ' + error).show();
+            $(".alert-error").html('<button type="button" class="close" data-dismiss="alert">Ã—</button><h3>Error ! </h3> ' + error).show();
             return false;
         } else {
             $(".alert-error").hide();
@@ -509,11 +476,11 @@
                 }).length;
             }
 
-//                if (data[key]['is_correct'][i] == 1 && data[key]['question_type'] == 1) {
-//                    mark = 1 / i;
-//                } else if (data[key]['is_correct'][i] == 1) {
-//                    mark++;
-//                }
+            //                if (data[key]['is_correct'][i] == 1 && data[key]['question_type'] == 1) {
+            //                    mark = 1 / i;
+            //                } else if (data[key]['is_correct'][i] == 1) {
+            //                    mark++;
+            //                }
 
 
             html += mark;
