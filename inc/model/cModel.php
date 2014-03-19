@@ -44,7 +44,37 @@ class cModel extends cDatabase {
         unset($this->column, $this->parent_only, $this->table, $this->join_condition, $this->condition, $this->group_by, $this->having, $this->order_by, $this->limit, $this->offset_by, $this->sub_query, $this->exclude_columns);
     }
 
+    public function createTable() {
+        $datatype = array();
+        $this->query = 'CREATE TABLE ' . $this->table . ' (';
+
+
+
+        foreach ($this->column as $columnname => $columntype) {
+            $this->query .= $columnname . ' ' . $columntype . ',';
+        }
+        $this->query = rtrim($this->query, ',');
+        $this->query.= ");";
+        $this->resetQuery();
+        return $this;
+    }
+
+    public function sanitize() {
+
+        foreach ($this->column as $col => $value) {
+            if (is_array($value)) {
+                foreach ($value as $col1 => $value1) {
+                    $this->column[$col][$col1] = $this->dbObj->sanitize($value1);
+                }
+            } else {
+                $this->column[$col] = $this->dbObj->sanitize($value);
+            }
+        }
+    }
+
     public function create() {
+        $this->sanitize();
+
         $foreignkeycolumns = $this->dbObj->getForeignKeyDetails($this->table);
         if (@is_array($foreignkeycolumns['columns'])) {
             foreach ($this->column as $columnname => $value) {
@@ -53,6 +83,7 @@ class cModel extends cDatabase {
                 }
             }
         }
+
         $this->query = "INSERT INTO " . $this->table;
         $columnNames = '';
 
@@ -70,9 +101,24 @@ class cModel extends cDatabase {
         return $this;
     }
 
+    public function createmultiple() {
+
+        $this->sanitize();
+        $this->query = "INSERT INTO " . $this->table;
+        foreach ($this->column as $key => $data) {
+            $this->query.= " VALUES ('" . implode("','", array_values($data)) . "'),";
+        }
+        $this->query = rtrim($this->query, ",");
+        $this->query.= ( $this->returning) ? " RETURNING " . $this->returning : "";
+        $this->query.= ( $this->sub_query) ? $this->sub_query : "";
+        $this->query.=";";
+        $this->resetQuery();
+        return $this;
+    }
+
     public function select() {
         $this->query = "SELECT ";
-        $this->query.= ( $this->column) ? (is_array($this->column)) ? implode(',', $this->column) : $this->column  : " * ";
+        $this->query.= ( $this->column) ? (is_array($this->column)) ? implode(',', $this->column) : $this->column : " * ";
         $this->query.=" FROM " . $this->parent_only . " " . $this->table . " ";
         $this->query.= ( $this->join_condition) ? " " . ((is_array($this->join_condition)) ? implode(' ', $this->join_condition) : $this->join_condition) : "";
         $this->query.=$this->condition . $this->group_by . $this->having . $this->order_by . $this->limit . $this->offset_by;
@@ -111,6 +157,20 @@ class cModel extends cDatabase {
     public function delete() {
 
         $this->query = "DELETE FROM " . $this->parent_only . " " . $this->table . $this->condition;
+        $this->resetQuery();
+        return $this;
+    }
+
+    public function drop() {
+
+        $this->query = "Drop Table" . $this->parent_only . " " . $this->table;
+        $this->resetQuery();
+        return $this;
+    }
+
+    public function truncate() {
+
+        $this->query = "Truncate Table" . $this->parent_only . " " . $this->table;
         $this->resetQuery();
         return $this;
     }

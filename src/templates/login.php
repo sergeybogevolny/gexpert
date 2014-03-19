@@ -15,7 +15,7 @@ echo $cFormObj->html();
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <!-- Apple devices fullscreen -->
         <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <title>GExpert</title>
+        <title>gXpertize</title>
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="src/theme1/css/bootstrap.min.css">
@@ -57,7 +57,7 @@ echo $cFormObj->html();
 
     </head>
 
-    <body class="login">
+    <body class="login theme-satgreen">
         <div class="wrapper">
             <h1><a href="#"><img src="http://localhost/gxpertize/src/img/b_logo.png" alt="" class='retina-ready' width="150" height="100"></a></h1>
             <div class="login-body">

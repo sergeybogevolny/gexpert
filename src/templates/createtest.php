@@ -70,7 +70,7 @@
                             <label class="control-label" for="testtime">Test Time</label>
                             <div class="controls">
                                 <div class="input-append">
-                                    <input name="testtime" type="text" id="testtime" value="<?php echo $testDetails['time_taken']; ?>" class="span1" required/>
+                                    <input name="testtime" type="text" id="testtime" value="<?php echo $testDetails['time_taken']; ?>" class="input-mini" required/>
                                     <span class="add-on">Mins</span>
                                 </div>
 
