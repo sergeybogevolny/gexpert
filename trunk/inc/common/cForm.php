@@ -36,12 +36,15 @@ class cForm extends cUtil {
         $classoptions.=$this->options['border'] ? $this->options['border'] : ' table-bordered';
         $classoptions.=$this->options['hover'] ? $this->options['hover'] : ' table-hover';
         $classoptions.=$this->options['condensed'] ? $this->options['condensed'] : ' table-condensed';
-        if ($this->options['reporttable'] == true) {
+
+        if ($this->options['reporttable'] == true && $_GET['type'] != 'ajax' && $_POST['type'] != 'ajax') {
             $this->createFilter();
         }
 
         $this->options['id'] = $this->options['id'] ? $this->options['id'] : rand();
-        $this->html.= '<table class="table ' . $classoptions . '" name="' . $this->options['name'] . '" id="' . $this->options['id'] . '">';
+        $this->html.= '<div class="box box-color box-bordered"><div class="box-title"><h3><i class="icon-table"></i>' . $this->options['title'] . '</h3></div>
+                       <div class="box-content nopadding">
+                       <table class="table ' . $classoptions . '" name="' . $this->options['name'] . '" id="' . $this->options['id'] . '">';
         $this->html.= '<thead>';
         $this->html.= '<tr>';
         if ($this->options['serialnocolumn'] === true) {
@@ -60,10 +63,9 @@ class cForm extends cUtil {
         } else {
             $filtergroup = 2;
             foreach ($this->options['column'] as $columnname => $columnDetails) {
-
                 if ($columnDetails['index'] > 0) {
 
-                    $this->html.= '<th>' . $columnDetails['name'];
+                    $this->html.= '<th data-col-name="' . $columnname . '">' . $columnDetails['name'];
                     if ($this->options['column'][$columnname]['filter_html'] && $columnDetails['filter'] == 'inline') {
 
                         $this->html.='<div class="span3">' . $this->options['column'][$columnname]['filter_html'] . '</div>';
@@ -82,19 +84,28 @@ class cForm extends cUtil {
                 }
             }
 
-            if (is_array($filters)) {
-                $this->filters = '<div class="span6">' . implode('</div><div class="span6">', $filters) . '</div>';
-            }
+            if (is_array($filters))
+                $this->filters = '<div class="span6">' . implode('</div><div class="span5">', $filters) . '</div>';
         }
 
         if ($this->filters != '') {
-            $this->html = '<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filtercontainer" data-toggle-text="Hide">
-                            Show/Hide Filter(s)
-                          </button>
-                          <div id="filtercontainer" class="collapse in" ><div class="report-filters" id="reportfilters">' . $this->filters . '</div></div>' . $this->html;
+            $this->html = '<div class="box box-color box-bordered">
+                               <div class="box-title">
+				<h3><i class="icon-filter"></i>Filter(s)</h3>
+                                    <div class="actions">
+					<a href="#" class="btn btn-mini content-slideUp"><i class="icon-angle-down"></i></a>
+                                    </div>
+				</div>
+                            <div class="box-content nopadding  style="display: block;">' . $this->filters . '</div>
+			  </div>' . $this->html;
         }
 
-        if ($this->options['actioncolumn'] == true) {
+
+        if ($this->options['title'] != '') {
+            // $this->html = "<h1>" . $this->options['title'] . "</h1>" . $this->html;
+        }
+
+        if ($this->options['actioncolumnicons'] != "") {
             $columns++;
             $this->html.= '<th>Action</th>';
         }
@@ -102,6 +113,7 @@ class cForm extends cUtil {
         $this->html.= '</thead>';
         $this->html.= '<tbody>';
         if (is_array($this->data)) {
+
             foreach ($this->data as $row => $record) {
                 $this->html.= '<tr>';
                 if ($this->options['serialnocolumn'] === true) {
@@ -114,48 +126,53 @@ class cForm extends cUtil {
                         $class = " hide $columnname ";
                     }
                     if ($columnDetails['type'] == 'date') {
+
                         $columnvalue = $this->formatDate($columnvalue, $columnDetails['format']);
                     } elseif ($this->options['column'][$columnname]['type'] == 'string' && is_array($columnDetails['data'])) {
                         $columnvalue = $columnDetails['data'][$columnvalue];
                     }
                     $this->html.= '<td class="' . $class . '">' . $columnvalue . '</td>';
                 }
-                if ($this->options['actioncolumn'] == true) {
+                if ($this->options['actioncolumnicons'] != "") {
                     $this->html.= '<td>' . $this->options['actioncolumnicons'] . '</td>';
                 }
                 $this->html.= '</tr>';
             }
         }
-//         else {
-//            //$this->html.= '</tr><td colspan="' . $columns - 1 . '">No Data to display</td></tr>';
-//        }
         $this->html.= '</tbody>';
-        $this->html.= '</table>';
+        $this->html.= '</table><div></div>';
         if ($this->options['reporttable'] == true) {
 
 
-            $this->html.='<script>$(document).ready(function(){
+
+            if ($_GET['type'] != 'ajax' && $_POST['type'] != 'ajax') {
+
+                $this->html.='<script>$(document).ready(function(){
             $("#' . $this->options['id'] . '").dataTable({
 
    ';
-            if ($this->options['exportoptions'] === true) {
+                if ($this->options['exportoptions'] === true) {
 
-                $tablettools = "T";
-                $this->html.='  "oTableTools": {
+                    $tablettools = "T";
+                    $this->html.='  "oTableTools": {
             "sSwfPath": "' . AppTableToolsUrl . 'copy_csv_xls_pdf.swf"
 
         },';
-            }
-            $this->html.='"sDom": "' . $tablettools . '<\'row-fluid\'<\'span6\'><\'span4\'>r>t <\'row\' <\'span3\' l><\'span2\' ><\'span2\'i ><\'span4\'p>>",
+                }
+                $this->html.='"sDom": "' . $tablettools . '<\'row-fluid\'<\'span6 input-mini\'l>r>t<\'row-fluid\' <\'span6\'i ><\'span5\'p>>",
 		"sPaginationType": "full_numbers",
+                "sScrollX": "100%",
+                 "aLengthMenu": [[ 25, 50, 100,-1], [ 25, 50, 100,"All"]],
+
 		"oLanguage": {
-			"sLengthMenu": "_MENU_ records per page"
+			"sLengthMenu": "_MENU_",
+                        "sInfo": "_START_ to _END_ / _TOTAL_ "
 		}});
-$(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(function (e){
+
+                $(".filter_type,.filterdata").keydown(function (e){
                         if(e.keyCode == 13){
 
                             $("#' . $this->options['id'] . '").parents("form").submit();
-                                e.stopPropagation();
                         }
                     });
 
@@ -176,16 +193,30 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
                     function(start, end) {
                         $(".calendar span").html(start.toString("MMMM d, yyyy") + " - " + end.toString("MMMM d, yyyy"));
                         $(".calendar input").val(start.toString("yyyy-MM-dd") + " ~ " + end.toString("yyyy-MM-dd"));
-                        console.log($(this));
             $("#' . $this->options['id'] . '").parents("form").submit();
                     }
                   );
-                          });
+                          });';
+                $this->html.='</script>';
+            } else {
+                $this->html.='<script>$(document).ready(function(){
+            $("#' . $this->options['id'] . '").dataTable({
 
-</script>';
+   ';
+                $this->html.='"sDom": "<\'row-fluid\'<\'span6\'><\'span4\'>r>t <\'row-fluid\' <\'span2\'i ><\'\'p>>",
+		"sPaginationType": "full_numbers",
+                "sScrollX": "100%",
+                "bScrollCollapse": true,
+		"oLanguage": {
+			"sLengthMenu": "_MENU_",
+                        "sInfo": "_START_ to _END_ / _TOTAL_ "
+		}}).fnSortPriorities();
+                });';
+                $this->html.='</script>';
+            }
         }
         if ($this->options['having_form'] === false)
-            $this->html = '<form name="' . $this->options['id'] . '_form" method="post" class="form-horizontal form-column form-bordered" style=\"padding:15px\">' . $this->html . '</form>';
+            $this->html = '<form name="' . $this->options['id'] . '_form" method="post" class="form-horizontal form-bordered" style="padding:15px">' . $this->html . '</form>';
 
         return $this;
     }
@@ -208,6 +239,8 @@ $(".filter_type,.filterdata").click(function(e){ e.stopPropagation();}).keydown(
             $this->html .= '<link rel="stylesheet" href="' . AppCssURL . 'jquery.jqplot.css">';
             $this->__loadedcss['jqplot'] = true;
         }
+        $this->options['id'] = $this->options['id'] ? $this->options['id'] : rand();
+
         $this->formatChartData();
         $this->html .= "<div id='" . $this->options['id'] . "_container' style=\"padding:15px\"><div id='" . $this->options['id'] . "' ></div></div><script>
     $(document).ready(function() {
@@ -303,31 +336,27 @@ $('table').on({
 
     function formatChartData() {
         $result = array();
-        if (is_array($this->data)) {
+        foreach ($this->data as $record) {
+            foreach ($this->options['column']['x'] as $xcolumnname => $xvalue) {
+                //print_r($columnname);
+                foreach ($this->options['column']['y'] as $ycolumnname => $yvalue) {
+                    switch ($yvalue['agg_function']) {
+                        case 'count':
+                            $result[$record[$xcolumnname]] ++;
+                            break;
 
-            foreach ($this->data as $record) {
-                foreach ($this->options['axis']['x'] as $xcolumnname => $xvalue) {
-                    //print_r($columnname);
-                    foreach ($this->options['axis']['y'] as $ycolumnname => $yvalue) {
-                        switch ($yvalue['agg_function']) {
-                            case 'count':
-
-                                $result[$record[$xcolumnname]] ++;
-                                break;
-
-                            default:
-                                $result[$record[$xcolumnname]]+= $record[$ycolumnname];
-                                break;
-                        }
+                        default:
+                            $result[$record[$xcolumnname]]+= $record[$ycolumnname];
+                            break;
                     }
                 }
             }
-
-
-            $this->data['x'] = array_keys($result);
-            $this->data['y'] = array_values($result);
-            //print_r(json_encode((array) $result));
         }
+
+
+        $this->data['x'] = array_keys($result);
+        $this->data['y'] = array_values($result);
+        //print_r(json_encode((array) $result));
     }
 
     function createFilterCondition($filtertype, $filterdata) {
@@ -377,7 +406,7 @@ $('table').on({
                                 list($fromdate, $todate) = explode("~", $filterdata[$column_name]);
                                 $filterdata[$column_name] = $fromdate . "' And '" . $todate;
                             }
-                            $filtercondition[] = "date(" . $column_name . ") between '" . $filterdata[$column_name] . "'";
+                            $filtercondition[] = $column_name . " between '" . $filterdata[$column_name] . "'";
                         }
                         break;
                     case 'not_between':
@@ -446,7 +475,7 @@ $('table').on({
             $spanArray[$prefix][$value_column] ++;
             //$this->html.= '<th colspan="' . count($this->options['value_columns']) . '">' . 'Abc' . '</td>';
         }
-
+        $filtergroup = 2;
         foreach ($this->options['keep_columns'] as $columnname) {
 
 
@@ -458,9 +487,16 @@ $('table').on({
             $this->html.='</th>';
 
             if ($this->options['column'][$columnname]['filter_html'] && $this->options['column'][$columnname]['filter'] == 'box') {
-                $this->filters .= '<span class="report-filter"> <span class="report-filter-title">' . $this->options['column'][$columnname]['name'] . ' : </span>' . $this->options['column'][$columnname]['filter_html'] . "</span>";
+                $filtergroup = $filtergroup == 0 ? 2 : $filtergroup;
+                $filters[$filtergroup].= '<div class="control-group report-filter">
+											<label for="textfield" class="control-label report-filter-title">' . $this->options['column'][$columnname]['name'] . '</label>
+											<div class="controls">
+										' . $this->options['column'][$columnname]['filter_html'] . "</div></div>";
+                $filtergroup--;
             }
         }
+        if (is_array($filters))
+            $this->filters = '<div class="span6">' . implode('</div><div class="span6">', $filters) . '</div>';
 
 
 
@@ -590,13 +626,13 @@ $('table').on({
                         $this->options['column'][$column_name]['index'] = ($totalkeepcolumns + $key);
                     }
                 }
-                $this->data[$key - 1][$column_name] = ($value1) ? $value1 : $fill_string;
+                $tempdata[$key - 1][$column_name] = ($value1) ? $value1 : $fill_string;
             }
         }
         foreach ($unsetcolumns as $valuecolumnname) {
             unset($this->options['column'][$valuecolumnname]);
         }
-//        $this->data = $resultant_array;
+        $this->data = $tempdata;
     }
 
     function createFilter() {
@@ -727,7 +763,7 @@ $('table').on({
                 $this->options['name'] = "filter_type[" . $columnname . "]";
                 $this->options['default'] = "-- All --";
                 $this->options['selected'] = $_POST['filter_type'][$columnname] ? $_POST['filter_type'][$columnname] : $this->options['selected'];
-                $this->options['class'] = 'filter_type';
+                $this->options['class'] = 'input-small filter_type';
                 $this->createSelect();
                 $filter_type = $this->html;
 
@@ -814,10 +850,19 @@ $('table').on({
         }
     }
 
+    function formatDataArray() {
+        array_walk($this->data, $this->formatData);
+    }
+
     function html() {
         $temp = $this->html;
         unset($this->html, $this->options, $this->data);
         return $temp;
+    }
+
+    function setResponse() {
+        $_SESSION["__message"][] = $this->data;
+        unset($this->data);
     }
 
 }

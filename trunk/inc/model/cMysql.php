@@ -10,8 +10,6 @@
  *
  * @author gt
  */
-
-
 class cMysql {
 
     private $connection;
@@ -26,7 +24,8 @@ class cMysql {
         if (!$this->connection) {
             $this->connection = new mysqli(DataBaseHost, DataBaseUser, DataBasePass, DataBaseName, DataBasePort);
             if (mysqli_connect_errno()) {
-                printf("Connect failed: %s\n", mysqli_connect_error());
+                $display = preg_replace("~^(.*to use near ')(.*)(' at line [0-9]+)$~s", '$1<u>$2</u>$3', mysqli_connect_error());
+                echo $display .= "<br />$sql";
                 exit();
             }
         }
@@ -51,10 +50,14 @@ class cMysql {
             return $results;
         } else {
             ////log_message("error", "SQL Preparation Error : $this->sql");
-            $this->error = "Please try again later : " . mysqli_error($this->connection);
-            $this->error .="<br/>" . $this->sql;
+            $this->error = preg_replace("~^(.*to use near ')(.*)(' at line [0-9]+)$~s", '$1<u>$2</u>$3', mysqli_error($this->connection));
+            $this->error .="<br />$this->sql";
             return false;
         }
+    }
+
+    public function sanitize($data) {
+        return $this->connection->escape_string($data);
     }
 
     public function write() {
@@ -63,7 +66,7 @@ class cMysql {
         if ((count($para)) !== (count($type))) {
             throw new Exception("Number of parameters and types are not matching");
         }
-        if (!preg_match('/^\s*(insert|update|delete|replace)/i', $this->sql)) {
+        if (!preg_match('/^\s*(insert|update|delete|replace|create|drop|truncate)/i', $this->sql)) {
             throw new Exception("SQL statement not supported");
         }
         if (strpos($this->sql, '?') === false) {
@@ -95,20 +98,26 @@ class cMysql {
                     $result = mysqli_affected_rows($this->connection);
                     $stmt->close();
                     return $result;
+                } elseif (preg_match('/^\s*(create|drop|truncate)/i', $this->sql)) {
+
+                    $stmt->close();
+                    return $result;
                 } else {
+                    echo $this->sql;
                     //log_message("debug", "SQL Preparation Error : $this->sql");
                     $this->error = "Please try again later !!!";
                     return false;
                 }
             } else {
                 //log_message("error", "SQL Preparation Error : $this->sql");
-                $this->error = "Please try again later : " . mysqli_error($this->connection);
+                $this->error = preg_replace("~^(.*to use near ')(.*)(' at line [0-9]+)$~s", '$1<u>$2</u>$3', mysqli_error($this->connection));
+                $this->error .="<br />$this->sql";
                 return false;
             }
         } else {
             //log_message("error", "SQL Preparation Error : $this->sql");
-            $this->error = "Please try again later : " . mysqli_error($this->connection);
-            $this->error .="<br/>" . $this->sql;
+            $this->error = preg_replace("~^(.*to use near ')(.*)(' at line [0-9]+)$~s", '$1<u>$2</u>$3', mysqli_error($this->connection));
+            $this->error .="<br />$this->sql";
             return false;
         }
     }
@@ -156,9 +165,7 @@ class cMysql {
                     $columnDetails[$value['COLUMN_NAME']]['CONSTRAINT_NAME'] = $columnForeignDetailsArray[0]['CONSTRAINT_NAME'];
                     $columnDetails[$value['COLUMN_NAME']]['referencetabledetails'] = $referenceColumnDetails;
                 }
-                $columnDetails[$value['COLUMN_NAME']]["AI"]=$value['extra']=='auto_increment'?true:false;
-                
-                
+                $columnDetails[$value['COLUMN_NAME']]["AI"] = $value['extra'] == 'auto_increment' ? true : false;
             }
 
             //log_message("info", "getColumnDetails -- " . $table . ": " . json_encode($columnDetails));
@@ -179,8 +186,8 @@ class cMysql {
         return $childTableDetails;
     }
 
-    function getTableDetails($columns="",$condition="") {
-       $this->sql = "SELECT TABLE_NAME,TABLE_TYPE,TABLE_ROWS,AUTO_INCREMENT,CREATE_TIME $columns from information_schema.TABLES where  TABLE_SCHEMA='" . DataBaseName . "' $condition order by TABLE_NAME;";
+    function getTableDetails($columns = "", $condition = "") {
+        $this->sql = "SELECT TABLE_NAME,TABLE_TYPE,TABLE_ROWS,AUTO_INCREMENT,CREATE_TIME $columns from information_schema.TABLES where  TABLE_SCHEMA='" . DataBaseName . "' $condition order by TABLE_NAME;";
         return $this->read();
     }
 
@@ -195,6 +202,7 @@ class cMysql {
 
         return $ForeignKeyDetailsArray;
     }
+
 }
 
 ?>

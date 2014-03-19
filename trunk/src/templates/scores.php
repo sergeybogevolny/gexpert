@@ -1,33 +1,59 @@
 <?php if ($_GET['show'] != 'all') { ?>
     <div class="hiring shadow-large span12">
-        <div class="span6">
-            <h1><?php echo $_SESSION["name"] . ","; ?></h1>
-            <?php
-            $scorepercentage = round(($scores[0]['score'] / $scores[0]['total_marks']) * 100, 0);
-            if ($scorepercentage < 50) {
-                ?><h1>Need Improvement</h1>    <?php
-            } elseif ($scorepercentage < 70) {
-                ?><h1>Fair</h1>    <?php
-            } elseif ($scorepercentage < 80) {
-                ?><h1>Good</h1>    <?php
-            } elseif ($scorepercentage < 90) {
-                ?><h1>Very Good</h1>    <?php
-            } else {
-                ?><h1>Excellent</h1>    <?php
-            }
-            ?>
+        <div class="span8">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <i class="icon-certificate"></i>&nbsp;<h3><?php echo $_SESSION["name"] . " "; ?>Score</h3>
+                </div>
+                <div class="box-content">
+                    <div class="span7">
+                        <?php
+                        $scorepercentage = round(($scores[0]['score'] / $scores[0]['total_marks']) * 100, 0);
+                        if ($scorepercentage < 50) {
+                            ?><h3>Need Improvement</h3>    <?php
+                        } elseif ($scorepercentage < 70) {
+                            ?><h3>Fair</h3>    <?php
+                        } elseif ($scorepercentage < 80) {
+                            ?><h3>Good</h3>    <?php
+                        } elseif ($scorepercentage < 90) {
+                            ?><h3>Very Good</h3>    <?php
+                        } else {
+                            ?><h3>Excellent</h3>    <?php
+                        }
+                        ?>
 
-            <h1 class="text-success">Total Score : <?php echo $scores[0]['score']; ?>/<?php echo $scores[0]['total_marks']; ?></h1>
-            <h2 class="text-info">Score Percentage: <?php echo $scorepercentage; ?> % </h2>
-            <?php if ($scores[0]['test_time'] > 0) {
-                ?>
-                <h2 class="text-info"> Time Taken
-                    <?php
-                    $scores[0]['test_time'] = gmdate("H:i:s", $scores[0]['test_time']);
-                    echo $scores[0]['test_time'];
-                    ?>
-                </h2>
-            <?php } ?>
+
+                        <h3 class="text-success">Total Score : <?php echo $scores[0]['score']; ?>/<?php echo $scores[0]['total_marks']; ?></h3>
+                        <h2 class="text-info">Score Percentage: <?php echo $scorepercentage; ?> % </h2>
+                        <?php if ($scores[0]['test_time'] > 0) {
+                            ?>
+                            <h2 class="text-info"> Time Taken
+                                <?php
+                                $scores[0]['test_time'] = gmdate("H:i:s", $scores[0]['test_time']);
+                                echo $scores[0]['test_time'];
+                                ?>
+                            </h2>
+                        <?php } ?>
+                    </div>
+                    <div class="span4">
+
+                        <?php
+                        if ($scorepercentage < 30) {
+                            ?>            <img src="src/img/cup.jpg" />    <?php
+                        } elseif ($scorepercentage < 50) {
+                            ?>            <img src="src/img/cup.jpg" />    <?php
+                        } elseif ($scorepercentage < 70) {
+                            ?>            <img src="src/img/cup.jpg" />    <?php
+                        } elseif ($scorepercentage < 90) {
+                            ?>            <img src="src/img/cup.jpg" />    <?php
+                        } else {
+                            ?>            <img src="src/img/cup.jpg" />    <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="accordion" id="accordion2">
                 <?php
@@ -61,22 +87,7 @@
             </div>
 
         </div>
-        <div class="span4">
 
-            <?php
-            if ($scorepercentage < 30) {
-                ?>            <img src="src/img/cup.jpg" />    <?php
-            } elseif ($scorepercentage < 50) {
-                ?>            <img src="src/img/cup.jpg" />    <?php
-            } elseif ($scorepercentage < 70) {
-                ?>            <img src="src/img/cup.jpg" />    <?php
-            } elseif ($scorepercentage < 90) {
-                ?>            <img src="src/img/cup.jpg" />    <?php
-            } else {
-                ?>            <img src="src/img/cup.jpg" />    <?php
-            }
-            ?>
-        </div>
 
 
 

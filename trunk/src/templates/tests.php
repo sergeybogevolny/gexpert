@@ -6,22 +6,14 @@ $cUserObj->getUserModulePermissions();
 $cFormObj->options["alert"]["type"] = $_GET['mc'];
 $cFormObj->options["alert"]["data"] = $_GET['m'];
 
-
 $cFormObj->addAlert();
 echo $cFormObj->html();
 ?>
 <form method="POST" class="form-horizontal form-column form-bordered" name="listtests" id="listtests" action="<?php echo $cFormObj->createLinkUrl(array('f' => 'tests')); ?>">
-
-
     <div class="input-append">
-        <input type="text"  class="input-small" id="test_key"  name="test_key">
-        <button id="add_test" class="btn" type="button">Add Test</button>
-<!--        <span class="add-on" id="add_test">Add Test</span>-->
+        <input type="text"  class="input-medium" id="test_key"  name="test_key">
+        <button id="add_test" class="btn btn-primary" rel="tooltip" type="button" data-placement="right" data-original-title="Add Product Key to add test" >Add Test</button>
     </div>
-    <!--    <div class="input-append">
-            <input name="test_key" id="test_key" class="span2" id="appendedInputButton" type="text">
-            <button id="add_test" class="btn" type="button">Add Test</button>
-        </div>-->
 
     <?php
     $cTestControllerObj->column = array("td.id", "td.name", "description", "u.name" => "username", "td.valid_from");
@@ -74,12 +66,13 @@ echo $cFormObj->html();
         $cFormObj->options['actioncolumnicons'] .= '<i class="icon-trash" title="Delete"></i>&nbsp;';
     }
     if ($cUserObj->userPermissions[0] == 1) {
-        $cFormObj->options['actioncolumnicons'] .= '<i class="cus-bullet-key" title="Product Key"></i>&nbsp;';
+        $cFormObj->options['actioncolumnicons'] .= '<i class="icon-key" title="Product Key"></i>&nbsp;';
     }
 
 
     $cFormObj->options['reporttable'] = true;
     $cFormObj->options['having_form'] = true;
+    $cFormObj->options['title'] = $pagename;
     $cFormObj->createHTable();
     echo $cFormObj->html();
     ?>
@@ -105,7 +98,7 @@ echo $cFormObj->html();
             }}, ".icon-play").on({'click': function() {
                 $("#test_id").val($(this).parent().siblings(":nth(2)").html());
                 $("#listtests").attr('action', url2).submit();
-            }}, '.cus-bullet-key').on({'click': function() {
+            }}, '.icon-key').on({'click': function() {
                 window.location = url3 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
             }}, '.icon-edit').on({'click': function() {
                 window.location = url5 + "&a=" + $.base64.encode("e") + "&id=" + $.base64.encode($(this).parent().parent().find('td:nth(2)').html());
@@ -126,10 +119,10 @@ echo $cFormObj->html();
 <?php if ($_SESSION['user_type'] > 1) { ?>
             $('#listtable').find('td.score').each(function(i, e) {
                 if ($(this).html() != '') {
-                    $(this).parent().find('.cus-control-play-blue').hide().parent().find('.cus-rosette').show();
+                    $(this).parent().find('.icon-play').hide().parent().find('.icon-certificate').show();
                 } else {
 
-                    $(this).parent().find('.cus-rosette').hide().parent().find('.cus-control-play-blue').show();
+                    $(this).parent().find('.icon-certificate').hide().parent().find('.icon-play').show();
                 }
             });
 <?php }

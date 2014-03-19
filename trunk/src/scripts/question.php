@@ -11,8 +11,9 @@ if (is_array($_POST) && $_POST["test_id"] == '' && $_GET['type'] != 'ajax') {
 if ($_POST["test_id"]) {
 
     $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
-    $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
 
+    $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
+    print_r($questionDetails);
     if ($_POST['answers'] != '') {
         $answers = json_decode(stripslashes($_POST['answers']));
         $scores = 0;
@@ -31,7 +32,7 @@ if ($_POST["test_id"]) {
                     if ($current_answer == $correctanswers[0]['id']) {
                         $scores+=1;
                         $userdata[$value["id"]]['score'] +=1;
-                        $correctanswercnt[$value["id"]]++;
+                        $correctanswercnt[$value["id"]] ++;
                         $selectedAnswerText = $cTestControllerObj->getOption($current_answer);
                         $is_correct = true;
                     }
@@ -60,14 +61,14 @@ if ($_POST["test_id"]) {
                     if ($is_scored !== false) {
                         $scores+=1;
                         $userdata[$value["id"]]['score'] +=1;
-                        $correctanswercnt[$value["id"]]++;
+                        $correctanswercnt[$value["id"]] ++;
                     }
                     break;
                 case 2:
                     if ($correctanswers[0]['is_correct'] == $current_answer) {
                         $scores+=1;
                         $userdata[$value["id"]]['score'] +=1;
-                        $correctanswercnt[$value["id"]]++;
+                        $correctanswercnt[$value["id"]] ++;
                         $is_correct = true;
                     }
                     $userdata[$value["id"]]['answers'][$current_answer] = $is_correct;
@@ -78,7 +79,7 @@ if ($_POST["test_id"]) {
                     if ($current_answer == $correctanswers[0]['answer']) {
                         $scores+=1;
                         $userdata[$value["id"]]['score'] +=1;
-                        $correctanswercnt[$value["id"]]++;
+                        $correctanswercnt[$value["id"]] ++;
                         $is_correct = true;
                     }
                     $userdata[$value["id"]]['answers'][$current_answer] = $is_correct;
@@ -91,7 +92,7 @@ if ($_POST["test_id"]) {
                         if ($current_answer[$key1] == $value1['id']) {
                             $scores+=1;
                             $userdata[$value["id"]]['score'] +=1;
-                            $correctanswercnt[$value["id"]]++;
+                            $correctanswercnt[$value["id"]] ++;
                             $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = true;
                         }
                     }
@@ -103,7 +104,7 @@ if ($_POST["test_id"]) {
                         if ($current_answer[$key1] == $value1['id']) {
                             $scores+=1;
                             $userdata[$value["id"]]['score'] +=1;
-                            $correctanswercnt[$value["id"]]++;
+                            $correctanswercnt[$value["id"]] ++;
 
                             $userdata[$value["id"]]['answers'][$selectedAnswerText[0]['answer']] = true;
                         }
@@ -131,6 +132,7 @@ if ($_POST["test_id"]) {
         header("Location:" . $cFormObj->createLinkUrl(array("f" => "scores", "id" => $_POST["test_id"], 'user_id' => $_SESSION['user_id'])));
         exit;
     } else {
+
         foreach ($questionDetails as $key => $value) {
             $question_numbers[] = $value['id'];
         }
