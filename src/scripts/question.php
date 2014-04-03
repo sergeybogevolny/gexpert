@@ -13,7 +13,7 @@ if ($_POST["test_id"]) {
     $data = $cTestControllerObj->getTestDetails($_POST["test_id"]);
 
     $questionDetails = $cTestControllerObj->getQuestionDetails($data[0]["id"]);
-    print_r($questionDetails);
+
     if ($_POST['answers'] != '') {
         $answers = json_decode(stripslashes($_POST['answers']));
         $scores = 0;
